@@ -1,0 +1,102 @@
+/* Importation de la police Rubik pour les chiffres des boutons */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap');
+
+/* Définition des variables de couleur pour une maintenance facile */
+$color-white: #ffffff;
+$color-text: #2d3748;
+$color-gray-light: #e2e8f0;
+
+$color-green: #48bb78;
+$color-green-dark: #2f855a;
+$color-green-light: #68d391;
+
+$color-red: #f56565;
+$color-red-dark: #c53030;
+$color-red-light: #fc8181;
+
+/* Styles pour le conteneur principal et le score */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: sans-serif; /* Police par défaut pour le texte */
+}
+
+.score-display {
+    font-family: 'Rubik', sans-serif; /* On peut aussi utiliser Rubik pour le score */
+    font-size: 10em;
+    font-weight: 700;
+    color: $color-text;
+    margin-bottom: 100px;
+}
+
+/* Conteneur des boutons avec Flexbox pour la responsivité */
+.button-container {
+    display: flex;
+    flex-wrap: wrap; /* Les boutons passent à la ligne sur petits écrans */
+    justify-content: center;
+    gap: 50px; /* Espace entre les boutons */
+}
+
+/* Style de base pour tous les boutons du jeu */
+.game-button {
+    position: relative;
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: 2px solid;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    min-width: 200px;
+    text-align: center;
+
+    /* Chiffre flottant en arrière-plan */
+    .background-number {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        font-family: 'Rubik', sans-serif;
+        font-size: 4em;
+        font-weight: 700;
+        font-style: italic;
+        z-index: 1;
+        opacity: 0.75;
+    }
+
+    /* Le nom du bouton */
+    .button-label {
+        position: relative;
+        z-index: 2;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Classe pour un bouton "correct" (vert) */
+.is-green {
+    background-color: $color-green;
+    border-color: $color-green-dark;
+    color: $color-white;
+
+    &:hover {
+        background-color: $color-green-light;
+    }
+}
+
+/* Classe pour un bouton "incorrect" (rouge) */
+.is-red {
+    background-color: $color-red;
+    border-color: $color-red-dark;
+    color: $color-white;
+
+    &:hover {
+        background-color: $color-red-light;
+    }
+}

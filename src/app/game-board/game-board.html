@@ -1,0 +1,16 @@
+<div class="game-container">
+    <div class="score-display">{{ score }}</div>
+
+    <div class="button-container">
+        <button
+            *ngFor="let button of buttons"
+            class="game-button"
+            [ngClass]="button.colorClass"
+            (click)="onButtonClick(button)">
+
+            <span class="button-label">{{ button.name }}</span>
+
+            <span class="background-number">{{ button.value }}</span>
+        </button>
+    </div>
+</div>
