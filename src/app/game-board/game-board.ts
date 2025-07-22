@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 // Interface pour typer nos objets boutons, pour un code plus sûr
 interface GameButton {
-  name: 'Primer' | 'Split' | 'Booster'; // Noms possibles pour les boutons
+  name: 'Primer' | 'Split' | 'Boost' | 'Digit' | 'Reduce' | 'Align'; // Noms possibles pour les boutons
   value: number; // Le chiffre associé (1-9)
   colorClass: 'is-green' | 'is-red'; // La classe CSS dynamique
 }
@@ -19,16 +19,19 @@ interface GameButton {
 })
 export class GameBoardComponent implements OnInit {
 
-  public score: number = 13; // Score de départ, un nombre premier est un bon choix
+  public score: number = 42; // Score de départ, un nombre premier est un bon choix
   public buttons: GameButton[] = [];
   private minScore: number = 4;
 
   ngOnInit(): void {
     // Initialisation de nos boutons
     this.buttons = [
-      { name: 'Primer', value: 3, colorClass: 'is-red' },
+      { name: 'Primer', value: 1, colorClass: 'is-red' },
       { name: 'Split', value: 2, colorClass: 'is-red' },
-      { name: 'Booster', value: 5, colorClass: 'is-red' },
+      { name: 'Boost', value: 3, colorClass: 'is-red' },
+      { name: 'Digit', value: 4, colorClass: 'is-red' },
+      { name: 'Reduce', value: 5, colorClass: 'is-red' },
+      { name: 'Align', value: 6, colorClass: 'is-red' },
     ];
 
     // Calculer la couleur initiale des boutons au chargement
@@ -48,8 +51,17 @@ export class GameBoardComponent implements OnInit {
       case 'Split':
         this.performSplitAction(button);
         break;
-      case 'Booster':
-        this.performBoosterAction(button);
+      case 'Boost':
+        this.performBoostAction(button);
+        break;
+      case 'Digit':
+        this.performDigitAction(button);
+        break;
+      case 'Reduce':
+        this.performReduceAction(button);
+        break;
+      case 'Align':
+        this.performAlignAction(button);
         break;
     }
 
@@ -73,8 +85,17 @@ export class GameBoardComponent implements OnInit {
         case 'Split':
           isConditionMet = this.isSplitConditionMet(button);
           break;
-        case 'Booster':
-          isConditionMet = this.isBoosterConditionMet(button);
+        case 'Boost':
+          isConditionMet = this.isBoostConditionMet(button);
+          break;
+        case 'Digit':
+          isConditionMet = this.isDigitConditionMet(button);
+          break;
+        case 'Reduce':
+          isConditionMet = this.isReduceConditionMet(button);
+          break;
+        case 'Align':
+          isConditionMet = this.isAlignConditionMet(button);
           break;
       }
       button.colorClass = isConditionMet ? 'is-green' : 'is-red';
@@ -94,8 +115,23 @@ export class GameBoardComponent implements OnInit {
     this.score = this.checkMinScore(this.score);
   }
 
-  private performBoosterAction(button: GameButton): void {
+  private performBoostAction(button: GameButton): void {
     this.score += button.value;
+    this.score = this.checkMinScore(this.score);
+  }
+
+  private performDigitAction(button: GameButton): void {
+    this.score *= button.value;
+    this.score = this.checkMinScore(this.score);
+  }
+
+  private performReduceAction(button: GameButton): void {
+    this.score = Math.ceil(this.score ** (1 / button.value));
+    this.score = this.checkMinScore(this.score);
+  }
+
+  private performAlignAction(button: GameButton): void {
+    this.score = this.score + (button.value - (this.score % button.value));
     this.score = this.checkMinScore(this.score);
   }
 
@@ -117,10 +153,26 @@ export class GameBoardComponent implements OnInit {
     return this.score % button.value === 0;
   }
 
-  private isBoosterConditionMet(button: GameButton): boolean {
+  private isBoostConditionMet(button: GameButton): boolean {
     // Le bouton est vert si le score est un carré parfait
     const sqrt = Math.sqrt(this.score);
     return sqrt === Math.floor(sqrt);
+  }
+
+  private isDigitConditionMet(button: GameButton): boolean {
+    // Le bouton est vert si la somme des chiffres du score est la valeur du bouton
+    const scoreValue = this.calculerRacineNumerique(this.score);
+    return scoreValue === button.value;
+  }
+
+  private isReduceConditionMet(button: GameButton): boolean {
+    // Le bouton est vert si le score est une puissance parfaite de la valeur du bouton
+    return this.estPuissanceParfaiteLog(this.score, button.value);
+  }
+
+  private isAlignConditionMet(button: GameButton): boolean {
+    // Le bouton est vert si le score est une puissance parfaite de la valeur du bouton
+    return this.estPalindrome(this.score);
   }
 
   // --- FONCTIONS UTILITAIRES ---
@@ -148,5 +200,49 @@ export class GameBoardComponent implements OnInit {
       num = this.minScore - (num - this.minScore);
     }
     return num;
+  }
+
+  private calculerRacineNumerique(nombre:number): number {
+    // Continue la boucle tant que le nombre a plus d'un chiffre.
+    while (nombre > 9) {
+      // Ré-assigne 'nombre' avec la somme de ses propres chiffres.
+      nombre = String(nombre)
+        .split('')
+        .reduce((accumulateur, chiffre) => accumulateur + Number(chiffre), 0);
+    }
+
+    // Retourne le résultat final, qui est un chiffre unique.
+    return nombre;
+  }
+
+  private estPuissanceParfaiteLog(score:number, bouton:number): boolean {
+    // Une puissance ne peut pas être calculée avec une base inférieure ou égale à 1
+    // (sauf le cas trivial 1^n = 1).
+    if (bouton <= 1) {
+      return score === 1;
+    }
+
+    // Calcule l'exposant 'n' potentiel
+    const exposant = Math.log(score) / Math.log(bouton);
+
+    // Arrondit au nombre entier le plus proche pour contrer les imprécisions
+    const exposantArrondi = Math.round(exposant);
+
+    // Vérifie si la base élevée à la puissance de l'exposant arrondi redonne bien le score original.
+    return Math.pow(bouton, exposantArrondi) === score;
+  }
+
+  private estPalindrome(nombre: number): boolean {
+    // Convertit le nombre en chaîne de caractères.
+    const chaineOriginale = String(nombre);
+
+    // Inverse la chaîne.
+    // .split('') -> ['1', '2', '1']
+    // .reverse() -> ['1', '2', '1']
+    // .join('')  -> "121"
+    const chaineInversee = chaineOriginale.split('').reverse().join('');
+
+    // Compare la chaîne originale à la chaîne inversée.
+    return chaineOriginale === chaineInversee;
   }
 }

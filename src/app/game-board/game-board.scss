@@ -37,6 +37,7 @@ $color-red-light: #fc8181;
     flex-wrap: wrap; /* Les boutons passent à la ligne sur petits écrans */
     justify-content: center;
     gap: 50px; /* Espace entre les boutons */
+    max-width: 800px;
 }
 
 /* Style de base pour tous les boutons du jeu */
