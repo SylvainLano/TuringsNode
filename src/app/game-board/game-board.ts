@@ -36,8 +36,8 @@ export class GameBoardComponent implements OnInit {
       { name: 'Digit', value: 4 },
       { name: 'Reduce', value: 5 },
       { name: 'Align', value: 6 },
-      { name: 'Fibo', value: 7 },
-      { name: 'Factoriel', value: 8 },
+      { name: 'Fiber', value: 7 },
+      { name: 'Factor', value: 8 },
       { name: 'Cipher', value: 9 },
     ];
 
