@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/TuringsNode",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -90,6 +91,12 @@
             "styles": [
               "src/styles.scss"
             ]
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/TuringsNode/"
           }
         }
       }

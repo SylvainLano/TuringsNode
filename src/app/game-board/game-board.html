@@ -6,7 +6,8 @@
             *ngFor="let button of buttons"
             class="game-button"
             [ngClass]="button.colorClass"
-            (click)="onButtonClick(button)">
+            (click)="onButtonClick(button)"
+            [class.is-disabled]="isButtonDisabled(button)">
 
             <span class="button-label">{{ button.name }}</span>
 

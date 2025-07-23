@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 
 // Interface pour typer nos objets boutons, pour un code plus sûr
 interface GameButton {
-  name: 'Primer' | 'Split' | 'Boost' | 'Digit' | 'Reduce' | 'Align'; // Noms possibles pour les boutons
+  name: 'Primer' | 'Split' | 'Boost' | 'Digit' | 'Reduce' | 'Align' | 'Fiber' | 'Factor' | 'Cipher'; // Noms possibles pour les boutons
   value: number; // Le chiffre associé (1-9)
   colorClass: 'is-green' | 'is-red'; // La classe CSS dynamique
+  totalClickCount: number;
+  consecutiveClickCount: number;
+  totalClickLimit: number|null;
+  consecutiveClickLimit: number|null;
 }
 
 @Component({
@@ -25,17 +29,41 @@ export class GameBoardComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialisation de nos boutons
-    this.buttons = [
-      { name: 'Primer', value: 1, colorClass: 'is-red' },
-      { name: 'Split', value: 2, colorClass: 'is-red' },
-      { name: 'Boost', value: 3, colorClass: 'is-red' },
-      { name: 'Digit', value: 4, colorClass: 'is-red' },
-      { name: 'Reduce', value: 5, colorClass: 'is-red' },
-      { name: 'Align', value: 6, colorClass: 'is-red' },
+    const buttonConfigs = [
+      { name: 'Primer', value: 1 },
+      { name: 'Split', value: 2 },
+      { name: 'Boost', value: 3 },
+      { name: 'Digit', value: 4 },
+      { name: 'Reduce', value: 5 },
+      { name: 'Align', value: 6 },
+      { name: 'Fibo', value: 7 },
+      { name: 'Factoriel', value: 8 },
+      { name: 'Cipher', value: 9 },
     ];
+
+    // 2. Utiliser .map() et la fonction fabrique pour créer le tableau final
+    this.buttons = buttonConfigs.map(config =>
+      this.createButton(config.name as GameButton['name'], config.value)
+    );
 
     // Calculer la couleur initiale des boutons au chargement
     this.updateAllButtonColors();
+  }
+
+  /**
+   * 3. Voici la fonction fabrique !
+   * Elle prend le minimum d'informations et retourne un objet GameButton complet.
+   */
+  private createButton(name: GameButton['name'], value: number): GameButton {
+    return {
+      name: name,
+      value: value,
+      colorClass: 'is-red', // Valeur par défaut
+      totalClickCount: 0, // Valeur par défaut
+      consecutiveClickCount: 0, // Valeur par défaut
+      totalClickLimit: null, // Valeur par défaut
+      consecutiveClickLimit: null, // Valeur par défaut
+    };
   }
 
   /**
@@ -43,30 +71,38 @@ export class GameBoardComponent implements OnInit {
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
+
+  if (this.isButtonDisabled(button)) {
+    return;
+  }
+
     // 1. Exécute l'action spécifique au bouton (qui modifie le score)
     switch (button.name) {
-      case 'Primer':
-        this.performPrimerAction();
-        break;
-      case 'Split':
-        this.performSplitAction(button);
-        break;
-      case 'Boost':
-        this.performBoostAction(button);
-        break;
-      case 'Digit':
-        this.performDigitAction(button);
-        break;
-      case 'Reduce':
-        this.performReduceAction(button);
-        break;
-      case 'Align':
-        this.performAlignAction(button);
-        break;
+      case 'Primer': this.performPrimerAction(); break;
+      case 'Split': this.performSplitAction(button); break;
+      case 'Boost': this.performBoostAction(button); break;
+      case 'Digit': this.performDigitAction(button); break;
+      case 'Reduce': this.performReduceAction(button); break;
+      case 'Align': this.performAlignAction(button); break;
+      case 'Fiber': this.performFiberAction(); break;
+      case 'Factor': this.performFactorAction(button); break;
+      case 'Cipher': this.performCipherAction(button); break;
     }
 
     // 2. Incrémente la valeur du bouton cliqué (de 1 à 9, puis revient à 1)
     button.value = (button.value % 9) + 1;
+
+    // Mise à jour des compteurs de clics
+    this.buttons.forEach(btn => {
+      if (btn === button) {
+        // Pour le bouton qui vient d'être cliqué
+        btn.totalClickCount++;
+        btn.consecutiveClickCount++;
+      } else {
+        // Pour tous les autres boutons, la série de clics consécutifs est rompue
+        btn.consecutiveClickCount = 0;
+      }
+    });
 
     // 3. Met à jour la couleur de TOUS les boutons, car le score a changé
     this.updateAllButtonColors();
@@ -79,27 +115,30 @@ export class GameBoardComponent implements OnInit {
     this.buttons.forEach(button => {
       let isConditionMet = false;
       switch (button.name) {
-        case 'Primer':
-          isConditionMet = this.isPrimerConditionMet(button);
-          break;
-        case 'Split':
-          isConditionMet = this.isSplitConditionMet(button);
-          break;
-        case 'Boost':
-          isConditionMet = this.isBoostConditionMet(button);
-          break;
-        case 'Digit':
-          isConditionMet = this.isDigitConditionMet(button);
-          break;
-        case 'Reduce':
-          isConditionMet = this.isReduceConditionMet(button);
-          break;
-        case 'Align':
-          isConditionMet = this.isAlignConditionMet(button);
-          break;
+        case 'Primer': isConditionMet = this.isPrimerConditionMet(button); break;
+        case 'Split': isConditionMet = this.isSplitConditionMet(button); break;
+        case 'Boost': isConditionMet = this.isBoostConditionMet(button); break;
+        case 'Digit': isConditionMet = this.isDigitConditionMet(button); break;
+        case 'Reduce': isConditionMet = this.isReduceConditionMet(button); break;
+        case 'Align': isConditionMet = this.isAlignConditionMet(button); break;
+        case 'Fiber': isConditionMet = this.isFiberConditionMet(); break;
+        case 'Factor': isConditionMet = this.isFactorConditionMet(); break;
+        case 'Cipher': isConditionMet = this.isCipherConditionMet(); break;
       }
       button.colorClass = isConditionMet ? 'is-green' : 'is-red';
     });
+  }
+
+  /**
+   * Nouvelle méthode pour vérifier si un bouton doit être désactivé.
+   * @param button Le bouton à vérifier
+   * @returns true si le bouton doit être désactivé, sinon false
+   */
+  public isButtonDisabled(button: GameButton): boolean {
+    const totalLimitReached = button.totalClickLimit !== null && button.totalClickLimit !== 0 && button.totalClickCount >= button.totalClickLimit;
+    const consecutiveLimitReached = button.consecutiveClickLimit !== null && button.consecutiveClickLimit !== 0 && button.consecutiveClickCount >= button.consecutiveClickLimit;
+
+    return totalLimitReached || consecutiveLimitReached;
   }
 
   // --- ACTIONS DES BOUTONS ---
@@ -132,6 +171,31 @@ export class GameBoardComponent implements OnInit {
 
   private performAlignAction(button: GameButton): void {
     this.score = this.score + (button.value - (this.score % button.value));
+    this.score = this.checkMinScore(this.score);
+  }
+
+  private performFiberAction(): void {
+    let a = 0, b = 1;
+    while (b <= this.score) {
+      let temp = a;
+      a = b;
+      b = temp + b;
+    }
+    this.score = b;
+    this.score = this.checkMinScore(this.score);
+  }
+
+  private performFactorAction(button: GameButton): void {
+    this.score += this.factorial(button.value);
+    this.score = this.checkMinScore(this.score);
+  }
+
+  private performCipherAction(button: GameButton): void {
+    const newScoreStr = String(this.score)
+      .split('')
+      .map(digit => (Number(digit) + button.value) % 10)
+      .join('');
+    this.score = Number(newScoreStr);
     this.score = this.checkMinScore(this.score);
   }
 
@@ -173,6 +237,30 @@ export class GameBoardComponent implements OnInit {
   private isAlignConditionMet(button: GameButton): boolean {
     // Le bouton est vert si le score est une puissance parfaite de la valeur du bouton
     return this.estPalindrome(this.score);
+  }
+
+  private isFiberConditionMet(): boolean {
+    if (this.score < 0) return false;
+    const test1 = 5 * this.score * this.score + 4;
+    const test2 = 5 * this.score * this.score - 4;
+    return this.isPerfectSquare(test1) || this.isPerfectSquare(test2);
+  }
+
+  private isFactorConditionMet(): boolean {
+    if (this.score <= 0) return false;
+    let i = 1;
+    let fact = 1;
+    while (fact < this.score) {
+      i++;
+      fact *= i;
+    }
+    return fact === this.score;
+  }
+
+  private isCipherConditionMet(): boolean {
+    const scoreStr = String(this.score);
+    const uniqueDigits = new Set(scoreStr.split(''));
+    return scoreStr.length === uniqueDigits.size;
   }
 
   // --- FONCTIONS UTILITAIRES ---
@@ -244,5 +332,19 @@ export class GameBoardComponent implements OnInit {
 
     // Compare la chaîne originale à la chaîne inversée.
     return chaineOriginale === chaineInversee;
+  }
+
+  private isPerfectSquare(num: number): boolean {
+    const sqrt = Math.sqrt(num);
+    return sqrt === Math.floor(sqrt);
+  }
+
+  private factorial(n: number): number {
+    if (n < 0) return 0;
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+      result *= i;
+    }
+    return result;
   }
 }

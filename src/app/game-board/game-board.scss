@@ -101,3 +101,15 @@ $color-red-light: #fc8181;
         background-color: $color-red-light;
     }
 }
+
+/* Style pour un bouton "logiquement" désactivé */
+.game-button.is-disabled { // On utilise notre classe au lieu de :disabled
+    opacity: 0.3; // On le rend juste un peu plus transparent
+    cursor: not-allowed;
+
+    &:hover {
+        /* On s'assure qu'il n'y a pas d'effet au survol */
+        transform: none;
+        box-shadow: none;
+    }
+}
