@@ -3,7 +3,8 @@
 
 /* Définition des variables de couleur pour une maintenance facile */
 $color-white: #ffffff;
-$color-text: #2d3748;
+$color-text-dark: #3c4a61;
+$color-text-light: #c7cedb;
 $color-gray-light: #e2e8f0;
 
 $color-green: #48bb78;
@@ -20,15 +21,22 @@ $color-red-light: #fc8181;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    font-family: sans-serif; /* Police par défaut pour le texte */
+    font-family: sans-serif;
 }
 
 .score-display {
-    font-family: 'Rubik', sans-serif; /* On peut aussi utiliser Rubik pour le score */
+    font-family: 'Rubik', sans-serif;
     font-size: 10em;
     font-weight: 700;
-    color: $color-text;
     margin-bottom: 100px;
+
+    &.dark{
+      color: $color-text-dark;
+    }
+
+    &.light{
+      color: $color-text-light;
+    }
 }
 
 /* Conteneur des boutons avec Flexbox pour la responsivité */
@@ -103,8 +111,8 @@ $color-red-light: #fc8181;
 }
 
 /* Style pour un bouton "logiquement" désactivé */
-.game-button.is-disabled { // On utilise notre classe au lieu de :disabled
-    opacity: 0.3; // On le rend juste un peu plus transparent
+.game-button.is-disabled {
+    opacity: 0.3;
     cursor: not-allowed;
 
     &:hover {

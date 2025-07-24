@@ -1,5 +1,5 @@
 <div class="game-container">
-    <div class="score-display">{{ score | number:'1.0-0' }}</div>
+    <div class="score-display" [ngClass]="getScoreColor()">{{ score | number:'1.0-0' }}</div>
 
     <div class="button-container">
         <button
@@ -7,7 +7,7 @@
             class="game-button"
             [ngClass]="button.colorClass"
             (click)="onButtonClick(button)"
-            [class.is-disabled]="isButtonDisabled(button)">
+            [class.is-disabled]="button.isDisabled">
 
             <span class="button-label">{{ button.name }}</span>
 

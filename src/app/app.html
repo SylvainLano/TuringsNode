@@ -1,1 +1,5 @@
-<router-outlet />
+<!-- On affiche les particules si le type est correct -->
+<app-particles-background *ngIf="backgroundType() === 'particles'"></app-particles-background>
+
+<!-- Le router-outlet affiche votre jeu par-dessus -->
+<router-outlet></router-outlet>

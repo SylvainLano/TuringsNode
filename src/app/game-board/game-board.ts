@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BackgroundService, BackgroundState } from '../core/services/background';
 
 // Interface pour typer nos objets boutons, pour un code plus sûr
 interface GameButton {
   name: 'Primer' | 'Split' | 'Boost' | 'Digit' | 'Reduce' | 'Align' | 'Fiber' | 'Factor' | 'Cipher'; // Noms possibles pour les boutons
   value: number; // Le chiffre associé (1-9)
   colorClass: 'is-green' | 'is-red'; // La classe CSS dynamique
+  isDisabled: boolean;
   totalClickCount: number;
   consecutiveClickCount: number;
   totalClickLimit: number|null;
@@ -21,11 +23,15 @@ interface GameButton {
   templateUrl: './game-board.html',
   styleUrls: ['./game-board.scss']
 })
+
 export class GameBoardComponent implements OnInit {
 
-  public score: number = 42; // Score de départ, un nombre premier est un bon choix
+  public score: number = 42;
   public buttons: GameButton[] = [];
-  private minScore: number = 4;
+  private minScore: number = 10;
+  private backgroundHasPriority: boolean = false;
+
+  constructor(private backgroundService: BackgroundService) {}
 
   ngOnInit(): void {
     // Initialisation de nos boutons
@@ -46,8 +52,9 @@ export class GameBoardComponent implements OnInit {
       this.createButton(config.name as GameButton['name'], config.value)
     );
 
-    // Calculer la couleur initiale des boutons au chargement
+    // Calculer la couleur et l'état initiaux des boutons au chargement
     this.updateAllButtonColors();
+    this.updateAllButtonDisabledStates();
   }
 
   /**
@@ -59,6 +66,7 @@ export class GameBoardComponent implements OnInit {
       name: name,
       value: value,
       colorClass: 'is-red', // Valeur par défaut
+      isDisabled: false, // Valeur par défaut
       totalClickCount: 0, // Valeur par défaut
       consecutiveClickCount: 0, // Valeur par défaut
       totalClickLimit: null, // Valeur par défaut
@@ -71,10 +79,6 @@ export class GameBoardComponent implements OnInit {
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
-
-  if (this.isButtonDisabled(button)) {
-    return;
-  }
 
     // 1. Exécute l'action spécifique au bouton (qui modifie le score)
     switch (button.name) {
@@ -104,8 +108,11 @@ export class GameBoardComponent implements OnInit {
       }
     });
 
-    // 3. Met à jour la couleur de TOUS les boutons, car le score a changé
+    // 3. Met à jour TOUS les boutons et vérifie les conditions de victoire ou de background, car le score a changé
     this.updateAllButtonColors();
+    this.updateAllButtonDisabledStates();
+    this.checkBackgroundConditions();
+
   }
 
   /**
@@ -129,16 +136,63 @@ export class GameBoardComponent implements OnInit {
     });
   }
 
-  /**
-   * Nouvelle méthode pour vérifier si un bouton doit être désactivé.
-   * @param button Le bouton à vérifier
-   * @returns true si le bouton doit être désactivé, sinon false
-   */
-  public isButtonDisabled(button: GameButton): boolean {
-    const totalLimitReached = button.totalClickLimit !== null && button.totalClickLimit !== 0 && button.totalClickCount >= button.totalClickLimit;
-    const consecutiveLimitReached = button.consecutiveClickLimit !== null && button.consecutiveClickLimit !== 0 && button.consecutiveClickCount >= button.consecutiveClickLimit;
+  private updateAllButtonDisabledStates(): void {
+    this.buttons.forEach(button => {
+      const totalLimitReached = button.totalClickLimit !== null && button.totalClickLimit !== 0 && button.totalClickCount >= button.totalClickLimit;
+      const consecutiveLimitReached = button.consecutiveClickLimit !== null && button.consecutiveClickLimit !== 0 && button.consecutiveClickCount >= button.consecutiveClickLimit;
 
-    return totalLimitReached || consecutiveLimitReached;
+      button.isDisabled = totalLimitReached || consecutiveLimitReached;
+    });
+  }
+
+  // --- FONCTIONS ESTHÉTIQUES ---
+
+  public getScoreColor() {
+    if (this.backgroundService.state().value == "matrix" || this.backgroundService.state().value == "snow") {
+      return "light";
+    } else  {
+      return "dark";
+    }
+  }
+
+  private checkBackgroundConditions(): void {
+    // Si un fond prioritaire (victoire) est déjà actif, on ne fait rien.
+    if (this.backgroundHasPriority) {
+      return;
+    }
+
+    // Condition de Victoire : Tous les boutons sont verts
+    const isVictory = this.buttons.every(btn => btn.colorClass === 'is-green');
+    if (isVictory) {
+      this.backgroundService.setActiveBackground({ type: 'particles', value: 'constellation' });
+      this.backgroundHasPriority = true; // Bloque les autres changements de fond
+      return; // On arrête ici, c'est la condition la plus importante
+    }
+
+    // Condition d'Échec : Tous les boutons sont rouges
+    const isFailure = this.buttons.every(btn => btn.colorClass === 'is-red');
+    if (isFailure) {
+      this.backgroundService.setActiveBackground({ type: 'particles', value: 'angry' });
+      return;
+    }
+
+    // Condition "Matrix" : Score est une chaîne de 8 caractères contenant uniquement 0 et 1
+    const isMatrixScore = /^[01]{8}$/.test(String(this.score));
+    if (isMatrixScore) {
+      this.backgroundService.setActiveBackground({ type: 'particles', value: 'matrix' });
+      return;
+    }
+
+    // Condition "Snow" : Le score a atteint le minimum
+    if (this.score === this.minScore) {
+      this.backgroundService.setActiveBackground({ type: 'particles', value: 'snow' });
+      return;
+    }
+
+    // Si aucune des conditions spéciales n'est remplie, on revient au fond par défaut
+    if (this.backgroundService.state().value !== 'pastel') {
+        this.backgroundService.setActiveBackground({ type: 'particles', value: 'pastel' });
+    }
   }
 
   // --- ACTIONS DES BOUTONS ---
@@ -325,9 +379,6 @@ export class GameBoardComponent implements OnInit {
     const chaineOriginale = String(nombre);
 
     // Inverse la chaîne.
-    // .split('') -> ['1', '2', '1']
-    // .reverse() -> ['1', '2', '1']
-    // .join('')  -> "121"
     const chaineInversee = chaineOriginale.split('').reverse().join('');
 
     // Compare la chaîne originale à la chaîne inversée.
