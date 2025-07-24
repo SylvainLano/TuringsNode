@@ -11,7 +11,7 @@ export interface BackgroundState {
 
 export class BackgroundService {
   // On remplace le BehaviorSubject par un signal. C'est notre nouvelle source de vérité.
-  public readonly state = signal<BackgroundState>({ type: 'particles', value: 'angry' });
+  public readonly state = signal<BackgroundState>({ type: 'particles', value: 'pastel' });
 
   /**
    * Met à jour le signal avec le nouvel état.
