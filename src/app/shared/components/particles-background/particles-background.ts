@@ -25,9 +25,6 @@ export class ParticlesBackgroundComponent {
     effect(() => {
       const state = this.backgroundService.state();
 
-    // On vérifie si on reçoit bien la mise à jour
-    console.log('--- ORDRE REÇU ---', state);
-
       // On ne reconstruit les options que si le thème est bien "particules"
       if (state.type === 'particles') {
         let newOptions = {};
@@ -162,8 +159,333 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else  {
-          // Configuration par défaut (pastel)
+        } else if (state.value === 'nebula') { // not used yet
+          newOptions = {
+            background: { color: { value: '#000014' } },
+            fpsLimit: 60,
+            particles: {
+              color: { value: ['#6e44ff', '#b892ff', '#9e00ff', '#ff4ecd'] },
+              links: {
+                enable: true,
+                distance: 100,
+                opacity: 0.05,
+                color: '#ffffff',
+                width: 2
+              },
+              move: {
+                enable: true,
+                speed: 0.4,
+                direction: 'none',
+                outModes: { default: 'out' }
+              },
+              number: {
+                value: 120,
+                density: { enable: true }
+              },
+              opacity: {
+                value: { min: 0.1, max: 0.4 },
+                animation: {
+                  enable: true,
+                  speed: 0.2,
+                  sync: false
+                }
+              },
+              size: {
+                value: { min: 2, max: 6 },
+                animation: {
+                  enable: true,
+                  speed: 2,
+                  minimumValue: 1,
+                  sync: false
+                }
+              },
+              shape: { type: 'circle' }
+            },
+            interactivity: {
+              events: {
+                onHover: {
+                  enable: true,
+                  mode: 'repulse'
+                }
+              },
+              modes: {
+                repulse: {
+                  distance: 100,
+                  duration: 0.5
+                }
+              }
+            }
+          };
+        } else if (state.value === 'neural') { // not used yet
+          newOptions = {
+            background: { color: { value: '#0a0a0a' } },
+            fpsLimit: 60,
+            particles: {
+              color: { value: '#00ffe7' },
+              links: {
+                enable: true,
+                color: '#00ffe7',
+                distance: 80,
+                opacity: 0.1,
+                width: 1,
+                triangles: {
+                  enable: true,
+                  opacity: 0.05
+                }
+              },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: 'none',
+                outModes: { default: 'bounce' }
+              },
+              number: {
+                value: 200,
+                density: { enable: true }
+              },
+              opacity: {
+                value: 0.2,
+                animation: {
+                  enable: true,
+                  speed: 2,
+                  sync: false
+                }
+              },
+              shape: { type: 'circle' },
+              size: {
+                value: 3
+              }
+            },
+            interactivity: {
+              events: {
+                onHover: {
+                  enable: true,
+                  mode: 'connect'
+                }
+              },
+              modes: {
+                connect: {
+                  radius: 150,
+                  links: {
+                    opacity: 0.7
+                  }
+                }
+              }
+            }
+          };
+        } else if (state.value === 'dust') { // not finished yet
+          newOptions = {
+            background: { color: { value: '#1a1a2e' } },
+            particles: {
+              color: { value: '#00adb5' },
+              move: {
+                enable: true,
+                speed: 1,
+                path: {
+                  enable: true,
+                  options: {
+                    type: 'path',
+                    noise: {
+                      enable: true,
+                      reduce: true
+                    }
+                  }
+                },
+                outModes: { default: 'out' }
+              },
+              number: { value: 100 },
+              size: { value: 2 },
+              opacity: { value: 0.3 },
+              shape: { type: 'circle' }
+            }
+          };
+        } else if (state.value === 'fireflies') { // not used yet
+          newOptions = {
+            background: { color: { value: '#0d1b2a' } },
+            fpsLimit: 60,
+            particles: {
+              color: { value: '#faff70' },
+              move: {
+                enable: true,
+                speed: 0.3,
+                direction: 'none',
+                random: true,
+                outModes: { default: 'bounce' }
+              },
+              number: { density: { enable: true }, value: 200 },
+              opacity: {
+                value: { min: 0.1, max: 1 },
+                animation: { enable: true, speed: 1, minimumValue: 0.1, sync: false }
+              },
+              shape: { type: 'circle' },
+              size: { value: { min: 1, max: 3 } }
+            }
+          };
+        } else if (state.value === 'bubbles') { // not used yet
+          newOptions = {
+            background: { color: { value: '#00334e' } },
+            fpsLimit: 60,
+            particles: {
+              color: { value: '#ffffff' },
+              shape: { type: 'circle' },
+              opacity: {
+                value: 0.4,
+                animation: {
+                  enable: true,
+                  speed: 0.2,
+                  minimumValue: 0.1,
+                  sync: false
+                }
+              },
+              size: {
+                value: { min: 3, max: 10 },
+                animation: {
+                  enable: true,
+                  speed: 1,
+                  minimumValue: 1,
+                  sync: false
+                }
+              },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: 'top',
+                outModes: { default: 'out' }
+              },
+              number: {
+                density: { enable: true },
+                value: 80
+              }
+            }
+          };
+        } else if (state.value === 'wisp') { // not finished yet
+          newOptions = {
+            background: { color: { value: '#1c1b2f' } },
+            fpsLimit: 60,
+            particles: {
+              color: { value: ['#a29bfe', '#dfe6e9', '#74b9ff'] },
+              move: {
+                enable: true,
+                speed: 0.1,
+                direction: 'none',
+                random: true,
+                outModes: { default: 'out' }
+              },
+              number: { density: { enable: true }, value: 60 },
+              opacity: {
+                value: { min: 0.05, max: 0.3 },
+                animation: {
+                  enable: true,
+                  speed: 0.2,
+                  sync: false
+                }
+              },
+              size: { value: { min: 5, max: 20 } },
+              shape: { type: 'circle' }
+            }
+          };
+        } else if (state.value === 'fireworks') { // not finished yet
+          newOptions = {
+            background: { color: { value: '#000000' } },
+            fpsLimit: 60,
+            particles: {
+              color: { value: ['#ff0000', '#ffae00', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'] },
+              move: {
+                enable: true,
+                speed: { min: 2, max: 6 },
+                direction: 'none',
+                outModes: { default: 'destroy' }
+              },
+              number: { value: 0 },
+              size: { value: { min: 2, max: 4 } },
+              opacity: { value: 1 },
+              shape: { type: 'circle' },
+              life: {
+                duration: { sync: true, value: 2 },
+                count: 1
+              }
+            },
+            emitters: {
+              direction: 'none',
+              rate: {
+                quantity: 100,
+                delay: 1
+              },
+              size: { width: 0, height: 0 },
+              position: { x: 50, y: 50 }
+            }
+          };
+        } else if (state.value === 'cyberpunk') { // not finished yet
+          newOptions = {
+            background: { color: { value: '#0a0a0f' } },
+            fpsLimit: 60,
+            particles: {
+              number: {
+                value: 400,
+                density: { enable: true }
+              },
+              color: {
+                value: ['#ff00ff', '#00ffff'] // Rose néon et bleu néon
+              },
+              shape: {
+                type: 'char',
+                options: {
+                  char: {
+                    value: ['¥', 'Ж', 'λ', 'Ψ', 'π', 'Σ', '∇', 'µ', 'æ', '⛧'],
+                    font: 'Courier New',
+                    style: '',
+                    weight: 'bold'
+                  }
+                }
+              },
+              size: {
+                value: 14,
+                animation: {
+                  enable: true,
+                  speed: 4,
+                  minimumValue: 10
+                }
+              },
+              opacity: {
+                value: { min: 0.1, max: 0.8 },
+                animation: {
+                  enable: true,
+                  speed: 0.5,
+                  sync: false
+                }
+              },
+              move: {
+                enable: true,
+                speed: 1.5,
+                direction: 'top-right', // Contraire de Matrix !
+                straight: false,
+                outModes: { default: 'out' }
+              }
+            },
+            interactivity: {
+              events: {
+                onHover: {
+                  enable: true,
+                  mode: 'trail'
+                }
+              },
+              modes: {
+                trail: {
+                  delay: 0.005,
+                  quantity: 1,
+                  particles: {
+                    color: { value: '#ffffff' },
+                    move: { speed: 3, direction: 'none' },
+                    size: { value: 10 },
+                    opacity: { value: 1 },
+                    life: { duration: 0.2, count: 1 }
+                  }
+                }
+              }
+            },
+            detectRetina: true
+          };
+        } else { // Configuration par défaut (pastel)
           newOptions = {
             background: { color: { value: '#ffffffff' } },
             fpsLimit: 120,
