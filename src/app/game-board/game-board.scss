@@ -3,8 +3,6 @@
 
 /* Définition des variables de couleur pour une maintenance facile */
 $color-white: #ffffff;
-$color-text-dark: #3c4a61;
-$color-text-light: #c7cedb;
 $color-gray-light: #e2e8f0;
 
 $color-green: #48bb78;
@@ -29,14 +27,6 @@ $color-red-light: #fc8181;
     font-size: 10em;
     font-weight: 700;
     margin-bottom: 100px;
-
-    &.dark{
-      color: $color-text-dark;
-    }
-
-    &.light{
-      color: $color-text-light;
-    }
 }
 
 /* Conteneur des boutons avec Flexbox pour la responsivité */

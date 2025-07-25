@@ -159,7 +159,7 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else if (state.value === 'nebula') { // not used yet
+        } else if (state.value === 'night') {
           newOptions = {
             background: { color: { value: '#000014' } },
             fpsLimit: 60,
@@ -200,20 +200,6 @@ export class ParticlesBackgroundComponent {
                 }
               },
               shape: { type: 'circle' }
-            },
-            interactivity: {
-              events: {
-                onHover: {
-                  enable: true,
-                  mode: 'repulse'
-                }
-              },
-              modes: {
-                repulse: {
-                  distance: 100,
-                  duration: 0.5
-                }
-              }
             }
           };
         } else if (state.value === 'neural') { // not used yet
@@ -226,7 +212,7 @@ export class ParticlesBackgroundComponent {
                 enable: true,
                 color: '#00ffe7',
                 distance: 80,
-                opacity: 0.1,
+                opacity: 0.1, // Liens ambiants très faibles
                 width: 1,
                 triangles: {
                   enable: true,
@@ -236,8 +222,8 @@ export class ParticlesBackgroundComponent {
               move: {
                 enable: true,
                 speed: 0.5,
-                direction: 'none',
-                outModes: { default: 'bounce' }
+                direction: 'none' as const,
+                outModes: { default: 'bounce' as const }
               },
               number: {
                 value: 200,
@@ -245,13 +231,9 @@ export class ParticlesBackgroundComponent {
               },
               opacity: {
                 value: 0.2,
-                animation: {
-                  enable: true,
-                  speed: 2,
-                  sync: false
-                }
+                animation: { enable: true, speed: 2, sync: false }
               },
-              shape: { type: 'circle' },
+              shape: { type: 'circle' as const },
               size: {
                 value: 3
               }
@@ -261,42 +243,16 @@ export class ParticlesBackgroundComponent {
                 onHover: {
                   enable: true,
                   mode: 'connect'
-                }
+                },
               },
               modes: {
                 connect: {
-                  radius: 150,
+                  radius: 200,
                   links: {
                     opacity: 0.7
                   }
                 }
               }
-            }
-          };
-        } else if (state.value === 'dust') { // not finished yet
-          newOptions = {
-            background: { color: { value: '#1a1a2e' } },
-            particles: {
-              color: { value: '#00adb5' },
-              move: {
-                enable: true,
-                speed: 1,
-                path: {
-                  enable: true,
-                  options: {
-                    type: 'path',
-                    noise: {
-                      enable: true,
-                      reduce: true
-                    }
-                  }
-                },
-                outModes: { default: 'out' }
-              },
-              number: { value: 100 },
-              size: { value: 2 },
-              opacity: { value: 0.3 },
-              shape: { type: 'circle' }
             }
           };
         } else if (state.value === 'fireflies') { // not used yet
@@ -358,32 +314,7 @@ export class ParticlesBackgroundComponent {
               }
             }
           };
-        } else if (state.value === 'wisp') { // not finished yet
-          newOptions = {
-            background: { color: { value: '#1c1b2f' } },
-            fpsLimit: 60,
-            particles: {
-              color: { value: ['#a29bfe', '#dfe6e9', '#74b9ff'] },
-              move: {
-                enable: true,
-                speed: 0.1,
-                direction: 'none',
-                random: true,
-                outModes: { default: 'out' }
-              },
-              number: { density: { enable: true }, value: 60 },
-              opacity: {
-                value: { min: 0.05, max: 0.3 },
-                animation: {
-                  enable: true,
-                  speed: 0.2,
-                  sync: false
-                }
-              },
-              size: { value: { min: 5, max: 20 } },
-              shape: { type: 'circle' }
-            }
-          };
+
         } else if (state.value === 'fireworks') { // not finished yet
           newOptions = {
             background: { color: { value: '#000000' } },
@@ -482,6 +413,89 @@ export class ParticlesBackgroundComponent {
                   }
                 }
               }
+            },
+            detectRetina: true
+          };
+        } else if (state.value === 'burnt' ) { // maybe when more than 70 % of the buttons are depleted ?
+          newOptions = {
+            background: { color: { value: '#100c08' } },
+            fpsLimit: 120,
+            interactivity: {
+                events: { onHover: { enable: false } },
+            },
+            particles: {
+                color: { value: ['#ff5722', '#ffc107', '#e91e63'] },
+                links: { enable: false },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'top' as const,
+                    outModes: { default: 'out' as const }
+                },
+                number: { density: { enable: true }, value: 80 },
+                opacity: { value: { min: 0.1, max: 0.8 } },
+                shape: { type: 'circle' as const },
+                size: { value: { min: 1, max: 4 } }
+            },
+            detectRetina: true
+          };
+        } else if (state.value === 'abyss' ) { // not used yet
+          newOptions = {
+            background: { color: { value: '#03001C' } },
+            fpsLimit: 120,
+            interactivity: {
+                events: { onHover: { enable: true, mode: 'bubble' } },
+                modes: {
+                    bubble: {
+                        distance: 200,
+                        duration: 2,
+                        opacity: 1,
+                        size: 15
+                    }
+                }
+            },
+            particles: {
+                color: { value: '#30A2FF' },
+                links: { enable: false },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: 'top' as const,
+                    outModes: { default: 'out' as const }
+                },
+                number: { density: { enable: true }, value: 50 },
+                opacity: { value: { min: 0.1, max: 0.5 } },
+                shape: { type: 'circle' as const },
+                size: { value: { min: 2, max: 10 } }
+            },
+            detectRetina: true
+          };
+        } else if (state.value === 'aurea' ) { // not used yet
+          newOptions = {
+            background: { color: { value: '#1C0A00' } },
+            fpsLimit: 120,
+            interactivity: {
+                events: { onHover: { enable: true, mode: 'repulse' } },
+                modes: {
+                    repulse: {
+                        distance: 150,
+                        duration: 0.4
+                    }
+                }
+            },
+            particles: {
+                color: { value: '#FFD700' },
+                links: { enable: false },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: 'bottom' as const,
+                    outModes: { default: 'out' as const }
+                },
+                number: { density: { enable: true }, value: 100 },
+                opacity: { value: { min: 0.3, max: 0.8 } },
+                shape: { type: 'star' as const },
+                size: { value: { min: 1, max: 4 } }
             },
             detectRetina: true
           };

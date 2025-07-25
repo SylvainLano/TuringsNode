@@ -30,6 +30,11 @@ export class GameBoardComponent implements OnInit {
   public buttons: GameButton[] = [];
   private minScore: number = 10;
   private backgroundHasPriority: boolean = false;
+  private specialBackground: string | null = null;
+  private clicksSinceBgChange: number = 0;
+  private timestampBgChange: number = 0;
+  private readonly SPECIAL_BG_CLICK_LIMIT = 25;
+  private readonly SPECIAL_BG_TIME_LIMIT_MS = 5 * 60 * 1000; // 5 minutes en millisecondes
 
   constructor(private backgroundService: BackgroundService) {}
 
@@ -148,51 +153,98 @@ export class GameBoardComponent implements OnInit {
   // --- FONCTIONS ESTHÉTIQUES ---
 
   public getScoreColor() {
-    if (this.backgroundService.state().value == "matrix" || this.backgroundService.state().value == "snow") {
-      return "light";
-    } else  {
-      return "dark";
-    }
+    return this.backgroundService.state().scoreColor;
   }
 
   private checkBackgroundConditions(): void {
-    // Si un fond prioritaire (victoire) est déjà actif, on ne fait rien.
-    if (this.backgroundHasPriority) {
+    // --- ÉTAPE 1 : QUEL THÈME DEVRAIT ÊTRE ACTIF MAINTENANT ? ---
+
+    let targetTheme: string | null = null; // Par défaut, aucun
+
+    if (this.buttons.every(btn => btn.colorClass === 'is-green')) {
+      targetTheme = 'constellation';
+      this.backgroundHasPriority = true;
+    } else {
+      this.backgroundHasPriority = false; // On pense à réinitialiser le drapeau
+      if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
+        targetTheme = 'angry';
+      } else if (/^[01]{8}$/.test(String(this.score))) {
+        targetTheme = 'matrix';
+      } else if (this.score === this.minScore) {
+        targetTheme = 'snow';
+      }
+    }
+
+    // --- ÉTAPE 2 : GESTION DES THÈMES SPÉCIAUX ---
+
+    if (targetTheme) { // Si une condition spéciale est remplie
+      // On réinitialise les compteurs
+      this.clicksSinceBgChange = 0;
+      this.timestampBgChange = Date.now();
+
+      // On ne change le fond QUE si le nouveau thème est différent de l'actuel
+      if (this.specialBackground !== targetTheme) {
+        this.backgroundService.changeBackground(targetTheme);
+        this.specialBackground = targetTheme;
+      }
       return;
     }
 
-    // Condition de Victoire : Tous les boutons sont verts
-    const isVictory = this.buttons.every(btn => btn.colorClass === 'is-green');
-    if (isVictory) {
-      this.backgroundService.setActiveBackground({ type: 'particles', value: 'constellation' });
-      this.backgroundHasPriority = true; // Bloque les autres changements de fond
-      return; // On arrête ici, c'est la condition la plus importante
+    // --- ÉTAPE 3 : GESTION DE L'EXPIRATION ET DU RETOUR AU DÉFAUT ---
+
+    if (this.specialBackground) {
+      this.clicksSinceBgChange++;
+      const timeElapsed = Date.now() - this.timestampBgChange;
+      const clicksReached = this.clicksSinceBgChange >= this.SPECIAL_BG_CLICK_LIMIT;
+      const timeReached = timeElapsed >= this.SPECIAL_BG_TIME_LIMIT_MS;
+
+      if (clicksReached || timeReached) {
+        // Le thème a expiré, on revient au pastel
+        this.backgroundService.changeBackground(this.getDefaultThemeName());
+        this.specialBackground = null;
+      }
+    }
+  }
+
+  private getDefaultThemeName(): 'day' | 'night' {
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    // Calcule le jour de l'année (de 1 à 365)
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const diff = now.getTime() - startOfYear.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // On définit nos extrêmes pour l'hémisphère Nord
+    // Solstice d'hiver (jour ~170, le plus court) : nuit de 17h à 8h
+    const winterSunset = 17;
+    const winterSunrise = 8;
+    // Solstice d'été (jour ~172, le plus long) : nuit de 22h à 5h
+    const summerSunset = 22;
+    const summerSunrise = 5;
+
+    // On calcule la progression entre l'hiver et l'été.
+    // On utilise une fonction cosinus pour une transition douce et cyclique.
+    // Le résultat est entre -1 (pic de l'hiver) et 1 (pic de l'été).
+    const progress = Math.cos((dayOfYear - 172) * (2 * Math.PI / 365.25));
+
+    // On interpole les heures de lever et de coucher du soleil pour aujourd'hui
+    // (progress + 1) / 2 nous donne une valeur de 0 (hiver) à 1 (été)
+    const todaySunrise = winterSunrise + (summerSunrise - winterSunrise) * (progress + 1) / 2;
+    const todaySunset = winterSunset + (summerSunset - winterSunset) * (progress + 1) / 2;
+
+    // --- POUR L'HÉMISPHÈRE SUD ---
+    // Il suffirait d'inverser la progression :
+    // const progress = Math.cos((dayOfYear - 172 + 182.625) * (2 * Math.PI / 365.25));
+    // Ou plus simplement, d'inverser les valeurs été/hiver au début.
+
+    // On vérifie si l'heure actuelle est dans la plage de la nuit
+    if (currentHour >= todaySunset || currentHour < todaySunrise) {
+      return 'night';
     }
 
-    // Condition d'Échec : Tous les boutons sont rouges
-    const isFailure = this.buttons.every(btn => btn.colorClass === 'is-red');
-    if (isFailure) {
-      this.backgroundService.setActiveBackground({ type: 'particles', value: 'angry' });
-      return;
-    }
-
-    // Condition "Matrix" : Score est une chaîne de 8 caractères contenant uniquement 0 et 1
-    const isMatrixScore = /^[01]{8}$/.test(String(this.score));
-    if (isMatrixScore) {
-      this.backgroundService.setActiveBackground({ type: 'particles', value: 'matrix' });
-      return;
-    }
-
-    // Condition "Snow" : Le score a atteint le minimum
-    if (this.score === this.minScore) {
-      this.backgroundService.setActiveBackground({ type: 'particles', value: 'snow' });
-      return;
-    }
-
-    // Si aucune des conditions spéciales n'est remplie, on revient au fond par défaut
-    if (this.backgroundService.state().value !== 'pastel') {
-        this.backgroundService.setActiveBackground({ type: 'particles', value: 'pastel' });
-    }
+    return 'day';
   }
 
   // --- ACTIONS DES BOUTONS ---
