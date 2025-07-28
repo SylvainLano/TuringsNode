@@ -24,9 +24,11 @@ $color-red-light: #fc8181;
 
 .score-display {
     font-family: 'Rubik', sans-serif;
-    font-size: 10em;
+    font-size: clamp(2em, 20vw, 10em);
     font-weight: 700;
     margin-bottom: 100px;
+    word-break: break-all;
+    text-align: center;
 }
 
 /* Conteneur des boutons avec Flexbox pour la responsivité */
@@ -110,4 +112,70 @@ $color-red-light: #fc8181;
         transform: none;
         box-shadow: none;
     }
+}
+
+.level-complete-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+
+  // Effet de verre dépoli
+  background-color: rgba(255, 255, 255, 0.1); // Un blanc très transparent
+
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $color-white; // Texte blanc par défaut pour contraster
+  text-align: center;
+
+  // Animation d'apparition
+  animation: fadeIn 0.5s ease-in-out;
+
+  h2 {
+    font-family: 'Rubik', sans-serif; // Même police que le score
+    font-size: 3em;
+    margin-bottom: 20px;
+  }
+
+  .stats {
+    margin-bottom: 30px;
+    font-size: 1.2em;
+
+    strong {
+      font-size: 1.5em;
+      color: $color-green-light; // On réutilise une couleur positive du jeu
+    }
+  }
+
+  .next-level-button {
+    // On imite le style des .game-button
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid $color-green-dark;
+    background-color: $color-green;
+    color: $color-white;
+
+    &:hover {
+      background-color: $color-green-light;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// Keyframes pour l'animation d'apparition
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

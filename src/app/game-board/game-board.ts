@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BackgroundService, BackgroundState } from '../core/services/background';
+import { BackgroundService } from '../core/services/background';
+import { LevelService } from '../core/services/level';
 
 // Interface pour typer nos objets boutons, pour un code plus sûr
 interface GameButton {
@@ -12,6 +13,19 @@ interface GameButton {
   consecutiveClickCount: number;
   totalClickLimit: number|null;
   consecutiveClickLimit: number|null;
+}
+
+export interface LevelButtonConfig {
+  name: any;
+  initialValue: number;
+}
+
+export interface Level {
+  levelNumber: number;
+  startScore: number;
+  minScore: number | null;
+  maxScore: number | null;
+  buttons: LevelButtonConfig[];
 }
 
 @Component({
@@ -26,45 +40,69 @@ interface GameButton {
 
 export class GameBoardComponent implements OnInit {
 
-  public score: number = 42;
+  public gameState: 'playing' | 'level_complete' = 'playing';
+  public levelClicks: number = 0;
+  private score: number = 42;
+  public displayedScore: number = 42;
+  public isAnimatingScore: boolean = false;
   public buttons: GameButton[] = [];
   private minScore: number = 10;
+  private maxScore: number = Number.MAX_SAFE_INTEGER;
   private backgroundHasPriority: boolean = false;
   private specialBackground: string | null = null;
   private clicksSinceBgChange: number = 0;
   private timestampBgChange: number = 0;
   private readonly SPECIAL_BG_CLICK_LIMIT = 25;
-  private readonly SPECIAL_BG_TIME_LIMIT_MS = 5 * 60 * 1000; // 5 minutes en millisecondes
+  private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
 
-  constructor(private backgroundService: BackgroundService) {}
+  constructor(
+    private backgroundService: BackgroundService,
+    public levelService: LevelService
+  ) {
+    // On crée un effect qui observe la liste des niveaux du service
+    effect(() => {
+      const allLevels = this.levelService.levels();
+      const levelNum = this.levelService.currentLevelNumber();
 
-  ngOnInit(): void {
-    // Initialisation de nos boutons
-    const buttonConfigs = [
-      { name: 'Primer', value: 1 },
-      { name: 'Split', value: 2 },
-      { name: 'Boost', value: 3 },
-      { name: 'Digit', value: 4 },
-      { name: 'Reduce', value: 5 },
-      { name: 'Align', value: 6 },
-      { name: 'Fiber', value: 7 },
-      { name: 'Factor', value: 8 },
-      { name: 'Cipher', value: 9 },
-    ];
+      // Si la liste des niveaux n'est plus vide, ça veut dire que le JSON est chargé
+      if (allLevels.length > 0) {
+        const levelData = allLevels.find(l => l.levelNumber === levelNum);
+        if (levelData) {
+          this.setupLevel(levelData);
+        }
+      }
+    });
+  }
 
-    // 2. Utiliser .map() et la fonction fabrique pour créer le tableau final
-    this.buttons = buttonConfigs.map(config =>
-      this.createButton(config.name as GameButton['name'], config.value)
+  ngOnInit(): void {}
+
+  private setupLevel(levelData: Level): void {
+    if (!levelData) {
+      console.error("Données du niveau introuvables !");
+      return;
+    }
+
+    // Réinitialisation des états du jeu
+    this.backgroundHasPriority = false;
+    this.score = levelData.startScore;
+    if (levelData.minScore) { this.minScore = levelData.minScore}
+    if (levelData.maxScore) { this.maxScore = levelData.maxScore}
+    this.displayedScore = levelData.startScore;
+    this.gameState = 'playing';
+    this.levelClicks = 0;
+
+    // Création des boutons à partir des données du niveau
+    this.buttons = levelData.buttons.map(config =>
+      this.createButton(config.name as GameButton['name'], config.initialValue)
     );
 
-    // Calculer la couleur et l'état initiaux des boutons au chargement
+    // Mise à jour de l'affichage
     this.updateAllButtonColors();
     this.updateAllButtonDisabledStates();
   }
 
   /**
-   * 3. Voici la fonction fabrique !
-   * Elle prend le minimum d'informations et retourne un objet GameButton complet.
+   * Fonction fabrique de boutons
    */
   private createButton(name: GameButton['name'], value: number): GameButton {
     return {
@@ -79,29 +117,45 @@ export class GameBoardComponent implements OnInit {
     };
   }
 
+  public goToNextLevel(): void {
+    this.levelService.advanceToNextLevel();
+    this.backgroundService.changeBackground(this.getDefaultThemeName());
+  }
+
   /**
    * Méthode centrale appelée au clic sur n'importe quel bouton.
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
+    if (this.isAnimatingScore || button.isDisabled) return;
+    let newScore = this.score;
 
     // 1. Exécute l'action spécifique au bouton (qui modifie le score)
     switch (button.name) {
-      case 'Primer': this.performPrimerAction(); break;
-      case 'Split': this.performSplitAction(button); break;
-      case 'Boost': this.performBoostAction(button); break;
-      case 'Digit': this.performDigitAction(button); break;
-      case 'Reduce': this.performReduceAction(button); break;
-      case 'Align': this.performAlignAction(button); break;
-      case 'Fiber': this.performFiberAction(); break;
-      case 'Factor': this.performFactorAction(button); break;
-      case 'Cipher': this.performCipherAction(button); break;
+      case 'Primer': newScore = this.performPrimerAction(); break;
+      case 'Split': newScore = this.performSplitAction(button); break;
+      case 'Boost': newScore = this.performBoostAction(button); break;
+      case 'Digit': newScore = this.performDigitAction(button); break;
+      case 'Reduce': newScore = this.performReduceAction(button); break;
+      case 'Align': newScore = this.performAlignAction(button); break;
+      case 'Fiber': newScore = this.performFiberAction(); break;
+      case 'Factor': newScore = this.performFactorAction(button); break;
+      case 'Cipher': newScore = this.performCipherAction(button); break;
     }
+
+    newScore = this.applyBouncingBoundaries(newScore);
+      this.animateScoreTo(newScore, () => {
+      // Ce code ne s'exécutera QUE lorsque le score aura atteint sa cible
+      this.updateAllButtonColors();
+      this.updateAllButtonDisabledStates();
+      this.checkBackgroundConditions();
+    });
 
     // 2. Incrémente la valeur du bouton cliqué (de 1 à 9, puis revient à 1)
     button.value = (button.value % 9) + 1;
 
     // Mise à jour des compteurs de clics
+    this.levelClicks++;
     this.buttons.forEach(btn => {
       if (btn === button) {
         // Pour le bouton qui vient d'être cliqué
@@ -112,12 +166,6 @@ export class GameBoardComponent implements OnInit {
         btn.consecutiveClickCount = 0;
       }
     });
-
-    // 3. Met à jour TOUS les boutons et vérifie les conditions de victoire ou de background, car le score a changé
-    this.updateAllButtonColors();
-    this.updateAllButtonDisabledStates();
-    this.checkBackgroundConditions();
-
   }
 
   /**
@@ -151,7 +199,6 @@ export class GameBoardComponent implements OnInit {
   }
 
   // --- FONCTIONS ESTHÉTIQUES ---
-
   public getScoreColor() {
     return this.backgroundService.state().scoreColor;
   }
@@ -159,13 +206,14 @@ export class GameBoardComponent implements OnInit {
   private checkBackgroundConditions(): void {
     // --- ÉTAPE 1 : QUEL THÈME DEVRAIT ÊTRE ACTIF MAINTENANT ? ---
 
-    let targetTheme: string | null = null; // Par défaut, aucun
+    let targetTheme: string | null = null;
 
     if (this.buttons.every(btn => btn.colorClass === 'is-green')) {
       targetTheme = 'constellation';
       this.backgroundHasPriority = true;
+      this.gameState = 'level_complete';
     } else {
-      this.backgroundHasPriority = false; // On pense à réinitialiser le drapeau
+      this.backgroundHasPriority = false;
       if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
         targetTheme = 'angry';
       } else if (/^[01]{8}$/.test(String(this.score))) {
@@ -199,7 +247,7 @@ export class GameBoardComponent implements OnInit {
       const timeReached = timeElapsed >= this.SPECIAL_BG_TIME_LIMIT_MS;
 
       if (clicksReached || timeReached) {
-        // Le thème a expiré, on revient au pastel
+        // Le thème a expiré, on revient à celui par défaut
         this.backgroundService.changeBackground(this.getDefaultThemeName());
         this.specialBackground = null;
       }
@@ -249,60 +297,51 @@ export class GameBoardComponent implements OnInit {
 
   // --- ACTIONS DES BOUTONS ---
 
-  private performPrimerAction(): void {
-    this.score = this.findNextPrime(this.score);
-    this.score = this.checkMinScore(this.score);
+  private performPrimerAction(): number {
+    return this.findNextPrime(this.score);
   }
 
-  private performSplitAction(button: GameButton): void {
+  private performSplitAction(button: GameButton): number {
     // On divise, en s'assurant de ne pas avoir de nombres à virgule
-    this.score = Math.ceil(this.score / button.value);
-    this.score = this.checkMinScore(this.score);
+    return Math.ceil(this.score / button.value);
   }
 
-  private performBoostAction(button: GameButton): void {
-    this.score += button.value;
-    this.score = this.checkMinScore(this.score);
+  private performBoostAction(button: GameButton): number {
+    return this.score + button.value;
   }
 
-  private performDigitAction(button: GameButton): void {
-    this.score *= button.value;
-    this.score = this.checkMinScore(this.score);
+  private performDigitAction(button: GameButton): number {
+    return this.score * button.value;
   }
 
-  private performReduceAction(button: GameButton): void {
-    this.score = Math.ceil(this.score ** (1 / button.value));
-    this.score = this.checkMinScore(this.score);
+  private performReduceAction(button: GameButton): number {
+    return Math.ceil(this.score ** (1 / button.value));
   }
 
-  private performAlignAction(button: GameButton): void {
-    this.score = this.score + (button.value - (this.score % button.value));
-    this.score = this.checkMinScore(this.score);
+  private performAlignAction(button: GameButton): number {
+    return this.score + (button.value - (this.score % button.value));
   }
 
-  private performFiberAction(): void {
+  private performFiberAction(): number {
     let a = 0, b = 1;
     while (b <= this.score) {
       let temp = a;
       a = b;
       b = temp + b;
     }
-    this.score = b;
-    this.score = this.checkMinScore(this.score);
+    return b;
   }
 
-  private performFactorAction(button: GameButton): void {
-    this.score += this.factorial(button.value);
-    this.score = this.checkMinScore(this.score);
+  private performFactorAction(button: GameButton): number {
+    return this.score + this.factorial(button.value);
   }
 
-  private performCipherAction(button: GameButton): void {
+  private performCipherAction(button: GameButton): number {
     const newScoreStr = String(this.score)
       .split('')
       .map(digit => (Number(digit) + button.value) % 10)
       .join('');
-    this.score = Number(newScoreStr);
-    this.score = this.checkMinScore(this.score);
+    return Number(newScoreStr);
   }
 
   // --- CONDITIONS "VERT" DES BOUTONS ---
@@ -389,11 +428,33 @@ export class GameBoardComponent implements OnInit {
     }
   }
 
-  private checkMinScore(num:number): number {
-    if (num < this.minScore) {
-      num = this.minScore - (num - this.minScore);
+  private applyBouncingBoundaries(num: number): number {
+    const range = this.maxScore - this.minScore;
+
+    // Si la plage est nulle ou invalide, on ne fait rien pour éviter les divisions par zéro.
+    if (range <= 0) {
+      return num;
     }
-    return num;
+
+    // 1. On normalise le nombre par rapport au minimum.
+    const normalizedNum = num - this.minScore;
+
+    // 2. On utilise le modulo sur le double de la plage pour simuler l'aller-retour.
+    let remainder = normalizedNum % (2 * range);
+
+    // S'assure que le reste est positif.
+    if (remainder < 0) {
+      remainder += (2 * range);
+    }
+
+    // 3. On détermine la position finale.
+    if (remainder < range) {
+      // Le nombre est dans la phase "montante" depuis le minScore.
+      return this.minScore + remainder;
+    } else {
+      // Le nombre est dans la phase "descendante" depuis le maxScore.
+      return this.maxScore - (remainder - range);
+    }
   }
 
   private calculerRacineNumerique(nombre:number): number {
@@ -449,5 +510,55 @@ export class GameBoardComponent implements OnInit {
       result *= i;
     }
     return result;
+  }
+
+  private animateScoreTo(targetScore: number, onComplete?: () => void): void {
+    // On arrondit la cible pour éviter les problèmes de nombres à virgule
+    targetScore = Math.round(targetScore);
+    const startScore = this.score;
+
+    if (targetScore === startScore) return;
+
+    this.isAnimatingScore = true;
+
+    // Facteur de vitesse d'animation : plus il est petit, plus l'animation est lente.
+    const easingFactor = 0.2;
+
+    const stepAnimation = () => {
+      if (!this.isAnimatingScore) return;
+
+      // --- NOUVELLE LOGIQUE DE VITESSE DYNAMIQUE ---
+      const remainingDistance = targetScore - this.score;
+
+      // Si on est très proche de la fin, on termine l'animation proprement.
+      if (Math.abs(remainingDistance) < 1) {
+        this.score = targetScore;
+        this.displayedScore = targetScore;
+        this.isAnimatingScore = false;
+        onComplete?.();
+        return;
+      }
+
+      // Le pas est une fraction de la distance restante (avec un minimum de 1).
+      let step = remainingDistance * easingFactor;
+
+      // On s'assure que le pas est au moins de 1 (ou -1) pour ne pas être bloqué.
+      if (Math.abs(step) < 1) {
+        step = Math.sign(step); // Renvoie 1 ou -1
+      }
+
+      // --- Progression et affichage ---
+      this.score += step;
+
+      // La magnitude du pas actuel, pour le brouillage des chiffres.
+      const stepMagnitude = Math.abs(Math.round(step));
+      const scramblingDigits = stepMagnitude > 1 ? Math.floor(Math.random() * stepMagnitude) : 0;
+
+      this.displayedScore = Math.floor(this.score / stepMagnitude) * stepMagnitude + scramblingDigits;
+
+      requestAnimationFrame(stepAnimation);
+    };
+
+    requestAnimationFrame(stepAnimation);
   }
 }

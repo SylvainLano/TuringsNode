@@ -1,0 +1,23 @@
+[
+  {
+    "levelNumber": 1,
+    "startScore": 10,
+    "minScore": 7,
+    "buttons": [
+      { "name": "Primer", "initialValue": 1 },
+      { "name": "Split", "initialValue": 2 },
+      { "name": "Boost", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 2,
+    "startScore": 100,
+    "minScore": 10,
+    "buttons": [
+      { "name": "Primer", "initialValue": 1 },
+      { "name": "Split", "initialValue": 2 },
+      { "name": "Boost", "initialValue": 3 },
+      { "name": "Digit", "initialValue": 4 }
+    ]
+  }
+]

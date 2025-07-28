@@ -1,17 +1,28 @@
 <div class="game-container">
-    <div class="score-display" [style.color]="getScoreColor()">{{ score | number:'1.0-0' }}</div>
+    <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore | number:'1.0-0' }}</div>
 
-    <div class="button-container">
+    <div *ngIf="gameState !== 'level_complete'" class="button-container">
         <button
             *ngFor="let button of buttons"
             class="game-button"
             [ngClass]="button.colorClass"
             (click)="onButtonClick(button)"
-            [class.is-disabled]="button.isDisabled">
+            [class.is-disabled]="isAnimatingScore || button.isDisabled"
+            [disabled]="isAnimatingScore || button.isDisabled">
 
             <span class="button-label">{{ button.name }}</span>
 
             <span class="background-number">{{ button.value }}</span>
         </button>
+    </div>
+
+    <div *ngIf="gameState === 'level_complete'" class="level-complete-container" [style.color]="getScoreColor()">
+      <h2>Niveau {{ levelService.currentLevelNumber() }} terminé !</h2>
+      <div class="stats">
+        <p>Nombre de clics : <strong>{{ levelClicks }}</strong></p>
+      </div>
+      <button class="next-level-button" (click)="goToNextLevel()">
+        Niveau Suivant
+      </button>
     </div>
 </div>

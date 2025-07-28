@@ -12,7 +12,7 @@ Each buttons have an effect on the score, and each one have a different conditio
 ### The Background
 Reach hidden milestones to get a different background.
 
-### The Goal
+### The Goal so far
 Turn at least 7 buttons to green !
 
 ## Development
