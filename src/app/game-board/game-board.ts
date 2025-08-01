@@ -2,6 +2,7 @@ import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
+import { ActivatedRoute } from '@angular/router';
 
 // Interface pour typer nos objets boutons, pour un code plus sûr
 interface GameButton {
@@ -25,6 +26,10 @@ export interface Level {
   startScore: number;
   minScore: number | null;
   maxScore: number | null;
+  minSteps: number;
+  goldSteps: number;
+  silverSteps: number;
+  bronzeSteps: number;
   buttons: LevelButtonConfig[];
 }
 
@@ -41,6 +46,7 @@ export interface Level {
 export class GameBoardComponent implements OnInit {
 
   public gameState: 'playing' | 'level_complete' = 'playing';
+  public earnedMedal: string | null = null;
   public levelClicks: number = 0;
   private score: number = 42;
   public displayedScore: number = 42;
@@ -54,19 +60,45 @@ export class GameBoardComponent implements OnInit {
   private timestampBgChange: number = 0;
   private readonly SPECIAL_BG_CLICK_LIMIT = 25;
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
+  private initialSetupDone = false;
 
   constructor(
     private backgroundService: BackgroundService,
-    public levelService: LevelService
+    public levelService: LevelService,
+    private route: ActivatedRoute
   ) {
-    // On crée un effect qui observe la liste des niveaux du service
+    // L'effect reste bien dans le constructor
     effect(() => {
       const allLevels = this.levelService.levels();
-      const levelNum = this.levelService.currentLevelNumber();
 
-      // Si la liste des niveaux n'est plus vide, ça veut dire que le JSON est chargé
       if (allLevels.length > 0) {
-        const levelData = allLevels.find(l => l.levelNumber === levelNum);
+
+        // On n'exécute cette partie qu'une seule fois au démarrage
+        if (!this.initialSetupDone) {
+          this.initialSetupDone = true; // On lève le drapeau immédiatement
+
+          const params = this.route.snapshot.queryParamMap;
+          const orderParam = params.get('order');
+          const startParam = params.get('start');
+
+          let processedLevels = [...allLevels];
+
+          if (orderParam === 'reverse') {
+            processedLevels.reverse();
+            // On met à jour le service avec la liste potentiellement inversée
+            this.levelService.levels.set(processedLevels);
+          }
+
+          let startLevelNum = processedLevels[0].levelNumber;
+          if (startParam === 'last') {
+            startLevelNum = processedLevels[processedLevels.length - 1].levelNumber;
+          }
+
+          this.levelService.currentLevelNumber.set(startLevelNum);
+        }
+
+        // Cette partie s'exécutera à chaque changement de niveau (y compris le premier)
+        const levelData = this.levelService.currentLevelData();
         if (levelData) {
           this.setupLevel(levelData);
         }
@@ -84,6 +116,7 @@ export class GameBoardComponent implements OnInit {
 
     // Réinitialisation des états du jeu
     this.backgroundHasPriority = false;
+    this.specialBackground = null;
     this.score = levelData.startScore;
     if (levelData.minScore) { this.minScore = levelData.minScore}
     if (levelData.maxScore) { this.maxScore = levelData.maxScore}
@@ -122,6 +155,14 @@ export class GameBoardComponent implements OnInit {
     this.backgroundService.changeBackground(this.getDefaultThemeName());
   }
 
+  public retryLevel(): void {
+    const levelData = this.levelService.currentLevelData();
+    if (levelData) {
+      this.setupLevel(levelData);
+      this.backgroundService.changeBackground(this.getDefaultThemeName());
+    }
+  }
+
   /**
    * Méthode centrale appelée au clic sur n'importe quel bouton.
    * @param button L'objet bouton sur lequel on a cliqué
@@ -144,7 +185,7 @@ export class GameBoardComponent implements OnInit {
     }
 
     newScore = this.applyBouncingBoundaries(newScore);
-      this.animateScoreTo(newScore, () => {
+    this.animateScoreTo(newScore, () => {
       // Ce code ne s'exécutera QUE lorsque le score aura atteint sa cible
       this.updateAllButtonColors();
       this.updateAllButtonDisabledStates();
@@ -212,6 +253,7 @@ export class GameBoardComponent implements OnInit {
       targetTheme = 'constellation';
       this.backgroundHasPriority = true;
       this.gameState = 'level_complete';
+      this.calculateEarnedMedal();
     } else {
       this.backgroundHasPriority = false;
       if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
@@ -315,7 +357,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   private performReduceAction(button: GameButton): number {
-    return Math.ceil(this.score ** (1 / button.value));
+    return Math.ceil(this.score / (button.value * button.value));
   }
 
   private performAlignAction(button: GameButton): number {
@@ -375,8 +417,15 @@ export class GameBoardComponent implements OnInit {
   }
 
   private isReduceConditionMet(button: GameButton): boolean {
-    // Le bouton est vert si le score est une puissance parfaite de la valeur du bouton
-    return this.estPuissanceParfaiteLog(this.score, button.value);
+    // On boucle sur des carrés parfaits (4, 9, 16, 25...) jusqu'à la valeur du score
+    for (let i = 2; i * i <= this.score; i++) {
+      const perfectSquare = i * i;
+      // Si le score est un multiple d'un carré parfait, la condition est remplie
+      if (this.score % perfectSquare === 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private isAlignConditionMet(button: GameButton): boolean {
@@ -470,23 +519,6 @@ export class GameBoardComponent implements OnInit {
     return nombre;
   }
 
-  private estPuissanceParfaiteLog(score:number, bouton:number): boolean {
-    // Une puissance ne peut pas être calculée avec une base inférieure ou égale à 1
-    // (sauf le cas trivial 1^n = 1).
-    if (bouton <= 1) {
-      return score === 1;
-    }
-
-    // Calcule l'exposant 'n' potentiel
-    const exposant = Math.log(score) / Math.log(bouton);
-
-    // Arrondit au nombre entier le plus proche pour contrer les imprécisions
-    const exposantArrondi = Math.round(exposant);
-
-    // Vérifie si la base élevée à la puissance de l'exposant arrondi redonne bien le score original.
-    return Math.pow(bouton, exposantArrondi) === score;
-  }
-
   private estPalindrome(nombre: number): boolean {
     // Convertit le nombre en chaîne de caractères.
     const chaineOriginale = String(nombre);
@@ -560,5 +592,27 @@ export class GameBoardComponent implements OnInit {
     };
 
     requestAnimationFrame(stepAnimation);
+  }
+
+  private calculateEarnedMedal(): void {
+    const levelData = this.levelService.currentLevelData();
+    if (!levelData) {
+      this.earnedMedal = null;
+      return;
+    }
+
+    const clicks = this.levelClicks;
+
+    if (clicks <= levelData.minSteps) {
+      this.earnedMedal = 'Platine';
+    } else if (clicks <= levelData.goldSteps) {
+      this.earnedMedal = 'Or';
+    } else if (clicks <= levelData.silverSteps) {
+      this.earnedMedal = 'Argent';
+    } else if (clicks <= levelData.bronzeSteps) {
+      this.earnedMedal = 'Bronze';
+    } else {
+      this.earnedMedal = null; // Aucune médaille
+    }
   }
 }

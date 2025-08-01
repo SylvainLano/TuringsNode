@@ -17,10 +17,8 @@ Turn at least 7 buttons to green !
 
 ## Development
 
-### Todos
-- Add more button to provide variety in a multi-level context
+### Todos and ideas
+- Add more levels to create a real challenge
+- Add more buttons to provide variety in a multi-level context
 - Add optional rules for the same reason
-
-### Futures developments and ideas
-- Create a multi-level progression
 - Add new colors to the buttons with new related conditions to each

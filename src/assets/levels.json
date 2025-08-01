@@ -3,6 +3,11 @@
     "levelNumber": 1,
     "startScore": 10,
     "minScore": 7,
+    "maxScore": null,
+    "minSteps": 3,
+    "goldSteps": 7,
+    "silverSteps": 15,
+    "bronzeSteps": 30,
     "buttons": [
       { "name": "Primer", "initialValue": 1 },
       { "name": "Split", "initialValue": 2 },
@@ -11,13 +16,32 @@
   },
   {
     "levelNumber": 2,
-    "startScore": 100,
-    "minScore": 10,
+    "startScore": 18,
+    "minScore": 9,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 6,
+    "silverSteps": 8,
+    "bronzeSteps": 12,
     "buttons": [
-      { "name": "Primer", "initialValue": 1 },
       { "name": "Split", "initialValue": 2 },
-      { "name": "Boost", "initialValue": 3 },
-      { "name": "Digit", "initialValue": 4 }
+      { "name": "Boost", "initialValue": 4 },
+      { "name": "Digit", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 3,
+    "startScore": 17874,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Align", "initialValue": 6 },
+      { "name": "Digit", "initialValue": 7 },
+      { "name": "Reduce", "initialValue": 8 }
     ]
   }
 ]

@@ -21,8 +21,38 @@
       <div class="stats">
         <p>Nombre de clics : <strong>{{ levelClicks }}</strong></p>
       </div>
-      <button class="next-level-button" (click)="goToNextLevel()">
-        Niveau Suivant
-      </button>
+
+      <div *ngIf="earnedMedal; else noMedal" class="medal-display">
+        <span class="medal-icon">
+          <ng-container [ngSwitch]="earnedMedal">
+            <span *ngSwitchCase="'Platine'">💎</span>
+            <span *ngSwitchCase="'Or'">🥇</span>
+            <span *ngSwitchCase="'Argent'">🥈</span>
+            <span *ngSwitchCase="'Bronze'">🥉</span>
+          </ng-container>
+        </span>
+        <span class="medal-text">Médaille de {{ earnedMedal }} !</span>
+      </div>
+
+      <div class="stats">
+        <span class="medal-description" [ngSwitch]="earnedMedal">
+          <span *ngSwitchCase="'Platine'">Nombre de coups minimum découvert !</span>
+          <span *ngSwitchCase="'Or'">Excellent !</span>
+          <span *ngSwitchCase="'Argent'">Très bien !</span>
+          <span *ngSwitchCase="'Bronze'">Assez bien !</span>
+        </span>
+      </div>
+
+      <ng-template #noMedal>
+        <div class="no-medal-display">
+          <p>Vous pouvez faire mieux !</p>
+          <span>Essayez de résoudre le niveau en moins de coups.</span>
+        </div>
+      </ng-template>
+
+      <div class="action-buttons">
+        <button class="retry-button" (click)="retryLevel()">Réessayer</button>
+        <button class="next-level-button" (click)="goToNextLevel()">Niveau Suivant</button>
+      </div>
     </div>
 </div>
