@@ -1,0 +1,33 @@
+{
+  "gameboard": {
+    "levelCompleteTitle": "Niveau {level} terminé !",
+    "clicksCount": "Nombre de clics",
+    "medalOf": "Médaille de {medalName} !",
+    "medalDescriptionPlatine": "Nombre de coups minimum découvert !",
+    "medalDescriptionOr": "Excellent !",
+    "medalDescriptionArgent": "Très bien !",
+    "medalDescriptionBronze": "Assez bien !",
+    "noMedalTitle": "Vous pouvez faire mieux !",
+    "noMedalSubtitle": "Essayez de résoudre le niveau en moins de coups.",
+    "retryButton": "Réessayer",
+    "nextLevelButton": "Niveau Suivant"
+  },
+  "level_data_not_found": "Données du niveau introuvable.",
+  "medals": {
+    "Platine": "Platine",
+    "Or": "Or",
+    "Argent": "Argent",
+    "Bronze": "Bronze"
+  },
+  "achievements": {
+    "golden_1": "Perfectly balanced.",
+    "golden_2": "That's just natural!",
+    "golden_3": "You want a piece of Pi?",
+    "golden_4": "WE HAVE TO GO BACK!",
+    "golden_5": "Things are heating up!",
+    "golden_6": "One quantum leap for mankind!",
+    "golden_7": "A transcendental discovery.",
+    "golden_8": "Permission to enter the vacuum granted.",
+    "golden_9": "We're going down, down..."
+  }
+}
