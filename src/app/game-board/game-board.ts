@@ -1,15 +1,20 @@
+import { TranslationService } from './../core/services/translation';
+import { NotificationService } from './../core/services/notification';
 import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
 import { ActivatedRoute } from '@angular/router';
+import { TranslatePipe } from '../shared/pipes/translate-pipe';
+import { AchievementService } from '../core/services/achievement';
 
 // Interface pour typer nos objets boutons, pour un code plus sûr
 interface GameButton {
   name: 'Primer' | 'Split' | 'Boost' | 'Digit' | 'Reduce' | 'Align' | 'Fiber' | 'Factor' | 'Cipher'; // Noms possibles pour les boutons
   value: number; // Le chiffre associé (1-9)
-  colorClass: 'is-green' | 'is-red'; // La classe CSS dynamique
+  colorClass: 'is-green' | 'is-red' | 'is-gold'; // La classe CSS dynamique
   isDisabled: boolean;
+  isConditionMet: boolean;
   totalClickCount: number;
   consecutiveClickCount: number;
   totalClickLimit: number|null;
@@ -37,7 +42,8 @@ export interface Level {
   selector: 'app-game-board',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    TranslatePipe
   ],
   templateUrl: './game-board.html',
   styleUrls: ['./game-board.scss']
@@ -54,7 +60,6 @@ export class GameBoardComponent implements OnInit {
   public buttons: GameButton[] = [];
   private minScore: number = 10;
   private maxScore: number = Number.MAX_SAFE_INTEGER;
-  private backgroundHasPriority: boolean = false;
   private specialBackground: string | null = null;
   private clicksSinceBgChange: number = 0;
   private timestampBgChange: number = 0;
@@ -62,10 +67,26 @@ export class GameBoardComponent implements OnInit {
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
   private initialSetupDone = false;
 
+  // On stocke les constantes sous forme de chaînes de caractères pour éviter les limites de précision
+  private readonly FAMOUS_NUMBERS: Record<number, string> = {
+    1: '16180339887', // Nombre d'or (Phi)
+    2: '27182818284', // Nombre d'Euler (e)
+    3: '31415926535', // Pi (π)
+    4: '4815162342',  // Série de nombres dans Lost
+    5: '5670374419',  // Constante de Stefan-Boltzmann
+    6: '662607015',   // Constante de Planck
+    7: '76009024595', // ln(2000)
+    8: '88541878128', // Permittivité du vide
+    9: '299792458'    // Vitesse de la lumière
+  };
+
   constructor(
     private backgroundService: BackgroundService,
+    private notificationService: NotificationService,
+    private translationService: TranslationService,
     public levelService: LevelService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private achievementService: AchievementService
   ) {
     // L'effect reste bien dans le constructor
     effect(() => {
@@ -115,7 +136,6 @@ export class GameBoardComponent implements OnInit {
     }
 
     // Réinitialisation des états du jeu
-    this.backgroundHasPriority = false;
     this.specialBackground = null;
     this.score = levelData.startScore;
     if (levelData.minScore) { this.minScore = levelData.minScore}
@@ -129,7 +149,8 @@ export class GameBoardComponent implements OnInit {
       this.createButton(config.name as GameButton['name'], config.initialValue)
     );
 
-    // Mise à jour de l'affichage
+    // Mise à jour des boutons
+    this.updateAllButtonStates();
     this.updateAllButtonColors();
     this.updateAllButtonDisabledStates();
   }
@@ -143,6 +164,7 @@ export class GameBoardComponent implements OnInit {
       value: value,
       colorClass: 'is-red', // Valeur par défaut
       isDisabled: false, // Valeur par défaut
+      isConditionMet: false, // Valeur par défaut
       totalClickCount: 0, // Valeur par défaut
       consecutiveClickCount: 0, // Valeur par défaut
       totalClickLimit: null, // Valeur par défaut
@@ -184,16 +206,18 @@ export class GameBoardComponent implements OnInit {
       case 'Cipher': newScore = this.performCipherAction(button); break;
     }
 
+    // 2. Incrémente la valeur du bouton cliqué (de 1 à 9, puis revient à 1)
+    button.value = (button.value % 9) + 1;
+
     newScore = this.applyBouncingBoundaries(newScore);
     this.animateScoreTo(newScore, () => {
       // Ce code ne s'exécutera QUE lorsque le score aura atteint sa cible
+      this.updateAllButtonStates();
       this.updateAllButtonColors();
       this.updateAllButtonDisabledStates();
+      this.checkGameState();
       this.checkBackgroundConditions();
     });
-
-    // 2. Incrémente la valeur du bouton cliqué (de 1 à 9, puis revient à 1)
-    button.value = (button.value % 9) + 1;
 
     // Mise à jour des compteurs de clics
     this.levelClicks++;
@@ -212,7 +236,7 @@ export class GameBoardComponent implements OnInit {
   /**
    * Met à jour la classe de couleur pour chaque bouton en fonction de sa condition.
    */
-  private updateAllButtonColors(): void {
+  private updateAllButtonStates(): void {
     this.buttons.forEach(button => {
       let isConditionMet = false;
       switch (button.name) {
@@ -226,7 +250,30 @@ export class GameBoardComponent implements OnInit {
         case 'Factor': isConditionMet = this.isFactorConditionMet(); break;
         case 'Cipher': isConditionMet = this.isCipherConditionMet(); break;
       }
-      button.colorClass = isConditionMet ? 'is-green' : 'is-red';
+      button.isConditionMet = isConditionMet;
+    });
+  }
+
+  // Met à jour la couleur en se basant sur l'état logique
+  private updateAllButtonColors(): void {
+    const scoreStr = String(this.score);
+    this.buttons.forEach(button => {
+      if (button.isConditionMet) {
+        button.colorClass = 'is-green';
+      } else {
+        button.colorClass = 'is-red';
+      }
+
+      // --- CONDITION SPÉCIALE "OR" ---
+      const famousNumber = this.FAMOUS_NUMBERS[button.value];
+      // On vérifie si le score a au moins 4 chiffres et s'il est le début du nombre célèbre associé.
+      if (famousNumber && scoreStr.length >= 4 && famousNumber.startsWith(scoreStr)) {
+        button.colorClass = 'is-gold';
+
+        // On récupère le nom traduit de la constante
+        const achievementId = `golden_${button.value}`;
+        this.achievementService.unlock(achievementId);
+      }
     });
   }
 
@@ -244,57 +291,63 @@ export class GameBoardComponent implements OnInit {
     return this.backgroundService.state().scoreColor;
   }
 
-  private checkBackgroundConditions(): void {
-    // --- ÉTAPE 1 : QUEL THÈME DEVRAIT ÊTRE ACTIF MAINTENANT ? ---
+// Dans game-board.ts
 
-    let targetTheme: string | null = null;
+/**
+ * Logique de l'état de victoire/défaite.
+ */
+private checkGameState(): void {
+  if (this.gameState !== 'playing') return;
 
-    if (this.buttons.every(btn => btn.colorClass === 'is-green')) {
-      targetTheme = 'constellation';
-      this.backgroundHasPriority = true;
-      this.gameState = 'level_complete';
-      this.calculateEarnedMedal();
-    } else {
-      this.backgroundHasPriority = false;
-      if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
-        targetTheme = 'angry';
-      } else if (/^[01]{8}$/.test(String(this.score))) {
-        targetTheme = 'matrix';
-      } else if (this.score === this.minScore) {
-        targetTheme = 'snow';
-      }
-    }
+  if (this.buttons.every(btn => btn.isConditionMet)) {
+    this.gameState = 'level_complete';
+    this.calculateEarnedMedal();
+    const currentLevelNum = this.levelService.currentLevelNumber();
+    this.levelService.markLevelAsComplete(currentLevelNum);
+  }
+}
 
-    // --- ÉTAPE 2 : GESTION DES THÈMES SPÉCIAUX ---
+/**
+ * Logique du fond d'écran.
+ */
+private checkBackgroundConditions(): void {
+  // --- ÉTAPE 1 : Si on a gagné, forcer le thème de victoire ---
+  if (this.gameState === 'level_complete') {
+    this.backgroundService.changeBackground('constellation');
+    return; // On arrête tout, la victoire a la priorité
+  }
 
-    if (targetTheme) { // Si une condition spéciale est remplie
-      // On réinitialise les compteurs
-      this.clicksSinceBgChange = 0;
-      this.timestampBgChange = Date.now();
+  // --- ÉTAPE 2 : Gérer l'expiration d'un thème en cours ---
+  if (this.specialBackground) {
+    this.clicksSinceBgChange++;
+    const timeElapsed = Date.now() - this.timestampBgChange;
+    const clicksReached = this.clicksSinceBgChange >= this.SPECIAL_BG_CLICK_LIMIT;
+    const timeReached = timeElapsed >= this.SPECIAL_BG_TIME_LIMIT_MS;
 
-      // On ne change le fond QUE si le nouveau thème est différent de l'actuel
-      if (this.specialBackground !== targetTheme) {
-        this.backgroundService.changeBackground(targetTheme);
-        this.specialBackground = targetTheme;
-      }
-      return;
-    }
-
-    // --- ÉTAPE 3 : GESTION DE L'EXPIRATION ET DU RETOUR AU DÉFAUT ---
-
-    if (this.specialBackground) {
-      this.clicksSinceBgChange++;
-      const timeElapsed = Date.now() - this.timestampBgChange;
-      const clicksReached = this.clicksSinceBgChange >= this.SPECIAL_BG_CLICK_LIMIT;
-      const timeReached = timeElapsed >= this.SPECIAL_BG_TIME_LIMIT_MS;
-
-      if (clicksReached || timeReached) {
-        // Le thème a expiré, on revient à celui par défaut
-        this.backgroundService.changeBackground(this.getDefaultThemeName());
-        this.specialBackground = null;
-      }
+    if (clicksReached || timeReached) {
+      this.backgroundService.changeBackground(this.getDefaultThemeName());
+      this.specialBackground = null;
+      return; // Le thème a expiré, on arrête.
     }
   }
+
+  // --- ÉTAPE 3 : Vérifier si un nouveau thème doit s'activer ---
+  let targetTheme: string | null = null;
+  if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
+    targetTheme = 'angry';
+  } else if (/^[01]{8}$/.test(String(this.score))) {
+    targetTheme = 'matrix';
+  } else if (this.score === this.minScore) {
+    targetTheme = 'snow';
+  }
+
+  if (targetTheme && this.specialBackground !== targetTheme) {
+    this.backgroundService.changeBackground(targetTheme);
+    this.specialBackground = targetTheme;
+    this.clicksSinceBgChange = 0;
+    this.timestampBgChange = Date.now();
+  }
+}
 
   private getDefaultThemeName(): 'day' | 'night' {
     const now = new Date();

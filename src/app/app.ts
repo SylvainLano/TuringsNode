@@ -3,11 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from './core/services/background';
 import { ParticlesBackgroundComponent } from './shared/components/particles-background/particles-background';
+import { NotificationComponent } from './shared/components/notification/notification';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, ParticlesBackgroundComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    ParticlesBackgroundComponent,
+    NotificationComponent
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

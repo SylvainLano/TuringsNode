@@ -1,5 +1,5 @@
 <div class="game-container">
-    <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore | number:'1.0-0' }}</div>
+    <div *ngIf="gameState !== 'level_complete'" class="score-display" [style.color]="getScoreColor()">{{ displayedScore | number:'1.0-0' }}</div>
 
     <div *ngIf="gameState !== 'level_complete'" class="button-container">
         <button
@@ -17,9 +17,9 @@
     </div>
 
     <div *ngIf="gameState === 'level_complete'" class="level-complete-container" [style.color]="getScoreColor()">
-      <h2>Niveau {{ levelService.currentLevelNumber() }} terminé !</h2>
+      <h2>{{ 'gameboard.levelCompleteTitle' | translate:{ level: levelService.currentLevelNumber() } }}</h2>
       <div class="stats">
-        <p>Nombre de clics : <strong>{{ levelClicks }}</strong></p>
+        <p>{{ 'gameboard.clicksCount' | translate }} : <strong>{{ levelClicks }}</strong></p>
       </div>
 
       <div *ngIf="earnedMedal; else noMedal" class="medal-display">
@@ -31,28 +31,30 @@
             <span *ngSwitchCase="'Bronze'">🥉</span>
           </ng-container>
         </span>
-        <span class="medal-text">Médaille de {{ earnedMedal }} !</span>
+        <span class="medal-text">
+          {{ 'gameboard.medalOf' | translate:{ medalName: ('medals.' + earnedMedal | translate) } }}
+        </span>
       </div>
 
       <div class="stats">
         <span class="medal-description" [ngSwitch]="earnedMedal">
-          <span *ngSwitchCase="'Platine'">Nombre de coups minimum découvert !</span>
-          <span *ngSwitchCase="'Or'">Excellent !</span>
-          <span *ngSwitchCase="'Argent'">Très bien !</span>
-          <span *ngSwitchCase="'Bronze'">Assez bien !</span>
+          <span *ngSwitchCase="'Platine'">{{ 'gameboard.medalDescriptionPlatine' | translate }}</span>
+          <span *ngSwitchCase="'Or'">{{ 'gameboard.medalDescriptionOr' | translate }}</span>
+          <span *ngSwitchCase="'Argent'">{{ 'gameboard.medalDescriptionArgent' | translate }}</span>
+          <span *ngSwitchCase="'Bronze'">{{ 'gameboard.medalDescriptioBronze' | translate }}</span>
         </span>
       </div>
 
       <ng-template #noMedal>
         <div class="no-medal-display">
-          <p>Vous pouvez faire mieux !</p>
-          <span>Essayez de résoudre le niveau en moins de coups.</span>
+          <p>{{ 'gameboard.noMedalTitle' | translate }}</p>
+          <span>{{ 'gameboard.noMedalSubtitle' | translate }}</span>
         </div>
       </ng-template>
 
       <div class="action-buttons">
-        <button class="retry-button" (click)="retryLevel()">Réessayer</button>
-        <button class="next-level-button" (click)="goToNextLevel()">Niveau Suivant</button>
+        <button class="retry-button" (click)="retryLevel()">{{ 'gameboard.retryButton' | translate }}</button>
+        <button class="next-level-button" (click)="goToNextLevel()">{{ 'gameboard.nextLevelButton' | translate }}</button>
       </div>
     </div>
 </div>

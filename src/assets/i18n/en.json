@@ -1,0 +1,33 @@
+{
+  "gameboard": {
+    "levelCompleteTitle": "Level {level} complete !",
+    "clicksCount": "Clic number",
+    "medalOf": "{medalName} medal !",
+    "medalDescriptionPlatine": "Optimal solution discovered!",
+    "medalDescriptionOr": "Excellent!",
+    "medalDescriptionArgent": "Great job!",
+    "medalDescriptionBronze": "Nice work!",
+    "noMedalTitle": "You can do better!",
+    "noMedalSubtitle": "Try to solve the level in fewer steps.",
+    "retryButton": "Retry",
+    "nextLevelButton": "Next Level"
+  },
+  "level_data_not_found": "Level data not found.",
+  "medals": {
+    "Platine": "Platinum",
+    "Or": "Gold",
+    "Argent": "Silver",
+    "Bronze": "Bronze"
+  },
+  "achievements": {
+    "golden_1": "Perfectly balanced.",
+    "golden_2": "That's just natural!",
+    "golden_3": "You want a piece of Pi?",
+    "golden_4": "WE HAVE TO GO BACK!",
+    "golden_5": "Things are heating up!",
+    "golden_6": "One quantum leap for mankind!",
+    "golden_7": "A transcendental discovery.",
+    "golden_8": "Permission to enter the vacuum granted.",
+    "golden_9": "We're going down, down..."
+  }
+}

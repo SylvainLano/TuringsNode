@@ -4,6 +4,7 @@
 /* Définition des variables de couleur pour une maintenance facile */
 $color-white: #ffffff;
 $color-gray-light: #e2e8f0;
+$color-dark: #2D3748;
 
 $color-green: #48bb78;
 $color-green-dark: #2f855a;
@@ -12,6 +13,10 @@ $color-green-light: #68d391;
 $color-red: #f56565;
 $color-red-dark: #c53030;
 $color-red-light: #fc8181;
+
+$color-gold: #F6E05E;
+$color-gold-dark: #D69E2E;
+$color-gold-light: #FAF089;
 
 /* Styles pour le conteneur principal et le score */
 .game-container {
@@ -100,6 +105,16 @@ $color-red-light: #fc8181;
     &:hover {
         background-color: $color-red-light;
     }
+}
+
+/* Classe pour un bouton "doré" (Jackpot) */
+.is-gold {
+  background-color: $color-gold; // Jaune-or
+  border-color: $color-gold-dark;
+  color: $color-dark; // Texte sombre pour la lisibilité
+  &:hover {
+    background-color: $color-gold-light;
+  }
 }
 
 /* Style pour un bouton "logiquement" désactivé */
