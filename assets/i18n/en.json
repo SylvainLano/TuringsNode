@@ -20,14 +20,55 @@
     "Bronze": "Bronze"
   },
   "achievements": {
-    "golden_1": "Perfectly balanced.",
-    "golden_2": "That's just natural!",
-    "golden_3": "You want a piece of Pi?",
-    "golden_4": "WE HAVE TO GO BACK!",
-    "golden_5": "Things are heating up!",
-    "golden_6": "One quantum leap for mankind!",
-    "golden_7": "A transcendental discovery.",
-    "golden_8": "Permission to enter the vacuum granted.",
-    "golden_9": "We're going down, down..."
+    "title": "Unlocked Achievements",
+    "backButton": "Back to Menu",
+    "golden_1": {
+      "title": "Perfectly balanced.",
+      "description": "Discover the Golden Ratio (Phi) constant."
+    },
+    "golden_2": {
+      "title": "That's just natural!",
+      "description": "Discover Euler's Number (e)."
+    },
+    "golden_3": {
+      "title": "You want a piece of Pi?",
+      "description": "Discover the Pi (π) constant."
+    },
+    "golden_4": {
+      "title": "WE HAVE TO GO BACK!",
+      "description": "Discover the sequence from the Lost series."
+    },
+    "golden_5": {
+      "title": "Things are heating up!",
+      "description": "Discover the Stefan-Boltzmann constant."
+    },
+    "golden_6": {
+      "title": "A quantum leap!",
+      "description": "Discover the Planck constant."
+    },
+    "golden_7": {
+      "title": "A wild logarithm appears!",
+      "description": "Discover the natural logarithm of 2000."
+    },
+    "golden_8": {
+      "title": "Permission to enter the vacuum granted.",
+      "description": "Discover vacuum permittivity."
+    },
+    "golden_9": {
+      "title": "Engage warp speed!",
+      "description": "Discover the speed of light constant."
+    }
+  },
+  "menu": {
+    "title": "Turings Node",
+    "playButton": "Start",
+    "continueButton": "Continue",
+    "levelSelectButton": "Level select",
+    "restartButton": "Restart",
+    "achievementsButton": "Achievements"
+  },
+  "levelSelect": {
+    "title": "Level selection",
+    "backButton": "Back"
   }
 }

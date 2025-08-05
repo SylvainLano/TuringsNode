@@ -20,14 +20,55 @@
     "Bronze": "Bronze"
   },
   "achievements": {
-    "golden_1": "Perfectly balanced.",
-    "golden_2": "That's just natural!",
-    "golden_3": "You want a piece of Pi?",
-    "golden_4": "WE HAVE TO GO BACK!",
-    "golden_5": "Things are heating up!",
-    "golden_6": "One quantum leap for mankind!",
-    "golden_7": "A transcendental discovery.",
-    "golden_8": "Permission to enter the vacuum granted.",
-    "golden_9": "We're going down, down..."
+    "title": "Succès Déverrouillés",
+    "backButton": "Retour au Menu",
+    "golden_1": {
+      "title": "Proportions divines !",
+      "description": "Découvrir la constante du Nombre d'Or (Phi)."
+    },
+    "golden_2": {
+      "title": "Naturellement exponentiel.",
+      "description": "Découvrir la constante du Nombre d'Euler (e)."
+    },
+    "golden_3": {
+      "title": "Vous voulez une part de Tarte (π) ?",
+      "description": "Découvrir la constante Pi (π)."
+    },
+    "golden_4": {
+      "title": "On doit retourner sur l'île !",
+      "description": "Découvrir la séquence de la série Lost."
+    },
+    "golden_5": {
+      "title": "Ça chauffe !",
+      "description": "Découvrir la constante de Stefan-Boltzmann."
+    },
+    "golden_6": {
+      "title": "Un saut quantique !",
+      "description": "Découvrir la constante de Planck."
+    },
+    "golden_7": {
+      "title": "Un logarithme sauvage apparaît !",
+      "description": "Découvrir le logarithme népérien de 2000."
+    },
+    "golden_8": {
+      "title": "Le vide n'est pas si vide.",
+      "description": "Découvrir la permittivité du vide."
+    },
+    "golden_9": {
+      "title": "Vitesse lumière engagée !",
+      "description": "Découvrir la constante de la vitesse de la lumière."
+    }
+  },
+  "menu": {
+    "title": "Turings Node",
+    "playButton": "Commencer",
+    "continueButton": "Continuer",
+    "levelSelectButton": "Sélection du niveau",
+    "restartButton": "Recommencer",
+    "achievementsButton": "Succès"
+  },
+  "levelSelect": {
+    "title": "Sélection du niveau",
+    "backButton": "Retour"
   }
 }
