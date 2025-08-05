@@ -258,3 +258,35 @@ $color-gold-light: #FAF089;
     transform: translateY(-2px);
   }
 }
+
+/* Style pour le bouton de retour au menu */
+.back-to-menu-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background-color: rgba(45, 55, 72, 0.4); // Un gris un peu plus sombre
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    stroke: #ffffff;
+  }
+
+  &:hover {
+    background-color: rgba(45, 55, 72, 0.6);
+    transform: scale(1.1);
+  }
+}

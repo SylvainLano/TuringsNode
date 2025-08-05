@@ -27,8 +27,9 @@ export class LevelService {
   public readonly levels = signal<Level[]>([]);
   public readonly currentLevelNumber = signal(1);
 
-  public readonly completedLevels = signal<number[]>([]);
-  private readonly COMPLETED_LEVELS_KEY = 'turings_node_completed_levels';
+  public readonly bestMedals = signal<Record<number, string>>({});
+  private readonly BEST_MEDALS_KEY = 'turings_node_best_medals';
+  private readonly MEDAL_HIERARCHY = ['Terminé', 'Bronze', 'Argent', 'Or', 'Platine'];
 
   public readonly currentLevelData = computed(() => {
     const allLevels = this.levels();
@@ -43,10 +44,9 @@ export class LevelService {
     this.http.get<Level[]>('assets/levels.json').subscribe(data => {
       this.levels.set(data);
 
-      // On charge la liste des niveaux terminés depuis la sauvegarde
-      const savedCompleted = this.storageService.getData(this.COMPLETED_LEVELS_KEY);
-      if (Array.isArray(savedCompleted)) {
-        this.completedLevels.set(savedCompleted);
+      const savedMedals = this.storageService.getData(this.BEST_MEDALS_KEY);
+      if (savedMedals) {
+        this.bestMedals.set(savedMedals);
       }
 
       // On définit le niveau de départ comme le premier niveau non terminé
@@ -54,31 +54,43 @@ export class LevelService {
     });
   }
 
-  // Marquer un niveau comme terminé
-  public markLevelAsComplete(levelNumber: number): void {
-    // On met à jour le signal en ajoutant le nouveau niveau (s'il n'y est pas déjà)
-    this.completedLevels.update(completed => {
-      const levelSet = new Set(completed);
-      levelSet.add(levelNumber);
-      return [...levelSet];
-    });
+  public saveLevelResult(levelNumber: number, medal: string | null): void {
+    // Si le joueur n'a gagné aucune médaille, on considère le niveau comme "Terminé".
+    const resultToSave = medal || 'Terminé';
 
-    // On sauvegarde la nouvelle liste
-    this.storageService.saveData(this.COMPLETED_LEVELS_KEY, this.completedLevels());
+    const currentBestMedals = this.bestMedals();
+    const existingResult = currentBestMedals[levelNumber];
+
+    // On compare la valeur du nouveau résultat avec l'ancien
+    const newResultValue = this.MEDAL_HIERARCHY.indexOf(resultToSave);
+    const existingResultValue = existingResult ? this.MEDAL_HIERARCHY.indexOf(existingResult) : -1;
+
+    // On ne sauvegarde que si le nouveau résultat est meilleur (ou si c'est la première fois)
+    if (newResultValue > existingResultValue) {
+      this.bestMedals.update(medals => ({
+        ...medals,
+        [levelNumber]: resultToSave
+      }));
+      this.storageService.saveData(this.BEST_MEDALS_KEY, this.bestMedals());
+    }
   }
 
-  // Déterminer le niveau de départ
   private setInitialLevel(): void {
-    const completed = this.completedLevels();
+    const bestMedals = this.bestMedals();
+    const completedLevels = Object.keys(bestMedals).map(Number);
+
     let highestConsecutive = 0;
     for (let i = 1; i <= this.levels().length; i++) {
-      if (completed.includes(i)) {
+      if (completedLevels.includes(i)) {
         highestConsecutive = i;
       } else {
-        break; // On a trouvé le premier niveau non terminé
+        break;
       }
     }
-    this.currentLevelNumber.set(highestConsecutive + 1);
+    // On commence au niveau suivant le plus haut niveau consécutif terminé
+    // ou au dernier niveau si tout est terminé
+    const startLevel = Math.min(highestConsecutive + 1, this.levels().length || 1);
+    this.currentLevelNumber.set(startLevel);
   }
 
   public advanceToNextLevel(): void {
@@ -91,5 +103,9 @@ export class LevelService {
     } else {
       console.log("Dernier niveau terminé !");
     }
+  }
+
+  public restartProgress(): void {
+    this.currentLevelNumber.set(1);
   }
 }

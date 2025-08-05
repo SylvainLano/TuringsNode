@@ -1,0 +1,29 @@
+<div class="level-select-container">
+  <h1 class="title">{{ 'levelSelect.title' | translate }}</h1>
+  <div class="levels-grid">
+    <a *ngFor="let level of allLevels()"
+      class="level-button"
+      [class.is-locked]="!isLevelUnlocked(level.levelNumber)"
+      (click)="selectLevel(level.levelNumber)">
+
+      <span class="level-number">{{ level.levelNumber }}</span>
+
+      <div class="icons-container">
+          <div class="medal-icon-display" [ngSwitch]="bestMedals()[level.levelNumber]">
+              <span *ngSwitchCase="'Platine'">💎</span>
+              <span *ngSwitchCase="'Or'">🥇</span>
+              <span *ngSwitchCase="'Argent'">🥈</span>
+              <span *ngSwitchCase="'Bronze'">🥉</span>
+              <span *ngSwitchCase="'Terminé'">✔️</span>
+          </div>
+
+          <span *ngIf="!isLevelUnlocked(level.levelNumber)" class="lock-icon">🔒</span>
+      </div>
+    </a>
+  </div>
+
+  <a routerLink="/" class="back-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    <span>{{ 'levelSelect.backButton' | translate }}</span>
+  </a>
+</div>

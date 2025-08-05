@@ -1,0 +1,64 @@
+// On peut toujours importer la base pour la police et l'animation fadeIn
+@import '../level-select/level-select.scss';
+
+// On surcharge les styles spécifiques à cette page
+
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1); // Bordure subtile
+  transition: all 0.3s ease;
+
+  // Style par défaut (verrouillé)
+  background-color: rgba(0, 0, 0, 0.5); // Fond sombre transparent
+
+  .achievement-icon {
+    font-size: 2.5em;
+    opacity: 0.4; // L'icône est estompée
+  }
+
+  .achievement-details {
+    text-align: left;
+  }
+
+  .achievement-title {
+    margin: 0 0 5px 0;
+    color: #A0AEC0; // Titre grisé
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .achievement-description {
+    margin: 0;
+    color: #718096; // Description encore plus sombre
+  }
+
+  // Style quand le succès est déverrouillé
+  &.is-unlocked {
+    background-color: rgba(45, 55, 72, 0.7);
+
+    .achievement-icon {
+      opacity: 1; // L'icône est vive
+    }
+
+    .achievement-title {
+      color: #F6E05E; // Couleur "or" pour le titre
+    }
+
+    .achievement-description {
+      color: #E2E8F0; // Texte blanc cassé pour une bonne lisibilité
+    }
+  }
+}

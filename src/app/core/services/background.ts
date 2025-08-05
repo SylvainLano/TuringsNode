@@ -42,4 +42,45 @@ export class BackgroundService {
       this.state.set(newConfig);
     }
   }
+
+  public getDefaultThemeName(): 'day' | 'night' {
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    // Calcule le jour de l'année (de 1 à 365)
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const diff = now.getTime() - startOfYear.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // On définit nos extrêmes pour l'hémisphère Nord
+    // Solstice d'hiver (jour ~170, le plus court) : nuit de 17h à 8h
+    const winterSunset = 17;
+    const winterSunrise = 8;
+    // Solstice d'été (jour ~172, le plus long) : nuit de 22h à 5h
+    const summerSunset = 22;
+    const summerSunrise = 5;
+
+    // On calcule la progression entre l'hiver et l'été.
+    // On utilise une fonction cosinus pour une transition douce et cyclique.
+    // Le résultat est entre -1 (pic de l'hiver) et 1 (pic de l'été).
+    const progress = Math.cos((dayOfYear - 172) * (2 * Math.PI / 365.25));
+
+    // On interpole les heures de lever et de coucher du soleil pour aujourd'hui
+    // (progress + 1) / 2 nous donne une valeur de 0 (hiver) à 1 (été)
+    const todaySunrise = winterSunrise + (summerSunrise - winterSunrise) * (progress + 1) / 2;
+    const todaySunset = winterSunset + (summerSunset - winterSunset) * (progress + 1) / 2;
+
+    // --- POUR L'HÉMISPHÈRE SUD ---
+    // Il suffirait d'inverser la progression :
+    // const progress = Math.cos((dayOfYear - 172 + 182.625) * (2 * Math.PI / 365.25));
+    // Ou plus simplement, d'inverser les valeurs été/hiver au début.
+
+    // On vérifie si l'heure actuelle est dans la plage de la nuit
+    if (currentHour >= todaySunset || currentHour < todaySunrise) {
+      return 'night';
+    }
+
+    return 'day';
+  }
 }

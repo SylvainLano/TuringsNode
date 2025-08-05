@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,700&display=swap');
+
+// On définit des variables locales pour le menu, inspirées de votre jeu
+$menu-text-color: #2d3748;
+$primary-button-bg: #4A5568;
+$primary-button-hover-bg: #2D3748;
+$secondary-button-border: #A0AEC0;
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  text-align: center;
+
+  h1 {
+    // On utilise la police Rubik pour le titre, comme pour votre score
+    font-family: 'Rubik', sans-serif;
+    font-size: 5em;
+    font-weight: 700;
+    font-style: italic;
+    color: $menu-text-color;
+    letter-spacing: -2px; // Resserre un peu les lettres
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Style de base partagé par tous les boutons du menu
+.menu-button {
+  display: block;
+  padding: 15px 40px;
+  border-radius: 8px;
+  border: 2px solid transparent; // Bordure transparente par défaut
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Style spécifique pour le bouton principal (Commencer / Continuer)
+.button-primary {
+  background-color: $primary-button-bg;
+
+  &:hover {
+    background-color: $primary-button-hover-bg;
+  }
+}
+
+// Style spécifique pour le bouton secondaire (Recommencer)
+.button-secondary {
+  background-color: transparent;
+  border-color: $secondary-button-border;
+  color: $menu-text-color;
+  font-size: 1em; // Un peu plus petit pour être moins proéminent
+  padding: 10px 30px;
+
+  &:hover {
+    background-color: rgba(45, 55, 72, 0.1);
+    color: $primary-button-hover-bg;
+    border-color: $primary-button-hover-bg;
+  }
+}
+
+.menu-button.is-disabled {
+  background: #A0AEC0; // Une couleur grise et neutre
+  color: #E2E8F0;
+  cursor: not-allowed;
+  pointer-events: none; // Désactive complètement les clics
+
+  // On s'assure qu'il n'y a pas d'effets au survol
+  &:hover {
+    transform: none;
+    box-shadow: none;
+    background: #A0AEC0;
+  }
+}

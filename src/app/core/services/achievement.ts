@@ -46,8 +46,7 @@ export class AchievementService {
     this.storageService.saveAchievements(achievements);
 
     // 3. On affiche la notification.
-    // On suppose que la clé de traduction est "achievement_unlock_" + l'ID du succès.
-    const message = this.translationService.translate(`achievements.${achievementId}`);
+    const message = this.translationService.translate(`achievements.${achievementId}.title`);
     this.notificationService.show(message);
   }
 }

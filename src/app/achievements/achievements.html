@@ -1,0 +1,25 @@
+<div class="achievements-container">
+  <h1 class="title">{{ 'achievements.title' | translate }}</h1>
+
+  <div class="achievements-list">
+    <div *ngFor="let achievementId of allAchievementsIds"
+         class="achievement-item"
+         [ngClass]="{ 'is-unlocked': unlockedAchievements().has(achievementId) }">
+
+      <div class="achievement-icon">
+        <span *ngIf="unlockedAchievements().has(achievementId); else locked">🏆</span>
+        <ng-template #locked><span>🔒</span></ng-template>
+      </div>
+
+      <div *ngIf="unlockedAchievements().has(achievementId)" class="achievement-details">
+        <h3 class="achievement-title">{{ 'achievements.' + achievementId + '.title' | translate }}</h3>
+        <p class="achievement-description">{{ 'achievements.' + achievementId + '.description' | translate }}</p>
+      </div>
+    </div>
+  </div>
+
+  <a routerLink="/" class="back-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    <span>{{ 'achievements.backButton' | translate }}</span>
+  </a>
+</div>

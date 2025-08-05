@@ -6,9 +6,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TranslationService {
   private translations = signal<any>({});
+  public readonly isLoaded = signal(false);
 
   constructor(private http: HttpClient) {
-    // Pour l'instant, on charge le français par défaut.
     // Plus tard, on pourrait détecter la langue du navigateur.
     this.loadTranslations('en');
   }
@@ -16,6 +16,7 @@ export class TranslationService {
   private loadTranslations(lang: string): void {
     this.http.get(`/assets/i18n/${lang}.json`).subscribe(data => {
       this.translations.set(data);
+      this.isLoaded.set(true);
     });
   }
 

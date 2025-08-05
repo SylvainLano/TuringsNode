@@ -1,0 +1,28 @@
+<div *ngIf="isTranslationsLoaded()" class="menu-container">
+  <h1>{{ 'menu.title' | translate }}</h1>
+  <div class="button-group">
+    <a *ngIf="hasSaveData" routerLink="/game" class="menu-button button-primary">
+      {{ 'menu.continueButton' | translate }}
+    </a>
+
+    <a *ngIf="!hasSaveData" routerLink="/game" class="menu-button button-primary">
+      {{ 'menu.playButton' | translate }}
+    </a>
+
+    <a routerLink="/achievements" class="menu-button button-secondary">
+      {{ 'menu.achievementsButton' | translate }}
+    </a>
+
+    <a *ngIf="hasSaveData" routerLink="/levels" class="menu-button button-secondary">
+      {{ 'menu.levelSelectButton' | translate }}
+    </a>
+
+    <a *ngIf="hasSaveData" (click)="restartGame()" routerLink="/game" class="menu-button button-secondary">
+      {{ 'menu.restartButton' | translate }}
+    </a>
+  </div>
+</div>
+
+<div *ngIf="!isTranslationsLoaded()">
+  Chargement...
+</div>

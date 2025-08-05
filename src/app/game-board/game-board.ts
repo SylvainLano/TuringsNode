@@ -1,10 +1,8 @@
-import { TranslationService } from './../core/services/translation';
-import { NotificationService } from './../core/services/notification';
 import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { AchievementService } from '../core/services/achievement';
 
@@ -43,7 +41,8 @@ export interface Level {
   standalone: true,
   imports: [
     CommonModule,
-    TranslatePipe
+    TranslatePipe,
+    RouterLink
   ],
   templateUrl: './game-board.html',
   styleUrls: ['./game-board.scss']
@@ -76,49 +75,46 @@ export class GameBoardComponent implements OnInit {
     5: '5670374419',  // Constante de Stefan-Boltzmann
     6: '662607015',   // Constante de Planck
     7: '76009024595', // ln(2000)
-    8: '88541878128', // Permittivité du vide
+    8: '88541878128', // Permitivité du vide
     9: '299792458'    // Vitesse de la lumière
   };
 
   constructor(
     private backgroundService: BackgroundService,
-    private notificationService: NotificationService,
-    private translationService: TranslationService,
     public levelService: LevelService,
     private route: ActivatedRoute,
     private achievementService: AchievementService
   ) {
-    // L'effect reste bien dans le constructor
     effect(() => {
       const allLevels = this.levelService.levels();
 
       if (allLevels.length > 0) {
 
-        // On n'exécute cette partie qu'une seule fois au démarrage
+        // On n'exécute la logique des paramètres que s'ils sont présents dans l'URL
         if (!this.initialSetupDone) {
-          this.initialSetupDone = true; // On lève le drapeau immédiatement
+          this.initialSetupDone = true;
 
           const params = this.route.snapshot.queryParamMap;
           const orderParam = params.get('order');
           const startParam = params.get('start');
 
-          let processedLevels = [...allLevels];
-
-          if (orderParam === 'reverse') {
-            processedLevels.reverse();
-            // On met à jour le service avec la liste potentiellement inversée
-            this.levelService.levels.set(processedLevels);
+          // On ne modifie l'état que si au moins un paramètre est fourni
+          if (orderParam || startParam) {
+            let processedLevels = [...allLevels];
+            if (orderParam === 'reverse') {
+              processedLevels.reverse();
+              this.levelService.levels.set(processedLevels);
+            }
+            let startLevelNum = processedLevels[0].levelNumber;
+            if (startParam === 'last') {
+              startLevelNum = processedLevels[processedLevels.length - 1].levelNumber;
+            }
+            this.levelService.currentLevelNumber.set(startLevelNum);
+            return; // On sort pour que le setup se fasse au prochain cycle
           }
-
-          let startLevelNum = processedLevels[0].levelNumber;
-          if (startParam === 'last') {
-            startLevelNum = processedLevels[processedLevels.length - 1].levelNumber;
-          }
-
-          this.levelService.currentLevelNumber.set(startLevelNum);
         }
 
-        // Cette partie s'exécutera à chaque changement de niveau (y compris le premier)
+        // Le reste de la logique reste inchangé et s'exécute normalement
         const levelData = this.levelService.currentLevelData();
         if (levelData) {
           this.setupLevel(levelData);
@@ -174,14 +170,14 @@ export class GameBoardComponent implements OnInit {
 
   public goToNextLevel(): void {
     this.levelService.advanceToNextLevel();
-    this.backgroundService.changeBackground(this.getDefaultThemeName());
+    this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
   }
 
   public retryLevel(): void {
     const levelData = this.levelService.currentLevelData();
     if (levelData) {
       this.setupLevel(levelData);
-      this.backgroundService.changeBackground(this.getDefaultThemeName());
+      this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
     }
   }
 
@@ -246,7 +242,7 @@ export class GameBoardComponent implements OnInit {
         case 'Digit': isConditionMet = this.isDigitConditionMet(button); break;
         case 'Reduce': isConditionMet = this.isReduceConditionMet(button); break;
         case 'Align': isConditionMet = this.isAlignConditionMet(button); break;
-        case 'Fiber': isConditionMet = this.isFiberConditionMet(); break;
+        case 'Fiber': isConditionMet = this.isFiberConditionMet(button); break;
         case 'Factor': isConditionMet = this.isFactorConditionMet(); break;
         case 'Cipher': isConditionMet = this.isCipherConditionMet(); break;
       }
@@ -303,7 +299,7 @@ private checkGameState(): void {
     this.gameState = 'level_complete';
     this.calculateEarnedMedal();
     const currentLevelNum = this.levelService.currentLevelNumber();
-    this.levelService.markLevelAsComplete(currentLevelNum);
+    this.levelService.saveLevelResult(currentLevelNum, this.earnedMedal);
   }
 }
 
@@ -325,7 +321,7 @@ private checkBackgroundConditions(): void {
     const timeReached = timeElapsed >= this.SPECIAL_BG_TIME_LIMIT_MS;
 
     if (clicksReached || timeReached) {
-      this.backgroundService.changeBackground(this.getDefaultThemeName());
+      this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
       this.specialBackground = null;
       return; // Le thème a expiré, on arrête.
     }
@@ -348,47 +344,6 @@ private checkBackgroundConditions(): void {
     this.timestampBgChange = Date.now();
   }
 }
-
-  private getDefaultThemeName(): 'day' | 'night' {
-    const now = new Date();
-    const currentHour = now.getHours();
-
-    // Calcule le jour de l'année (de 1 à 365)
-    const startOfYear = new Date(now.getFullYear(), 0, 0);
-    const diff = now.getTime() - startOfYear.getTime();
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-
-    // On définit nos extrêmes pour l'hémisphère Nord
-    // Solstice d'hiver (jour ~170, le plus court) : nuit de 17h à 8h
-    const winterSunset = 17;
-    const winterSunrise = 8;
-    // Solstice d'été (jour ~172, le plus long) : nuit de 22h à 5h
-    const summerSunset = 22;
-    const summerSunrise = 5;
-
-    // On calcule la progression entre l'hiver et l'été.
-    // On utilise une fonction cosinus pour une transition douce et cyclique.
-    // Le résultat est entre -1 (pic de l'hiver) et 1 (pic de l'été).
-    const progress = Math.cos((dayOfYear - 172) * (2 * Math.PI / 365.25));
-
-    // On interpole les heures de lever et de coucher du soleil pour aujourd'hui
-    // (progress + 1) / 2 nous donne une valeur de 0 (hiver) à 1 (été)
-    const todaySunrise = winterSunrise + (summerSunrise - winterSunrise) * (progress + 1) / 2;
-    const todaySunset = winterSunset + (summerSunset - winterSunset) * (progress + 1) / 2;
-
-    // --- POUR L'HÉMISPHÈRE SUD ---
-    // Il suffirait d'inverser la progression :
-    // const progress = Math.cos((dayOfYear - 172 + 182.625) * (2 * Math.PI / 365.25));
-    // Ou plus simplement, d'inverser les valeurs été/hiver au début.
-
-    // On vérifie si l'heure actuelle est dans la plage de la nuit
-    if (currentHour >= todaySunset || currentHour < todaySunrise) {
-      return 'night';
-    }
-
-    return 'day';
-  }
 
   // --- ACTIONS DES BOUTONS ---
 
@@ -482,15 +437,30 @@ private checkBackgroundConditions(): void {
   }
 
   private isAlignConditionMet(button: GameButton): boolean {
-    // Le bouton est vert si le score est une puissance parfaite de la valeur du bouton
     return this.estPalindrome(this.score);
   }
 
-  private isFiberConditionMet(): boolean {
+  private isFiberConditionMet(button: GameButton): boolean {
     if (this.score < 0) return false;
-    const test1 = 5 * this.score * this.score + 4;
-    const test2 = 5 * this.score * this.score - 4;
-    return this.isPerfectSquare(test1) || this.isPerfectSquare(test2);
+
+    const lowerBound = this.score - button.value;
+    const upperBound = this.score + button.value;
+
+    // On génère la suite de Fibonacci jusqu'à dépasser la borne supérieure
+    let a = 0;
+    let b = 1;
+    while (a <= upperBound) {
+      // Si un nombre de Fibonacci se trouve dans notre fourchette, c'est gagné
+      if (a >= lowerBound) {
+        return true;
+      }
+      let temp = a;
+      a = b;
+      b = temp + b;
+    }
+
+    // Aucun nombre de Fibonacci n'a été trouvé dans la fourchette
+    return false;
   }
 
   private isFactorConditionMet(): boolean {
@@ -581,11 +551,6 @@ private checkBackgroundConditions(): void {
 
     // Compare la chaîne originale à la chaîne inversée.
     return chaineOriginale === chaineInversee;
-  }
-
-  private isPerfectSquare(num: number): boolean {
-    const sqrt = Math.sqrt(num);
-    return sqrt === Math.floor(sqrt);
   }
 
   private factorial(n: number): number {
