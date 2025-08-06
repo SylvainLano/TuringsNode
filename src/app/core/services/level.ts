@@ -1,6 +1,7 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, signal, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage';
+import { APP_BASE_HREF } from '@angular/common';
 
 // On définit des interfaces pour typer nos données, c'est plus propre
 export interface LevelButtonConfig {
@@ -39,9 +40,12 @@ export class LevelService {
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService
+    private storageService: StorageService,
+    @Inject(APP_BASE_HREF) private baseHref: string
   ) {
-    this.http.get<Level[]>('assets/levels.json').subscribe(data => {
+    const path = `${this.baseHref}assets/levels.json`;
+
+    this.http.get<Level[]>(path).subscribe(data => {
       this.levels.set(data);
 
       const savedMedals = this.storageService.getData(this.BEST_MEDALS_KEY);

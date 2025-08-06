@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -7,16 +8,37 @@ import { HttpClient } from '@angular/common/http';
 export class TranslationService {
   private translations = signal<any>({});
   public readonly isLoaded = signal(false);
+  private lang = 'en'; // Langue par défaut
 
-  constructor(private http: HttpClient) {
-    // Plus tard, on pourrait détecter la langue du navigateur.
-    this.loadTranslations('en');
+  constructor(
+    private http: HttpClient,
+    @Inject(APP_BASE_HREF) private baseHref: string
+  ) {
+    // Détecter la langue du navigateur
+    const browserLang = navigator.language.split('-')[0];
+    if (browserLang === 'en') {
+        this.lang = 'en';
+    }
+
+    this.loadTranslations();
   }
 
-  private loadTranslations(lang: string): void {
-    this.http.get(`/assets/i18n/${lang}.json`).subscribe(data => {
-      this.translations.set(data);
-      this.isLoaded.set(true);
+  private loadTranslations(): void {
+    // 3. Construire le chemin complet et sûr
+    const path = `${this.baseHref}assets/i18n/${this.lang}.json`;
+
+    this.http.get(path).subscribe({
+      next: data => {
+        this.translations.set(data);
+        this.isLoaded.set(true);
+      },
+      error: () => {
+        // Si le fichier de langue n'existe pas, on charge le français par défaut
+        if (this.lang !== 'fr') {
+          this.lang = 'fr';
+          this.loadTranslations();
+        }
+      }
     });
   }
 

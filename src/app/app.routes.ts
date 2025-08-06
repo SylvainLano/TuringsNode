@@ -8,5 +8,6 @@ export const routes: Routes = [
   { path: '', component: MenuComponent },
   { path: 'game', component: GameBoardComponent },
   { path: 'levels', component: LevelSelectComponent },
-  { path: 'achievements', component: AchievementsComponent }
+  { path: 'achievements', component: AchievementsComponent },
+  { path: '**', redirectTo: '' }
 ];
