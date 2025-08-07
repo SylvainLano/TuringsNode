@@ -43,5 +43,50 @@
       { "name": "Digit", "initialValue": 7 },
       { "name": "Reduce", "initialValue": 8 }
     ]
+  },
+  {
+    "levelNumber": 4,
+    "startScore": 104304,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Split", "initialValue": 9 },
+      { "name": "Digit", "initialValue": 1 },
+      { "name": "Align", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 5,
+    "startScore": 61678,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Primer", "initialValue": 5 },
+      { "name": "Fiber", "initialValue": 8 },
+      { "name": "Cipher", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 6,
+    "startScore": 4934,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Boost", "initialValue": 1 },
+      { "name": "Reduce", "initialValue": 1 },
+      { "name": "Factor", "initialValue": 1 }
+    ]
   }
 ]
