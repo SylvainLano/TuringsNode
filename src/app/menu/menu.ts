@@ -39,8 +39,4 @@ export class MenuComponent implements OnInit {
     const defaultTheme = this.backgroundService.getDefaultThemeName();
     this.backgroundService.changeBackground(defaultTheme);
   }
-
-  public restartGame(): void {
-    this.levelService.restartProgress();
-  }
 }

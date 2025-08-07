@@ -243,7 +243,7 @@ export class GameBoardComponent implements OnInit {
         case 'Reduce': isConditionMet = this.isReduceConditionMet(button); break;
         case 'Align': isConditionMet = this.isAlignConditionMet(button); break;
         case 'Fiber': isConditionMet = this.isFiberConditionMet(button); break;
-        case 'Factor': isConditionMet = this.isFactorConditionMet(); break;
+        case 'Factor': isConditionMet = this.isFactorConditionMet(button); break;
         case 'Cipher': isConditionMet = this.isCipherConditionMet(); break;
       }
       button.isConditionMet = isConditionMet;
@@ -413,9 +413,18 @@ private checkBackgroundConditions(): void {
   }
 
   private isBoostConditionMet(button: GameButton): boolean {
-    // Le bouton est vert si le score est un carré parfait
+    if (this.score < 0) return false;
     const sqrt = Math.sqrt(this.score);
-    return sqrt === Math.floor(sqrt);
+
+    // On trouve le carré parfait juste en dessous et juste au-dessus
+    const lowerSquare = Math.floor(sqrt) ** 2;
+    const upperSquare = Math.ceil(sqrt) ** 2;
+
+    // On vérifie si la distance entre le score et l'un de ces carrés est acceptable
+    const distToLower = this.score - lowerSquare;
+    const distToUpper = upperSquare - this.score;
+
+    return distToLower <= button.value || distToUpper <= button.value;
   }
 
   private isDigitConditionMet(button: GameButton): boolean {
@@ -443,8 +452,9 @@ private checkBackgroundConditions(): void {
   private isFiberConditionMet(button: GameButton): boolean {
     if (this.score < 0) return false;
 
-    const lowerBound = this.score - button.value;
-    const upperBound = this.score + button.value;
+    const range = this.getNthFibonacci(button.value);
+    const lowerBound = this.score - range;
+    const upperBound = this.score + range;
 
     // On génère la suite de Fibonacci jusqu'à dépasser la borne supérieure
     let a = 0;
@@ -463,15 +473,16 @@ private checkBackgroundConditions(): void {
     return false;
   }
 
-  private isFactorConditionMet(): boolean {
+  private isFactorConditionMet(button: GameButton): boolean {
     if (this.score <= 0) return false;
-    let i = 1;
-    let fact = 1;
-    while (fact < this.score) {
-      i++;
-      fact *= i;
-    }
-    return fact === this.score;
+
+    const fact = this.factorial(button.value);
+
+    // Si la factorielle est 0 ou 1, on évite les cas triviaux
+    if (fact <= 1) return false;
+
+    // On vérifie si le score est un multiple de la factorielle
+    return this.score % fact === 0;
   }
 
   private isCipherConditionMet(): boolean {
@@ -481,6 +492,16 @@ private checkBackgroundConditions(): void {
   }
 
   // --- FONCTIONS UTILITAIRES ---
+  private getNthFibonacci(n: number): number {
+      if (n <= 1) return n;
+      let a = 0, b = 1;
+      for (let i = 2; i <= n; i++) {
+          let temp = a;
+          a = b;
+          b = temp + b;
+      }
+      return b;
+  }
 
   private isPrime(num: number): boolean {
     if (num <= 1) return false;
