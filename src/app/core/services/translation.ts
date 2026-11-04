@@ -9,6 +9,7 @@ export class TranslationService {
   private translations = signal<any>({});
   public readonly isLoaded = signal(false);
   private lang = 'en'; // Langue par défaut
+  private readonly SUPPORTED_LANGS = ['fr', 'en'];
 
   constructor(
     private http: HttpClient,
@@ -16,8 +17,8 @@ export class TranslationService {
   ) {
     // Détecter la langue du navigateur
     const browserLang = navigator.language.split('-')[0];
-    if (browserLang === 'en') {
-        this.lang = 'en';
+    if (this.SUPPORTED_LANGS.includes(browserLang)) {
+        this.lang = browserLang;
     }
 
     this.loadTranslations();

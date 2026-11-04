@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router'; // <-- Importer Router et RouterLink
 import { LevelService } from '../core/services/level';
+import { BackgroundService } from '../core/services/background';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 
 @Component({
@@ -11,16 +12,22 @@ import { TranslatePipe } from '../shared/pipes/translate-pipe';
   templateUrl: './level-select.html',
   styleUrl: './level-select.scss'
 })
-export class LevelSelectComponent {
+export class LevelSelectComponent implements OnInit {
   public allLevels;
   public bestMedals;
 
   constructor(
     private levelService: LevelService,
+    private backgroundService: BackgroundService,
     private router: Router
   ) {
     this.allLevels = this.levelService.levels;
     this.bestMedals = this.levelService.bestMedals;
+  }
+
+  ngOnInit(): void {
+    // On quitte le fond de victoire si on arrive depuis la fin d'un niveau
+    this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
   }
 
   /**

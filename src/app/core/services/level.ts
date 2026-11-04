@@ -2,24 +2,7 @@ import { Injectable, computed, signal, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage';
 import { APP_BASE_HREF } from '@angular/common';
-
-// On définit des interfaces pour typer nos données, c'est plus propre
-export interface LevelButtonConfig {
-  name: any;
-  initialValue: number;
-}
-
-export interface Level {
-  levelNumber: number;
-  startScore: number;
-  minScore: number | null;
-  maxScore: number | null;
-  minSteps: number;
-  goldSteps: number;
-  silverSteps: number;
-  bronzeSteps: number;
-  buttons: LevelButtonConfig[];
-}
+import { Level } from '../engine';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +19,13 @@ export class LevelService {
     const allLevels = this.levels();
     const levelNum = this.currentLevelNumber();
     return allLevels.find(l => l.levelNumber === levelNum) || null;
+  });
+
+  // Faux sur le dernier niveau de la liste (dans l'ordre courant, éventuellement inversé)
+  public readonly hasNextLevel = computed(() => {
+    const allLevels = this.levels();
+    const currentIndex = allLevels.findIndex(l => l.levelNumber === this.currentLevelNumber());
+    return currentIndex > -1 && currentIndex < allLevels.length - 1;
   });
 
   constructor(
@@ -98,15 +88,11 @@ export class LevelService {
   }
 
   public advanceToNextLevel(): void {
-    const allLevels = this.levels();
-    const currentNum = this.currentLevelNumber();
-    const currentIndex = allLevels.findIndex(l => l.levelNumber === currentNum);
+    if (!this.hasNextLevel()) return;
 
-    if (currentIndex > -1 && currentIndex < allLevels.length - 1) {
-      this.currentLevelNumber.set(allLevels[currentIndex + 1].levelNumber);
-    } else {
-      console.log("Dernier niveau terminé !");
-    }
+    const allLevels = this.levels();
+    const currentIndex = allLevels.findIndex(l => l.levelNumber === this.currentLevelNumber());
+    this.currentLevelNumber.set(allLevels[currentIndex + 1].levelNumber);
   }
 
   public restartProgress(): void {

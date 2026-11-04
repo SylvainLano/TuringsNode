@@ -1,18 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+import { AchievementsComponent } from './achievements';
 
-import { Achievements } from './achievements';
-
-describe('Achievements', () => {
-  let component: Achievements;
-  let fixture: ComponentFixture<Achievements>;
+describe('AchievementsComponent', () => {
+  let component: AchievementsComponent;
+  let fixture: ComponentFixture<AchievementsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Achievements]
+      imports: [AchievementsComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        { provide: APP_BASE_HREF, useValue: '/' }
+      ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Achievements);
+    fixture = TestBed.createComponent(AchievementsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

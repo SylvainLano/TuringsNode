@@ -5,35 +5,26 @@ import { LevelService } from '../core/services/level';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { AchievementService } from '../core/services/achievement';
+import {
+  ButtonState,
+  DEFAULT_MIN_SCORE,
+  Level,
+  Medal,
+  ScoreBounds,
+  createBoard,
+  getMedal,
+  getScoreBounds,
+  isButtonConditionMet,
+  isButtonDisabled,
+  isGoldenScore,
+  pressButton
+} from '../core/engine';
 
-// Interface pour typer nos objets boutons, pour un code plus sûr
-interface GameButton {
-  name: 'Primer' | 'Split' | 'Boost' | 'Digit' | 'Reduce' | 'Align' | 'Fiber' | 'Factor' | 'Cipher'; // Noms possibles pour les boutons
-  value: number; // Le chiffre associé (1-9)
+// Un bouton affiché : son état dans le moteur, complété par son état visuel
+interface GameButton extends ButtonState {
   colorClass: 'is-green' | 'is-red' | 'is-gold'; // La classe CSS dynamique
   isDisabled: boolean;
   isConditionMet: boolean;
-  totalClickCount: number;
-  consecutiveClickCount: number;
-  totalClickLimit: number|null;
-  consecutiveClickLimit: number|null;
-}
-
-export interface LevelButtonConfig {
-  name: any;
-  initialValue: number;
-}
-
-export interface Level {
-  levelNumber: number;
-  startScore: number;
-  minScore: number | null;
-  maxScore: number | null;
-  minSteps: number;
-  goldSteps: number;
-  silverSteps: number;
-  bronzeSteps: number;
-  buttons: LevelButtonConfig[];
 }
 
 @Component({
@@ -51,33 +42,19 @@ export interface Level {
 export class GameBoardComponent implements OnInit {
 
   public gameState: 'playing' | 'level_complete' = 'playing';
-  public earnedMedal: string | null = null;
+  public earnedMedal: Medal | null = null;
   public levelClicks: number = 0;
   private score: number = 42;
   public displayedScore: number = 42;
   public isAnimatingScore: boolean = false;
   public buttons: GameButton[] = [];
-  private minScore: number = 10;
-  private maxScore: number = Number.MAX_SAFE_INTEGER;
+  private bounds: ScoreBounds = { min: DEFAULT_MIN_SCORE, max: Number.MAX_SAFE_INTEGER };
   private specialBackground: string | null = null;
   private clicksSinceBgChange: number = 0;
   private timestampBgChange: number = 0;
   private readonly SPECIAL_BG_CLICK_LIMIT = 25;
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
   private initialSetupDone = false;
-
-  // On stocke les constantes sous forme de chaînes de caractères pour éviter les limites de précision
-  private readonly FAMOUS_NUMBERS: Record<number, string> = {
-    1: '16180339887', // Nombre d'or (Phi)
-    2: '27182818284', // Nombre d'Euler (e)
-    3: '31415926535', // Pi (π)
-    4: '4815162342',  // Série de nombres dans Lost
-    5: '5670374419',  // Constante de Stefan-Boltzmann
-    6: '662607015',   // Constante de Planck
-    7: '76009024595', // ln(2000)
-    8: '88541878128', // Permitivité du vide
-    9: '299792458'    // Vitesse de la lumière
-  };
 
   constructor(
     private backgroundService: BackgroundService,
@@ -109,12 +86,11 @@ export class GameBoardComponent implements OnInit {
             if (startParam === 'last') {
               startLevelNum = processedLevels[processedLevels.length - 1].levelNumber;
             }
+            // On poursuit directement : currentLevelData() lira le niveau qu'on vient de choisir
             this.levelService.currentLevelNumber.set(startLevelNum);
-            return; // On sort pour que le setup se fasse au prochain cycle
           }
         }
 
-        // Le reste de la logique reste inchangé et s'exécute normalement
         const levelData = this.levelService.currentLevelData();
         if (levelData) {
           this.setupLevel(levelData);
@@ -132,40 +108,23 @@ export class GameBoardComponent implements OnInit {
     }
 
     // Réinitialisation des états du jeu
+    const board = createBoard(levelData);
     this.specialBackground = null;
-    this.score = levelData.startScore;
-    if (levelData.minScore) { this.minScore = levelData.minScore}
-    if (levelData.maxScore) { this.maxScore = levelData.maxScore}
-    this.displayedScore = levelData.startScore;
+    this.bounds = getScoreBounds(levelData);
+    this.score = board.score;
+    this.displayedScore = board.score;
     this.gameState = 'playing';
     this.levelClicks = 0;
 
     // Création des boutons à partir des données du niveau
-    this.buttons = levelData.buttons.map(config =>
-      this.createButton(config.name as GameButton['name'], config.initialValue)
-    );
+    this.buttons = board.buttons.map(state => ({
+      ...state,
+      colorClass: 'is-red',
+      isDisabled: false,
+      isConditionMet: false
+    }));
 
-    // Mise à jour des boutons
-    this.updateAllButtonStates();
-    this.updateAllButtonColors();
-    this.updateAllButtonDisabledStates();
-  }
-
-  /**
-   * Fonction fabrique de boutons
-   */
-  private createButton(name: GameButton['name'], value: number): GameButton {
-    return {
-      name: name,
-      value: value,
-      colorClass: 'is-red', // Valeur par défaut
-      isDisabled: false, // Valeur par défaut
-      isConditionMet: false, // Valeur par défaut
-      totalClickCount: 0, // Valeur par défaut
-      consecutiveClickCount: 0, // Valeur par défaut
-      totalClickLimit: null, // Valeur par défaut
-      consecutiveClickLimit: null, // Valeur par défaut
-    };
+    this.updateAllButtons();
   }
 
   public goToNextLevel(): void {
@@ -187,98 +146,35 @@ export class GameBoardComponent implements OnInit {
    */
   public onButtonClick(button: GameButton): void {
     if (this.isAnimatingScore || button.isDisabled) return;
-    let newScore = this.score;
 
-    // 1. Exécute l'action spécifique au bouton (qui modifie le score)
-    switch (button.name) {
-      case 'Primer': newScore = this.performPrimerAction(); break;
-      case 'Split': newScore = this.performSplitAction(button); break;
-      case 'Boost': newScore = this.performBoostAction(button); break;
-      case 'Digit': newScore = this.performDigitAction(button); break;
-      case 'Reduce': newScore = this.performReduceAction(button); break;
-      case 'Align': newScore = this.performAlignAction(button); break;
-      case 'Fiber': newScore = this.performFiberAction(); break;
-      case 'Factor': newScore = this.performFactorAction(button); break;
-      case 'Cipher': newScore = this.performCipherAction(button); break;
-    }
+    // Le moteur calcule le nouveau score ainsi que les nouvelles valeurs et compteurs des boutons
+    const board = pressButton({ score: this.score, buttons: this.buttons }, this.buttons.indexOf(button), this.bounds);
+    board.buttons.forEach((state, i) => Object.assign(this.buttons[i], state));
+    this.levelClicks++;
 
-    // 2. Incrémente la valeur du bouton cliqué (de 1 à 9, puis revient à 1)
-    button.value = (button.value % 9) + 1;
-
-    newScore = this.applyBouncingBoundaries(newScore);
-    this.animateScoreTo(newScore, () => {
+    this.animateScoreTo(board.score, () => {
       // Ce code ne s'exécutera QUE lorsque le score aura atteint sa cible
-      this.updateAllButtonStates();
-      this.updateAllButtonColors();
-      this.updateAllButtonDisabledStates();
+      this.updateAllButtons();
       this.checkGameState();
       this.checkBackgroundConditions();
-    });
-
-    // Mise à jour des compteurs de clics
-    this.levelClicks++;
-    this.buttons.forEach(btn => {
-      if (btn === button) {
-        // Pour le bouton qui vient d'être cliqué
-        btn.totalClickCount++;
-        btn.consecutiveClickCount++;
-      } else {
-        // Pour tous les autres boutons, la série de clics consécutifs est rompue
-        btn.consecutiveClickCount = 0;
-      }
     });
   }
 
   /**
-   * Met à jour la classe de couleur pour chaque bouton en fonction de sa condition.
+   * Met à jour la condition, la couleur et l'état désactivé de chaque bouton.
    */
-  private updateAllButtonStates(): void {
+  private updateAllButtons(): void {
     this.buttons.forEach(button => {
-      let isConditionMet = false;
-      switch (button.name) {
-        case 'Primer': isConditionMet = this.isPrimerConditionMet(button); break;
-        case 'Split': isConditionMet = this.isSplitConditionMet(button); break;
-        case 'Boost': isConditionMet = this.isBoostConditionMet(button); break;
-        case 'Digit': isConditionMet = this.isDigitConditionMet(button); break;
-        case 'Reduce': isConditionMet = this.isReduceConditionMet(button); break;
-        case 'Align': isConditionMet = this.isAlignConditionMet(button); break;
-        case 'Fiber': isConditionMet = this.isFiberConditionMet(button); break;
-        case 'Factor': isConditionMet = this.isFactorConditionMet(button); break;
-        case 'Cipher': isConditionMet = this.isCipherConditionMet(); break;
-      }
-      button.isConditionMet = isConditionMet;
-    });
-  }
-
-  // Met à jour la couleur en se basant sur l'état logique
-  private updateAllButtonColors(): void {
-    const scoreStr = String(this.score);
-    this.buttons.forEach(button => {
-      if (button.isConditionMet) {
-        button.colorClass = 'is-green';
-      } else {
-        button.colorClass = 'is-red';
-      }
+      button.isConditionMet = isButtonConditionMet(button.name, this.score, button.value);
+      button.colorClass = button.isConditionMet ? 'is-green' : 'is-red';
 
       // --- CONDITION SPÉCIALE "OR" ---
-      const famousNumber = this.FAMOUS_NUMBERS[button.value];
-      // On vérifie si le score a au moins 4 chiffres et s'il est le début du nombre célèbre associé.
-      if (famousNumber && scoreStr.length >= 4 && famousNumber.startsWith(scoreStr)) {
+      if (isGoldenScore(this.score, button.value)) {
         button.colorClass = 'is-gold';
-
-        // On récupère le nom traduit de la constante
-        const achievementId = `golden_${button.value}`;
-        this.achievementService.unlock(achievementId);
+        this.achievementService.unlock(`golden_${button.value}`);
       }
-    });
-  }
 
-  private updateAllButtonDisabledStates(): void {
-    this.buttons.forEach(button => {
-      const totalLimitReached = button.totalClickLimit !== null && button.totalClickLimit !== 0 && button.totalClickCount >= button.totalClickLimit;
-      const consecutiveLimitReached = button.consecutiveClickLimit !== null && button.consecutiveClickLimit !== 0 && button.consecutiveClickCount >= button.consecutiveClickLimit;
-
-      button.isDisabled = totalLimitReached || consecutiveLimitReached;
+      button.isDisabled = isButtonDisabled(button);
     });
   }
 
@@ -286,8 +182,6 @@ export class GameBoardComponent implements OnInit {
   public getScoreColor() {
     return this.backgroundService.state().scoreColor;
   }
-
-// Dans game-board.ts
 
 /**
  * Logique de l'état de victoire/défaite.
@@ -333,7 +227,7 @@ private checkBackgroundConditions(): void {
     targetTheme = 'angry';
   } else if (/^[01]{8}$/.test(String(this.score))) {
     targetTheme = 'matrix';
-  } else if (this.score === this.minScore) {
+  } else if (this.score === this.bounds.min) {
     targetTheme = 'snow';
   }
 
@@ -345,250 +239,16 @@ private checkBackgroundConditions(): void {
   }
 }
 
-  // --- ACTIONS DES BOUTONS ---
-
-  private performPrimerAction(): number {
-    return this.findNextPrime(this.score);
-  }
-
-  private performSplitAction(button: GameButton): number {
-    // On divise, en s'assurant de ne pas avoir de nombres à virgule
-    return Math.ceil(this.score / button.value);
-  }
-
-  private performBoostAction(button: GameButton): number {
-    return this.score + button.value;
-  }
-
-  private performDigitAction(button: GameButton): number {
-    return this.score * button.value;
-  }
-
-  private performReduceAction(button: GameButton): number {
-    return Math.ceil(this.score / (button.value * button.value));
-  }
-
-  private performAlignAction(button: GameButton): number {
-    return this.score + (button.value - (this.score % button.value));
-  }
-
-  private performFiberAction(): number {
-    let a = 0, b = 1;
-    while (b <= this.score) {
-      let temp = a;
-      a = b;
-      b = temp + b;
-    }
-    return b;
-  }
-
-  private performFactorAction(button: GameButton): number {
-    return this.score + this.factorial(button.value);
-  }
-
-  private performCipherAction(button: GameButton): number {
-    const newScoreStr = String(this.score)
-      .split('')
-      .map(digit => (Number(digit) + button.value) % 10)
-      .join('');
-    return Number(newScoreStr);
-  }
-
-  // --- CONDITIONS "VERT" DES BOUTONS ---
-
-  private isPrimerConditionMet(button: GameButton): boolean {
-    const lowerBound = this.score - button.value;
-    const upperBound = this.score + button.value;
-    for (let i = lowerBound; i <= upperBound; i++) {
-      if (this.isPrime(i)) {
-        return true; // Un nombre premier a été trouvé dans la fourchette
-      }
-    }
-    return false;
-  }
-
-  private isSplitConditionMet(button: GameButton): boolean {
-    // Le bouton est vert si le score est divisible par la valeur du bouton
-    return this.score % button.value === 0;
-  }
-
-  private isBoostConditionMet(button: GameButton): boolean {
-    if (this.score < 0) return false;
-    const sqrt = Math.sqrt(this.score);
-
-    // On trouve le carré parfait juste en dessous et juste au-dessus
-    const lowerSquare = Math.floor(sqrt) ** 2;
-    const upperSquare = Math.ceil(sqrt) ** 2;
-
-    // On vérifie si la distance entre le score et l'un de ces carrés est acceptable
-    const distToLower = this.score - lowerSquare;
-    const distToUpper = upperSquare - this.score;
-
-    return distToLower <= button.value || distToUpper <= button.value;
-  }
-
-  private isDigitConditionMet(button: GameButton): boolean {
-    // Le bouton est vert si la somme des chiffres du score est la valeur du bouton
-    const scoreValue = this.calculerRacineNumerique(this.score);
-    return scoreValue === button.value;
-  }
-
-  private isReduceConditionMet(button: GameButton): boolean {
-    // On boucle sur des carrés parfaits (4, 9, 16, 25...) jusqu'à la valeur du score
-    for (let i = 2; i * i <= this.score; i++) {
-      const perfectSquare = i * i;
-      // Si le score est un multiple d'un carré parfait, la condition est remplie
-      if (this.score % perfectSquare === 0) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private isAlignConditionMet(button: GameButton): boolean {
-    return this.estPalindrome(this.score);
-  }
-
-  private isFiberConditionMet(button: GameButton): boolean {
-    if (this.score < 0) return false;
-
-    const range = this.getNthFibonacci(button.value);
-    const lowerBound = this.score - range;
-    const upperBound = this.score + range;
-
-    // On génère la suite de Fibonacci jusqu'à dépasser la borne supérieure
-    let a = 0;
-    let b = 1;
-    while (a <= upperBound) {
-      // Si un nombre de Fibonacci se trouve dans notre fourchette, c'est gagné
-      if (a >= lowerBound) {
-        return true;
-      }
-      let temp = a;
-      a = b;
-      b = temp + b;
-    }
-
-    // Aucun nombre de Fibonacci n'a été trouvé dans la fourchette
-    return false;
-  }
-
-  private isFactorConditionMet(button: GameButton): boolean {
-    if (this.score <= 0) return false;
-
-    const fact = this.factorial(button.value);
-
-    // Si la factorielle est 0 ou 1, on évite les cas triviaux
-    if (fact <= 1) return false;
-
-    // On vérifie si le score est un multiple de la factorielle
-    return this.score % fact === 0;
-  }
-
-  private isCipherConditionMet(): boolean {
-    const scoreStr = String(this.score);
-    const uniqueDigits = new Set(scoreStr.split(''));
-    return scoreStr.length === uniqueDigits.size;
-  }
-
-  // --- FONCTIONS UTILITAIRES ---
-  private getNthFibonacci(n: number): number {
-      if (n <= 1) return n;
-      let a = 0, b = 1;
-      for (let i = 2; i <= n; i++) {
-          let temp = a;
-          a = b;
-          b = temp + b;
-      }
-      return b;
-  }
-
-  private isPrime(num: number): boolean {
-    if (num <= 1) return false;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-      if (num % i === 0) return false;
-    }
-    return true;
-  }
-
-  private findNextPrime(num: number): number {
-    let nextNum = num + 1;
-    while (true) {
-      if (this.isPrime(nextNum)) {
-        return nextNum;
-      }
-      nextNum++;
-    }
-  }
-
-  private applyBouncingBoundaries(num: number): number {
-    const range = this.maxScore - this.minScore;
-
-    // Si la plage est nulle ou invalide, on ne fait rien pour éviter les divisions par zéro.
-    if (range <= 0) {
-      return num;
-    }
-
-    // 1. On normalise le nombre par rapport au minimum.
-    const normalizedNum = num - this.minScore;
-
-    // 2. On utilise le modulo sur le double de la plage pour simuler l'aller-retour.
-    let remainder = normalizedNum % (2 * range);
-
-    // S'assure que le reste est positif.
-    if (remainder < 0) {
-      remainder += (2 * range);
-    }
-
-    // 3. On détermine la position finale.
-    if (remainder < range) {
-      // Le nombre est dans la phase "montante" depuis le minScore.
-      return this.minScore + remainder;
-    } else {
-      // Le nombre est dans la phase "descendante" depuis le maxScore.
-      return this.maxScore - (remainder - range);
-    }
-  }
-
-  private calculerRacineNumerique(nombre:number): number {
-    // Continue la boucle tant que le nombre a plus d'un chiffre.
-    while (nombre > 9) {
-      // Ré-assigne 'nombre' avec la somme de ses propres chiffres.
-      nombre = String(nombre)
-        .split('')
-        .reduce((accumulateur, chiffre) => accumulateur + Number(chiffre), 0);
-    }
-
-    // Retourne le résultat final, qui est un chiffre unique.
-    return nombre;
-  }
-
-  private estPalindrome(nombre: number): boolean {
-    // Convertit le nombre en chaîne de caractères.
-    const chaineOriginale = String(nombre);
-
-    // Inverse la chaîne.
-    const chaineInversee = chaineOriginale.split('').reverse().join('');
-
-    // Compare la chaîne originale à la chaîne inversée.
-    return chaineOriginale === chaineInversee;
-  }
-
-  private factorial(n: number): number {
-    if (n < 0) return 0;
-    let result = 1;
-    for (let i = 2; i <= n; i++) {
-      result *= i;
-    }
-    return result;
-  }
-
   private animateScoreTo(targetScore: number, onComplete?: () => void): void {
     // On arrondit la cible pour éviter les problèmes de nombres à virgule
     targetScore = Math.round(targetScore);
     const startScore = this.score;
 
-    if (targetScore === startScore) return;
+    // Score inchangé : pas d'animation, mais les boutons doivent quand même être mis à jour
+    if (targetScore === startScore) {
+      onComplete?.();
+      return;
+    }
 
     this.isAnimatingScore = true;
 
@@ -635,23 +295,6 @@ private checkBackgroundConditions(): void {
 
   private calculateEarnedMedal(): void {
     const levelData = this.levelService.currentLevelData();
-    if (!levelData) {
-      this.earnedMedal = null;
-      return;
-    }
-
-    const clicks = this.levelClicks;
-
-    if (clicks <= levelData.minSteps) {
-      this.earnedMedal = 'Platine';
-    } else if (clicks <= levelData.goldSteps) {
-      this.earnedMedal = 'Or';
-    } else if (clicks <= levelData.silverSteps) {
-      this.earnedMedal = 'Argent';
-    } else if (clicks <= levelData.bronzeSteps) {
-      this.earnedMedal = 'Bronze';
-    } else {
-      this.earnedMedal = null; // Aucune médaille
-    }
+    this.earnedMedal = levelData ? getMedal(this.levelClicks, levelData) : null;
   }
 }
