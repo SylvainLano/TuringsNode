@@ -1,52 +1,434 @@
 [
   {
     "levelNumber": 1,
-    "startScore": 10,
-    "minScore": 7,
+    "startScore": 27,
+    "minScore": 10,
     "maxScore": null,
-    "minSteps": 3,
-    "goldSteps": 7,
-    "silverSteps": 15,
-    "bronzeSteps": 30,
+    "minSteps": 2,
+    "goldSteps": 5,
+    "silverSteps": 8,
+    "bronzeSteps": 15,
     "buttons": [
-      { "name": "Primer", "initialValue": 1 },
       { "name": "Split", "initialValue": 2 },
-      { "name": "Boost", "initialValue": 3 }
+      { "name": "Boost", "initialValue": 1 }
     ]
   },
   {
     "levelNumber": 2,
-    "startScore": 18,
-    "minScore": 9,
+    "startScore": 14,
+    "minScore": 10,
     "maxScore": null,
-    "minSteps": 4,
+    "minSteps": 3,
     "goldSteps": 6,
-    "silverSteps": 8,
-    "bronzeSteps": 12,
+    "silverSteps": 10,
+    "bronzeSteps": 18,
     "buttons": [
-      { "name": "Split", "initialValue": 2 },
-      { "name": "Boost", "initialValue": 4 },
-      { "name": "Digit", "initialValue": 8 }
+      { "name": "Boost", "initialValue": 8 },
+      { "name": "Split", "initialValue": 4 }
     ]
   },
   {
     "levelNumber": 3,
-    "startScore": 17874,
+    "startScore": 33,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Split", "initialValue": 5 },
+      { "name": "Boost", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 4,
+    "startScore": 55,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 3,
+    "goldSteps": 6,
+    "silverSteps": 10,
+    "bronzeSteps": 18,
+    "buttons": [
+      { "name": "Primer", "initialValue": 2 },
+      { "name": "Boost", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 5,
+    "startScore": 33,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Split", "initialValue": 3 },
+      { "name": "Primer", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 6,
+    "startScore": 59,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Primer", "initialValue": 6 },
+      { "name": "Split", "initialValue": 5 },
+      { "name": "Boost", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 7,
+    "startScore": 81,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 3,
+    "goldSteps": 6,
+    "silverSteps": 10,
+    "bronzeSteps": 18,
+    "buttons": [
+      { "name": "Digit", "initialValue": 8 },
+      { "name": "Split", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 8,
+    "startScore": 179,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Boost", "initialValue": 6 },
+      { "name": "Digit", "initialValue": 4 }
+    ]
+  },
+  {
+    "levelNumber": 9,
+    "startScore": 75,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Primer", "initialValue": 2 },
+      { "name": "Digit", "initialValue": 2 },
+      { "name": "Split", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 10,
+    "startScore": 53,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Align", "initialValue": 9 },
+      { "name": "Boost", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 11,
+    "startScore": 479,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Digit", "initialValue": 7 },
+      { "name": "Align", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 12,
+    "startScore": 67,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Align", "initialValue": 1 },
+      { "name": "Primer", "initialValue": 6 },
+      { "name": "Split", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 13,
+    "startScore": 693,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 7 },
+      { "name": "Boost", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 14,
+    "startScore": 241,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Digit", "initialValue": 3 },
+      { "name": "Reduce", "initialValue": 8 },
+      { "name": "Split", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 15,
+    "startScore": 768,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 2 },
+      { "name": "Align", "initialValue": 2 },
+      { "name": "Primer", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 16,
+    "startScore": 1534,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 8 },
+      { "name": "Split", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 17,
+    "startScore": 827,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Boost", "initialValue": 3 },
+      { "name": "Fiber", "initialValue": 6 },
+      { "name": "Digit", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 18,
+    "startScore": 897,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 3 },
+      { "name": "Reduce", "initialValue": 7 },
+      { "name": "Align", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 19,
+    "startScore": 2273,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Factor", "initialValue": 1 },
+      { "name": "Boost", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 20,
+    "startScore": 245,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Split", "initialValue": 5 },
+      { "name": "Factor", "initialValue": 7 },
+      { "name": "Primer", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 21,
+    "startScore": 4610,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 7,
     "goldSteps": 12,
     "silverSteps": 18,
-    "bronzeSteps": 24,
+    "bronzeSteps": 30,
     "buttons": [
-      { "name": "Align", "initialValue": 6 },
-      { "name": "Digit", "initialValue": 7 },
-      { "name": "Reduce", "initialValue": 8 }
+      { "name": "Factor", "initialValue": 8 },
+      { "name": "Fiber", "initialValue": 3 },
+      { "name": "Digit", "initialValue": 1 }
     ]
   },
   {
-    "levelNumber": 4,
-    "startScore": 104304,
+    "levelNumber": 22,
+    "startScore": 9060,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 4 },
+      { "name": "Boost", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 23,
+    "startScore": 7171,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Digit", "initialValue": 3 },
+      { "name": "Cipher", "initialValue": 6 },
+      { "name": "Split", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 24,
+    "startScore": 9675,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 2 },
+      { "name": "Factor", "initialValue": 6 },
+      { "name": "Primer", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 25,
+    "startScore": 6573,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 5 },
+      { "name": "Fiber", "initialValue": 6 },
+      { "name": "Align", "initialValue": 7 },
+      { "name": "Boost", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 26,
+    "startScore": 4345,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Primer", "initialValue": 4 },
+      { "name": "Split", "initialValue": 6 },
+      { "name": "Align", "initialValue": 8 },
+      { "name": "Digit", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 27,
+    "startScore": 57918,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 5 },
+      { "name": "Reduce", "initialValue": 6 },
+      { "name": "Factor", "initialValue": 9 },
+      { "name": "Align", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 28,
+    "startScore": 46358,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Primer", "initialValue": 2 },
+      { "name": "Boost", "initialValue": 8 },
+      { "name": "Split", "initialValue": 3 },
+      { "name": "Align", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 29,
+    "startScore": 37594,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 2 },
+      { "name": "Reduce", "initialValue": 4 },
+      { "name": "Align", "initialValue": 9 },
+      { "name": "Primer", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 30,
+    "startScore": 44381,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 10,
@@ -55,38 +437,9 @@
     "bronzeSteps": 39,
     "buttons": [
       { "name": "Split", "initialValue": 9 },
-      { "name": "Digit", "initialValue": 1 },
-      { "name": "Align", "initialValue": 7 }
-    ]
-  },
-  {
-    "levelNumber": 5,
-    "startScore": 61678,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 9,
-    "goldSteps": 15,
-    "silverSteps": 22,
-    "bronzeSteps": 36,
-    "buttons": [
-      { "name": "Primer", "initialValue": 5 },
-      { "name": "Fiber", "initialValue": 8 },
-      { "name": "Cipher", "initialValue": 5 }
-    ]
-  },
-  {
-    "levelNumber": 6,
-    "startScore": 4934,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 9,
-    "goldSteps": 15,
-    "silverSteps": 22,
-    "bronzeSteps": 36,
-    "buttons": [
-      { "name": "Boost", "initialValue": 1 },
-      { "name": "Reduce", "initialValue": 1 },
-      { "name": "Factor", "initialValue": 1 }
+      { "name": "Fiber", "initialValue": 6 },
+      { "name": "Align", "initialValue": 8 },
+      { "name": "Boost", "initialValue": 9 }
     ]
   }
 ]

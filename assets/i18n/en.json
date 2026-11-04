@@ -10,7 +10,8 @@
     "noMedalTitle": "You can do better!",
     "noMedalSubtitle": "Try to solve the level in fewer steps.",
     "retryButton": "Retry",
-    "nextLevelButton": "Next Level"
+    "nextLevelButton": "Next Level",
+    "allLevelsCompleted": "You have completed all available levels!"
   },
   "level_data_not_found": "Level data not found.",
   "medals": {

@@ -1,0 +1,1 @@
+var t=/* @__PURE__ */ new Map;var r=class{addShapeGenerator(e,a){this.getShapeGenerator(e)||t.set(e,a)}getShapeGenerator(e){return t.get(e)}getSupportedShapeGenerators(){return t.keys()}};export{r as ShapeManager};
