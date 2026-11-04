@@ -6,3 +6,8 @@ body, html {
   margin: 0;
   background-color: transparent;
 }
+
+// Police par défaut des textes et des boutons (sinon le navigateur utilise une police à empattements)
+body, button {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}

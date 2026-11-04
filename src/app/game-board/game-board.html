@@ -8,22 +8,33 @@
 
 <div class="game-container">
   @if (gameState !== 'level_complete') {
-    <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore | number:'1.0-0' }}</div>
-  }
+    <!-- Pas de séparateur de milliers : chaque chiffre du score compte -->
+    <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore }}</div>
 
-  @if (gameState !== 'level_complete') {
-    <div class="button-container">
+    <div class="button-container" [attr.data-count]="buttons.length">
       @for (button of buttons; track button) {
         <button
           class="game-button"
           [ngClass]="button.colorClass"
           (click)="onButtonClick(button)"
           [class.is-disabled]="isAnimatingScore || button.isDisabled"
-          [disabled]="isAnimatingScore || button.isDisabled">
+          [disabled]="isAnimatingScore || button.isDisabled"
+          [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)">
+          <span class="state-icon" aria-hidden="true">{{ stateIcon(button) }}</span>
           <span class="button-label">{{ button.name }}</span>
           <span class="background-number">{{ button.value }}</span>
         </button>
       }
+    </div>
+
+    <div class="play-controls" [style.color]="getScoreColor()">
+      <span class="click-counter">{{ 'gameboard.clicksCount' | translate }} : <strong>{{ levelClicks }}</strong></span>
+      <button class="control-button" (click)="undo()" [disabled]="!canUndo" title="Ctrl+Z">
+        ↶ {{ 'gameboard.undoButton' | translate }}
+      </button>
+      <button class="control-button" (click)="retryLevel()" [disabled]="isAnimatingScore || levelClicks === 0">
+        ⟲ {{ 'gameboard.restartButton' | translate }}
+      </button>
     </div>
   }
 

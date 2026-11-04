@@ -27,6 +27,13 @@ interface GameButton extends ButtonState {
   isConditionMet: boolean;
 }
 
+// État du plateau avant un clic, pour pouvoir l'annuler
+interface BoardSnapshot {
+  score: number;
+  buttons: ButtonState[];
+  clicks: number;
+}
+
 @Component({
   selector: 'app-game-board',
   standalone: true,
@@ -37,7 +44,8 @@ interface GameButton extends ButtonState {
   ],
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./game-board.scss']
+  styleUrls: ['./game-board.scss'],
+  host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
 export class GameBoardComponent implements OnInit {
@@ -56,6 +64,7 @@ export class GameBoardComponent implements OnInit {
   private readonly SPECIAL_BG_CLICK_LIMIT = 25;
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
   private initialSetupDone = false;
+  private history: BoardSnapshot[] = [];
 
   constructor(
     private backgroundService: BackgroundService,
@@ -116,6 +125,7 @@ export class GameBoardComponent implements OnInit {
     this.displayedScore = board.score;
     this.gameState = 'playing';
     this.levelClicks = 0;
+    this.history = [];
 
     // Création des boutons à partir des données du niveau
     this.buttons = board.buttons.map(state => ({
@@ -146,7 +156,14 @@ export class GameBoardComponent implements OnInit {
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
-    if (this.isAnimatingScore || button.isDisabled) return;
+    if (this.isAnimatingScore || button.isDisabled || this.gameState !== 'playing') return;
+
+    this.history.push({
+      score: this.score,
+      buttons: this.buttons.map(({ name, value, totalClickCount, consecutiveClickCount, totalClickLimit, consecutiveClickLimit }) =>
+        ({ name, value, totalClickCount, consecutiveClickCount, totalClickLimit, consecutiveClickLimit })),
+      clicks: this.levelClicks
+    });
 
     // Le moteur calcule le nouveau score ainsi que les nouvelles valeurs et compteurs des boutons
     const board = pressButton({ score: this.score, buttons: this.buttons }, this.buttons.indexOf(button), this.bounds);
@@ -159,6 +176,42 @@ export class GameBoardComponent implements OnInit {
       this.checkGameState();
       this.checkBackgroundConditions();
     });
+  }
+
+  public get canUndo(): boolean {
+    return this.history.length > 0 && !this.isAnimatingScore && this.gameState === 'playing';
+  }
+
+  /**
+   * Annule le dernier clic : le score, les boutons et le nombre de clics reviennent à leur état précédent.
+   */
+  public undo(): void {
+    const previous = this.canUndo ? this.history.pop() : undefined;
+    if (!previous) return;
+
+    this.score = previous.score;
+    this.displayedScore = previous.score;
+    this.levelClicks = previous.clicks;
+    previous.buttons.forEach((state, i) => Object.assign(this.buttons[i], state));
+    this.updateAllButtons();
+  }
+
+  /**
+   * Raccourcis clavier : 1 à 9 pour les boutons, Ctrl+Z ou Retour arrière pour annuler.
+   */
+  public onKeydown(event: KeyboardEvent): void {
+    if (event.altKey) return;
+
+    if (((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') || event.key === 'Backspace') {
+      event.preventDefault();
+      this.undo();
+      return;
+    }
+
+    const button = /^[1-9]$/.test(event.key) && !event.ctrlKey && !event.metaKey ? this.buttons[Number(event.key) - 1] : undefined;
+    if (button) {
+      this.onButtonClick(button);
+    }
   }
 
   /**
@@ -182,6 +235,17 @@ export class GameBoardComponent implements OnInit {
   // --- FONCTIONS ESTHÉTIQUES ---
   public getScoreColor() {
     return this.backgroundService.state().scoreColor;
+  }
+
+  // Symbole affiché en plus de la couleur, pour que l'état reste lisible sans distinguer le rouge du vert
+  public stateIcon(button: GameButton): string {
+    if (button.colorClass === 'is-gold') return '★';
+    return button.isConditionMet ? '✓' : '✕';
+  }
+
+  public stateLabelKey(button: GameButton): string {
+    if (button.colorClass === 'is-gold') return 'gameboard.stateGold';
+    return button.isConditionMet ? 'gameboard.stateGreen' : 'gameboard.stateRed';
   }
 
 /**

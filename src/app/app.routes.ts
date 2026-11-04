@@ -3,11 +3,13 @@ import { GameBoardComponent } from './game-board/game-board'
 import { MenuComponent } from './menu/menu'
 import { LevelSelectComponent } from './level-select/level-select';
 import { AchievementsComponent } from './achievements/achievements'
+import { SettingsComponent } from './settings/settings';
 
 export const routes: Routes = [
   { path: '', component: MenuComponent },
   { path: 'game', component: GameBoardComponent },
   { path: 'levels', component: LevelSelectComponent },
   { path: 'achievements', component: AchievementsComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: '**', redirectTo: '' }
 ];

@@ -64,6 +64,43 @@ describe('GameBoardComponent', () => {
     expect(component.earnedMedal).toBe('Platine');
   });
 
+  describe('during a level', () => {
+    // Digit passe au vert sans changer le score, mais Split 3 reste rouge sur 11 : le niveau continue
+    const TWO_BUTTONS: Level = { ...LEVEL, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 3 }] };
+
+    beforeEach(() => {
+      levelService.levels.set([TWO_BUTTONS]);
+      fixture.detectChanges();
+    });
+
+    it('undoes the last click', () => {
+      const digit = component.buttons[0];
+      component.onButtonClick(digit);
+      expect([digit.value, digit.colorClass, component.levelClicks]).toEqual([2, 'is-green', 1]);
+      expect(component.canUndo).toBe(true);
+
+      component.undo();
+
+      expect([digit.value, digit.colorClass, component.levelClicks]).toEqual([1, 'is-red', 0]);
+      expect(component.buttons[0].totalClickCount).toBe(0);
+      expect(component.canUndo).toBe(false);
+    });
+
+    it('presses buttons with number keys and undoes with Backspace', () => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: '1' }));
+      expect(component.buttons[0].value).toBe(2);
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace' }));
+      expect(component.buttons[0].value).toBe(1);
+      expect(component.levelClicks).toBe(0);
+    });
+
+    it('shows a symbol matching each button state', () => {
+      component.onButtonClick(component.buttons[0]);
+      expect(component.buttons.map(button => component.stateIcon(button))).toEqual(['✓', '✕']);
+    });
+  });
+
   it('offers the level selection instead of a next level after the last level', () => {
     levelService.levels.set([LEVEL]);
     fixture.detectChanges();

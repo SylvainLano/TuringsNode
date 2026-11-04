@@ -99,7 +99,12 @@ export class LevelService {
     this.currentLevelNumber.set(allLevels[currentIndex + 1].levelNumber);
   }
 
-  public restartProgress(): void {
-    this.currentLevelNumber.set(1);
+  /**
+   * Efface toutes les médailles et ramène le joueur au premier niveau.
+   */
+  public resetProgress(): void {
+    this.bestMedals.set({});
+    this.storageService.removeData(this.BEST_MEDALS_KEY);
+    this.currentLevelNumber.set(this.levels()[0]?.levelNumber ?? 1);
   }
 }

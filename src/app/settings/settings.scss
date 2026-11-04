@@ -1,0 +1,60 @@
+// Même base que la sélection des niveaux (panneau, titre, bouton retour)
+@use '../level-select/level-select';
+
+.settings-container {
+  max-width: 500px;
+  margin: 0 16px;
+}
+
+.setting {
+  margin-bottom: 35px;
+  color: #2d3748;
+
+  h2 {
+    font-size: 1.3em;
+    margin: 0 0 15px;
+  }
+
+  p {
+    margin: 0 0 15px;
+  }
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.choice {
+  padding: 10px 25px;
+  border-radius: 8px;
+  border: 2px solid #A0AEC0;
+  background-color: transparent;
+  color: #2d3748;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgba(45, 55, 72, 0.1);
+    border-color: #2D3748;
+  }
+
+  &.is-active {
+    background-color: #4A5568;
+    border-color: #4A5568;
+    color: white;
+  }
+
+  &.is-danger {
+    border-color: #c53030;
+    color: #c53030;
+
+    &:hover {
+      background-color: rgba(197, 48, 48, 0.1);
+    }
+  }
+}

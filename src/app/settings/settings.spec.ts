@@ -1,0 +1,56 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient, withXhr } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+
+import { SettingsComponent } from './settings';
+import { LevelService } from '../core/services/level';
+import { AchievementService } from '../core/services/achievement';
+
+describe('SettingsComponent', () => {
+  let component: SettingsComponent;
+  let fixture: ComponentFixture<SettingsComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SettingsComponent],
+      providers: [
+        provideHttpClient(withXhr()),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        { provide: APP_BASE_HREF, useValue: '/' }
+      ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(SettingsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    localStorage.removeItem('turings_node_best_medals_v1');
+    localStorage.removeItem('turings_node_achievements');
+  });
+
+  it('asks for a confirmation before erasing the progress', () => {
+    const levelService = TestBed.inject(LevelService);
+    const achievementService = TestBed.inject(AchievementService);
+    levelService.saveLevelResult(1, 'Or');
+    achievementService.unlock('golden_1');
+
+    const resetButton: HTMLButtonElement = fixture.nativeElement.querySelector('.is-danger');
+    resetButton.click();
+    fixture.detectChanges();
+    expect(component.resetState()).toBe('confirming');
+    expect(levelService.bestMedals()).toEqual({ 1: 'Or' });
+
+    const confirmButton: HTMLButtonElement = fixture.nativeElement.querySelector('.is-danger');
+    confirmButton.click();
+    fixture.detectChanges();
+    expect(component.resetState()).toBe('done');
+    expect(levelService.bestMedals()).toEqual({});
+    expect(achievementService.unlockedAchievements().size).toBe(0);
+  });
+});

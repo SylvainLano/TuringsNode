@@ -70,4 +70,15 @@ describe('LevelService', () => {
 
     expect(service.bestMedals()).toEqual({ 1: 'Or', 2: 'Terminé' });
   });
+
+  it('erases every medal and goes back to the first level', () => {
+    service.saveLevelResult(1, 'Or');
+    service.advanceToNextLevel();
+
+    service.resetProgress();
+
+    expect(service.bestMedals()).toEqual({});
+    expect(localStorage.getItem(BEST_MEDALS_KEY)).toBeNull();
+    expect(service.currentLevelNumber()).toBe(1);
+  });
 });

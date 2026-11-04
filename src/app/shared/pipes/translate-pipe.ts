@@ -3,7 +3,9 @@ import { TranslationService } from '../../core/services/translation';
 
 @Pipe({
   name: 'translate',
-  standalone: true
+  standalone: true,
+  // Non pur : le texte doit suivre un changement de langue même si la clé ne change pas
+  pure: false
 })
 export class TranslatePipe implements PipeTransform {
 

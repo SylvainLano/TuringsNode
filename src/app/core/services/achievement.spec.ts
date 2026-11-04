@@ -18,7 +18,19 @@ describe('AchievementService', () => {
     service = TestBed.inject(AchievementService);
   });
 
+  afterEach(() => localStorage.removeItem('turings_node_achievements'));
+
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('erases every unlocked achievement', () => {
+    service.unlock('golden_3');
+    expect(service.unlockedAchievements().has('golden_3')).toBe(true);
+
+    service.resetAchievements();
+
+    expect(service.unlockedAchievements().size).toBe(0);
+    expect(localStorage.getItem('turings_node_achievements')).toBeNull();
   });
 });

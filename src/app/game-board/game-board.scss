@@ -76,6 +76,16 @@ $color-gold-light: #FAF089;
         z-index: 2;
     }
 
+    /* Symbole d'état (✓ ✕ ★), lisible même sans distinguer le rouge du vert */
+    .state-icon {
+        position: absolute;
+        top: 4px;
+        left: 8px;
+        font-size: 0.9em;
+        line-height: 1;
+        z-index: 2;
+    }
+
     &:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -112,6 +122,50 @@ $color-gold-light: #FAF089;
   &:hover {
     background-color: $color-gold-light;
   }
+}
+
+/* Niveaux à 4 boutons : boutons un peu plus étroits pour tenir sur une seule ligne */
+@media (min-width: 601px) {
+    .button-container[data-count="4"] {
+        gap: 30px;
+
+        .game-button {
+            min-width: 170px;
+        }
+    }
+}
+
+/* Compteur de clics et boutons Annuler / Recommencer, dans la couleur du score */
+.play-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px 25px;
+    margin-top: 50px;
+    font-size: 1.1em;
+}
+
+.control-button {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 2px solid currentColor;
+    background-color: transparent;
+    color: inherit;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+    }
 }
 
 /* Style pour un bouton "logiquement" désactivé */
@@ -285,5 +339,49 @@ $color-gold-light: #FAF089;
   &:hover {
     background-color: rgba(45, 55, 72, 0.6);
     transform: scale(1.1);
+  }
+}
+
+/* Petits écrans : boutons les uns sous les autres, sur toute la largeur */
+@media (max-width: 600px) {
+  .score-display {
+    margin-bottom: 40px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+
+    .game-button {
+      min-width: 0;
+      padding: 18px 24px;
+      font-size: 1.1em;
+      text-align: left;
+    }
+  }
+
+  .play-controls {
+    margin-top: 30px;
+
+    // Le compteur sur sa propre ligne, les deux boutons côte à côte en dessous
+    .click-counter {
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+
+  .level-complete-container {
+    padding: 25px 15px;
+
+    h2 {
+      font-size: 2em;
+    }
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
   }
 }

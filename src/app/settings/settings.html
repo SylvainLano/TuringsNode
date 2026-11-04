@@ -1,0 +1,42 @@
+<div class="level-select-container settings-container">
+  <h1 class="title">{{ 'settings.title' | translate }}</h1>
+
+  <section class="setting">
+    <h2>{{ 'settings.language' | translate }}</h2>
+    <div class="choices">
+      @for (language of LANGUAGES; track language.code) {
+        <button
+          class="choice"
+          [class.is-active]="translationService.currentLang() === language.code"
+          [attr.aria-pressed]="translationService.currentLang() === language.code"
+          (click)="selectLanguage(language.code)">
+          {{ language.name }}
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="setting">
+    <h2>{{ 'settings.progress' | translate }}</h2>
+    @switch (resetState()) {
+      @case ('idle') {
+        <button class="choice is-danger" (click)="resetState.set('confirming')">{{ 'settings.resetButton' | translate }}</button>
+      }
+      @case ('confirming') {
+        <p>{{ 'settings.resetWarning' | translate }}</p>
+        <div class="choices">
+          <button class="choice is-danger" (click)="confirmReset()">{{ 'settings.resetConfirm' | translate }}</button>
+          <button class="choice" (click)="resetState.set('idle')">{{ 'settings.resetCancel' | translate }}</button>
+        </div>
+      }
+      @case ('done') {
+        <p>{{ 'settings.resetDone' | translate }}</p>
+      }
+    }
+  </section>
+
+  <a routerLink="/" class="back-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    <span>{{ 'settings.backButton' | translate }}</span>
+  </a>
+</div>

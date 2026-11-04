@@ -23,6 +23,12 @@ $secondary-button-border: #A0AEC0;
   }
 }
 
+@media (max-width: 600px) {
+  .menu-container h1 {
+    font-size: 3em;
+  }
+}
+
 .button-group {
   display: flex;
   flex-direction: column;

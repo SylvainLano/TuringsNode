@@ -49,4 +49,12 @@ export class AchievementService {
     const message = this.translationService.translate(`achievements.${achievementId}.title`);
     this.notificationService.show(message);
   }
+
+  /**
+   * Efface tous les succès déverrouillés.
+   */
+  public resetAchievements(): void {
+    this.unlockedAchievements.set(new Set());
+    this.storageService.removeData('turings_node_achievements');
+  }
 }
