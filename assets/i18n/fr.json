@@ -11,7 +11,12 @@
     "noMedalSubtitle": "Essayez de résoudre le niveau en moins de coups.",
     "retryButton": "Réessayer",
     "nextLevelButton": "Niveau Suivant",
-    "allLevelsCompleted": "Vous avez terminé tous les niveaux disponibles !"
+    "allLevelsCompleted": "Vous avez terminé tous les niveaux disponibles !",
+    "undoButton": "Annuler",
+    "restartButton": "Recommencer",
+    "stateGreen": "condition remplie",
+    "stateRed": "condition non remplie",
+    "stateGold": "constante en or"
   },
   "level_data_not_found": "Données du niveau introuvable.",
   "medals": {
@@ -66,10 +71,22 @@
     "continueButton": "Continuer",
     "levelSelectButton": "Sélection du niveau",
     "restartButton": "Recommencer",
-    "achievementsButton": "Succès"
+    "achievementsButton": "Succès",
+    "settingsButton": "Réglages"
   },
   "levelSelect": {
     "title": "Sélection du niveau",
+    "backButton": "Retour"
+  },
+  "settings": {
+    "title": "Réglages",
+    "language": "Langue",
+    "progress": "Progression",
+    "resetButton": "Effacer ma progression",
+    "resetWarning": "Toutes les médailles et tous les succès seront définitivement perdus.",
+    "resetConfirm": "Oui, tout effacer",
+    "resetCancel": "Annuler",
+    "resetDone": "Progression effacée.",
     "backButton": "Retour"
   }
 }

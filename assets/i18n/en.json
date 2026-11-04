@@ -11,7 +11,12 @@
     "noMedalSubtitle": "Try to solve the level in fewer steps.",
     "retryButton": "Retry",
     "nextLevelButton": "Next Level",
-    "allLevelsCompleted": "You have completed all available levels!"
+    "allLevelsCompleted": "You have completed all available levels!",
+    "undoButton": "Undo",
+    "restartButton": "Restart",
+    "stateGreen": "condition met",
+    "stateRed": "condition not met",
+    "stateGold": "golden constant"
   },
   "level_data_not_found": "Level data not found.",
   "medals": {
@@ -66,10 +71,22 @@
     "continueButton": "Continue",
     "levelSelectButton": "Level select",
     "restartButton": "Restart",
-    "achievementsButton": "Achievements"
+    "achievementsButton": "Achievements",
+    "settingsButton": "Settings"
   },
   "levelSelect": {
     "title": "Level selection",
+    "backButton": "Back"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "progress": "Progress",
+    "resetButton": "Erase my progress",
+    "resetWarning": "All medals and achievements will be permanently lost.",
+    "resetConfirm": "Yes, erase everything",
+    "resetCancel": "Cancel",
+    "resetDone": "Progress erased.",
     "backButton": "Back"
   }
 }
