@@ -15,6 +15,7 @@ import { TranslatePipe } from '../shared/pipes/translate-pipe';
 })
 export class LevelSelectComponent implements OnInit {
   public allLevels;
+  public introducedButtons;
   public bestMedals;
 
   constructor(
@@ -23,6 +24,7 @@ export class LevelSelectComponent implements OnInit {
     private router: Router
   ) {
     this.allLevels = this.levelService.levels;
+    this.introducedButtons = this.levelService.introducedButtons;
     this.bestMedals = this.levelService.bestMedals;
   }
 

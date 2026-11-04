@@ -1,4 +1,4 @@
-import { DEFAULT_MIN_SCORE, Level, applyBouncingBoundaries, getMedal, getScoreBounds } from './level';
+import { DEFAULT_MIN_SCORE, Level, applyBouncingBoundaries, getIntroducedButtons, getMedal, getScoreBounds } from './level';
 
 const LEVEL: Level = {
   levelNumber: 1,
@@ -45,5 +45,20 @@ describe('Engine level', () => {
     expect([4, 5, 6, 7, 10, 11, 20].map(clicks => getMedal(clicks, LEVEL)))
       .toEqual(['Platine', 'Or', 'Or', 'Argent', 'Argent', 'Bronze', 'Bronze']);
     expect(getMedal(21, LEVEL)).toBeNull();
+  });
+});
+
+describe('Engine introduced buttons', () => {
+  const level = (levelNumber: number, names: Level['buttons'][number]['name'][]): Level =>
+    ({ ...LEVEL, levelNumber, buttons: names.map(name => ({ name, initialValue: 1 })) });
+
+  it('getIntroducedButtons lists the buttons appearing for the first time in each level', () => {
+    const introduced = getIntroducedButtons([
+      level(1, ['Split', 'Boost']),
+      level(2, ['Boost', 'Split']),
+      level(3, ['Primer', 'Split', 'Primer']),
+      level(4, ['Split', 'Boost'])
+    ]);
+    expect([1, 2, 3, 4].map(n => introduced.get(n))).toEqual([['Split', 'Boost'], [], ['Primer'], []]);
   });
 });

@@ -65,6 +65,7 @@ export class GameBoardComponent implements OnInit {
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
   private initialSetupDone = false;
   private history: BoardSnapshot[] = [];
+  private readonly MEDAL_ICONS = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };
 
   constructor(
     private backgroundService: BackgroundService,
@@ -241,6 +242,23 @@ export class GameBoardComponent implements OnInit {
   public stateIcon(button: GameButton): string {
     if (button.colorClass === 'is-gold') return '★';
     return button.isConditionMet ? '✓' : '✕';
+  }
+
+  // Bilan de la campagne, affiché après le dernier niveau
+  public medalTally(): { name: string; icon: string; count: number }[] {
+    const results = Object.values(this.levelService.bestMedals());
+    return Object.entries(this.MEDAL_ICONS).map(([name, icon]) => ({ name, icon, count: results.filter(r => r === name).length }));
+  }
+
+  public isAllPlatinum(): boolean {
+    const medals = this.levelService.bestMedals();
+    return this.levelService.levels().every(level => medals[level.levelNumber] === 'Platine');
+  }
+
+  // Bouton que le joueur découvre pour la première fois dans ce niveau
+  public isNewButton(button: GameButton): boolean {
+    const introduced = this.levelService.introducedButtons().get(this.levelService.currentLevelNumber());
+    return !!introduced?.includes(button.name);
   }
 
   public stateLabelKey(button: GameButton): string {

@@ -2,7 +2,13 @@
   "gameboard": {
     "levelCompleteTitle": "Niveau {level} terminé !",
     "clicksCount": "Nombre de clics",
-    "medalOf": "Médaille de {medalName} !",
+    "clicksShort": "Clics",
+    "medalTitles": {
+      "Platine": "Médaille de platine !",
+      "Or": "Médaille d'or !",
+      "Argent": "Médaille d'argent !",
+      "Bronze": "Médaille de bronze !"
+    },
     "medalDescriptionPlatine": "Nombre de coups minimum découvert !",
     "medalDescriptionOr": "Excellent !",
     "medalDescriptionArgent": "Très bien !",
@@ -11,19 +17,24 @@
     "noMedalSubtitle": "Essayez de résoudre le niveau en moins de coups.",
     "retryButton": "Réessayer",
     "nextLevelButton": "Niveau Suivant",
-    "allLevelsCompleted": "Vous avez terminé tous les niveaux disponibles !",
     "undoButton": "Annuler",
     "restartButton": "Recommencer",
     "stateGreen": "condition remplie",
     "stateRed": "condition non remplie",
-    "stateGold": "constante en or"
+    "stateGold": "constante en or",
+    "newButton": "Nouveau",
+    "campaignCompleteTitle": "Campagne terminée !",
+    "campaignCompleteText": "Bravo, vous avez terminé les {total} niveaux de Turing's Node.",
+    "campaignPlatinumHint": "Rejouez les niveaux pour décrocher le Platine partout !",
+    "campaignAllPlatinum": "Platine sur tous les niveaux : chapeau !"
   },
   "level_data_not_found": "Données du niveau introuvable.",
   "medals": {
     "Platine": "Platine",
     "Or": "Or",
     "Argent": "Argent",
-    "Bronze": "Bronze"
+    "Bronze": "Bronze",
+    "Terminé": "Terminé"
   },
   "achievements": {
     "title": "Succès Déverrouillés",

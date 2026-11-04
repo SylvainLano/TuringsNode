@@ -7,6 +7,9 @@
         [class.is-locked]="!isLevelUnlocked(level.levelNumber)"
         (click)="selectLevel(level.levelNumber)">
         <span class="level-number">{{ level.levelNumber }}</span>
+        @if (introducedButtons().get(level.levelNumber)?.length) {
+          <span class="intro-badge">+ {{ introducedButtons().get(level.levelNumber)!.join(' · ') }}</span>
+        }
         <div class="icons-container">
           <div class="medal-icon-display">
             @switch (bestMedals()[level.levelNumber]) {

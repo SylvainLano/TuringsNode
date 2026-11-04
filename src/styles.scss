@@ -11,3 +11,8 @@ body, html {
 body, button {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
+
+// Couleur de texte adaptée au fond (définie par l'application selon le fond affiché)
+body {
+  color: var(--theme-text-color, #2d3748);
+}

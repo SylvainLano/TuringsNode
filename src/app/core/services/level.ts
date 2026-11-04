@@ -2,7 +2,7 @@ import { Injectable, computed, signal, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage';
 import { APP_BASE_HREF } from '@angular/common';
-import { Level } from '../engine';
+import { Level, getIntroducedButtons } from '../engine';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,9 @@ export class LevelService {
     const currentIndex = allLevels.findIndex(l => l.levelNumber === this.currentLevelNumber());
     return currentIndex > -1 && currentIndex < allLevels.length - 1;
   });
+
+  // Pour chaque niveau, les boutons que le joueur y découvre pour la première fois
+  public readonly introducedButtons = computed(() => getIntroducedButtons(this.levels()));
 
   constructor(
     private http: HttpClient,

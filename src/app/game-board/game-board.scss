@@ -76,6 +76,26 @@ $color-gold-light: #FAF089;
         z-index: 2;
     }
 
+    /* Étiquette « Nouveau » sur un bouton découvert dans ce niveau (avec la place qu'il lui faut) */
+    &.is-new {
+        padding-top: 20px;
+    }
+
+    .new-tag {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 1px 8px;
+        border-radius: 0 0 6px 6px;
+        background-color: rgba(26, 32, 44, 0.75);
+        color: $color-white;
+        font-size: 0.6em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 3;
+    }
+
     /* Symbole d'état (✓ ✕ ★), lisible même sans distinguer le rouge du vert */
     .state-icon {
         position: absolute;
@@ -135,35 +155,43 @@ $color-gold-light: #FAF089;
     }
 }
 
-/* Compteur de clics et boutons Annuler / Recommencer, dans la couleur du score */
+/* Compteur de clics et boutons Annuler / Recommencer : discrets, dans le coin en bas à droite,
+   avec le même fond que le bouton de retour au menu */
 .play-controls {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    gap: 15px 25px;
-    margin-top: 50px;
-    font-size: 1.1em;
+    gap: 10px;
+    padding: 8px 10px 8px 14px;
+    border-radius: 12px;
+    background-color: rgba(45, 55, 72, 0.4);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: $color-white;
+    font-size: 0.9em;
+    white-space: nowrap;
 }
 
 .control-button {
-    padding: 8px 18px;
+    padding: 6px 12px;
     border-radius: 8px;
-    border: 2px solid currentColor;
-    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.08);
     color: inherit;
-    font-size: 1em;
+    font-size: 0.95em;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 
     &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
     &:disabled {
-        opacity: 0.35;
+        opacity: 0.4;
         cursor: not-allowed;
     }
 }
@@ -231,6 +259,36 @@ $color-gold-light: #FAF089;
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
+  }
+}
+
+/* Bilan de la campagne, après le dernier niveau */
+.campaign-summary {
+  margin-bottom: 30px;
+
+  h3 {
+    font-family: 'Rubik', sans-serif;
+    font-style: italic;
+    font-size: 1.8em;
+    margin: 0 0 10px;
+  }
+
+  p {
+    margin: 0 0 15px;
+  }
+
+  .medal-tally {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 20px;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+
+  .campaign-hint {
+    opacity: 0.8;
   }
 }
 
@@ -363,13 +421,11 @@ $color-gold-light: #FAF089;
   }
 
   .play-controls {
-    margin-top: 30px;
-
-    // Le compteur sur sa propre ligne, les deux boutons côte à côte en dessous
-    .click-counter {
-      flex-basis: 100%;
-      text-align: center;
-    }
+    right: 12px;
+    bottom: 12px;
+    gap: 8px;
+    padding: 6px 8px 6px 10px;
+    font-size: 0.85em;
   }
 
   .level-complete-container {

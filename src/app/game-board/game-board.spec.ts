@@ -110,4 +110,24 @@ describe('GameBoardComponent', () => {
     const nextButton: HTMLElement = fixture.nativeElement.querySelector('.next-level-button');
     expect(nextButton.textContent).toContain('menu.levelSelectButton');
   });
+
+  it('shows the campaign summary after the last level', () => {
+    levelService.levels.set([LEVEL]);
+    fixture.detectChanges();
+    component.onButtonClick(component.buttons[0]);
+    fixture.detectChanges();
+
+    const summary: HTMLElement = fixture.nativeElement.querySelector('.campaign-summary');
+    expect(summary.querySelector('.medal-tally')?.textContent).toContain('💎 1');
+    expect(component.isAllPlatinum()).toBe(true);
+  });
+
+  it('marks the buttons the player discovers in this level', () => {
+    levelService.levels.set([LEVEL, { ...LEVEL, levelNumber: 2, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 1 }] }]);
+    levelService.currentLevelNumber.set(2);
+    fixture.detectChanges();
+
+    expect(component.buttons.map(button => component.isNewButton(button))).toEqual([false, true]);
+    expect(fixture.nativeElement.querySelectorAll('.new-tag').length).toBe(1);
+  });
 });

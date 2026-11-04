@@ -7,6 +7,7 @@ export interface LevelButtonConfig {
 
 export interface Level {
   levelNumber: number;
+  chapter?: number;
   startScore: number;
   minScore: number | null;
   maxScore: number | null;
@@ -63,4 +64,14 @@ export function getMedal(clicks: number, level: Level): Medal | null {
   if (clicks <= level.silverSteps) return 'Argent';
   if (clicks <= level.bronzeSteps) return 'Bronze';
   return null;
+}
+
+/** Boutons qui apparaissent pour la première fois dans chaque niveau, en suivant l'ordre de la liste */
+export function getIntroducedButtons(levels: Level[]): Map<number, ButtonName[]> {
+  const seen = new Set<ButtonName>();
+  return new Map(levels.map(level => {
+    const introduced = [...new Set(level.buttons.map(button => button.name))].filter(name => !seen.has(name));
+    introduced.forEach(name => seen.add(name));
+    return [level.levelNumber, introduced] as [number, ButtonName[]];
+  }));
 }

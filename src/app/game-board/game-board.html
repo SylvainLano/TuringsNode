@@ -16,19 +16,23 @@
         <button
           class="game-button"
           [ngClass]="button.colorClass"
+          [class.is-new]="isNewButton(button)"
           (click)="onButtonClick(button)"
           [class.is-disabled]="isAnimatingScore || button.isDisabled"
           [disabled]="isAnimatingScore || button.isDisabled"
           [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)">
           <span class="state-icon" aria-hidden="true">{{ stateIcon(button) }}</span>
+          @if (isNewButton(button)) {
+            <span class="new-tag">{{ 'gameboard.newButton' | translate }}</span>
+          }
           <span class="button-label">{{ button.name }}</span>
           <span class="background-number">{{ button.value }}</span>
         </button>
       }
     </div>
 
-    <div class="play-controls" [style.color]="getScoreColor()">
-      <span class="click-counter">{{ 'gameboard.clicksCount' | translate }} : <strong>{{ levelClicks }}</strong></span>
+    <div class="play-controls">
+      <span class="click-counter">{{ 'gameboard.clicksShort' | translate }} : <strong>{{ levelClicks }}</strong></span>
       <button class="control-button" (click)="undo()" [disabled]="!canUndo" title="Ctrl+Z">
         ↶ {{ 'gameboard.undoButton' | translate }}
       </button>
@@ -63,7 +67,7 @@
             }
           </span>
           <span class="medal-text">
-            {{ 'gameboard.medalOf' | translate:{ medalName: ('medals.' + earnedMedal | translate) } }}
+            {{ 'gameboard.medalTitles.' + earnedMedal | translate }}
           </span>
         </div>
       } @else {
@@ -91,8 +95,17 @@
         </span>
       </div>
       @if (!levelService.hasNextLevel()) {
-        <div class="stats">
-          <p>{{ 'gameboard.allLevelsCompleted' | translate }}</p>
+        <div class="campaign-summary">
+          <h3>{{ 'gameboard.campaignCompleteTitle' | translate }}</h3>
+          <p>{{ 'gameboard.campaignCompleteText' | translate:{ total: levelService.levels().length } }}</p>
+          <div class="medal-tally">
+            @for (medal of medalTally(); track medal.name) {
+              <span class="tally-item" [title]="'medals.' + medal.name | translate">{{ medal.icon }} {{ medal.count }}</span>
+            }
+          </div>
+          <p class="campaign-hint">
+            {{ (isAllPlatinum() ? 'gameboard.campaignAllPlatinum' : 'gameboard.campaignPlatinumHint') | translate }}
+          </p>
         </div>
       }
       <div class="action-buttons">

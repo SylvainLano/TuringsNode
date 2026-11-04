@@ -2,7 +2,13 @@
   "gameboard": {
     "levelCompleteTitle": "Level {level} complete !",
     "clicksCount": "Clic number",
-    "medalOf": "{medalName} medal !",
+    "clicksShort": "Clicks",
+    "medalTitles": {
+      "Platine": "Platinum medal!",
+      "Or": "Gold medal!",
+      "Argent": "Silver medal!",
+      "Bronze": "Bronze medal!"
+    },
     "medalDescriptionPlatine": "Optimal solution discovered!",
     "medalDescriptionOr": "Excellent!",
     "medalDescriptionArgent": "Great job!",
@@ -11,19 +17,24 @@
     "noMedalSubtitle": "Try to solve the level in fewer steps.",
     "retryButton": "Retry",
     "nextLevelButton": "Next Level",
-    "allLevelsCompleted": "You have completed all available levels!",
     "undoButton": "Undo",
     "restartButton": "Restart",
     "stateGreen": "condition met",
     "stateRed": "condition not met",
-    "stateGold": "golden constant"
+    "stateGold": "golden constant",
+    "newButton": "New",
+    "campaignCompleteTitle": "Campaign complete!",
+    "campaignCompleteText": "Well done, you completed all {total} levels of Turing's Node.",
+    "campaignPlatinumHint": "Replay the levels to earn Platinum everywhere!",
+    "campaignAllPlatinum": "Platinum on every level: hats off!"
   },
   "level_data_not_found": "Level data not found.",
   "medals": {
     "Platine": "Platinum",
     "Or": "Gold",
     "Argent": "Silver",
-    "Bronze": "Bronze"
+    "Bronze": "Bronze",
+    "Terminé": "Completed"
   },
   "achievements": {
     "title": "Unlocked Achievements",

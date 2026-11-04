@@ -26,3 +26,12 @@ describe('levels.json', () => {
     });
   });
 });
+
+describe('levels.json chapters', () => {
+  it('gives every level a chapter, numbered from 1 without gaps and in order', () => {
+    const chapters = LEVELS.map(level => level.chapter);
+    expect(chapters.every(chapter => Number.isInteger(chapter))).toBe(true);
+    expect(chapters[0]).toBe(1);
+    chapters.slice(1).forEach((chapter, i) => expect([chapters[i], chapters[i]! + 1]).toContain(chapter));
+  });
+});

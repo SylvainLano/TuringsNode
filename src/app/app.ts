@@ -1,7 +1,8 @@
-import { Component, computed, effect, Renderer2, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, effect, Renderer2, RendererStyleFlags2, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { BackgroundService } from './core/services/background';
+import { FaviconService } from './core/services/favicon';
 import { ParticlesBackgroundComponent } from './shared/components/particles-background/particles-background';
 import { NotificationComponent } from './shared/components/notification/notification';
 
@@ -30,8 +31,12 @@ export class App {
 
   constructor(
     private backgroundService: BackgroundService,
-    private renderer: Renderer2 // On injecte Renderer2 pour manipuler le DOM
+    private renderer: Renderer2, // On injecte Renderer2 pour manipuler le DOM
+    faviconService: FaviconService
   ) {
+    // Un chiffre au hasard dans l'onglet à chaque visite
+    faviconService.showRandomDigit();
+
     // Cet `effect` est la nouvelle logique clé.
     // Il s'exécute automatiquement chaque fois que le signal `state` du service change.
     effect(() => {
@@ -40,6 +45,12 @@ export class App {
       // On retire l'ancienne classe CSS du <body>
       if (this.currentBackgroundClass) {
         this.renderer.removeClass(document.body, this.currentBackgroundClass);
+      }
+
+      // Couleur de texte lisible sur le fond actuel (sombre sur fond clair, claire sur fond sombre),
+      // reprise par les titres et les boutons secondaires de toutes les pages
+      if (state.scoreColor) {
+        this.renderer.setStyle(document.documentElement, '--theme-text-color', state.scoreColor, RendererStyleFlags2.DashCase);
       }
     });
   }
