@@ -45,48 +45,48 @@ describe('Engine buttons', () => {
 
   describe('conditions', () => {
     it('Primer: a prime within ±value', () => {
-      expect(isButtonConditionMet('Primer', 14, 1)).toBeTrue();
-      expect(isButtonConditionMet('Primer', 26, 2)).toBeFalse();
+      expect(isButtonConditionMet('Primer', 14, 1)).toBe(true);
+      expect(isButtonConditionMet('Primer', 26, 2)).toBe(false);
     });
 
     it('Split: divisible by the value', () => {
-      expect(isButtonConditionMet('Split', 30, 2)).toBeTrue();
-      expect(isButtonConditionMet('Split', 31, 2)).toBeFalse();
+      expect(isButtonConditionMet('Split', 30, 2)).toBe(true);
+      expect(isButtonConditionMet('Split', 31, 2)).toBe(false);
     });
 
     it('Boost: within value of a perfect square', () => {
-      expect(isButtonConditionMet('Boost', 20, 4)).toBeTrue();
-      expect(isButtonConditionMet('Boost', 20, 3)).toBeFalse();
+      expect(isButtonConditionMet('Boost', 20, 4)).toBe(true);
+      expect(isButtonConditionMet('Boost', 20, 3)).toBe(false);
     });
 
     it('Digit: digital root equals the value', () => {
-      expect(isButtonConditionMet('Digit', 987, 6)).toBeTrue();
-      expect(isButtonConditionMet('Digit', 987, 5)).toBeFalse();
+      expect(isButtonConditionMet('Digit', 987, 6)).toBe(true);
+      expect(isButtonConditionMet('Digit', 987, 5)).toBe(false);
     });
 
     it('Reduce: multiple of a perfect square', () => {
-      expect(isButtonConditionMet('Reduce', 12, 1)).toBeTrue();
-      expect(isButtonConditionMet('Reduce', 30, 1)).toBeFalse();
+      expect(isButtonConditionMet('Reduce', 12, 1)).toBe(true);
+      expect(isButtonConditionMet('Reduce', 30, 1)).toBe(false);
     });
 
     it('Align: palindrome', () => {
-      expect(isButtonConditionMet('Align', 12321, 9)).toBeTrue();
-      expect(isButtonConditionMet('Align', 12345, 9)).toBeFalse();
+      expect(isButtonConditionMet('Align', 12321, 9)).toBe(true);
+      expect(isButtonConditionMet('Align', 12345, 9)).toBe(false);
     });
 
     it('Fiber: a Fibonacci number within ±F(value)', () => {
-      expect(isButtonConditionMet('Fiber', 30, 5)).toBeTrue();  // F(5) = 5, 34 est à 4
-      expect(isButtonConditionMet('Fiber', 30, 3)).toBeFalse(); // F(3) = 2
+      expect(isButtonConditionMet('Fiber', 30, 5)).toBe(true); // F(5) = 5, 34 est à 4
+      expect(isButtonConditionMet('Fiber', 30, 3)).toBe(false); // F(3) = 2
     });
 
     it('Factor: multiple of value! (ignoring 0! and 1!)', () => {
-      expect(isButtonConditionMet('Factor', 120, 5)).toBeTrue();
-      expect(isButtonConditionMet('Factor', 120, 1)).toBeFalse();
+      expect(isButtonConditionMet('Factor', 120, 5)).toBe(true);
+      expect(isButtonConditionMet('Factor', 120, 1)).toBe(false);
     });
 
     it('Cipher: all digits are distinct', () => {
-      expect(isButtonConditionMet('Cipher', 4567, 5)).toBeTrue();
-      expect(isButtonConditionMet('Cipher', 4557, 5)).toBeFalse();
+      expect(isButtonConditionMet('Cipher', 4567, 5)).toBe(true);
+      expect(isButtonConditionMet('Cipher', 4557, 5)).toBe(false);
     });
   });
 
@@ -96,9 +96,9 @@ describe('Engine buttons', () => {
   });
 
   it('isGoldenScore matches the start of the famous constant of the value', () => {
-    expect(isGoldenScore(3141, 3)).toBeTrue();
-    expect(isGoldenScore(314, 3)).toBeFalse();  // Moins de 4 chiffres
-    expect(isGoldenScore(3142, 3)).toBeFalse();
-    expect(isGoldenScore(3141, 4)).toBeFalse();
+    expect(isGoldenScore(3141, 3)).toBe(true);
+    expect(isGoldenScore(314, 3)).toBe(false); // Moins de 4 chiffres
+    expect(isGoldenScore(3142, 3)).toBe(false);
+    expect(isGoldenScore(3141, 4)).toBe(false);
   });
 });

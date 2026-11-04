@@ -1,6 +1,6 @@
-import { Component, computed, effect, Renderer2, signal } from '@angular/core';
+import { Component, computed, effect, Renderer2, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { BackgroundService } from './core/services/background';
 import { ParticlesBackgroundComponent } from './shared/components/particles-background/particles-background';
 import { NotificationComponent } from './shared/components/notification/notification';
@@ -10,11 +10,11 @@ import { NotificationComponent } from './shared/components/notification/notifica
   standalone: true,
   imports: [
     RouterOutlet,
-    CommonModule,
     ParticlesBackgroundComponent,
     NotificationComponent
-  ],
+],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss'
 })
 

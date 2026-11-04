@@ -1,3 +1,5 @@
-<div *ngIf="notificationMessage() as message" class="notification-toast">
-  {{ message }}
-</div>
+@if (notificationMessage(); as message) {
+  <div class="notification-toast">
+    {{ message }}
+  </div>
+}

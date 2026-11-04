@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
 import { NotificationService } from '../../../core/services/notification';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './notification.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./notification.scss']
 })
 export class NotificationComponent {

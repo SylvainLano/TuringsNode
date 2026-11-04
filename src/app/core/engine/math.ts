@@ -1,9 +1,11 @@
 // Fonctions arithmétiques pures utilisées par les actions et les conditions des boutons
 
 export function isPrime(num: number): boolean {
-  if (num <= 1) return false;
-  for (let i = 2; i * i <= num; i++) {
-    if (num % i === 0) return false;
+  if (num <= 3) return num > 1;
+  if (num % 2 === 0 || num % 3 === 0) return false;
+  // Au-delà de 3, tout nombre premier s'écrit 6k ± 1
+  for (let i = 5; i * i <= num; i += 6) {
+    if (num % i === 0 || num % (i + 2) === 0) return false;
   }
   return true;
 }

@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { APP_BASE_HREF } from '@angular/common';
 
 import { LevelService } from './level';
 import { Level } from '../engine';
 
-const BEST_MEDALS_KEY = 'turings_node_best_medals';
+const BEST_MEDALS_KEY = 'turings_node_best_medals_v1';
+const OBSOLETE_MEDALS_KEY = 'turings_node_best_medals';
 
 const makeLevel = (levelNumber: number): Level => ({
   levelNumber,
@@ -25,9 +26,11 @@ describe('LevelService', () => {
 
   beforeEach(() => {
     localStorage.removeItem(BEST_MEDALS_KEY);
+    // Progression d'un joueur sur les anciens niveaux
+    localStorage.setItem(OBSOLETE_MEDALS_KEY, JSON.stringify({ 1: 'Or', 2: 'Platine' }));
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         { provide: APP_BASE_HREF, useValue: '/' }
       ]
@@ -36,17 +39,25 @@ describe('LevelService', () => {
     TestBed.inject(HttpTestingController).expectOne('/assets/levels.json').flush([makeLevel(1), makeLevel(2)]);
   });
 
-  afterEach(() => localStorage.removeItem(BEST_MEDALS_KEY));
+  afterEach(() => {
+    localStorage.removeItem(BEST_MEDALS_KEY);
+    localStorage.removeItem(OBSOLETE_MEDALS_KEY);
+  });
+
+  it('forgets the medals saved for the previous levels', () => {
+    expect(localStorage.getItem(OBSOLETE_MEDALS_KEY)).toBeNull();
+    expect(service.bestMedals()).toEqual({});
+  });
 
   it('starts on the first level', () => {
     expect(service.currentLevelNumber()).toBe(1);
-    expect(service.hasNextLevel()).toBeTrue();
+    expect(service.hasNextLevel()).toBe(true);
   });
 
   it('stops advancing on the last level', () => {
     service.advanceToNextLevel();
     expect(service.currentLevelNumber()).toBe(2);
-    expect(service.hasNextLevel()).toBeFalse();
+    expect(service.hasNextLevel()).toBe(false);
 
     service.advanceToNextLevel();
     expect(service.currentLevelNumber()).toBe(2);

@@ -1,4 +1,4 @@
-import { Component, OnInit, effect } from '@angular/core';
+import { Component, OnInit, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
@@ -36,6 +36,7 @@ interface GameButton extends ButtonState {
     RouterLink
   ],
   templateUrl: './game-board.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./game-board.scss']
 })
 

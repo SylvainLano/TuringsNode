@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
@@ -13,7 +13,7 @@ describe('LevelSelectComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LevelSelectComponent],
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         provideRouter([]),
         { provide: APP_BASE_HREF, useValue: '/' }

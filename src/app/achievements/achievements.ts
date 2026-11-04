@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AchievementService } from '../core/services/achievement';
@@ -10,6 +10,7 @@ import { TranslatePipe } from '../shared/pipes/translate-pipe';
   standalone: true,
   imports: [CommonModule, RouterLink, TranslatePipe],
   templateUrl: './achievements.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./achievements.scss']
 })
 export class AchievementsComponent {

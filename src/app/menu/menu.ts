@@ -1,5 +1,5 @@
-import { Component, OnInit, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, computed, ChangeDetectionStrategy } from '@angular/core';
+
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { LevelService } from '../core/services/level';
@@ -10,11 +10,11 @@ import { BackgroundService } from '../core/services/background';
   selector: 'app-menu',
   standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     TranslatePipe
-  ],
+],
   templateUrl: './menu.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './menu.scss'
 })
 export class MenuComponent implements OnInit {

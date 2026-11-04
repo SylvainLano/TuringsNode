@@ -7,69 +7,91 @@
 </a>
 
 <div class="game-container">
-    <div *ngIf="gameState !== 'level_complete'" class="score-display" [style.color]="getScoreColor()">{{ displayedScore | number:'1.0-0' }}</div>
+  @if (gameState !== 'level_complete') {
+    <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore | number:'1.0-0' }}</div>
+  }
 
-    <div *ngIf="gameState !== 'level_complete'" class="button-container">
+  @if (gameState !== 'level_complete') {
+    <div class="button-container">
+      @for (button of buttons; track button) {
         <button
-            *ngFor="let button of buttons"
-            class="game-button"
-            [ngClass]="button.colorClass"
-            (click)="onButtonClick(button)"
-            [class.is-disabled]="isAnimatingScore || button.isDisabled"
-            [disabled]="isAnimatingScore || button.isDisabled">
-
-            <span class="button-label">{{ button.name }}</span>
-
-            <span class="background-number">{{ button.value }}</span>
+          class="game-button"
+          [ngClass]="button.colorClass"
+          (click)="onButtonClick(button)"
+          [class.is-disabled]="isAnimatingScore || button.isDisabled"
+          [disabled]="isAnimatingScore || button.isDisabled">
+          <span class="button-label">{{ button.name }}</span>
+          <span class="background-number">{{ button.value }}</span>
         </button>
+      }
     </div>
+  }
 
-    <div *ngIf="gameState === 'level_complete'" class="level-complete-container" [style.color]="getScoreColor()">
+  @if (gameState === 'level_complete') {
+    <div class="level-complete-container" [style.color]="getScoreColor()">
       <h2>{{ 'gameboard.levelCompleteTitle' | translate:{ level: levelService.currentLevelNumber() } }}</h2>
       <div class="stats">
         <p>{{ 'gameboard.clicksCount' | translate }} : <strong>{{ levelClicks }}</strong></p>
       </div>
-
-      <div *ngIf="earnedMedal; else noMedal" class="medal-display">
-        <span class="medal-icon">
-          <ng-container [ngSwitch]="earnedMedal">
-            <span *ngSwitchCase="'Platine'">💎</span>
-            <span *ngSwitchCase="'Or'">🥇</span>
-            <span *ngSwitchCase="'Argent'">🥈</span>
-            <span *ngSwitchCase="'Bronze'">🥉</span>
-          </ng-container>
-        </span>
-        <span class="medal-text">
-          {{ 'gameboard.medalOf' | translate:{ medalName: ('medals.' + earnedMedal | translate) } }}
-        </span>
-      </div>
-
-      <div class="stats">
-        <span class="medal-description" [ngSwitch]="earnedMedal">
-          <span *ngSwitchCase="'Platine'">{{ 'gameboard.medalDescriptionPlatine' | translate }}</span>
-          <span *ngSwitchCase="'Or'">{{ 'gameboard.medalDescriptionOr' | translate }}</span>
-          <span *ngSwitchCase="'Argent'">{{ 'gameboard.medalDescriptionArgent' | translate }}</span>
-          <span *ngSwitchCase="'Bronze'">{{ 'gameboard.medalDescriptionBronze' | translate }}</span>
-        </span>
-      </div>
-
-      <ng-template #noMedal>
+      @if (earnedMedal) {
+        <div class="medal-display">
+          <span class="medal-icon">
+            @switch (earnedMedal) {
+              @case ('Platine') {
+                <span>💎</span>
+              }
+              @case ('Or') {
+                <span>🥇</span>
+              }
+              @case ('Argent') {
+                <span>🥈</span>
+              }
+              @case ('Bronze') {
+                <span>🥉</span>
+              }
+            }
+          </span>
+          <span class="medal-text">
+            {{ 'gameboard.medalOf' | translate:{ medalName: ('medals.' + earnedMedal | translate) } }}
+          </span>
+        </div>
+      } @else {
         <div class="no-medal-display">
           <p>{{ 'gameboard.noMedalTitle' | translate }}</p>
           <span>{{ 'gameboard.noMedalSubtitle' | translate }}</span>
         </div>
-      </ng-template>
-
-      <div *ngIf="!levelService.hasNextLevel()" class="stats">
-        <p>{{ 'gameboard.allLevelsCompleted' | translate }}</p>
+      }
+      <div class="stats">
+        <span class="medal-description">
+          @switch (earnedMedal) {
+            @case ('Platine') {
+              <span>{{ 'gameboard.medalDescriptionPlatine' | translate }}</span>
+            }
+            @case ('Or') {
+              <span>{{ 'gameboard.medalDescriptionOr' | translate }}</span>
+            }
+            @case ('Argent') {
+              <span>{{ 'gameboard.medalDescriptionArgent' | translate }}</span>
+            }
+            @case ('Bronze') {
+              <span>{{ 'gameboard.medalDescriptionBronze' | translate }}</span>
+            }
+          }
+        </span>
       </div>
-
+      @if (!levelService.hasNextLevel()) {
+        <div class="stats">
+          <p>{{ 'gameboard.allLevelsCompleted' | translate }}</p>
+        </div>
+      }
       <div class="action-buttons">
         <button class="retry-button" (click)="retryLevel()">{{ 'gameboard.retryButton' | translate }}</button>
-        <button *ngIf="levelService.hasNextLevel(); else lastLevelButton" class="next-level-button" (click)="goToNextLevel()">{{ 'gameboard.nextLevelButton' | translate }}</button>
-        <ng-template #lastLevelButton>
+        @if (levelService.hasNextLevel()) {
+          <button class="next-level-button" (click)="goToNextLevel()">{{ 'gameboard.nextLevelButton' | translate }}</button>
+        } @else {
           <button class="next-level-button" routerLink="/levels">{{ 'menu.levelSelectButton' | translate }}</button>
-        </ng-template>
+        }
       </div>
     </div>
+  }
 </div>

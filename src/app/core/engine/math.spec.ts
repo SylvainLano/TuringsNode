@@ -14,8 +14,8 @@ import {
 
 describe('Engine math', () => {
   it('isPrime', () => {
-    expect([2, 3, 5, 13, 97, 7919].every(isPrime)).toBeTrue();
-    expect([-7, 0, 1, 4, 9, 25, 91, 7917].some(isPrime)).toBeFalse();
+    expect([2, 3, 5, 13, 97, 7919].every(isPrime)).toBe(true);
+    expect([-7, 0, 1, 4, 9, 25, 91, 7917].some(isPrime)).toBe(false);
   });
 
   it('nextPrime returns the next strictly greater prime', () => {
@@ -36,8 +36,8 @@ describe('Engine math', () => {
   });
 
   it('hasFibonacciBetween', () => {
-    expect(hasFibonacciBetween(19, 21)).toBeTrue();
-    expect(hasFibonacciBetween(14, 20)).toBeFalse();
+    expect(hasFibonacciBetween(19, 21)).toBe(true);
+    expect(hasFibonacciBetween(14, 20)).toBe(false);
   });
 
   it('factorial', () => {
@@ -52,24 +52,24 @@ describe('Engine math', () => {
   });
 
   it('isPalindrome', () => {
-    expect(isPalindrome(12321)).toBeTrue();
-    expect(isPalindrome(12345)).toBeFalse();
+    expect(isPalindrome(12321)).toBe(true);
+    expect(isPalindrome(12345)).toBe(false);
   });
 
   it('hasDistinctDigits', () => {
-    expect(hasDistinctDigits(4567)).toBeTrue();
-    expect(hasDistinctDigits(4557)).toBeFalse();
+    expect(hasDistinctDigits(4567)).toBe(true);
+    expect(hasDistinctDigits(4557)).toBe(false);
   });
 
   it('hasSquareFactor', () => {
-    expect([4, 12, 50].every(hasSquareFactor)).toBeTrue();
-    expect([2, 30, 105].some(hasSquareFactor)).toBeFalse();
+    expect([4, 12, 50].every(hasSquareFactor)).toBe(true);
+    expect([2, 30, 105].some(hasSquareFactor)).toBe(false);
   });
 
   it('isNearPerfectSquare', () => {
-    expect(isNearPerfectSquare(16, 1)).toBeTrue();
-    expect(isNearPerfectSquare(20, 3)).toBeFalse(); // 4 au-dessus de 16, 5 en dessous de 25
-    expect(isNearPerfectSquare(20, 4)).toBeTrue();
-    expect(isNearPerfectSquare(-1, 9)).toBeFalse();
+    expect(isNearPerfectSquare(16, 1)).toBe(true);
+    expect(isNearPerfectSquare(20, 3)).toBe(false); // 4 au-dessus de 16, 5 en dessous de 25
+    expect(isNearPerfectSquare(20, 4)).toBe(true);
+    expect(isNearPerfectSquare(-1, 9)).toBe(false);
   });
 });

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -10,7 +10,7 @@ describe('TranslatePipe', () => {
   it('returns the key while translations are not loaded', () => {
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         { provide: APP_BASE_HREF, useValue: '/' }
       ]

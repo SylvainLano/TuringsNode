@@ -26,7 +26,7 @@ describe('Engine board', () => {
     const board = createBoard(LEVEL);
     expect(board.score).toBe(20);
     expect(board.buttons.map(b => [b.name, b.value])).toEqual([['Primer', 1], ['Split', 2], ['Boost', 3]]);
-    expect(board.buttons.every(b => b.totalClickCount === 0 && b.consecutiveClickCount === 0)).toBeTrue();
+    expect(board.buttons.every(b => b.totalClickCount === 0 && b.consecutiveClickCount === 0)).toBe(true);
   });
 
   it('pressButton uses the value before the click, then increments it', () => {
@@ -52,16 +52,16 @@ describe('Engine board', () => {
     // Le score 11 a pour racine numérique 2 : Digit passe au vert dès que sa valeur vaut 2
     const level = makeLevel(11, [{ name: 'Digit', initialValue: 1 }], 10);
     const start = createBoard(level);
-    expect(isLevelComplete(start)).toBeFalse();
-    expect(isLevelComplete(pressButton(start, 0, getScoreBounds(level)))).toBeTrue();
+    expect(isLevelComplete(start)).toBe(false);
+    expect(isLevelComplete(pressButton(start, 0, getScoreBounds(level)))).toBe(true);
   });
 
   it('isButtonDisabled respects total and consecutive click limits', () => {
     const button = createBoard(LEVEL).buttons[0];
-    expect(isButtonDisabled({ ...button, totalClickCount: 5 })).toBeFalse();
-    expect(isButtonDisabled({ ...button, totalClickLimit: 3, totalClickCount: 3 })).toBeTrue();
-    expect(isButtonDisabled({ ...button, consecutiveClickLimit: 2, consecutiveClickCount: 1 })).toBeFalse();
-    expect(isButtonDisabled({ ...button, consecutiveClickLimit: 2, consecutiveClickCount: 2 })).toBeTrue();
-    expect(isButtonDisabled({ ...button, totalClickLimit: 0, totalClickCount: 9 })).toBeFalse();
+    expect(isButtonDisabled({ ...button, totalClickCount: 5 })).toBe(false);
+    expect(isButtonDisabled({ ...button, totalClickLimit: 3, totalClickCount: 3 })).toBe(true);
+    expect(isButtonDisabled({ ...button, consecutiveClickLimit: 2, consecutiveClickCount: 1 })).toBe(false);
+    expect(isButtonDisabled({ ...button, consecutiveClickLimit: 2, consecutiveClickCount: 2 })).toBe(true);
+    expect(isButtonDisabled({ ...button, totalClickLimit: 0, totalClickCount: 9 })).toBe(false);
   });
 });

@@ -1,14 +1,16 @@
-import { Component, effect, signal } from '@angular/core';
-import { NgxParticlesModule } from '@tsparticles/angular';
+import { Component, effect, signal, ChangeDetectionStrategy } from '@angular/core';
+import { NgParticlesService, NgxParticlesModule } from '@tsparticles/angular';
+import type { ISourceOptions } from '@tsparticles/engine';
 import { BackgroundService } from '../../../core/services/background';
 import { loadFull } from 'tsparticles';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-particles-background',
   standalone: true,
-  imports: [NgxParticlesModule, CommonModule],
+  imports: [NgxParticlesModule],
   templateUrl: './particles-background.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './particles-background.scss'
 })
 
@@ -16,18 +18,22 @@ export class ParticlesBackgroundComponent {
   id = "tsparticles";
 
   // 1. On transforme particlesOptions en un signal !
-  public readonly particlesOptions = signal<any>({});
+  public readonly particlesOptions = signal<ISourceOptions>({});
   public isVisible = signal(true);
+  // tsParticles doit être initialisé (avec tous ses modules) avant d'afficher <ngx-particles>
+  public readonly isEngineReady = signal(false);
 
-  // 2. On injecte le service
-  constructor(private backgroundService: BackgroundService) {
+  // 2. On injecte les services
+  constructor(private backgroundService: BackgroundService, particlesService: NgParticlesService) {
+    particlesService.init(loadFull).then(() => this.isEngineReady.set(true));
+
     // 3. On utilise un `effect` pour réagir aux changements
     effect(() => {
       const state = this.backgroundService.state();
 
       // On ne reconstruit les options que si le thème est bien "particules"
       if (state.type === 'particles') {
-        let newOptions = {};
+        let newOptions: ISourceOptions = {};
 
         // On regarde si un thème spécifique est demandé (ex: 'angry')
         if (state.value === 'angry') {
@@ -36,7 +42,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#ffffffff' } },
             fpsLimit: 120,
             particles: {
-              color: { value: '#ff0000' },
+              paint: { color: { value: '#ff0000' } },
               move: { enable: true, speed: 6, outModes: { default: "destroy" as const } },
               number: { value: 0 },
               opacity: { value: { min: 0.3, max: 1 } },
@@ -56,7 +62,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#000000' } },
             fpsLimit: 120,
             particles: {
-              color: { value: '#00ff00' }, // Vert Matrix
+              paint: { color: { value: '#00ff00' } }, // Vert Matrix
               // Utilise du texte au lieu de formes
               shape: {
                 type: "text" as const,
@@ -92,17 +98,17 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#37474F' } }, // Fond gris-bleu nuit
             fpsLimit: 120,
             particles: {
-              color: { value: '#ffffff' },
+              paint: { color: { value: '#ffffff' } },
               move: {
                 enable: true,
                 speed: 1,
                 direction: "bottom" as const,
                 straight: false, // Les particules ne tombent pas en ligne droite
-                wobble: {
-                  enable: true,
-                  distance: 5, // L'amplitude de l'oscillation
-                  speed: 10      // La vitesse de l'oscillation
-                }
+              },
+              wobble: {
+                enable: true,
+                distance: 5, // L'amplitude de l'oscillation
+                speed: 10      // La vitesse de l'oscillation
               },
               number: {
                 density: { enable: true },
@@ -135,7 +141,7 @@ export class ParticlesBackgroundComponent {
               }
             },
             particles: {
-              color: { value: '#ffffff' },
+              paint: { color: { value: '#ffffff' } },
               // La section clé pour cet effet
               links: {
                 color: '#ffffff',
@@ -164,7 +170,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#000014' } },
             fpsLimit: 60,
             particles: {
-              color: { value: ['#6e44ff', '#b892ff', '#9e00ff', '#ff4ecd'] },
+              paint: { color: { value: ['#6e44ff', '#b892ff', '#9e00ff', '#ff4ecd'] } },
               links: {
                 enable: true,
                 distance: 100,
@@ -207,7 +213,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#0a0a0a' } },
             fpsLimit: 60,
             particles: {
-              color: { value: '#00ffe7' },
+              paint: { color: { value: '#00ffe7' } },
               links: {
                 enable: true,
                 color: '#00ffe7',
@@ -260,7 +266,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#0d1b2a' } },
             fpsLimit: 60,
             particles: {
-              color: { value: '#faff70' },
+              paint: { color: { value: '#faff70' } },
               move: {
                 enable: true,
                 speed: 0.3,
@@ -282,7 +288,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#00334e' } },
             fpsLimit: 60,
             particles: {
-              color: { value: '#ffffff' },
+              paint: { color: { value: '#ffffff' } },
               shape: { type: 'circle' },
               opacity: {
                 value: 0.4,
@@ -320,7 +326,7 @@ export class ParticlesBackgroundComponent {
             background: { color: { value: '#000000' } },
             fpsLimit: 60,
             particles: {
-              color: { value: ['#ff0000', '#ffae00', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'] },
+              paint: { color: { value: ['#ff0000', '#ffae00', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'] } },
               move: {
                 enable: true,
                 speed: { min: 2, max: 6 },
@@ -355,8 +361,8 @@ export class ParticlesBackgroundComponent {
                 value: 400,
                 density: { enable: true }
               },
-              color: {
-                value: ['#ff00ff', '#00ffff'] // Rose néon et bleu néon
+              paint: {
+                color: { value: ['#ff00ff', '#00ffff'] } // Rose néon et bleu néon
               },
               shape: {
                 type: 'char',
@@ -405,7 +411,7 @@ export class ParticlesBackgroundComponent {
                   delay: 0.005,
                   quantity: 1,
                   particles: {
-                    color: { value: '#ffffff' },
+                    paint: { color: { value: '#ffffff' } },
                     move: { speed: 3, direction: 'none' },
                     size: { value: 10 },
                     opacity: { value: 1 },
@@ -424,7 +430,7 @@ export class ParticlesBackgroundComponent {
                 events: { onHover: { enable: false } },
             },
             particles: {
-                color: { value: ['#ff5722', '#ffc107', '#e91e63'] },
+                paint: { color: { value: ['#ff5722', '#ffc107', '#e91e63'] } },
                 links: { enable: false },
                 move: {
                     enable: true,
@@ -455,7 +461,7 @@ export class ParticlesBackgroundComponent {
                 }
             },
             particles: {
-                color: { value: '#30A2FF' },
+                paint: { color: { value: '#30A2FF' } },
                 links: { enable: false },
                 move: {
                     enable: true,
@@ -484,7 +490,7 @@ export class ParticlesBackgroundComponent {
                 }
             },
             particles: {
-                color: { value: '#FFD700' },
+                paint: { color: { value: '#FFD700' } },
                 links: { enable: false },
                 move: {
                     enable: true,
@@ -508,7 +514,7 @@ export class ParticlesBackgroundComponent {
               modes: { bubble: { distance: 250, duration: 2, opacity: 0.8, size: 20 } }
             },
             particles: {
-              color: { value: ['#ffd1dc', '#b2e2f2', '#e0c3fc', '#fbd8d8'] },
+              paint: { color: { value: ['#ffd1dc', '#b2e2f2', '#e0c3fc', '#fbd8d8'] } },
               links: { enable: false },
               move: { enable: true, speed: 0.5, direction: 'top' as const, outModes: { default: 'out' as const } },
               number: { density: { enable: true }, value: 150 },
@@ -527,9 +533,5 @@ export class ParticlesBackgroundComponent {
         setTimeout(() => this.isVisible.set(true), 0);
       }
     });
-  }
-
-  async particlesInit(engine: any): Promise<void> {
-    await loadFull(engine);
   }
 }

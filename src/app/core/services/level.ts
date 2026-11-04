@@ -12,7 +12,9 @@ export class LevelService {
   public readonly currentLevelNumber = signal(1);
 
   public readonly bestMedals = signal<Record<number, string>>({});
-  private readonly BEST_MEDALS_KEY = 'turings_node_best_medals';
+  private readonly BEST_MEDALS_KEY = 'turings_node_best_medals_v1';
+  // Médailles gagnées sur l'ancienne série de niveaux : elles ne correspondent plus aux mêmes niveaux
+  private readonly OBSOLETE_MEDALS_KEYS = ['turings_node_best_medals'];
   private readonly MEDAL_HIERARCHY = ['Terminé', 'Bronze', 'Argent', 'Or', 'Platine'];
 
   public readonly currentLevelData = computed(() => {
@@ -33,6 +35,8 @@ export class LevelService {
     private storageService: StorageService,
     @Inject(APP_BASE_HREF) private baseHref: string
   ) {
+    this.OBSOLETE_MEDALS_KEYS.forEach(key => this.storageService.removeData(key));
+
     const path = `${this.baseHref}assets/levels.json`;
 
     this.http.get<Level[]>(path).subscribe(data => {

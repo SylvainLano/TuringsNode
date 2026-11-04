@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { Router, RouterLink } from '@angular/router'; // <-- Importer Router et RouterLink
 import { LevelService } from '../core/services/level';
 import { BackgroundService } from '../core/services/background';
@@ -8,8 +8,9 @@ import { TranslatePipe } from '../shared/pipes/translate-pipe';
 @Component({
   selector: 'app-level-select',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslatePipe],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './level-select.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './level-select.scss'
 })
 export class LevelSelectComponent implements OnInit {

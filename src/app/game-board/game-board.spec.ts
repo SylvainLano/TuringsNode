@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
@@ -30,7 +30,7 @@ describe('GameBoardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [GameBoardComponent],
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         provideRouter([]),
         { provide: APP_BASE_HREF, useValue: '/' }
@@ -43,7 +43,7 @@ describe('GameBoardComponent', () => {
     component = fixture.componentInstance;
   });
 
-  afterEach(() => localStorage.removeItem('turings_node_best_medals'));
+  afterEach(() => localStorage.removeItem('turings_node_best_medals_v1'));
 
   it('should create', () => {
     fixture.detectChanges();

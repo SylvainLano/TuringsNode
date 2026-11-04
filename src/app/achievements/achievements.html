@@ -2,20 +2,25 @@
   <h1 class="title">{{ 'achievements.title' | translate }}</h1>
 
   <div class="achievements-list">
-    <div *ngFor="let achievementId of allAchievementsIds"
-         class="achievement-item"
-         [ngClass]="{ 'is-unlocked': unlockedAchievements().has(achievementId) }">
-
-      <div class="achievement-icon">
-        <span *ngIf="unlockedAchievements().has(achievementId); else locked">🏆</span>
-        <ng-template #locked><span>🔒</span></ng-template>
+    @for (achievementId of allAchievementsIds; track achievementId) {
+      <div
+        class="achievement-item"
+        [ngClass]="{ 'is-unlocked': unlockedAchievements().has(achievementId) }">
+        <div class="achievement-icon">
+          @if (unlockedAchievements().has(achievementId)) {
+            <span>🏆</span>
+          } @else {
+            <span>🔒</span>
+          }
+        </div>
+        @if (unlockedAchievements().has(achievementId)) {
+          <div class="achievement-details">
+            <h3 class="achievement-title">{{ 'achievements.' + achievementId + '.title' | translate }}</h3>
+            <p class="achievement-description">{{ 'achievements.' + achievementId + '.description' | translate }}</p>
+          </div>
+        }
       </div>
-
-      <div *ngIf="unlockedAchievements().has(achievementId)" class="achievement-details">
-        <h3 class="achievement-title">{{ 'achievements.' + achievementId + '.title' | translate }}</h3>
-        <p class="achievement-description">{{ 'achievements.' + achievementId + '.description' | translate }}</p>
-      </div>
-    </div>
+    }
   </div>
 
   <a routerLink="/" class="back-button">

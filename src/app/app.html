@@ -1,5 +1,7 @@
 <!-- Affichage du background à particules si le type est correct -->
-<app-particles-background *ngIf="backgroundType() === 'particles'"></app-particles-background>
+@if (backgroundType() === 'particles') {
+  <app-particles-background></app-particles-background>
+}
 
 <!-- Affichage des notifications de l'application -->
 <app-notification></app-notification>

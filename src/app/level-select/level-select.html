@@ -1,25 +1,38 @@
 <div class="level-select-container">
   <h1 class="title">{{ 'levelSelect.title' | translate }}</h1>
   <div class="levels-grid">
-    <a *ngFor="let level of allLevels()"
-      class="level-button"
-      [class.is-locked]="!isLevelUnlocked(level.levelNumber)"
-      (click)="selectLevel(level.levelNumber)">
-
-      <span class="level-number">{{ level.levelNumber }}</span>
-
-      <div class="icons-container">
-          <div class="medal-icon-display" [ngSwitch]="bestMedals()[level.levelNumber]">
-              <span *ngSwitchCase="'Platine'">💎</span>
-              <span *ngSwitchCase="'Or'">🥇</span>
-              <span *ngSwitchCase="'Argent'">🥈</span>
-              <span *ngSwitchCase="'Bronze'">🥉</span>
-              <span *ngSwitchCase="'Terminé'">✔️</span>
+    @for (level of allLevels(); track level) {
+      <a
+        class="level-button"
+        [class.is-locked]="!isLevelUnlocked(level.levelNumber)"
+        (click)="selectLevel(level.levelNumber)">
+        <span class="level-number">{{ level.levelNumber }}</span>
+        <div class="icons-container">
+          <div class="medal-icon-display">
+            @switch (bestMedals()[level.levelNumber]) {
+              @case ('Platine') {
+                <span>💎</span>
+              }
+              @case ('Or') {
+                <span>🥇</span>
+              }
+              @case ('Argent') {
+                <span>🥈</span>
+              }
+              @case ('Bronze') {
+                <span>🥉</span>
+              }
+              @case ('Terminé') {
+                <span>✔️</span>
+              }
+            }
           </div>
-
-          <span *ngIf="!isLevelUnlocked(level.levelNumber)" class="lock-icon">🔒</span>
-      </div>
-    </a>
+          @if (!isLevelUnlocked(level.levelNumber)) {
+            <span class="lock-icon">🔒</span>
+          }
+        </div>
+      </a>
+    }
   </div>
 
   <a routerLink="/" class="back-button">

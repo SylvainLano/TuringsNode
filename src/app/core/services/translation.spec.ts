@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -11,7 +11,7 @@ describe('TranslationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         { provide: APP_BASE_HREF, useValue: '/' }
       ]
@@ -23,7 +23,7 @@ describe('TranslationService', () => {
   });
 
   it('translates nested keys and replaces parameters', () => {
-    expect(service.isLoaded()).toBeTrue();
+    expect(service.isLoaded()).toBe(true);
     expect(service.translate('menu.greeting', { name: 'Ada' })).toBe('Hello Ada');
   });
 

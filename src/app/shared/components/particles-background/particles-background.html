@@ -1,6 +1,6 @@
-<ng-container *ngIf="isVisible()">
+@if (isEngineReady() && isVisible()) {
   <ngx-particles
     id="tsparticles"
     [options]="particlesOptions()">
   </ngx-particles>
-</ng-container>
+}

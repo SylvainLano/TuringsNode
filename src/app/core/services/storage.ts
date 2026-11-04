@@ -41,6 +41,18 @@ export class StorageService {
 
 
   /**
+   * Supprime une donnée du localStorage.
+   * @param key La clé de la donnée à supprimer.
+   */
+  public removeData(key: string): void {
+    try {
+      localStorage.removeItem(key);
+    } catch (error) {
+      console.error("Erreur lors de la suppression des données du localStorage :", error);
+    }
+  }
+
+  /**
    * Sauvegarde l'ensemble des succès déverrouillés.
    * @param achievements Un Set ou un Array contenant les noms des succès.
    */
