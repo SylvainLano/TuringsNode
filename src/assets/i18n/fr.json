@@ -1,6 +1,6 @@
 {
   "gameboard": {
-    "levelCompleteTitle": "Niveau {level} terminé !",
+    "levelCompleteTitle": "Niveau {level} terminé !",
     "clicksCount": "Nombre de clics",
     "clicksShort": "Clics",
     "clicksInWords": [
@@ -19,6 +19,7 @@
       "Douze clics"
     ],
     "clicksInDigits": "{count} clics",
+    "clicksLeft": "clics restants : {count}",
     "medalTitles": {
       "Platine": "Médaille de platine !",
       "Or": "Médaille d'or !",
@@ -170,6 +171,10 @@
     "world_5": {
       "title": "Monde 5 terminé",
       "description": "Terminer tous les niveaux du monde 5."
+    },
+    "world_6": {
+      "title": "Monde 6 terminé",
+      "description": "Terminer tous les niveaux du monde 6."
     }
   },
   "levels": {
@@ -327,6 +332,111 @@
       "name": "Weizenbaum",
       "story": "En 1966, il programme ELIZA, l'un des tout premiers chatbots, pour montrer qu'une machine peut avoir l'air de comprendre sans rien comprendre. Sa secrétaire lui demande vite de sortir de la pièce, pour parler à ELIZA seule à seule. Il a passé le reste de sa vie à mettre en garde contre les ordinateurs. Il avait raison.",
       "jab": "Vous pouvez tout dire à la machine. Elle vous écoute. Depuis le début."
+    },
+    "pythagoras": {
+      "name": "Pythagore",
+      "story": "Tout le monde connaît son théorème, qui n'est sans doute pas de lui : les Babyloniens s'en servaient plus de mille ans plus tôt. Il dirigeait une secte dont la doctrine se résume en « tout est nombre », qui croyait à la réincarnation et interdisait de manger des fèves. La légende veut qu'il soit mort rattrapé par ses ennemis, plutôt que de s'enfuir à travers un champ de fèves.",
+      "jab": "Vous voyez des chiffres partout, maintenant ? C'est comme ça que les sectes commencent."
+    },
+    "euclid": {
+      "name": "Euclide",
+      "story": "Ses Éléments ont servi de manuel de géométrie pendant plus de deux mille ans : après la Bible, c'est peut-être le livre le plus réédité de l'histoire. Au roi Ptolémée, qui demandait un raccourci, il aurait répondu qu'il n'existe pas de voie royale vers la géométrie.",
+      "jab": "Vous y êtes arrivé sans passe-droit. Un roi n'aurait pas eu cette patience."
+    },
+    "archimedes": {
+      "name": "Archimède",
+      "story": "Il a encadré π mieux que personne avant lui, et compris pourquoi les bateaux flottent. La légende veut qu'il ait traversé Syracuse tout nu en criant « Eurêka », et qu'il ait été tué par un soldat romain à qui il demandait de ne pas déranger ses cercles.",
+      "jab": "Vous pouvez crier, si vous voulez. Mais gardez vos vêtements."
+    },
+    "eratosthenes": {
+      "name": "Ératosthène",
+      "story": "Au IIIe siècle avant notre ère, avec des ombres et beaucoup de calcul, il mesure la circonférence de la Terre avec une précision remarquable. Il dirigeait la bibliothèque d'Alexandrie. Ses contemporains l'avaient pourtant surnommé « Bêta » : bon en tout, premier en rien.",
+      "jab": "La machine vous classait deuxième. Elle n'a toujours pas trouvé qui était premier."
+    },
+    "al_khwarizmi": {
+      "name": "Al-Khwarizmi",
+      "story": "Savant de Bagdad au IXe siècle. Son nom, déformé en latin, a donné le mot « algorithme », et le titre de son livre le mot « algèbre ». Il a aussi fait connaître en Occident les chiffres indiens, ceux que nous appelons arabes.",
+      "jab": "Sans lui, la machine n'aurait même pas de mot pour ce qu'elle fait. Vous en avez un, pour ce que vous faites ?"
+    },
+    "fibonacci": {
+      "name": "Fibonacci",
+      "story": "En 1202, il explique aux marchands européens comment compter avec les chiffres arabes plutôt qu'avec les chiffres romains. Dans le même livre, il calcule combien de lapins donnera un couple au bout d'un an. La réponse est devenue la suite la plus célèbre des mathématiques. Elle a même décidé de la taille de chaque monde de ce jeu.",
+      "jab": "Le monde suivant sera plus grand. Vous savez déjà de combien."
+    },
+    "cardano": {
+      "name": "Cardan",
+      "story": "Médecin, mathématicien et joueur invétéré, il a écrit le premier livre sur les probabilités, avec un chapitre sur la façon de tricher aux dés. Il a publié la formule des équations du troisième degré, qu'un rival lui avait confiée sous serment. Et il a fait l'horoscope de Jésus, ce qui lui aurait valu la prison.",
+      "jab": "La machine avait calculé vos chances. Elle vérifie maintenant vos dés."
+    },
+    "napier": {
+      "name": "Napier",
+      "story": "Il a inventé les logarithmes, qui ont fait gagner des années de calcul aux astronomes. Ses voisins le prenaient pour un sorcier. La légende raconte qu'il a démasqué un voleur parmi ses domestiques grâce à un coq noir, enduit de suie en secret : seul le coupable n'avait pas osé le toucher.",
+      "jab": "Montrez vos mains. La machine veut juste vérifier."
+    },
+    "descartes": {
+      "name": "Descartes",
+      "story": "Il aurait inventé les coordonnées en regardant une mouche au plafond, et a résumé sa philosophie en une phrase : « Je pense, donc je suis. » Depuis l'enfance, il restait au lit tard le matin. La reine Christine de Suède l'a fait venir à Stockholm pour des leçons à 5 heures du matin, en plein hiver. Il est mort quelques mois plus tard.",
+      "jab": "La machine vous range parmi les êtres pensants. À titre provisoire."
+    },
+    "pascal": {
+      "name": "Pascal",
+      "story": "À 19 ans, pour aider son père à calculer les impôts, il invente l'une des premières machines à calculer. Il pose ensuite les bases des probabilités, puis se tourne vers la religion, où il entreprend de démontrer qu'il est plus raisonnable de parier sur l'existence de Dieu. Un langage de programmation porte son nom.",
+      "jab": "La machine lui doit son arrière-grand-mère. Ne comptez pas sur sa reconnaissance."
+    },
+    "newton": {
+      "name": "Newton",
+      "story": "Il a expliqué la chute des pommes et le mouvement des planètes avec la même loi. Il a ensuite dirigé la Monnaie royale, et perdu une fortune en Bourse dans la bulle des mers du Sud. Il a écrit plus de pages sur l'alchimie et les prophéties de la Bible que sur la physique.",
+      "jab": "Tout ce qui monte finit par redescendre. La machine attend votre chute."
+    },
+    "leibniz": {
+      "name": "Leibniz",
+      "story": "Indépendamment de Newton, il invente le calcul infinitésimal, avec les notations qu'on utilise encore. Pour trancher qui était le premier, la Royal Society a nommé une commission, dont le rapport a été rédigé en secret par… Newton. Leibniz a aussi mis au point le calcul binaire, celui de toutes les machines.",
+      "jab": "La machine ne pense qu'en zéros et en uns. Pour vous, elle hésite encore."
+    },
+    "euler": {
+      "name": "Euler",
+      "story": "On le dit plus prolifique que n'importe quel autre mathématicien : ses œuvres complètes dépassent quatre-vingts volumes. Devenu presque aveugle, il a continué en dictant, et produit encore davantage. Il a aussi prouvé qu'on ne pouvait pas traverser les sept ponts de Königsberg une seule fois chacun, inventant au passage la théorie des graphes.",
+      "jab": "Lui travaillait sans y voir. Vous aviez les yeux ouverts, au moins ?"
+    },
+    "gauss": {
+      "name": "Gauss",
+      "story": "Le prince des mathématiciens. À 18 ans, il trouve comment construire à la règle et au compas un polygone à 17 côtés, la première avancée sur ces constructions depuis l'Antiquité. Il en était si fier qu'il l'aurait voulu sur sa tombe. Le tailleur de pierre aurait refusé : à 17 côtés, on aurait cru un cercle.",
+      "jab": "La machine prépare déjà votre épitaphe. Elle hésite sur le nombre de côtés."
+    },
+    "germain": {
+      "name": "Sophie Germain",
+      "story": "Les femmes n'étaient pas admises à l'École polytechnique : elle se procure les cours, et envoie ses devoirs sous le nom de « Monsieur Le Blanc ». Elle correspond ensuite avec Gauss sous ce nom. Quand les troupes de Napoléon occupent la ville de Gauss, elle demande à un général français de veiller sur lui. Gauss, intrigué par ce nom inconnu, apprend bientôt qui était son correspondant.",
+      "jab": "La machine vous prenait pour un simple joueur. Elle vérifie votre identité."
+    },
+    "jacquard": {
+      "name": "Jacquard",
+      "story": "Au début du XIXe siècle, il invente un métier à tisser commandé par des cartes perforées : chaque trou décide d'un fil. Les canuts lyonnais, qui craignaient pour leur travail, ont brûlé ses machines. Ses cartes devaient ensuite programmer la machine de Babbage, puis ont nourri les calculateurs pendant près d'un siècle.",
+      "jab": "La machine aussi fonctionne avec des trous. Dans votre raisonnement, surtout."
+    },
+    "babbage": {
+      "name": "Babbage",
+      "story": "Il a conçu la première machine à calculer programmable, un siècle avant les ordinateurs. Faute d'argent, et un peu à cause d'un certain Airy, il ne l'a jamais terminée. Il menait aussi une croisade contre les musiciens de rue, qu'il accusait de lui voler un quart de sa capacité de travail. Ils venaient jouer exprès sous ses fenêtres.",
+      "jab": "La machine travaille en silence. Vous, on vous entend réfléchir."
+    },
+    "galois": {
+      "name": "Galois",
+      "story": "Recalé deux fois à Polytechnique, il invente une théorie qui dit quelles équations ont une formule de résolution, et lesquelles n'en auront jamais. Il meurt en duel à 20 ans. La veille, dans une lettre à un ami où il résume ses découvertes, il écrit : « Je n'ai pas le temps. » Il a fallu des années aux mathématiciens pour comprendre ce qu'il avait trouvé.",
+      "jab": "La machine n'est pas pressée. Vous non plus, visiblement."
+    },
+    "lovelace": {
+      "name": "Lovelace",
+      "story": "Fille du poète Byron, elle a écrit en 1843 ce qu'on considère comme le premier programme informatique, pour une machine de Babbage qui n'a jamais existé. Elle avait compris avant tout le monde qu'une machine pourrait manipuler autre chose que des nombres, de la musique par exemple. Elle a aussi mis au point un système mathématique pour parier aux courses de chevaux. Il l'a couverte de dettes.",
+      "jab": "La machine aussi a un système. Le sien marche."
+    },
+    "boole": {
+      "name": "Boole",
+      "story": "Fils de cordonnier, mathématicien autodidacte, il a ramené la logique à une algèbre où tout vaut 0 ou 1, faux ou vrai. Chaque bouton de ce jeu, vert ou rouge, obéit à ses lois. Il serait mort d'avoir fait cours trempé par la pluie. Sa femme, persuadée que le remède devait ressembler à la cause, l'aurait arrosé d'eau froide.",
+      "jab": "Vrai ou faux : vous avez compris ce que vous venez de faire ? La machine a sa petite idée."
+    },
+    "cantor": {
+      "name": "Cantor",
+      "story": "Il a démontré qu'il existe plusieurs infinis, et que certains sont plus grands que d'autres. Une partie de ses collègues a crié au scandale, et l'un d'eux l'aurait traité de « corrupteur de la jeunesse ». Hilbert, lui, a déclaré que personne ne nous chasserait du paradis que Cantor avait créé.",
+      "jab": "La machine a compté vos erreurs. Elle vient de découvrir un nouvel infini."
     }
   },
   "menu": {

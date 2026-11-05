@@ -19,7 +19,8 @@ import {
   isButtonLegendary,
   isGoldenScore,
   isWorldComplete,
-  pressButton
+  pressButton,
+  remainingClicks
 } from '../core/engine';
 import { EXPLOSION_QUAKE, QuakeOptions, RUMBLE_QUAKE, quakeKeyframes } from './victory-quake';
 
@@ -28,6 +29,7 @@ interface GameButton extends ButtonState {
   colorClass: 'is-green' | 'is-red' | 'is-gold' | 'is-legendary'; // La classe CSS dynamique
   isDisabled: boolean;
   isConditionMet: boolean;
+  clicksLeft: number | null; // Seulement pour un bouton limité en nombre de clics
 }
 
 // État du plateau avant un clic, pour pouvoir l'annuler
@@ -47,7 +49,7 @@ interface BoardSnapshot {
   ],
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss', './game-board-tribute.scss'],
+  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss', './game-board-tribute.scss', './game-board-limits.scss'],
   host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
@@ -162,7 +164,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       ...state,
       colorClass: 'is-red',
       isDisabled: false,
-      isConditionMet: false
+      isConditionMet: false,
+      clicksLeft: null
     }));
 
     this.updateAllButtons();
@@ -283,6 +286,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       }
 
       button.isDisabled = isButtonDisabled(button);
+      button.clicksLeft = remainingClicks(button);
     });
   }
 
@@ -313,6 +317,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public isNewButton(button: GameButton): boolean {
     const introduced = this.levelService.introducedButtons().get(this.levelService.currentLevelNumber());
     return !!introduced?.includes(button.name);
+  }
+
+  // Un point plein par clic encore permis, un point vide par clic déjà utilisé
+  public clickPips(button: GameButton): string {
+    return button.clicksLeft === null ? '' : '●'.repeat(button.clicksLeft) + '○'.repeat((button.totalClickLimit ?? 0) - button.clicksLeft);
   }
 
   public clicksInWordsKey(): string {

@@ -33,8 +33,12 @@
             (click)="onButtonClick(button)"
             [class.is-disabled]="isAnimatingScore || isExploding || button.isDisabled"
             [disabled]="isAnimatingScore || isExploding || button.isDisabled"
-            [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)">
+            [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)
+              + (button.clicksLeft === null ? '' : ', ' + ('gameboard.clicksLeft' | translate:{ count: button.clicksLeft }))">
             <span class="state-icon" aria-hidden="true">{{ stateIcon(button) }}</span>
+            @if (button.clicksLeft !== null) {
+              <span class="click-pips" aria-hidden="true">{{ clickPips(button) }}</span>
+            }
             @if (isNewButton(button)) {
               <span class="new-tag">{{ 'gameboard.newButton' | translate }}</span>
             }

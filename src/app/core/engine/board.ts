@@ -23,8 +23,8 @@ export function createBoard(level: Level): BoardState {
       value: config.initialValue,
       totalClickCount: 0,
       consecutiveClickCount: 0,
-      totalClickLimit: null,
-      consecutiveClickLimit: null
+      totalClickLimit: config.totalClickLimit ?? null,
+      consecutiveClickLimit: config.consecutiveClickLimit ?? null
     }))
   };
 }
@@ -34,6 +34,11 @@ export function isButtonDisabled(button: ButtonState): boolean {
   const totalLimitReached = !!button.totalClickLimit && button.totalClickCount >= button.totalClickLimit;
   const consecutiveLimitReached = !!button.consecutiveClickLimit && button.consecutiveClickCount >= button.consecutiveClickLimit;
   return totalLimitReached || consecutiveLimitReached;
+}
+
+/** Clics encore permis sur un bouton limité en nombre total de clics, ou null s'il n'a pas de limite */
+export function remainingClicks(button: ButtonState): number | null {
+  return button.totalClickLimit ? Math.max(0, button.totalClickLimit - button.totalClickCount) : null;
 }
 
 /**

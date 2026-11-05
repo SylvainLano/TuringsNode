@@ -3,6 +3,9 @@ import { ButtonName } from './buttons';
 export interface LevelButtonConfig {
   name: ButtonName;
   initialValue: number;
+  // Nombre de clics autorisés sur ce bouton pendant le niveau, ou d'affilée ; sans limite si absent
+  totalClickLimit?: number;
+  consecutiveClickLimit?: number;
 }
 
 export interface Level {

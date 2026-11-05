@@ -167,6 +167,23 @@ describe('GameBoardComponent', () => {
     });
   });
 
+  it('shows the clicks left on a limited button, and disables it once they are used up', () => {
+    // Le miroir de 11 vaut 11 : le score ne bouge pas, et Digit 9 reste rouge
+    levelService.levels.set([{ ...LEVEL, buttons: [{ name: 'Mirror', initialValue: 1, totalClickLimit: 2 }, { name: 'Digit', initialValue: 9 }] }]);
+    fixture.detectChanges();
+    const [mirror, digit] = component.buttons;
+    expect([component.clickPips(mirror), component.clickPips(digit)]).toEqual(['●●', '']);
+
+    component.onButtonClick(mirror);
+    component.onButtonClick(mirror);
+    fixture.detectChanges();
+    expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['○○', true]);
+    expect(fixture.nativeElement.querySelectorAll('.click-pips').length).toBe(1);
+
+    component.undo();
+    expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['●○', false]);
+  });
+
   it('offers the level selection instead of a next level after the last level', () => {
     winLevel();
 

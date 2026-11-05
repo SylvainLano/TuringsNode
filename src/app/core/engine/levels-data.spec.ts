@@ -22,6 +22,13 @@ describe('levels.json', () => {
     }));
   });
 
+  it('only limits clicks with a whole number of at least one', () => {
+    LEVELS.forEach(level => level.buttons.forEach(({ totalClickLimit, consecutiveClickLimit }) => {
+      [totalClickLimit, consecutiveClickLimit].filter(limit => limit !== undefined)
+        .forEach(limit => expect(Number.isInteger(limit) && limit! >= 1).toBe(true));
+    }));
+  });
+
   it('has increasing medal thresholds', () => {
     LEVELS.forEach(level => {
       expect(level.minSteps).toBeLessThanOrEqual(level.goldSteps);
@@ -43,6 +50,13 @@ describe('levels.json worlds', () => {
     const sizes = groupByWorld(LEVELS).map(world => world.levels.length);
     expect(sizes.slice(0, 2)).toEqual([2, 3]);
     sizes.slice(2).forEach((size, i) => expect(size).toBe(sizes[i] + sizes[i + 1]));
+  });
+
+  it('has an achievement for every world, in French and in English', () => {
+    [fr.achievements, en.achievements].forEach(achievements => groupByWorld(LEVELS).forEach(world => {
+      const achievement = (achievements as Record<string, unknown>)[`world_${world.number}`] as { title?: string } | undefined;
+      expect(achievement?.title, `world_${world.number}`).toBeTruthy();
+    }));
   });
 });
 
