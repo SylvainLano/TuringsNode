@@ -866,5 +866,571 @@
       { "name": "Minus", "initialValue": 1, "totalClickLimit": 2 },
       { "name": "Double", "initialValue": 1 }
     ]
+  },
+  {
+    "levelNumber": 53,
+    "world": 7,
+    "name": "hollerith",
+    "startScore": 99426,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Plus", "initialValue": 3 },
+      { "name": "Double", "initialValue": 7, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 54,
+    "world": 7,
+    "name": "russell",
+    "startScore": 81079,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 6 },
+      { "name": "Cipher", "initialValue": 8 },
+      { "name": "Double", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 55,
+    "world": 7,
+    "name": "hardy",
+    "startScore": 97222,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Minus", "initialValue": 1 },
+      { "name": "Double", "initialValue": 6, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 56,
+    "world": 7,
+    "name": "ramanujan",
+    "startScore": 99700,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Factor", "initialValue": 5, "consecutiveClickLimit": 1 },
+      { "name": "Split", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 57,
+    "world": 7,
+    "name": "noether",
+    "startScore": 69920,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Factor", "initialValue": 5, "consecutiveClickLimit": 1 },
+      { "name": "Split", "initialValue": 3 },
+      { "name": "Plus", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 58,
+    "world": 7,
+    "name": "godel",
+    "startScore": 11745,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Digit", "initialValue": 4, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 59,
+    "world": 7,
+    "name": "rejewski",
+    "startScore": 61080,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 5 },
+      { "name": "Cipher", "initialValue": 1 },
+      { "name": "Double", "initialValue": 5, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 60,
+    "world": 7,
+    "name": "shannon",
+    "startScore": 86002,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Digit", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 2 },
+      { "name": "Boost", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 61,
+    "world": 7,
+    "name": "zuse",
+    "startScore": 97524,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Split", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 62,
+    "world": 7,
+    "name": "flowers",
+    "startScore": 47744,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Minus", "initialValue": 6 },
+      { "name": "Double", "initialValue": 5, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 63,
+    "world": 7,
+    "name": "von_neumann",
+    "startScore": 31871,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Primer", "initialValue": 8 },
+      { "name": "Split", "initialValue": 7, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 8 },
+      { "name": "Double", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 64,
+    "world": 7,
+    "name": "bartik",
+    "startScore": 81325,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Factor", "initialValue": 6, "consecutiveClickLimit": 1 },
+      { "name": "Split", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 65,
+    "world": 7,
+    "name": "hopper",
+    "startScore": 25533,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Minus", "initialValue": 4 },
+      { "name": "Double", "initialValue": 5, "consecutiveClickLimit": 1 },
+      { "name": "Split", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 66,
+    "world": 7,
+    "name": "hamming",
+    "startScore": 58856,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Digit", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 67,
+    "world": 7,
+    "name": "minsky",
+    "startScore": 74694,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Primer", "initialValue": 9 },
+      { "name": "Split", "initialValue": 3, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 9, "consecutiveClickLimit": 2 }
+    ]
+  },
+  {
+    "levelNumber": 68,
+    "world": 7,
+    "name": "backus",
+    "startScore": 14258,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 4 },
+      { "name": "Double", "initialValue": 4, "totalClickLimit": 2 }
+    ]
+  },
+  {
+    "levelNumber": 69,
+    "world": 7,
+    "name": "mccarthy",
+    "startScore": 83897,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Split", "initialValue": 7 },
+      { "name": "Boost", "initialValue": 1, "totalClickLimit": 2 },
+      { "name": "Double", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 70,
+    "world": 7,
+    "name": "dijkstra",
+    "startScore": 54280,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Plus", "initialValue": 1 },
+      { "name": "Double", "initialValue": 6, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 71,
+    "world": 7,
+    "name": "johnson",
+    "startScore": 88543,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Factor", "initialValue": 6, "consecutiveClickLimit": 1 },
+      { "name": "Split", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 72,
+    "world": 7,
+    "name": "knuth",
+    "startScore": 33421,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Primer", "initialValue": 3 },
+      { "name": "Split", "initialValue": 9, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 7 },
+      { "name": "Double", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 73,
+    "world": 7,
+    "name": "moore",
+    "startScore": 93095,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Plus", "initialValue": 4 },
+      { "name": "Minus", "initialValue": 3 },
+      { "name": "Double", "initialValue": 8, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 74,
+    "world": 7,
+    "name": "engelbart",
+    "startScore": 81550,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 6 },
+      { "name": "Factor", "initialValue": 6 },
+      { "name": "Boost", "initialValue": 7 },
+      { "name": "Fiber", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 75,
+    "world": 7,
+    "name": "thompson",
+    "startScore": 60499,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Digit", "initialValue": 9, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 76,
+    "world": 7,
+    "name": "ritchie",
+    "startScore": 81060,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Split", "initialValue": 4, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 77,
+    "world": 7,
+    "name": "kay",
+    "startScore": 35411,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Primer", "initialValue": 5 },
+      { "name": "Split", "initialValue": 4, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 9, "consecutiveClickLimit": 2 }
+    ]
+  },
+  {
+    "levelNumber": 78,
+    "world": 7,
+    "name": "cerf",
+    "startScore": 72587,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 12,
+    "goldSteps": 20,
+    "silverSteps": 28,
+    "bronzeSteps": 45,
+    "buttons": [
+      { "name": "Minus", "initialValue": 5 },
+      { "name": "Double", "initialValue": 7, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 79,
+    "world": 7,
+    "name": "diffie_hellman",
+    "startScore": 39159,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 12,
+    "goldSteps": 20,
+    "silverSteps": 28,
+    "bronzeSteps": 45,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 7 },
+      { "name": "Factor", "initialValue": 6 },
+      { "name": "Boost", "initialValue": 9 },
+      { "name": "Fiber", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 80,
+    "world": 7,
+    "name": "lamport",
+    "startScore": 10464,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 12,
+    "goldSteps": 20,
+    "silverSteps": 28,
+    "bronzeSteps": 45,
+    "buttons": [
+      { "name": "Digit", "initialValue": 9, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 81,
+    "world": 7,
+    "name": "stroustrup",
+    "startScore": 72241,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 12,
+    "goldSteps": 20,
+    "silverSteps": 28,
+    "bronzeSteps": 45,
+    "buttons": [
+      { "name": "Primer", "initialValue": 6 },
+      { "name": "Split", "initialValue": 7, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 2 },
+      { "name": "Double", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 82,
+    "world": 7,
+    "name": "berners_lee",
+    "startScore": 55489,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 12,
+    "goldSteps": 20,
+    "silverSteps": 28,
+    "bronzeSteps": 45,
+    "buttons": [
+      { "name": "Factor", "initialValue": 7, "consecutiveClickLimit": 1 },
+      { "name": "Split", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 83,
+    "world": 7,
+    "name": "torvalds",
+    "startScore": 65036,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 13,
+    "goldSteps": 21,
+    "silverSteps": 30,
+    "bronzeSteps": 48,
+    "buttons": [
+      { "name": "Split", "initialValue": 3, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 84,
+    "world": 7,
+    "name": "nakamoto",
+    "startScore": 69749,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 13,
+    "goldSteps": 21,
+    "silverSteps": 30,
+    "bronzeSteps": 48,
+    "buttons": [
+      { "name": "Plus", "initialValue": 9 },
+      { "name": "Minus", "initialValue": 3 },
+      { "name": "Double", "initialValue": 1, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 85,
+    "world": 7,
+    "name": "hinton",
+    "startScore": 33606,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 13,
+    "goldSteps": 21,
+    "silverSteps": 30,
+    "bronzeSteps": 48,
+    "buttons": [
+      { "name": "Plus", "initialValue": 5 },
+      { "name": "Double", "initialValue": 6, "consecutiveClickLimit": 1 }
+    ]
+  },
+  {
+    "levelNumber": 86,
+    "world": 7,
+    "name": "turing",
+    "startScore": 77675,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 13,
+    "goldSteps": 21,
+    "silverSteps": 30,
+    "bronzeSteps": 48,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 9 },
+      { "name": "Factor", "initialValue": 5 },
+      { "name": "Boost", "initialValue": 3 },
+      { "name": "Fiber", "initialValue": 2 }
+    ]
   }
 ]

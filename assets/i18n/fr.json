@@ -20,6 +20,7 @@
     ],
     "clicksInDigits": "{count} clics",
     "clicksLeft": "clics restants : {count}",
+    "streakLeft": "clics d'affilée restants : {count}",
     "medalTitles": {
       "Platine": "Médaille de platine !",
       "Or": "Médaille d'or !",
@@ -41,7 +42,7 @@
     "stateGold": "constante en or",
     "stateLegendary": "bouton légendaire",
     "newButton": "Nouveau",
-    "campaignCompleteTitle": "Campagne terminée !",
+    "campaignCompleteTitle": "Campagne terminée !",
     "campaignCompleteText": "Bravo, vous avez terminé les {total} niveaux de Turing's Node.",
     "campaignPlatinumHint": "Rejouez les niveaux pour décrocher le Platine partout !",
     "campaignAllPlatinum": "Platine sur tous les niveaux : chapeau !",
@@ -175,6 +176,10 @@
     "world_6": {
       "title": "Monde 6 terminé",
       "description": "Terminer tous les niveaux du monde 6."
+    },
+    "world_7": {
+      "title": "Monde 7 terminé",
+      "description": "Terminer tous les niveaux du monde 7."
     }
   },
   "levels": {
@@ -437,6 +442,176 @@
       "name": "Cantor",
       "story": "Il a démontré qu'il existe plusieurs infinis, et que certains sont plus grands que d'autres. Une partie de ses collègues a crié au scandale, et l'un d'eux l'aurait traité de « corrupteur de la jeunesse ». Hilbert, lui, a déclaré que personne ne nous chasserait du paradis que Cantor avait créé.",
       "jab": "La machine a compté vos erreurs. Elle vient de découvrir un nouvel infini."
+    },
+    "hollerith": {
+      "name": "Hollerith",
+      "story": "Il a fallu près de huit ans pour dépouiller le recensement américain de 1880. Pour celui de 1890, il invente une machine à cartes perforées : le premier décompte tombe en quelques semaines. Sa petite entreprise a fusionné avec d'autres pour devenir IBM.",
+      "jab": "Il a compté soixante-deux millions d'Américains plus vite que vous ne comptez vos clics."
+    },
+    "russell": {
+      "name": "Russell",
+      "story": "Avec Whitehead, il écrit les Principia Mathematica pour fonder les mathématiques sur la seule logique. Il leur faut des centaines de pages pour établir que 1 + 1 = 2, un résultat qu'ils jugent « parfois utile ». Plus tard, ce logicien a reçu le prix Nobel… de littérature.",
+      "jab": "Lui a mis des centaines de pages à prouver que 1 + 1 = 2. Vous, vous n'êtes toujours pas convaincu."
+    },
+    "hardy": {
+      "name": "Hardy",
+      "story": "Il se félicitait que la théorie des nombres ne serve à rien, et surtout pas à faire la guerre. Elle protège aujourd'hui tous les paiements en ligne et les secrets militaires. Avant de traverser une mer agitée, il aurait envoyé une carte postale annonçant qu'il avait démontré l'hypothèse de Riemann : Dieu, qui le détestait, ne l'aurait jamais laissé mourir avec cette gloire.",
+      "jab": "Ses mathématiques ne devaient servir à rien. Les vôtres ont tenu cette promesse."
+    },
+    "ramanujan": {
+      "name": "Ramanujan",
+      "story": "Employé de bureau à Madras, sans diplôme, il envoie à Hardy des pages de formules. Hardy soupçonne d'abord une imposture, puis conclut qu'elles devaient être vraies, car personne n'aurait eu l'imagination de les inventer. Un jour, Hardy lui rend visite en taxi et trouve son numéro, 1729, bien terne. Ramanujan répond aussitôt : c'est le plus petit nombre qui s'écrit de deux façons comme somme de deux cubes.",
+      "jab": "Lui voyait des merveilles dans un numéro de taxi. Vous, devant ce score, vous ne voyez rien."
+    },
+    "noether": {
+      "name": "Emmy Noether",
+      "story": "Les femmes n'avaient pas le droit d'enseigner à l'université de Göttingen : pendant des années, ses cours sont annoncés sous le nom de Hilbert. Elle démontre pourtant le théorème qui relie les symétries de l'univers à ses lois de conservation, l'un des piliers de la physique moderne. Einstein écrit qu'aux yeux des plus grands mathématiciens vivants, elle était le génie mathématique le plus créatif depuis que les études supérieures sont ouvertes aux femmes.",
+      "jab": "Elle a changé la physique sans même avoir droit à son nom. Vous avez le vôtre, et ça ne vous aide pas."
+    },
+    "godel": {
+      "name": "Gödel",
+      "story": "À 24 ans, il démontre que tout système mathématique cohérent et assez riche contient des vérités impossibles à démontrer. Pour devenir citoyen américain, il étudie la Constitution, et veut expliquer au juge qu'il y a trouvé une faille qui permettrait d'installer une dictature. Le juge s'empresse de changer de sujet. Pour les 70 ans d'Einstein, il lui offre un univers où l'on peut voyager dans le temps.",
+      "jab": "Il a prouvé que certaines vérités échappent à toute démonstration. Votre talent, par exemple."
+    },
+    "rejewski": {
+      "name": "Rejewski",
+      "story": "En 1932, ce jeune mathématicien polonais reconstitue le câblage d'Enigma grâce à la théorie des permutations et aux documents d'un espion, sans avoir jamais vu la machine militaire. Son équipe lit les messages allemands pendant des années. En juillet 1939, la Pologne offre tout aux Britanniques et aux Français : les méthodes, et des copies d'Enigma.",
+      "jab": "Face à Enigma, Turing n'avait pas les clés : ce sont lui et son équipe qui les lui ont données. Vous, personne ne vous les donnera."
+    },
+    "shannon": {
+      "name": "Shannon",
+      "story": "À 21 ans, son mémoire de master montre que l'algèbre de Boole peut faire calculer des circuits électriques : on l'a qualifié de mémoire peut-être le plus important du siècle. Onze ans plus tard, il invente la théorie de l'information, et fait du bit son unité. Dans les années 1950, il traversait les couloirs des laboratoires Bell en monocycle, en jonglant.",
+      "jab": "Il réfléchissait en jonglant sur un monocycle. Vous, assis sur une chaise, vous n'arrivez à faire ni l'un ni l'autre."
+    },
+    "zuse": {
+      "name": "Zuse",
+      "story": "Ingénieur dans l'aéronautique, lassé des calculs à la main, il construit ses premières machines dans le salon de ses parents, à Berlin. En 1941, son Z3 devient le premier ordinateur programmable en état de marche. Il imagine aussi le premier langage de programmation de haut niveau, des années avant tout le monde.",
+      "jab": "Il a construit un ordinateur dans un salon. Vous, dans le vôtre, vous n'arrivez même pas à vous servir de celui-ci."
+    },
+    "flowers": {
+      "name": "Flowers",
+      "story": "Ingénieur aux Postes britanniques, comme Preece en son temps, il construit Colossus, la première machine électronique programmable, pour casser les codes du haut commandement allemand, et en paie une partie de sa poche. Après la guerre, presque tout est détruit et classé secret. Quand il demande un prêt pour construire un ordinateur, la banque refuse : elle ne croit pas qu'une telle machine puisse fonctionner.",
+      "jab": "Personne ne croyait en lui, et il avait raison. Personne ne croit en vous non plus."
+    },
+    "von_neumann": {
+      "name": "von Neumann",
+      "story": "Il a donné son nom à l'architecture de presque tous les ordinateurs, cofondé la théorie des jeux, et calculait de tête, dit-on, plus vite que les premières machines. Au volant, en revanche, c'était une catastrophe : après un accident, il aurait expliqué que les arbres défilaient sagement sur sa droite quand l'un d'eux s'est mis en travers de sa route.",
+      "jab": "Il calculait plus vite que les machines. Vous, c'est la machine qui vous attend."
+    },
+    "bartik": {
+      "name": "Bartik",
+      "story": "En 1946, six femmes programment l'ENIAC, le premier ordinateur électronique généraliste, sans aucun manuel, à partir des seuls schémas, en branchant des câbles à la main. Le jour de la démonstration triomphale, la machine fonctionne parfaitement. Les programmeuses ne sont pas invitées au dîner de célébration.",
+      "jab": "Elles ont programmé une machine sans le moindre manuel. Vous, sans mode d'emploi, vous cliquez au hasard."
+    },
+    "hopper": {
+      "name": "Hopper",
+      "story": "Elle écrit l'un des premiers compilateurs et inspire le COBOL, qui fait encore tourner les banques. En 1947, son équipe trouve un papillon de nuit coincé dans un relais et le colle dans le journal de bord : « premier vrai cas de bug trouvé ». Pour expliquer une nanoseconde, elle distribuait des fils de trente centimètres. La Marine a dû la rappeler après sa retraite, et elle a servi jusqu'à 79 ans.",
+      "jab": "Son équipe retirait les bugs avec une pince à épiler. Vous, vous en êtes un."
+    },
+    "hamming": {
+      "name": "Hamming",
+      "story": "Aux laboratoires Bell, les machines s'arrêtent à la moindre erreur, et le week-end, personne n'est là pour les relancer. Excédé de retrouver son travail perdu deux lundis de suite, il invente des codes qui corrigent leurs propres erreurs. Leurs descendants protègent aujourd'hui les mémoires des ordinateurs et les messages des sondes spatiales.",
+      "jab": "Lui savait corriger les erreurs des machines. Pour les vôtres, il faudrait un code bien plus puissant."
+    },
+    "minsky": {
+      "name": "Minsky",
+      "story": "Pionnier de l'intelligence artificielle, il construit dès 1951 l'un des premiers réseaux de neurones artificiels. Entre deux théories sur l'esprit, il invente le microscope confocal, aujourd'hui dans les laboratoires de biologie du monde entier. Il a aussi imaginé une machine dont la seule fonction est de s'éteindre dès qu'on l'allume.",
+      "jab": "Il a imaginé une machine qui s'éteint dès qu'on l'allume. Vous lui ressemblez beaucoup."
+    },
+    "backus": {
+      "name": "Backus",
+      "story": "Programmer en langage machine l'ennuyait profondément. Alors, en 1957, il crée avec son équipe d'IBM le Fortran, le premier langage de haut niveau largement utilisé, qui calcule encore la météo sur les supercalculateurs. Il assurait que l'essentiel de son travail venait de sa paresse.",
+      "jab": "Sa paresse a donné le Fortran. La vôtre n'a donné que ce score."
+    },
+    "mccarthy": {
+      "name": "McCarthy",
+      "story": "En 1955, il invente l'expression « intelligence artificielle » pour un séminaire d'été. Trois ans plus tard, il crée Lisp, l'un des plus vieux langages encore utilisés, et y invente au passage le ramasse-miettes, qui libère la mémoire tout seul. Dès 1961, il annonce qu'on louera un jour la puissance de calcul comme un service public, à la manière du téléphone : c'est le cloud.",
+      "jab": "Il a donné un nom à l'intelligence artificielle. Pour la vôtre, on cherche encore."
+    },
+    "dijkstra": {
+      "name": "Dijkstra",
+      "story": "En 1956, à la terrasse d'un café d'Amsterdam, sans papier ni crayon, il trouve en vingt minutes l'algorithme du plus court chemin. Les GPS s'en inspirent encore. Il ne mâchait pas ses mots : selon lui, apprendre le BASIC mutilait l'esprit des étudiants au-delà de tout espoir.",
+      "jab": "Il résolvait ses problèmes de tête, à la terrasse d'un café. Vous avez besoin d'un écran, de boutons, et d'un peu de chance."
+    },
+    "johnson": {
+      "name": "Katherine Johnson",
+      "story": "Mathématicienne à la NASA, elle calcule à la main les trajectoires des premières missions spatiales américaines. En 1962, avant de devenir le premier Américain en orbite, John Glenn exige qu'elle vérifie les calculs de l'ordinateur : si elle dit qu'ils sont bons, il est prêt à partir. Elle a confirmé. Il est parti.",
+      "jab": "Un astronaute a confié sa vie à ses calculs. Vous, on ne vous confierait pas une calculette."
+    },
+    "knuth": {
+      "name": "Knuth",
+      "story": "En 1962, il commence L'Art de la programmation informatique, un livre qui deviendra un projet en sept volumes. Il y travaille toujours. Mécontent de la mise en page de la réédition de son deuxième volume, il s'interrompt huit ans pour inventer TeX, qui compose encore la plupart des articles de mathématiques. Au premier qui trouve chaque erreur dans ses livres, il envoie un « dollar hexadécimal » de 2,56 dollars, autrefois par chèque, aujourd'hui en certificat de sa banque imaginaire.",
+      "jab": "Il paie ceux qui trouvent ses erreurs. Avec les vôtres, il serait ruiné."
+    },
+    "moore": {
+      "name": "Moore",
+      "story": "En 1965, il prédit que le nombre de transistors sur une puce va doubler à intervalles réguliers. Il pensait que ça tiendrait une dizaine d'années. Ça a tenu un demi-siècle. Entre-temps, il a cofondé Intel pour y veiller lui-même.",
+      "jab": "Les transistors des puces doublaient tous les deux ans. Vous, on attend toujours le premier doublement."
+    },
+    "engelbart": {
+      "name": "Engelbart",
+      "story": "En 1968, en une seule démonstration de quatre-vingt-dix minutes, il présente la souris, les liens hypertextes, le traitement de texte, la visioconférence et l'édition à plusieurs d'un même document. Le public se lève pour l'ovationner. La souris ne lui a presque rien rapporté : le brevet a expiré avant qu'elle ne se répande.",
+      "jab": "Il a inventé la souris pour changer le monde. Vous vous en servez pour cliquer au hasard."
+    },
+    "thompson": {
+      "name": "Thompson",
+      "story": "En 1969, sa femme part trois semaines en vacances avec leur fils. Il en profite pour écrire, à raison d'un morceau par semaine, ce qui manquait à son système d'exploitation : Unix, dont descendent macOS et l'iPhone, et dont s'inspirent Linux et Android. Il aurait confié que l'une de ses journées les plus productives avait été celle où il avait jeté mille lignes de code.",
+      "jab": "Il a bouclé Unix pendant les vacances de sa femme. Vous, pendant les vôtres, vous jouez à ça."
+    },
+    "ritchie": {
+      "name": "Ritchie",
+      "story": "Il crée le langage C, dans lequel sont encore écrits la plupart des systèmes d'exploitation, et réécrit Unix avec Thompson. Lui-même trouvait son langage bizarre et bancal, tout en reconnaissant son succès énorme. Il n'a jamais été officiellement docteur : il n'avait pas déposé l'exemplaire relié de sa thèse à la bibliothèque.",
+      "jab": "Il n'a même pas pris la peine d'aller chercher son diplôme. Vous, on ne vous en donnera pas."
+    },
+    "kay": {
+      "name": "Kay",
+      "story": "En 1972, il dessine le Dynabook, un ordinateur plat et portable pour les enfants : la tablette, près de quarante ans avant l'iPad. Chez Xerox, il participe à l'invention des fenêtres et de la programmation objet. Xerox n'en fait presque rien, et Steve Jobs, en visite, repart avec des idées. Sa devise : la meilleure façon de prédire l'avenir, c'est de l'inventer.",
+      "jab": "Il a vu l'avenir quarante ans à l'avance. Vous ne voyez pas le prochain clic."
+    },
+    "cerf": {
+      "name": "Cerf",
+      "story": "Avec Bob Kahn, il conçoit en 1974 le protocole qui relie tous les réseaux du monde : Internet. En 1977, il prévoit 4,3 milliards d'adresses, en pensant que ça suffirait largement pour une expérience. L'expérience a pris un peu d'ampleur. Il a ensuite été, pendant plus de vingt ans, « évangéliste en chef d'Internet » chez Google.",
+      "jab": "Il a relié le monde entier. Vous n'arrivez pas à relier deux idées."
+    },
+    "diffie_hellman": {
+      "name": "Diffie et Hellman",
+      "story": "En 1976, ils montrent comment deux inconnus peuvent convenir d'un secret en se parlant en public, sans que personne d'autre ne puisse le découvrir. C'est la cryptographie à clé publique : le cadenas de chaque site web en dépend. Les services secrets britanniques l'avaient trouvée quelques années plus tôt, mais n'avaient le droit de le dire à personne.",
+      "jab": "Ils savaient partager un secret devant tout le monde. Le vôtre est bien gardé : personne ne sait comment vous avez réussi. Pas même vous."
+    },
+    "lamport": {
+      "name": "Lamport",
+      "story": "Il a posé les bases des systèmes répartis, qui font tourner le cloud, et créé LaTeX. Pour expliquer son algorithme de consensus, il le présente comme l'histoire d'un parlement imaginaire sur l'île grecque de Paxos. Personne ne comprend la blague, et l'article attend huit ans avant d'être publié. Il a fini par recevoir le prix Turing.",
+      "jab": "Ses blagues étaient trop subtiles pour ses lecteurs. Vous, vous êtes la blague."
+    },
+    "stroustrup": {
+      "name": "Stroustrup",
+      "story": "En 1985, il publie le C++, qui fait tourner les jeux vidéo, les navigateurs et les marchés financiers. Ses critiques le trouvent trop compliqué. Il leur a répondu une fois pour toutes : il n'existe que deux sortes de langages, ceux dont on se plaint, et ceux que personne n'utilise.",
+      "jab": "La machine se plaint beaucoup de vous. Ce n'est pas pour autant que vous servez à quelque chose."
+    },
+    "berners_lee": {
+      "name": "Berners-Lee",
+      "story": "En 1989, au CERN, il propose un système pour partager des documents entre chercheurs. Son chef annote la proposition : « vague, mais excitant ». C'est le Web. Il refuse de le breveter et l'offre gratuitement au monde entier. L'un de ses regrets : les deux barres obliques des adresses, qui ne servent à rien.",
+      "jab": "Il a offert le Web à toute l'humanité. Vous vous en servez pour ça."
+    },
+    "torvalds": {
+      "name": "Torvalds",
+      "story": "En 1991, un étudiant finlandais annonce sur un forum un petit système d'exploitation, « juste un passe-temps, rien de gros ni de professionnel ». C'est Linux : il fait tourner Android, la plupart des serveurs et la totalité des cinq cents plus puissants supercalculateurs du monde. En 2005, il écrit Git en quelques semaines. Il assure, en plaisantant, avoir appelé ses deux projets d'après lui-même : Linux, et git, « sale type » en argot anglais.",
+      "jab": "Son passe-temps fait tourner la planète. Le vôtre, c'est ça."
+    },
+    "nakamoto": {
+      "name": "Nakamoto",
+      "story": "En 2008, un inconnu publie neuf pages qui décrivent une monnaie sans banque ni État : le bitcoin. Il disparaît deux ans plus tard sans jamais révéler son identité, en laissant derrière lui, selon les estimations, environ un million de bitcoins auxquels il n'a jamais touché. Sans lui, Hanyecz n'aurait jamais payé ses pizzas aussi cher.",
+      "jab": "Lui est resté anonyme par choix. Vous, c'est par nécessité."
+    },
+    "hinton": {
+      "name": "Hinton",
+      "story": "Pendant des décennies, presque personne ne croit aux réseaux de neurones artificiels. Il s'obstine. En 2012, ses étudiants écrasent un concours de reconnaissance d'images, et tout bascule : c'est la naissance de l'intelligence artificielle moderne. Prix Turing, il quitte Google en 2023 pour avertir le monde des dangers de ce qu'il a créé, puis reçoit le prix Nobel de physique en 2024.",
+      "jab": "Il a appris aux machines à apprendre. La machine a beaucoup appris en vous regardant. Surtout ce qu'il ne faut pas faire."
+    },
+    "turing": {
+      "name": "Turing",
+      "story": "En 1936, à 23 ans, pour prouver que certains problèmes ne seront jamais résolus par le calcul, il imagine une machine capable de faire n'importe quel calcul : l'ordinateur, sur le papier. Pendant la guerre, à Bletchley Park, il aide à briser Enigma. En 1950, il pose la question qui hante ce jeu : les machines peuvent-elles penser ? Son visage est aujourd'hui sur les billets de 50 livres.",
+      "jab": "Il se demandait si les machines pourraient penser. Après tous ces niveaux, la machine se pose la même question à votre sujet."
     }
   },
   "menu": {

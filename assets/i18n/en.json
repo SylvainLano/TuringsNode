@@ -20,6 +20,7 @@
     ],
     "clicksInDigits": "{count} clicks",
     "clicksLeft": "clicks left: {count}",
+    "streakLeft": "clicks in a row left: {count}",
     "medalTitles": {
       "Platine": "Platinum medal!",
       "Or": "Gold medal!",
@@ -175,6 +176,10 @@
     "world_6": {
       "title": "World 6 complete",
       "description": "Complete every level of world 6."
+    },
+    "world_7": {
+      "title": "World 7 complete",
+      "description": "Complete every level of world 7."
     }
   },
   "levels": {
@@ -437,6 +442,176 @@
       "name": "Cantor",
       "story": "He proved that there are several infinities, and that some are bigger than others. Some of his colleagues cried scandal, and one of them reportedly called him a “corrupter of youth”. Hilbert, for his part, declared that no one would drive us from the paradise Cantor had created.",
       "jab": "The machine counted your mistakes. It has just discovered a new infinity."
+    },
+    "hollerith": {
+      "name": "Hollerith",
+      "story": "It took nearly eight years to process the 1880 American census. For the 1890 one, he invented a punched-card machine: the first count came in within weeks. His small company merged with others to become IBM.",
+      "jab": "He counted sixty-two million Americans faster than you count your clicks."
+    },
+    "russell": {
+      "name": "Russell",
+      "story": "With Whitehead, he wrote the Principia Mathematica to found mathematics on logic alone. It takes them hundreds of pages to establish that 1 + 1 = 2, a result they deem “occasionally useful”. Later, this logician won the Nobel Prize… in literature.",
+      "jab": "It took him hundreds of pages to prove that 1 + 1 = 2. You are still not convinced."
+    },
+    "hardy": {
+      "name": "Hardy",
+      "story": "He was glad that number theory was of no use, least of all for waging war. It now protects every online payment and every military secret. Before crossing a stormy sea, he is said to have sent a postcard claiming he had proved the Riemann hypothesis: God, who hated him, would never let him die with such glory.",
+      "jab": "His mathematics were never meant to be useful. Yours have kept that promise."
+    },
+    "ramanujan": {
+      "name": "Ramanujan",
+      "story": "A clerk in Madras with no degree, he sent Hardy pages of formulas. Hardy first suspected a fraud, then concluded they had to be true, because no one would have had the imagination to invent them. One day, Hardy visited him by taxi and found its number, 1729, rather dull. Ramanujan replied at once: it is the smallest number expressible as the sum of two cubes in two different ways.",
+      "jab": "He saw wonders in a taxi number. You look at this score and see nothing."
+    },
+    "noether": {
+      "name": "Emmy Noether",
+      "story": "Women were not allowed to teach at the University of Göttingen: for years, her lectures were announced under Hilbert’s name. Yet she proved the theorem that links the symmetries of the universe to its conservation laws, one of the pillars of modern physics. Einstein wrote that, in the judgment of the greatest living mathematicians, she was the most significant creative mathematical genius since higher education opened to women.",
+      "jab": "She changed physics without even being allowed her own name. You have yours, and it doesn’t help."
+    },
+    "godel": {
+      "name": "Gödel",
+      "story": "At 24, he proved that every consistent and sufficiently rich mathematical system contains truths that cannot be proved. To become an American citizen, he studied the Constitution, and wanted to explain to the judge a flaw he had found that would allow a dictatorship. The judge hastily changed the subject. For Einstein’s 70th birthday, he gave him a universe where time travel is possible.",
+      "jab": "He proved that some truths escape all proof. Your talent, for instance."
+    },
+    "rejewski": {
+      "name": "Rejewski",
+      "story": "In 1932, this young Polish mathematician reconstructed the wiring of Enigma using permutation theory and a spy’s documents, without ever having seen the military machine. His team read German messages for years. In July 1939, Poland handed everything to the British and the French: the methods, and copies of Enigma.",
+      "jab": "Facing Enigma, Turing didn’t have the keys: he and his team are the ones who handed them over. Nobody will hand them to you."
+    },
+    "shannon": {
+      "name": "Shannon",
+      "story": "At 21, his master’s thesis showed that Boolean algebra could make electrical circuits compute: it has been called possibly the most important master’s thesis of the century. Eleven years later, he founded information theory and made the bit its unit. In the 1950s, he rode a unicycle through the halls of Bell Labs, juggling.",
+      "jab": "He thought while juggling on a unicycle. You, sitting on a chair, manage neither."
+    },
+    "zuse": {
+      "name": "Zuse",
+      "story": "An aeronautical engineer tired of calculating by hand, he built his first machines in his parents’ living room in Berlin. In 1941, his Z3 became the first working programmable computer. He also designed the first high-level programming language, years ahead of everyone else.",
+      "jab": "He built a computer in a living room. You, in yours, can’t even work this one."
+    },
+    "flowers": {
+      "name": "Flowers",
+      "story": "An engineer at the British Post Office, like Preece before him, he built Colossus, the first programmable electronic machine, to break the German high command’s codes, and paid for part of it out of his own pocket. After the war, almost everything was destroyed and classified. When he asked for a loan to build a computer, the bank refused: it did not believe such a machine could work.",
+      "jab": "Nobody believed in him, and he was right. Nobody believes in you either."
+    },
+    "von_neumann": {
+      "name": "von Neumann",
+      "story": "He gave his name to the architecture of nearly every computer, co-founded game theory, and could reportedly calculate in his head faster than the first machines. Behind the wheel, however, he was a disaster: after one accident, he supposedly explained that the trees on his right were passing by in orderly fashion when one of them stepped into his path.",
+      "jab": "He calculated faster than machines. You? The machine is the one waiting for you."
+    },
+    "bartik": {
+      "name": "Bartik",
+      "story": "In 1946, six women programmed ENIAC, the first general-purpose electronic computer, without any manual, from wiring diagrams alone, plugging cables by hand. On the day of the triumphant demonstration, the machine worked perfectly. The programmers were not invited to the celebration dinner.",
+      "jab": "They programmed a machine without any manual. You, with no instructions, click at random."
+    },
+    "hopper": {
+      "name": "Hopper",
+      "story": "She wrote one of the first compilers and inspired COBOL, which still runs the banks. In 1947, her team found a moth stuck in a relay and taped it into the logbook: “first actual case of bug being found”. To explain a nanosecond, she handed out pieces of wire thirty centimetres long. The Navy had to call her back from retirement, and she served until 79.",
+      "jab": "Her team removed bugs with tweezers. You are one."
+    },
+    "hamming": {
+      "name": "Hamming",
+      "story": "At Bell Labs, the machines stopped at the slightest error, and at weekends nobody was there to restart them. Fed up with finding his work lost two Mondays in a row, he invented codes that correct their own errors. Their descendants now protect computer memories and the messages of space probes.",
+      "jab": "He knew how to correct machines’ errors. Yours would need a far more powerful code."
+    },
+    "minsky": {
+      "name": "Minsky",
+      "story": "A pioneer of artificial intelligence, he built one of the first artificial neural networks as early as 1951. Between two theories of the mind, he invented the confocal microscope, now found in biology labs all over the world. He also imagined a machine whose only function is to switch itself off as soon as it is switched on.",
+      "jab": "He imagined a machine that switches itself off as soon as it is switched on. You look a lot like it."
+    },
+    "backus": {
+      "name": "Backus",
+      "story": "Programming in machine language bored him deeply. So in 1957, with his team at IBM, he created Fortran, the first widely used high-level language, which still computes the weather on supercomputers. He maintained that most of his work came from being lazy.",
+      "jab": "His laziness gave the world Fortran. Yours only gave this score."
+    },
+    "mccarthy": {
+      "name": "McCarthy",
+      "story": "In 1955, he coined the term “artificial intelligence” for a summer workshop. Three years later, he created Lisp, one of the oldest languages still in use, inventing garbage collection along the way, which frees memory on its own. As early as 1961, he predicted that computing power would one day be rented as a public utility, like the telephone: the cloud.",
+      "jab": "He gave artificial intelligence a name. For yours, we are still looking."
+    },
+    "dijkstra": {
+      "name": "Dijkstra",
+      "story": "In 1956, at a café terrace in Amsterdam, without pen or paper, he found the shortest-path algorithm in twenty minutes. GPS systems still draw on it. He did not mince his words: in his view, teaching BASIC mutilated students’ minds beyond hope of regeneration.",
+      "jab": "He solved his problems in his head, at a café terrace. You need a screen, some buttons, and a bit of luck."
+    },
+    "johnson": {
+      "name": "Katherine Johnson",
+      "story": "A NASA mathematician, she calculated by hand the trajectories of the first American space missions. In 1962, before becoming the first American in orbit, John Glenn demanded that she check the computer’s calculations: if she said they were good, he was ready to go. She confirmed. He went.",
+      "jab": "An astronaut trusted his life to her calculations. Nobody would trust you with a calculator."
+    },
+    "knuth": {
+      "name": "Knuth",
+      "story": "In 1962, he began The Art of Computer Programming, a book that would grow into a seven-volume project. He is still at it. Unhappy with the typesetting of the new edition of his second volume, he spent eight years inventing TeX, which still typesets most mathematics papers. To the first person who finds each mistake in his books, he sends a “hexadecimal dollar” worth $2.56, once by cheque, now as a certificate from his imaginary bank.",
+      "jab": "He pays people who find his mistakes. With yours, he would be broke."
+    },
+    "moore": {
+      "name": "Moore",
+      "story": "In 1965, he predicted that the number of transistors on a chip would double at regular intervals. He thought it would hold for about ten years. It held for half a century. Meanwhile, he co-founded Intel to see to it himself.",
+      "jab": "The transistors on a chip used to double every two years. With you, we are still waiting for the first doubling."
+    },
+    "engelbart": {
+      "name": "Engelbart",
+      "story": "In 1968, in a single ninety-minute demonstration, he presented the mouse, hypertext links, word processing, videoconferencing and several people editing the same document. The audience rose to give him a standing ovation. The mouse earned him almost nothing: the patent expired before it caught on.",
+      "jab": "He invented the mouse to change the world. You use it to click at random."
+    },
+    "thompson": {
+      "name": "Thompson",
+      "story": "In 1969, his wife went on a three-week holiday with their son. He took the opportunity to write, one piece a week, what his operating system was missing: Unix, from which macOS and the iPhone descend, and which inspired Linux and Android. He reportedly said that one of his most productive days was the one when he threw away a thousand lines of code.",
+      "jab": "He finished Unix during his wife’s holiday. You, during yours, play this."
+    },
+    "ritchie": {
+      "name": "Ritchie",
+      "story": "He created the C language, in which most operating systems are still written, and rewrote Unix with Thompson. He himself found his language quirky and flawed, while acknowledging its enormous success. He was never officially a doctor: he had not handed in the bound copy of his thesis to the library.",
+      "jab": "He didn’t even bother to collect his degree. You will never be given one."
+    },
+    "kay": {
+      "name": "Kay",
+      "story": "In 1972, he sketched the Dynabook, a flat, portable computer for children: the tablet, nearly forty years before the iPad. At Xerox, he helped invent windows and object-oriented programming. Xerox did almost nothing with it, and Steve Jobs, on a visit, left with ideas. His motto: the best way to predict the future is to invent it.",
+      "jab": "He saw the future forty years ahead. You can’t see the next click."
+    },
+    "cerf": {
+      "name": "Cerf",
+      "story": "With Bob Kahn, he designed in 1974 the protocol that connects all the world’s networks: the Internet. In 1977, he provided for 4.3 billion addresses, thinking that would be plenty for an experiment. The experiment grew a little. He then spent more than twenty years as Google’s “Chief Internet Evangelist”.",
+      "jab": "He connected the whole world. You can’t connect two ideas."
+    },
+    "diffie_hellman": {
+      "name": "Diffie and Hellman",
+      "story": "In 1976, they showed how two strangers can agree on a secret while talking in public, without anyone else being able to discover it. This is public-key cryptography: the padlock on every website depends on it. The British secret services had found it a few years earlier, but were not allowed to tell anyone.",
+      "jab": "They knew how to share a secret in front of everyone. Yours is well kept: nobody knows how you succeeded. Not even you."
+    },
+    "lamport": {
+      "name": "Lamport",
+      "story": "He laid the foundations of distributed systems, which run the cloud, and created LaTeX. To explain his consensus algorithm, he presented it as the story of an imaginary parliament on the Greek island of Paxos. Nobody got the joke, and the paper waited eight years to be published. He eventually received the Turing Award.",
+      "jab": "His jokes were too subtle for his readers. You are the joke."
+    },
+    "stroustrup": {
+      "name": "Stroustrup",
+      "story": "In 1985, he released C++, which runs video games, browsers and financial markets. His critics find it too complicated. He answered them once and for all: there are only two kinds of languages, the ones people complain about and the ones nobody uses.",
+      "jab": "The machine complains about you a lot. That doesn’t make you useful."
+    },
+    "berners_lee": {
+      "name": "Berners-Lee",
+      "story": "In 1989, at CERN, he proposed a system for researchers to share documents. His boss scribbled on the proposal: “vague but exciting”. It was the Web. He refused to patent it and gave it to the whole world for free. One of his regrets: the two slashes in addresses, which serve no purpose.",
+      "jab": "He gave the Web to all of humanity. You use it for this."
+    },
+    "torvalds": {
+      "name": "Torvalds",
+      "story": "In 1991, a Finnish student announced a small operating system on a forum, “just a hobby, won’t be big and professional”. It was Linux: it runs Android, most servers and all five hundred of the world’s most powerful supercomputers. In 2005, he wrote Git in a few weeks. He jokingly claims he named both projects after himself: Linux, and git, British slang for an unpleasant person.",
+      "jab": "His hobby runs the planet. Yours is this."
+    },
+    "nakamoto": {
+      "name": "Nakamoto",
+      "story": "In 2008, an unknown person published nine pages describing a currency with no bank and no state: bitcoin. Two years later, they vanished without ever revealing their identity, leaving behind, by some estimates, about a million bitcoins that have never been touched. Without them, Hanyecz would never have paid so much for his pizzas.",
+      "jab": "They stayed anonymous by choice. You, out of necessity."
+    },
+    "hinton": {
+      "name": "Hinton",
+      "story": "For decades, almost nobody believed in artificial neural networks. He persisted. In 2012, his students crushed an image recognition contest, and everything changed: modern artificial intelligence was born. A Turing Award winner, he left Google in 2023 to warn the world about the dangers of what he had created, then received the Nobel Prize in physics in 2024.",
+      "jab": "He taught machines to learn. The machine has learned a lot by watching you. Mostly what not to do."
+    },
+    "turing": {
+      "name": "Turing",
+      "story": "In 1936, at 23, to prove that some problems can never be solved by computation, he imagined a machine able to carry out any computation: the computer, on paper. During the war, at Bletchley Park, he helped break Enigma. In 1950, he asked the question that haunts this game: can machines think? His face is now on the £50 note.",
+      "jab": "He wondered whether machines could think. After all these levels, the machine is asking the same question about you."
     }
   },
   "menu": {
