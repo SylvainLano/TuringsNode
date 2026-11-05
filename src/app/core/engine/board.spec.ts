@@ -1,4 +1,4 @@
-import { createBoard, isButtonDisabled, isLevelComplete, pressButton, remainingClicks } from './board';
+import { createBoard, isButtonDisabled, isLevelComplete, pressButton, remainingClicks, remainingStreakClicks } from './board';
 import { Level, getScoreBounds } from './level';
 
 const makeLevel = (startScore: number, buttons: Level['buttons'], minScore: number | null = 12): Level => ({
@@ -75,5 +75,17 @@ describe('Engine board', () => {
     const afterTwoClicks = pressButton(pressButton(start, 0, bounds), 0, bounds);
     expect(remainingClicks(afterTwoClicks.buttons[0])).toBe(0);
     expect(isButtonDisabled(afterTwoClicks.buttons[0])).toBe(true);
+  });
+
+  it('counts the clicks left in a row, until another button is pressed', () => {
+    const level = makeLevel(20, [{ name: 'Plus', initialValue: 1, consecutiveClickLimit: 2 }, { name: 'Minus', initialValue: 1 }]);
+    const start = createBoard(level);
+    expect(start.buttons.map(remainingStreakClicks)).toEqual([2, null]);
+
+    const afterTwoClicks = pressButton(pressButton(start, 0, bounds), 0, bounds);
+    expect([remainingStreakClicks(afterTwoClicks.buttons[0]), isButtonDisabled(afterTwoClicks.buttons[0])]).toEqual([0, true]);
+
+    const afterSwitch = pressButton(afterTwoClicks, 1, bounds);
+    expect([remainingStreakClicks(afterSwitch.buttons[0]), isButtonDisabled(afterSwitch.buttons[0])]).toEqual([2, false]);
   });
 });

@@ -20,7 +20,8 @@ import {
   isGoldenScore,
   isWorldComplete,
   pressButton,
-  remainingClicks
+  remainingClicks,
+  remainingStreakClicks
 } from '../core/engine';
 import { EXPLOSION_QUAKE, QuakeOptions, RUMBLE_QUAKE, quakeKeyframes } from './victory-quake';
 
@@ -30,6 +31,7 @@ interface GameButton extends ButtonState {
   isDisabled: boolean;
   isConditionMet: boolean;
   clicksLeft: number | null; // Seulement pour un bouton limité en nombre de clics
+  streakLeft: number | null; // Seulement pour un bouton limité en clics d'affilée
 }
 
 // État du plateau avant un clic, pour pouvoir l'annuler
@@ -165,7 +167,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       colorClass: 'is-red',
       isDisabled: false,
       isConditionMet: false,
-      clicksLeft: null
+      clicksLeft: null,
+      streakLeft: null
     }));
 
     this.updateAllButtons();
@@ -287,6 +290,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
       button.isDisabled = isButtonDisabled(button);
       button.clicksLeft = remainingClicks(button);
+      button.streakLeft = remainingStreakClicks(button);
     });
   }
 
@@ -319,9 +323,15 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     return !!introduced?.includes(button.name);
   }
 
-  // Un point plein par clic encore permis, un point vide par clic déjà utilisé
+  // Un point plein par clic encore permis, un point vide par clic déjà utilisé ;
+  // des carrés pour les clics d'affilée, qui reviennent dès qu'on clique sur un autre bouton
   public clickPips(button: GameButton): string {
-    return button.clicksLeft === null ? '' : '●'.repeat(button.clicksLeft) + '○'.repeat((button.totalClickLimit ?? 0) - button.clicksLeft);
+    const pips = (left: number | null, limit: number | null, full: string, empty: string) =>
+      left === null ? '' : full.repeat(left) + empty.repeat((limit ?? 0) - left);
+    return [
+      pips(button.clicksLeft, button.totalClickLimit, '●', '○'),
+      pips(button.streakLeft, button.consecutiveClickLimit, '■', '□')
+    ].filter(Boolean).join(' ');
   }
 
   public clicksInWordsKey(): string {

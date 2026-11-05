@@ -184,6 +184,20 @@ describe('GameBoardComponent', () => {
     expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['●○', false]);
   });
 
+  it('shows the clicks left in a row, which come back after clicking another button', () => {
+    // Le score 11 ne bouge pas : son miroir vaut 11, et 11 / 1 = 11
+    levelService.levels.set([{ ...LEVEL, buttons: [{ name: 'Mirror', initialValue: 1, consecutiveClickLimit: 2 }, { name: 'Split', initialValue: 1 }] }]);
+    fixture.detectChanges();
+    const [mirror, split] = component.buttons;
+
+    component.onButtonClick(mirror);
+    component.onButtonClick(mirror);
+    expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['□□', true]);
+
+    component.onButtonClick(split);
+    expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['■■', false]);
+  });
+
   it('offers the level selection instead of a next level after the last level', () => {
     winLevel();
 

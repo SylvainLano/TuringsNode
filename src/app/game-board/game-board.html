@@ -34,9 +34,10 @@
             [class.is-disabled]="isAnimatingScore || isExploding || button.isDisabled"
             [disabled]="isAnimatingScore || isExploding || button.isDisabled"
             [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)
-              + (button.clicksLeft === null ? '' : ', ' + ('gameboard.clicksLeft' | translate:{ count: button.clicksLeft }))">
+              + (button.clicksLeft === null ? '' : ', ' + ('gameboard.clicksLeft' | translate:{ count: button.clicksLeft }))
+              + (button.streakLeft === null ? '' : ', ' + ('gameboard.streakLeft' | translate:{ count: button.streakLeft }))">
             <span class="state-icon" aria-hidden="true">{{ stateIcon(button) }}</span>
-            @if (button.clicksLeft !== null) {
+            @if (button.clicksLeft !== null || button.streakLeft !== null) {
               <span class="click-pips" aria-hidden="true">{{ clickPips(button) }}</span>
             }
             @if (isNewButton(button)) {

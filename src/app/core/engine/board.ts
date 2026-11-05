@@ -41,6 +41,11 @@ export function remainingClicks(button: ButtonState): number | null {
   return button.totalClickLimit ? Math.max(0, button.totalClickLimit - button.totalClickCount) : null;
 }
 
+/** Clics encore permis d'affilée sur un bouton limité en clics consécutifs, ou null s'il n'a pas de limite */
+export function remainingStreakClicks(button: ButtonState): number | null {
+  return button.consecutiveClickLimit ? Math.max(0, button.consecutiveClickLimit - button.consecutiveClickCount) : null;
+}
+
 /**
  * Calcule le plateau obtenu après un clic sur le bouton `index`, sans modifier `board`.
  * L'action utilise la valeur du bouton avant le clic, puis la valeur passe à la suivante.
