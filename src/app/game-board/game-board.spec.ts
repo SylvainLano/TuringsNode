@@ -43,14 +43,28 @@ describe('GameBoardComponent', () => {
     component = fixture.componentInstance;
   });
 
-  afterEach(() => localStorage.removeItem('turings_node_best_medals_v1'));
+  afterEach(() => {
+    localStorage.removeItem('turings_node_best_medals_v1');
+    vi.useRealTimers();
+  });
+
+  // Gagne l'unique niveau en un clic, puis laisse passer le tremblement et l'explosion
+  function winLevel(): void {
+    vi.useFakeTimers();
+    levelService.levels.set([LEVEL]);
+    fixture.detectChanges();
+    component.onButtonClick(component.buttons[0]);
+    vi.advanceTimersByTime(3000);
+    fixture.detectChanges();
+  }
 
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('updates the buttons and detects the victory when a click leaves the score unchanged', () => {
+  it('updates the buttons, shakes the board, then shows the victory', () => {
+    vi.useFakeTimers();
     levelService.levels.set([LEVEL]);
     fixture.detectChanges();
     const digit = component.buttons[0];
@@ -60,8 +74,56 @@ describe('GameBoardComponent', () => {
 
     expect(digit.value).toBe(2);
     expect(digit.colorClass).toBe('is-green');
+    expect([component.isRumbling, component.gameState]).toEqual([true, 'playing']);
+
+    vi.advanceTimersByTime(2000);
+    expect([component.isRumbling, component.isExploding]).toEqual([false, true]);
+
+    vi.advanceTimersByTime(600);
     expect(component.gameState).toBe('level_complete');
     expect(component.earnedMedal).toBe('Platine');
+  });
+
+  it('calms the shaking when the player clicks again, and shakes again after an undo', () => {
+    vi.useFakeTimers();
+    levelService.levels.set([LEVEL]);
+    fixture.detectChanges();
+    const digit = component.buttons[0];
+    component.onButtonClick(digit);
+    expect(component.isRumbling).toBe(true);
+
+    component.onButtonClick(digit); // 11 × 2 = 22 : Digit 3 repasse au rouge
+    expect(component.isRumbling).toBe(false);
+    vi.advanceTimersByTime(3000);
+    expect([digit.colorClass, component.gameState]).toEqual(['is-red', 'playing']);
+
+    component.undo();
+    expect(component.isRumbling).toBe(true);
+    vi.advanceTimersByTime(2600);
+    expect(component.gameState).toBe('level_complete');
+    expect(component.earnedMedal).toBe('Platine');
+  });
+
+  it('welcomes the player with a short help on the first level, which can be closed and reopened', () => {
+    levelService.levels.set([LEVEL, { ...LEVEL, levelNumber: 2 }]);
+    fixture.detectChanges();
+    const helpCard = () => fixture.nativeElement.querySelector('.help-card');
+    expect(helpCard()).toBeTruthy();
+
+    component.closeHelp();
+    fixture.detectChanges();
+    expect(helpCard()).toBeNull();
+
+    (fixture.nativeElement.querySelector('.help-button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(helpCard()).toBeTruthy();
+  });
+
+  it('does not show the help after the first level', () => {
+    levelService.levels.set([LEVEL, { ...LEVEL, levelNumber: 2 }]);
+    levelService.currentLevelNumber.set(2);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.help-card')).toBeNull();
   });
 
   describe('during a level', () => {
@@ -102,20 +164,14 @@ describe('GameBoardComponent', () => {
   });
 
   it('offers the level selection instead of a next level after the last level', () => {
-    levelService.levels.set([LEVEL]);
-    fixture.detectChanges();
-    component.onButtonClick(component.buttons[0]);
-    fixture.detectChanges();
+    winLevel();
 
     const nextButton: HTMLElement = fixture.nativeElement.querySelector('.next-level-button');
     expect(nextButton.textContent).toContain('menu.levelSelectButton');
   });
 
   it('shows the campaign summary after the last level', () => {
-    levelService.levels.set([LEVEL]);
-    fixture.detectChanges();
-    component.onButtonClick(component.buttons[0]);
-    fixture.detectChanges();
+    winLevel();
 
     const summary: HTMLElement = fixture.nativeElement.querySelector('.campaign-summary');
     expect(summary.querySelector('.medal-tally')?.textContent).toContain('💎 1');

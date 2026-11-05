@@ -144,15 +144,16 @@ $color-gold-light: #FAF089;
   }
 }
 
-/* Classe pour un bouton "légendaire" : arc-en-ciel qui défile */
+/* Classe pour un bouton "légendaire" : arc-en-ciel qui défile. Le dégradé fait 400px de large et se répète :
+   décalé d'exactement 400px à chaque tour, il boucle sans à-coup */
 .is-legendary {
   background-image: linear-gradient(90deg, #f56565, #ed8936, #ecc94b, #48bb78, #4299e1, #9f7aea, #ed64a6, #f56565);
-  background-size: 300% 100%;
+  background-size: 400px 100%;
   border-color: $color-white;
   color: $color-white;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
-  animation: rainbow-scroll 4s linear infinite;
+  animation: rainbow-scroll 3s linear infinite;
 
   &:hover {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
@@ -165,10 +166,10 @@ $color-gold-light: #FAF089;
 
 @keyframes rainbow-scroll {
   from {
-    background-position: 0% 50%;
+    background-position: 0 0;
   }
   to {
-    background-position: 100% 50%;
+    background-position: 400px 0;
   }
 }
 

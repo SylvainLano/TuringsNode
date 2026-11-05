@@ -1,0 +1,32 @@
+/* Plateau de jeu et flash de victoire, à part pour garder chaque feuille de style légère.
+   La secousse et l'explosion du plateau sont tirées au hasard dans victory-quake.ts */
+
+/* Plateau (aide, score et boutons) : c'est lui qui tremble puis explose à la victoire */
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.victory-flash {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    pointer-events: none;
+    background-color: #ffffff;
+    animation: victory-flash 0.6s ease-out forwards;
+}
+
+@keyframes victory-flash {
+    0% { opacity: 0; }
+    25% { opacity: 0.85; }
+    100% { opacity: 0; }
+}
+
+/* Mouvement réduit : pas de flash */
+@media (prefers-reduced-motion: reduce) {
+    .victory-flash {
+        display: none;
+    }
+}

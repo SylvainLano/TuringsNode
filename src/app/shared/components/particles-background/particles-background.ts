@@ -1,7 +1,17 @@
 import { Component, effect, signal, ChangeDetectionStrategy } from '@angular/core';
 import { NgParticlesService, NgxParticlesModule } from '@tsparticles/angular';
-import type { ISourceOptions } from '@tsparticles/engine';
+import type { Engine, ISourceOptions } from '@tsparticles/engine';
 import { BackgroundService } from '../../../core/services/background';
+
+// Les modules de tsParticles arrivent dans un fichier à part, pour ne pas alourdir le premier chargement.
+// Toujours la même fonction : NgParticlesService refuse un rappel différent d'une création à l'autre.
+const loadParticlesModules = async (engine: Engine) => (await import('tsparticles')).loadFull(engine);
+
+// Un fond affiché. Le nouveau apparaît en fondu par-dessus l'ancien, retiré une fois le fondu terminé.
+interface ParticlesLayer {
+  id: string;
+  options: ISourceOptions;
+}
 
 
 @Component({
@@ -14,20 +24,16 @@ import { BackgroundService } from '../../../core/services/background';
 })
 
 export class ParticlesBackgroundComponent {
-  id = "tsparticles";
-
-  // 1. On transforme particlesOptions en un signal !
-  public readonly particlesOptions = signal<ISourceOptions>({});
-  public isVisible = signal(true);
+  public readonly layers = signal<ParticlesLayer[]>([]);
+  private layerCount = 0;
+  // Même durée que l'animation de fondu dans particles-background.scss
+  private readonly FADE_DURATION_MS = 800;
   // tsParticles doit être initialisé (avec tous ses modules) avant d'afficher <ngx-particles>
   public readonly isEngineReady = signal(false);
 
   // 2. On injecte les services
   constructor(private backgroundService: BackgroundService, particlesService: NgParticlesService) {
-    // Les modules de tsParticles arrivent dans un fichier à part, pour ne pas alourdir le premier chargement
-    particlesService
-      .init(async engine => (await import('tsparticles')).loadFull(engine))
-      .then(() => this.isEngineReady.set(true));
+    particlesService.init(loadParticlesModules).then(() => this.isEngineReady.set(true));
 
     // 3. On utilise un `effect` pour réagir aux changements
     effect(() => {
@@ -39,22 +45,34 @@ export class ParticlesBackgroundComponent {
 
         // On regarde si un thème spécifique est demandé (ex: 'angry')
         if (state.value === 'angry') {
-          // Configuration pour le thème "Angry"
+          // Thème "Angry" (tous les boutons sont rouges) : une fontaine adoucie, en rouge corail sur fond rosé,
+          // dont les gouttes ralentissent et s'estompent pour ne pas agresser les yeux
           newOptions = {
-            background: { color: { value: '#ffffffff' } },
-            fpsLimit: 120,
+            background: {
+              color: { value: '#fff5f5' },
+              // Texture : des ondes concentriques autour de la fontaine, un centre plus clair et des bords rosés
+              image: [
+                'radial-gradient(circle at 50% 55%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 35%)',
+                'radial-gradient(circle at 50% 55%, rgba(229, 62, 62, 0) 45%, rgba(229, 62, 62, 0.16) 100%)',
+                'repeating-radial-gradient(circle at 50% 55%, rgba(229, 62, 62, 0.07) 0 2px, rgba(229, 62, 62, 0) 2px 16px)'
+              ].join(', ')
+            },
+            fpsLimit: 60,
             particles: {
-              paint: { color: { value: '#ff0000' } },
-              move: { enable: true, speed: 6, outModes: { default: "destroy" as const } },
+              paint: { color: { value: ['#fc8181', '#f56565', '#feb2b2'] } },
+              move: { enable: true, speed: { min: 2.5, max: 5.5 }, outModes: { default: "destroy" as const } },
               number: { value: 0 },
-              opacity: { value: { min: 0.3, max: 1 } },
+              opacity: {
+                value: { min: 0, max: 0.8 },
+                animation: { enable: true, speed: 0.5, startValue: 'max', destroy: 'min', sync: false }
+              },
               shape: { type: "circle" as const },
               size: { value: { min: 1, max: 3 } },
-              life: { duration: { value: 12 }, count: 1 }
+              life: { duration: { value: 4 }, count: 1 }
             },
             emitters: [{
               position: { x: 50, y: 55 },
-              rate: { quantity: 15, delay: 0.05 },
+              rate: { quantity: 6, delay: 0.05 },
               size: { width: 0, height: 0 }
             }]
           };
@@ -564,12 +582,10 @@ export class ParticlesBackgroundComponent {
             detectRetina: true
           };
         }
-        // On met à jour le signal, ce qui re-rendra le composant
-        this.particlesOptions.set(newOptions);
-
-        // On force la re-création du composant
-        this.isVisible.set(false);
-        setTimeout(() => this.isVisible.set(true), 0);
+        // Nouvelle couche par-dessus les autres ; une fois son fondu terminé, celles d'en dessous sont retirées
+        const layer: ParticlesLayer = { id: `tsparticles-${++this.layerCount}`, options: newOptions };
+        this.layers.update(layers => [...layers, layer]);
+        setTimeout(() => this.layers.update(layers => layers.slice(Math.max(layers.indexOf(layer), 0))), this.FADE_DURATION_MS);
       }
     });
   }

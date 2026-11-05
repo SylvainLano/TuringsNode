@@ -1,0 +1,10 @@
+/* Chaque fond apparaît en fondu par-dessus le précédent (durée reprise dans particles-background.ts) */
+.particles-layer {
+  display: block;
+  animation: particles-fade-in 0.8s ease-in-out both;
+}
+
+@keyframes particles-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -8,35 +8,51 @@
 
 <div class="game-container">
   @if (gameState !== 'level_complete') {
-    <!-- Pas de séparateur de milliers : chaque chiffre du score compte -->
-    <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore }}</div>
-
-    <div class="button-container" [attr.data-count]="buttons.length">
-      @for (button of buttons; track button) {
-        <button
-          class="game-button"
-          [ngClass]="button.colorClass"
-          [class.is-new]="isNewButton(button)"
-          (click)="onButtonClick(button)"
-          [class.is-disabled]="isAnimatingScore || button.isDisabled"
-          [disabled]="isAnimatingScore || button.isDisabled"
-          [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)">
-          <span class="state-icon" aria-hidden="true">{{ stateIcon(button) }}</span>
-          @if (isNewButton(button)) {
-            <span class="new-tag">{{ 'gameboard.newButton' | translate }}</span>
-          }
-          <span class="button-label">{{ button.name }}</span>
-          <span class="background-number">{{ button.value }}</span>
-        </button>
+    <!-- Le plateau (aide comprise) tremble quand tout est vert, puis explose -->
+    <div class="board">
+      @if (showHelp) {
+        <div class="help-card" role="note">
+          <button class="help-close" (click)="closeHelp()" [attr.aria-label]="'gameboard.helpClose' | translate" [title]="'gameboard.helpClose' | translate">✕</button>
+          <p class="help-title">{{ 'gameboard.helpTitle' | translate }}</p>
+        </div>
       }
+
+      <!-- Pas de séparateur de milliers : chaque chiffre du score compte -->
+      <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore }}</div>
+
+      <div class="button-container" [attr.data-count]="buttons.length">
+        @for (button of buttons; track button) {
+          <button
+            class="game-button"
+            [ngClass]="button.colorClass"
+            [class.is-new]="isNewButton(button)"
+            (click)="onButtonClick(button)"
+            [class.is-disabled]="isAnimatingScore || isExploding || button.isDisabled"
+            [disabled]="isAnimatingScore || isExploding || button.isDisabled"
+            [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)">
+            <span class="state-icon" aria-hidden="true">{{ stateIcon(button) }}</span>
+            @if (isNewButton(button)) {
+              <span class="new-tag">{{ 'gameboard.newButton' | translate }}</span>
+            }
+            <span class="button-label">{{ button.name }}</span>
+            <span class="background-number">{{ button.value }}</span>
+          </button>
+        }
+      </div>
     </div>
+
+    @if (isExploding) {
+      <div class="victory-flash" aria-hidden="true"></div>
+    }
 
     <div class="play-controls">
       <span class="click-counter">{{ 'gameboard.clicksShort' | translate }} : <strong>{{ levelClicks }}</strong></span>
+      <button class="control-button help-button" (click)="toggleHelp()" [class.is-active]="showHelp"
+        [attr.aria-label]="'gameboard.helpButton' | translate" [title]="'gameboard.helpButton' | translate">?</button>
       <button class="control-button" (click)="undo()" [disabled]="!canUndo" title="Ctrl+Z">
         ↶ {{ 'gameboard.undoButton' | translate }}
       </button>
-      <button class="control-button" (click)="retryLevel()" [disabled]="isAnimatingScore || levelClicks === 0">
+      <button class="control-button" (click)="retryLevel()" [disabled]="isAnimatingScore || isExploding || levelClicks === 0">
         ⟲ {{ 'gameboard.restartButton' | translate }}
       </button>
     </div>

@@ -27,7 +27,10 @@
     "campaignCompleteTitle": "Campaign complete!",
     "campaignCompleteText": "Well done, you completed all {total} levels of Turing's Node.",
     "campaignPlatinumHint": "Replay the levels to earn Platinum everywhere!",
-    "campaignAllPlatinum": "Platinum on every level: hats off!"
+    "campaignAllPlatinum": "Platinum on every level: hats off!",
+    "helpTitle": "Facing Enigma, Turing didn't have the keys. Neither do you.",
+    "helpButton": "How to play",
+    "helpClose": "Close"
   },
   "level_data_not_found": "Level data not found.",
   "medals": {

@@ -1,6 +1,9 @@
-@if (isEngineReady() && isVisible()) {
-  <ngx-particles
-    id="tsparticles"
-    [options]="particlesOptions()">
-  </ngx-particles>
+@if (isEngineReady()) {
+  @for (layer of layers(); track layer.id) {
+    <ngx-particles
+      class="particles-layer"
+      [id]="layer.id"
+      [options]="layer.options">
+    </ngx-particles>
+  }
 }

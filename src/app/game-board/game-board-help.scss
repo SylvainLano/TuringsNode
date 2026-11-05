@@ -1,0 +1,68 @@
+/* Mini-tutoriel du plateau de jeu, à part pour garder chaque feuille de style légère */
+
+/* Au-dessus du score */
+.help-card {
+    position: relative;
+    // Assez large pour que l'accroche tienne sur une ligne, en français comme en anglais
+    max-width: 680px;
+    margin-bottom: 30px;
+    padding: 14px 44px 14px 18px;
+    border-radius: 12px;
+    background-color: rgba(45, 55, 72, 0.85);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    line-height: 1.45;
+    animation: help-fade-in 0.4s ease-in-out;
+
+    // L'accroche, dans la police du score
+    .help-title {
+        margin: 0;
+        font-family: 'Rubik', sans-serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 1.3em;
+        color: #f6e05e;
+    }
+}
+
+.help-close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* Bouton « ? » des contrôles, enfoncé tant que l'aide est ouverte */
+.help-button.is-active {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes help-fade-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Petits écrans : sous le bouton de retour au menu */
+@media (max-width: 600px) {
+    .help-card {
+        margin-top: 44px;
+        font-size: 0.9em;
+
+        .help-title {
+            font-size: 1.15em;
+        }
+    }
+}

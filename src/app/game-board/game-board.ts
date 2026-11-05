@@ -1,4 +1,4 @@
-import { Component, OnInit, effect, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
@@ -20,6 +20,7 @@ import {
   isGoldenScore,
   pressButton
 } from '../core/engine';
+import { EXPLOSION_QUAKE, QuakeOptions, RUMBLE_QUAKE, quakeKeyframes } from './victory-quake';
 
 // Un bouton affiché : son état dans le moteur, complété par son état visuel
 interface GameButton extends ButtonState {
@@ -45,11 +46,11 @@ interface BoardSnapshot {
   ],
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./game-board.scss'],
+  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss'],
   host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
-export class GameBoardComponent implements OnInit {
+export class GameBoardComponent implements OnInit, OnDestroy {
 
   public gameState: 'playing' | 'level_complete' = 'playing';
   public earnedMedal: Medal | null = null;
@@ -68,11 +69,24 @@ export class GameBoardComponent implements OnInit {
   private history: BoardSnapshot[] = [];
   private readonly MEDAL_ICONS = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };
 
+  // Victoire : le plateau tremble de plus en plus fort, puis explose. Un clic pendant le tremblement l'apaise.
+  public isRumbling = false;
+  public isExploding = false;
+  private victoryTimer: ReturnType<typeof setTimeout> | undefined;
+  private readonly RUMBLE_DURATION_MS = 2000;
+  private readonly EXPLOSION_DURATION_MS = 600;
+  private boardAnimation?: Animation;
+
+  // Mini-tutoriel : affiché au premier niveau de la campagne, puis à la demande avec le bouton « ? »
+  public showHelp = false;
+  private isHelpDismissed = false;
+
   constructor(
     private backgroundService: BackgroundService,
     public levelService: LevelService,
     private route: ActivatedRoute,
-    private achievementService: AchievementService
+    private achievementService: AchievementService,
+    private host: ElementRef<HTMLElement>
   ) {
     effect(() => {
       const allLevels = this.levelService.levels();
@@ -105,6 +119,7 @@ export class GameBoardComponent implements OnInit {
 
         const levelData = this.levelService.currentLevelData();
         if (levelData) {
+          this.showHelp = !this.isHelpDismissed && levelData.levelNumber === allLevels[0].levelNumber;
           this.setupLevel(levelData);
         }
       }
@@ -113,6 +128,11 @@ export class GameBoardComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    clearTimeout(this.victoryTimer);
+    this.boardAnimation?.cancel();
+  }
+
   private setupLevel(levelData: Level): void {
     if (!levelData) {
       console.error("Données du niveau introuvables !");
@@ -120,6 +140,7 @@ export class GameBoardComponent implements OnInit {
     }
 
     // Réinitialisation des états du jeu
+    this.stopVictorySequence();
     const board = createBoard(levelData);
     this.specialBackground = null;
     this.bounds = getScoreBounds(levelData);
@@ -158,7 +179,8 @@ export class GameBoardComponent implements OnInit {
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
-    if (this.isAnimatingScore || button.isDisabled || this.gameState !== 'playing') return;
+    if (this.isAnimatingScore || this.isExploding || button.isDisabled || this.gameState !== 'playing') return;
+    this.stopVictorySequence();
 
     this.history.push({
       score: this.score,
@@ -181,7 +203,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   public get canUndo(): boolean {
-    return this.history.length > 0 && !this.isAnimatingScore && this.gameState === 'playing';
+    return this.history.length > 0 && !this.isAnimatingScore && !this.isExploding && this.gameState === 'playing';
   }
 
   /**
@@ -190,12 +212,24 @@ export class GameBoardComponent implements OnInit {
   public undo(): void {
     const previous = this.canUndo ? this.history.pop() : undefined;
     if (!previous) return;
+    this.stopVictorySequence();
 
     this.score = previous.score;
     this.displayedScore = previous.score;
     this.levelClicks = previous.clicks;
     previous.buttons.forEach((state, i) => Object.assign(this.buttons[i], state));
     this.updateAllButtons();
+    // Retour à un plateau tout vert : ça se remet à trembler
+    this.checkGameState();
+  }
+
+  public toggleHelp(): void {
+    this.showHelp = !this.showHelp;
+  }
+
+  public closeHelp(): void {
+    this.showHelp = false;
+    this.isHelpDismissed = true;
   }
 
   /**
@@ -203,6 +237,11 @@ export class GameBoardComponent implements OnInit {
    */
   public onKeydown(event: KeyboardEvent): void {
     if (event.altKey) return;
+
+    if (event.key === 'Escape' && this.showHelp) {
+      this.closeHelp();
+      return;
+    }
 
     if (((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') || event.key === 'Backspace') {
       event.preventDefault();
@@ -276,30 +315,61 @@ export class GameBoardComponent implements OnInit {
   }
 
 /**
- * Logique de l'état de victoire/défaite.
+ * Tous les boutons au vert : le plateau se met à trembler, avant d'exploser.
  */
 private checkGameState(): void {
   if (this.gameState !== 'playing') return;
 
   if (this.buttons.every(btn => btn.isConditionMet)) {
-    this.gameState = 'level_complete';
-    this.calculateEarnedMedal();
-    const currentLevelNum = this.levelService.currentLevelNumber();
-    this.levelService.saveLevelResult(currentLevelNum, this.earnedMedal);
+    this.startVictorySequence();
   }
+}
+
+private startVictorySequence(): void {
+  this.stopVictorySequence();
+  this.isRumbling = true;
+  this.shakeBoard(RUMBLE_QUAKE, this.RUMBLE_DURATION_MS);
+  this.victoryTimer = setTimeout(() => {
+    this.isRumbling = false;
+    this.isExploding = true;
+    this.shakeBoard(EXPLOSION_QUAKE, this.EXPLOSION_DURATION_MS);
+    this.victoryTimer = setTimeout(() => this.completeLevel(), this.EXPLOSION_DURATION_MS);
+  }, this.RUMBLE_DURATION_MS);
+}
+
+private stopVictorySequence(): void {
+  clearTimeout(this.victoryTimer);
+  this.boardAnimation?.cancel();
+  this.boardAnimation = undefined;
+  this.isRumbling = false;
+  this.isExploding = false;
+}
+
+// Secousse tirée au hasard à chaque fois ; en mouvement réduit, le plateau s'illumine puis s'efface sans bouger
+private shakeBoard(quake: QuakeOptions, duration: number): void {
+  const board = this.host.nativeElement.querySelector<HTMLElement>('.board');
+  if (!board || typeof board.animate !== 'function') return; // Navigateur (ou test) sans Web Animations
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const keyframes = !reducedMotion ? quakeKeyframes(quake)
+    : quake.opacity ? [{ opacity: quake.opacity[0] }, { opacity: quake.opacity[1] }]
+    : [{ filter: `brightness(${quake.brightness[0]})` }, { filter: `brightness(${quake.brightness[1]})` }];
+  this.boardAnimation?.cancel();
+  this.boardAnimation = board.animate(keyframes, { duration, fill: 'forwards' });
+}
+
+private completeLevel(): void {
+  this.isExploding = false;
+  this.gameState = 'level_complete';
+  this.calculateEarnedMedal();
+  this.levelService.saveLevelResult(this.levelService.currentLevelNumber(), this.earnedMedal);
+  this.backgroundService.changeBackground('constellation');
 }
 
 /**
  * Logique du fond d'écran.
  */
 private checkBackgroundConditions(): void {
-  // --- ÉTAPE 1 : Si on a gagné, forcer le thème de victoire ---
-  if (this.gameState === 'level_complete') {
-    this.backgroundService.changeBackground('constellation');
-    return; // On arrête tout, la victoire a la priorité
-  }
-
-  // --- ÉTAPE 2 : Gérer l'expiration d'un thème en cours ---
+  // --- ÉTAPE 1 : Gérer l'expiration d'un thème en cours ---
   if (this.specialBackground) {
     this.clicksSinceBgChange++;
     const timeElapsed = Date.now() - this.timestampBgChange;
@@ -313,7 +383,7 @@ private checkBackgroundConditions(): void {
     }
   }
 
-  // --- ÉTAPE 3 : Vérifier si un nouveau thème doit s'activer ---
+  // --- ÉTAPE 2 : Vérifier si un nouveau thème doit s'activer ---
   let targetTheme: string | null = null;
   if (this.buttons.some(btn => btn.colorClass === 'is-legendary')) {
     targetTheme = 'fireworks';
