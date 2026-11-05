@@ -27,7 +27,10 @@
     "campaignCompleteTitle": "Campagne terminée !",
     "campaignCompleteText": "Bravo, vous avez terminé les {total} niveaux de Turing's Node.",
     "campaignPlatinumHint": "Rejouez les niveaux pour décrocher le Platine partout !",
-    "campaignAllPlatinum": "Platine sur tous les niveaux : chapeau !"
+    "campaignAllPlatinum": "Platine sur tous les niveaux : chapeau !",
+    "helpTitle": "Face à Enigma, Turing n'avait pas les clés. Vous non plus.",
+    "helpButton": "Comment jouer",
+    "helpClose": "Fermer"
   },
   "level_data_not_found": "Données du niveau introuvable.",
   "medals": {
