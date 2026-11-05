@@ -22,6 +22,7 @@
     "stateGreen": "condition met",
     "stateRed": "condition not met",
     "stateGold": "golden constant",
+    "stateLegendary": "legendary button",
     "newButton": "New",
     "campaignCompleteTitle": "Campaign complete!",
     "campaignCompleteText": "Well done, you completed all {total} levels of Turing's Node.",
@@ -74,6 +75,42 @@
     "golden_9": {
       "title": "Engage warp speed!",
       "description": "Discover the speed of light constant."
+    },
+    "legendary_Primer": {
+      "title": "Legendary twins",
+      "description": "Make Primer legendary with twin primes of at least 4 digits (the score and the score + 2)."
+    },
+    "legendary_Split": {
+      "title": "Divide and conquer",
+      "description": "Make Split legendary with a multiple of 2520, divisible by every digit from 1 to 9."
+    },
+    "legendary_Boost": {
+      "title": "Square and cube at once",
+      "description": "Make Boost legendary with a sixth power (64, 729, 4096...)."
+    },
+    "legendary_Digit": {
+      "title": "Mirror, mirror on the wall",
+      "description": "Make Digit legendary with a narcissistic number, equal to the sum of its digits each raised to the number of digits (153 = 1³ + 5³ + 3³)."
+    },
+    "legendary_Reduce": {
+      "title": "All in binary",
+      "description": "Make Reduce legendary with a power of 2 of at least 1024."
+    },
+    "legendary_Align": {
+      "title": "Perfectly aligned",
+      "description": "Make Align legendary with a palindrome that has as many digits as the button's value."
+    },
+    "legendary_Fiber": {
+      "title": "The sacred spiral",
+      "description": "Make Fiber legendary with a Fibonacci number that is also prime (13, 89, 233...)."
+    },
+    "legendary_Factor": {
+      "title": "Factorially yours",
+      "description": "Make Factor legendary with a score that is exactly a factorial, from 4! = 24."
+    },
+    "legendary_Cipher": {
+      "title": "Easy as 1, 2, 3",
+      "description": "Make Cipher legendary with at least 4 digits in a row, in ascending order (1234, 45678...)."
     }
   },
   "menu": {

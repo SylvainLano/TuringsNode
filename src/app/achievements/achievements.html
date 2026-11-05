@@ -8,7 +8,7 @@
         [ngClass]="{ 'is-unlocked': unlockedAchievements().has(achievementId) }">
         <div class="achievement-icon">
           @if (unlockedAchievements().has(achievementId)) {
-            <span>🏆</span>
+            <span>{{ achievementIcon(achievementId) }}</span>
           } @else {
             <span>🔒</span>
           }

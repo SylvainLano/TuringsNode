@@ -22,6 +22,7 @@
     "stateGreen": "condition remplie",
     "stateRed": "condition non remplie",
     "stateGold": "constante en or",
+    "stateLegendary": "bouton légendaire",
     "newButton": "Nouveau",
     "campaignCompleteTitle": "Campagne terminée !",
     "campaignCompleteText": "Bravo, vous avez terminé les {total} niveaux de Turing's Node.",
@@ -74,6 +75,42 @@
     "golden_9": {
       "title": "Vitesse lumière engagée !",
       "description": "Découvrir la constante de la vitesse de la lumière."
+    },
+    "legendary_Primer": {
+      "title": "Jumeaux de légende",
+      "description": "Rendre Primer légendaire avec des nombres premiers jumeaux d'au moins 4 chiffres (le score et le score + 2)."
+    },
+    "legendary_Split": {
+      "title": "Diviser pour régner",
+      "description": "Rendre Split légendaire avec un multiple de 2520, divisible par tous les chiffres de 1 à 9."
+    },
+    "legendary_Boost": {
+      "title": "Carré et cube à la fois",
+      "description": "Rendre Boost légendaire avec une puissance sixième (64, 729, 4096...)."
+    },
+    "legendary_Digit": {
+      "title": "Miroir, mon beau miroir",
+      "description": "Rendre Digit légendaire avec un nombre narcissique, égal à la somme de ses chiffres élevés à la puissance de leur nombre (153 = 1³ + 5³ + 3³)."
+    },
+    "legendary_Reduce": {
+      "title": "Tout en binaire",
+      "description": "Rendre Reduce légendaire avec une puissance de 2 d'au moins 1024."
+    },
+    "legendary_Align": {
+      "title": "Parfaitement aligné",
+      "description": "Rendre Align légendaire avec un palindrome qui a autant de chiffres que la valeur du bouton."
+    },
+    "legendary_Fiber": {
+      "title": "La spirale sacrée",
+      "description": "Rendre Fiber légendaire avec un nombre de Fibonacci qui est aussi premier (13, 89, 233...)."
+    },
+    "legendary_Factor": {
+      "title": "Factoriellement vôtre",
+      "description": "Rendre Factor légendaire avec un score qui est exactement une factorielle, à partir de 4! = 24."
+    },
+    "legendary_Cipher": {
+      "title": "1, 2, 3, soleil !",
+      "description": "Rendre Cipher légendaire avec au moins 4 chiffres qui se suivent dans l'ordre croissant (1234, 45678...)."
     }
   },
   "menu": {

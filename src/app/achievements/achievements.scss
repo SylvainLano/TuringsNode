@@ -3,6 +3,13 @@
 
 // On surcharge les styles spécifiques à cette page
 
+.achievements-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
 .achievements-list {
   display: flex;
   flex-direction: column;
@@ -10,6 +17,7 @@
   max-height: 60vh;
   overflow-y: auto;
   padding-right: 10px;
+  margin-bottom: 20px;
 }
 
 .achievement-item {
@@ -59,6 +67,30 @@
 
     .achievement-description {
       color: #E2E8F0; // Texte blanc cassé pour une bonne lisibilité
+    }
+  }
+}
+
+/* Petits écrans : marges sur les côtés, titre et cartes plus compacts */
+@media (max-width: 600px) {
+  .achievements-container {
+    padding: 0 12px;
+  }
+
+  .title {
+    font-size: 2.2em;
+  }
+
+  .achievements-list {
+    padding-right: 4px;
+  }
+
+  .achievement-item {
+    gap: 15px;
+    padding: 15px;
+
+    .achievement-icon {
+      font-size: 2em;
     }
   }
 }

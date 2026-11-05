@@ -1,11 +1,17 @@
 import {
   digitalRoot,
   factorial,
+  hasConsecutiveAscendingDigits,
   hasDistinctDigits,
   hasFibonacciBetween,
   hasSquareFactor,
+  isFactorial,
+  isFibonacci,
+  isNarcissistic,
   isNearPerfectSquare,
   isPalindrome,
+  isPerfectPower,
+  isPowerOfTwo,
   isPrime,
   nextFibonacci,
   nextPrime,
@@ -71,5 +77,36 @@ describe('Engine math', () => {
     expect(isNearPerfectSquare(20, 3)).toBe(false); // 4 au-dessus de 16, 5 en dessous de 25
     expect(isNearPerfectSquare(20, 4)).toBe(true);
     expect(isNearPerfectSquare(-1, 9)).toBe(false);
+  });
+
+  it('isPerfectPower', () => {
+    expect([1, 64, 729, 15625].every(n => isPerfectPower(n, 6))).toBe(true);
+    expect([0, 63, 100, 4097].some(n => isPerfectPower(n, 6))).toBe(false);
+    expect(isPerfectPower(343, 3)).toBe(true);
+  });
+
+  it('isNarcissistic', () => {
+    expect([7, 153, 370, 9474].every(isNarcissistic)).toBe(true);
+    expect([10, 154, 9475, -1].some(isNarcissistic)).toBe(false);
+  });
+
+  it('isPowerOfTwo', () => {
+    expect([1, 2, 1024, 65536].every(isPowerOfTwo)).toBe(true);
+    expect([0, 3, 1000, 1025].some(isPowerOfTwo)).toBe(false);
+  });
+
+  it('isFibonacci', () => {
+    expect([0, 1, 13, 610, 10946].every(isFibonacci)).toBe(true);
+    expect([4, 14, 600, -1].some(isFibonacci)).toBe(false);
+  });
+
+  it('isFactorial', () => {
+    expect([1, 2, 6, 120, 40320].every(isFactorial)).toBe(true);
+    expect([3, 25, 121, 40000].some(isFactorial)).toBe(false);
+  });
+
+  it('hasConsecutiveAscendingDigits', () => {
+    expect([5, 34, 1234, 456789].every(hasConsecutiveAscendingDigits)).toBe(true);
+    expect([21, 1243, 1235, 4321].some(hasConsecutiveAscendingDigits)).toBe(false);
   });
 });

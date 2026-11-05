@@ -1,4 +1,4 @@
-import { applyButtonAction, isButtonConditionMet, isGoldenScore, nextButtonValue } from './buttons';
+import { applyButtonAction, isButtonConditionMet, isButtonLegendary, isGoldenScore, nextButtonValue } from './buttons';
 
 describe('Engine buttons', () => {
   describe('actions', () => {
@@ -80,13 +80,71 @@ describe('Engine buttons', () => {
     });
 
     it('Factor: multiple of value! (ignoring 0! and 1!)', () => {
-      expect(isButtonConditionMet('Factor', 120, 5)).toBe(true);
-      expect(isButtonConditionMet('Factor', 120, 1)).toBe(false);
+      // 240 et pas 120 : 120 = 5! rendrait le bouton légendaire, donc vert quelle que soit sa valeur
+      expect(isButtonConditionMet('Factor', 240, 5)).toBe(true);
+      expect(isButtonConditionMet('Factor', 240, 1)).toBe(false);
     });
 
     it('Cipher: all digits are distinct', () => {
       expect(isButtonConditionMet('Cipher', 4567, 5)).toBe(true);
       expect(isButtonConditionMet('Cipher', 4557, 5)).toBe(false);
+    });
+  });
+
+  describe('legendary conditions', () => {
+    it('Primer: twin primes of at least 4 digits', () => {
+      expect(isButtonLegendary('Primer', 1019, 1)).toBe(true); // 1019 et 1021
+      expect(isButtonLegendary('Primer', 1021, 1)).toBe(false); // 1023 n'est pas premier
+      expect(isButtonLegendary('Primer', 101, 1)).toBe(false); // Moins de 4 chiffres
+    });
+
+    it('Split: multiple of 2520', () => {
+      expect(isButtonLegendary('Split', 5040, 1)).toBe(true);
+      expect(isButtonLegendary('Split', 5000, 1)).toBe(false);
+      expect(isButtonLegendary('Split', 0, 1)).toBe(false);
+    });
+
+    it('Boost: sixth power from 64', () => {
+      expect(isButtonLegendary('Boost', 729, 1)).toBe(true);
+      expect(isButtonLegendary('Boost', 1, 1)).toBe(false);
+      expect(isButtonLegendary('Boost', 512, 1)).toBe(false); // Un cube, pas un carré
+    });
+
+    it('Digit: narcissistic number of at least 3 digits', () => {
+      expect(isButtonLegendary('Digit', 371, 1)).toBe(true);
+      expect(isButtonLegendary('Digit', 7, 1)).toBe(false);
+    });
+
+    it('Reduce: power of 2 from 1024', () => {
+      expect(isButtonLegendary('Reduce', 4096, 1)).toBe(true);
+      expect(isButtonLegendary('Reduce', 512, 1)).toBe(false);
+    });
+
+    it('Align: palindrome with as many digits as the value', () => {
+      expect(isButtonLegendary('Align', 12321, 5)).toBe(true);
+      expect(isButtonLegendary('Align', 12321, 4)).toBe(false);
+    });
+
+    it('Fiber: Fibonacci prime from 13', () => {
+      expect(isButtonLegendary('Fiber', 233, 1)).toBe(true);
+      expect(isButtonLegendary('Fiber', 144, 1)).toBe(false);
+      expect(isButtonLegendary('Fiber', 5, 1)).toBe(false);
+    });
+
+    it('Factor: exactly a factorial from 24', () => {
+      expect(isButtonLegendary('Factor', 720, 1)).toBe(true);
+      expect(isButtonLegendary('Factor', 6, 1)).toBe(false);
+    });
+
+    it('Cipher: at least 4 ascending consecutive digits', () => {
+      expect(isButtonLegendary('Cipher', 3456, 1)).toBe(true);
+      expect(isButtonLegendary('Cipher', 456, 1)).toBe(false);
+    });
+
+    it('a legendary button also counts as green', () => {
+      // Factor 9 demande un multiple de 9! = 362880 : 5040 ne l'est pas, mais c'est 7!, une factorielle
+      expect(isButtonConditionMet('Factor', 5040, 9)).toBe(true);
+      expect(isButtonConditionMet('Factor', 5041, 9)).toBe(false);
     });
   });
 

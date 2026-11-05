@@ -321,36 +321,73 @@ export class ParticlesBackgroundComponent {
             }
           };
 
-        } else if (state.value === 'fireworks') { // not finished yet
+        } else if (state.value === 'fireworks') { // Quand un bouton devient légendaire
+          // Un bouquet = une gerbe d'étincelles d'une seule couleur, qui éclate au même endroit à intervalle régulier
+          const bouquet = (x: number, y: number, delay: number, color: string, startCount = 0) => ({
+            position: { x, y },
+            size: { width: 0, height: 0 },
+            rate: { quantity: 70, delay },
+            startCount,
+            particles: { paint: { color: { value: color } } }
+          });
           newOptions = {
-            background: { color: { value: '#000000' } },
+            background: { color: { value: '#05051a' } },
             fpsLimit: 60,
             particles: {
-              paint: { color: { value: ['#ff0000', '#ffae00', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'] } },
+              number: { value: 0 },
+              shape: { type: 'circle' as const },
+              size: { value: { min: 1.5, max: 3 } },
+              // Les étincelles ralentissent, retombent et s'éteignent (de max à min, puis disparaissent)
+              opacity: {
+                value: { min: 0, max: 1 },
+                animation: { enable: true, speed: 1.2, startValue: 'max', destroy: 'min', sync: false }
+              },
+              life: { count: 1, duration: { value: 2 } },
               move: {
                 enable: true,
-                speed: { min: 2, max: 6 },
-                direction: 'none',
-                outModes: { default: 'destroy' }
-              },
-              number: { value: 0 },
-              size: { value: { min: 2, max: 4 } },
-              opacity: { value: 1 },
-              shape: { type: 'circle' },
-              life: {
-                duration: { sync: true, value: 2 },
-                count: 1
+                direction: 'none' as const,
+                speed: { min: 4, max: 12 },
+                decay: 0.05,
+                gravity: { enable: true, acceleration: 3 },
+                outModes: { default: 'destroy' as const }
               }
             },
-            emitters: {
-              direction: 'none',
-              rate: {
-                quantity: 100,
-                delay: 1
+            emitters: [
+              bouquet(25, 35, 1.6, '#ff595e', 70),
+              bouquet(72, 25, 2.1, '#ffca3a'),
+              bouquet(50, 55, 1.8, '#8ac926'),
+              bouquet(85, 60, 2.4, '#4cc9f0'),
+              bouquet(15, 70, 2.7, '#ff70a6')
+            ],
+            detectRetina: true
+          };
+        } else if (state.value === 'casino') { // Quand le score contient « 777 »
+          // Une pluie de symboles de machine à sous sur un tapis de jeu
+          newOptions = {
+            background: { color: { value: '#0b3d2e' } },
+            fpsLimit: 60,
+            particles: {
+              shape: {
+                type: 'emoji',
+                options: { emoji: { value: ['7️⃣', '7️⃣', '🍒', '🔔', '💎', '🍋', '🍀', '🎰'] } }
               },
-              size: { width: 0, height: 0 },
-              position: { x: 50, y: 50 }
-            }
+              number: { density: { enable: true }, value: 40 },
+              opacity: { value: { min: 0.7, max: 1 } },
+              size: { value: { min: 12, max: 22 } },
+              rotate: {
+                value: { min: 0, max: 360 },
+                direction: 'random',
+                animation: { enable: true, speed: 5, sync: false }
+              },
+              move: {
+                enable: true,
+                speed: { min: 1, max: 3 },
+                direction: 'bottom' as const,
+                straight: true,
+                outModes: { default: 'out' as const }
+              }
+            },
+            detectRetina: true
           };
         } else if (state.value === 'cyberpunk') { // not finished yet
           newOptions = {
@@ -476,7 +513,7 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else if (state.value === 'aurea' ) { // not used yet
+        } else if (state.value === 'aurea' ) { // Quand une constante en or apparaît
           newOptions = {
             background: { color: { value: '#1C0A00' } },
             fpsLimit: 120,

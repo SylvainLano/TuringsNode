@@ -16,13 +16,14 @@ import {
   getScoreBounds,
   isButtonConditionMet,
   isButtonDisabled,
+  isButtonLegendary,
   isGoldenScore,
   pressButton
 } from '../core/engine';
 
 // Un bouton affiché : son état dans le moteur, complété par son état visuel
 interface GameButton extends ButtonState {
-  colorClass: 'is-green' | 'is-red' | 'is-gold'; // La classe CSS dynamique
+  colorClass: 'is-green' | 'is-red' | 'is-gold' | 'is-legendary'; // La classe CSS dynamique
   isDisabled: boolean;
   isConditionMet: boolean;
 }
@@ -229,6 +230,12 @@ export class GameBoardComponent implements OnInit {
         this.achievementService.unlock(`golden_${button.value}`);
       }
 
+      // --- CONDITION LÉGENDAIRE (encore plus rare, elle passe devant l'or) ---
+      if (isButtonLegendary(button.name, this.score, button.value)) {
+        button.colorClass = 'is-legendary';
+        this.achievementService.unlock(`legendary_${button.name}`);
+      }
+
       button.isDisabled = isButtonDisabled(button);
     });
   }
@@ -240,6 +247,7 @@ export class GameBoardComponent implements OnInit {
 
   // Symbole affiché en plus de la couleur, pour que l'état reste lisible sans distinguer le rouge du vert
   public stateIcon(button: GameButton): string {
+    if (button.colorClass === 'is-legendary') return '✦';
     if (button.colorClass === 'is-gold') return '★';
     return button.isConditionMet ? '✓' : '✕';
   }
@@ -262,6 +270,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   public stateLabelKey(button: GameButton): string {
+    if (button.colorClass === 'is-legendary') return 'gameboard.stateLegendary';
     if (button.colorClass === 'is-gold') return 'gameboard.stateGold';
     return button.isConditionMet ? 'gameboard.stateGreen' : 'gameboard.stateRed';
   }
@@ -306,7 +315,13 @@ private checkBackgroundConditions(): void {
 
   // --- ÉTAPE 3 : Vérifier si un nouveau thème doit s'activer ---
   let targetTheme: string | null = null;
-  if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
+  if (this.buttons.some(btn => btn.colorClass === 'is-legendary')) {
+    targetTheme = 'fireworks';
+  } else if (this.buttons.some(btn => btn.colorClass === 'is-gold')) {
+    targetTheme = 'aurea';
+  } else if (String(this.score).includes('777')) {
+    targetTheme = 'casino';
+  } else if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
     targetTheme = 'angry';
   } else if (/^[01]{8}$/.test(String(this.score))) {
     targetTheme = 'matrix';

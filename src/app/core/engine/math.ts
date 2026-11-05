@@ -91,3 +91,47 @@ export function isNearPerfectSquare(num: number, tolerance: number): boolean {
   const distToUpper = Math.ceil(sqrt) ** 2 - num;
   return distToLower <= tolerance || distToUpper <= tolerance;
 }
+
+/** Vrai si `num` est la puissance `exponent` d'un entier (ex : 64 = 2⁶) */
+export function isPerfectPower(num: number, exponent: number): boolean {
+  if (num < 1) return false;
+  const root = Math.round(num ** (1 / exponent));
+  return [root - 1, root, root + 1].some(candidate => candidate >= 1 && candidate ** exponent === num);
+}
+
+/** Nombre égal à la somme de ses chiffres élevés à la puissance de leur nombre (ex : 153 = 1³ + 5³ + 3³) */
+export function isNarcissistic(num: number): boolean {
+  if (num < 0) return false;
+  const digits = String(num);
+  return digits.split('').reduce((sum, digit) => sum + Number(digit) ** digits.length, 0) === num;
+}
+
+export function isPowerOfTwo(num: number): boolean {
+  if (num < 1) return false;
+  const exponent = Math.log2(num);
+  return Number.isInteger(exponent) && 2 ** exponent === num;
+}
+
+export function isFibonacci(num: number): boolean {
+  let a = 0, b = 1;
+  while (a < num) {
+    [a, b] = [b, a + b];
+  }
+  return a === num;
+}
+
+/** Vrai si `num` est exactement une factorielle (1, 2, 6, 24, 120...) */
+export function isFactorial(num: number): boolean {
+  let factorialValue = 1, n = 1;
+  while (factorialValue < num) {
+    n++;
+    factorialValue *= n;
+  }
+  return factorialValue === num;
+}
+
+/** Chiffres qui se suivent dans l'ordre croissant (ex : 1234, 45678) */
+export function hasConsecutiveAscendingDigits(num: number): boolean {
+  const digits = String(num);
+  return digits.split('').every((digit, i) => i === 0 || Number(digit) === Number(digits[i - 1]) + 1);
+}
