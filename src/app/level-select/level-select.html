@@ -1,42 +1,63 @@
 <div class="level-select-container">
   <h1 class="title">{{ 'levelSelect.title' | translate }}</h1>
-  <div class="levels-grid">
-    @for (level of allLevels(); track level) {
-      <a
-        class="level-button"
-        [class.is-locked]="!isLevelUnlocked(level.levelNumber)"
-        (click)="selectLevel(level.levelNumber)">
-        <span class="level-number">{{ level.levelNumber }}</span>
-        @if (introducedButtons().get(level.levelNumber)?.length) {
-          <span class="intro-badge">+ {{ introducedButtons().get(level.levelNumber)!.join(' · ') }}</span>
-        }
-        <div class="icons-container">
-          <div class="medal-icon-display">
-            @switch (bestMedals()[level.levelNumber]) {
-              @case ('Platine') {
-                <span>💎</span>
-              }
-              @case ('Or') {
-                <span>🥇</span>
-              }
-              @case ('Argent') {
-                <span>🥈</span>
-              }
-              @case ('Bronze') {
-                <span>🥉</span>
-              }
-              @case ('Terminé') {
-                <span>✔️</span>
-              }
+
+  @if (shownWorld(); as world) {
+    <!-- Un monde à la fois : les mondes suivants restent cachés, flèche comprise, tant que le précédent n'est pas terminé -->
+    <div class="world-header">
+      <button class="world-arrow" (click)="showWorld(-1)" [disabled]="!neighbourWorld(-1)"
+        [attr.aria-label]="'levelSelect.previousWorld' | translate">‹</button>
+      <div class="world-title">
+        <span class="world-name">{{ 'levelSelect.world' | translate:{ number: world.number } }}</span>
+        <span class="world-progress">{{ completedCount(world) }} / {{ world.levels.length }}</span>
+      </div>
+      <button class="world-arrow" (click)="showWorld(1)" [disabled]="!neighbourWorld(1)"
+        [attr.aria-label]="'levelSelect.nextWorld' | translate">›</button>
+    </div>
+
+    <div class="levels-grid">
+      @for (level of world.levels; track level.levelNumber) {
+        <div class="level-cell">
+          <a
+            class="level-button"
+            [class.is-locked]="!isLevelUnlocked(level.levelNumber)"
+            (click)="selectLevel(level.levelNumber)">
+            <span class="level-number">{{ level.levelNumber }}</span>
+            @if (introducedButtons().get(level.levelNumber)?.length) {
+              <span class="intro-badge">+ {{ introducedButtons().get(level.levelNumber)!.join(' · ') }}</span>
             }
-          </div>
-          @if (!isLevelUnlocked(level.levelNumber)) {
-            <span class="lock-icon">🔒</span>
+            <div class="icons-container">
+              <div class="medal-icon-display">
+                @switch (bestMedals()[level.levelNumber]) {
+                  @case ('Platine') {
+                    <span>💎</span>
+                  }
+                  @case ('Or') {
+                    <span>🥇</span>
+                  }
+                  @case ('Argent') {
+                    <span>🥈</span>
+                  }
+                  @case ('Bronze') {
+                    <span>🥉</span>
+                  }
+                  @case ('Terminé') {
+                    <span>✔️</span>
+                  }
+                }
+              </div>
+              @if (!isLevelUnlocked(level.levelNumber)) {
+                <span class="lock-icon">🔒</span>
+              }
+            </div>
+          </a>
+          <!-- Le nom ne se découvre qu'une fois le niveau terminé -->
+          @if (bestMedals()[level.levelNumber]) {
+            <span class="level-name">{{ 'levels.' + level.name + '.name' | translate }}</span>
           }
         </div>
-      </a>
-    }
-  </div>
+      }
+    </div>
+  }
 
   <a routerLink="/" class="back-button">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>

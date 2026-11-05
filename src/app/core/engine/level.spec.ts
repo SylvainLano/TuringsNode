@@ -2,6 +2,8 @@ import { DEFAULT_MIN_SCORE, Level, applyBouncingBoundaries, getIntroducedButtons
 
 const LEVEL: Level = {
   levelNumber: 1,
+  world: 1,
+  name: 'tester',
   startScore: 50,
   minScore: 20,
   maxScore: null,

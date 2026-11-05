@@ -18,6 +18,7 @@ import {
   isButtonDisabled,
   isButtonLegendary,
   isGoldenScore,
+  isWorldComplete,
   pressButton
 } from '../core/engine';
 import { EXPLOSION_QUAKE, QuakeOptions, RUMBLE_QUAKE, quakeKeyframes } from './victory-quake';
@@ -46,7 +47,7 @@ interface BoardSnapshot {
   ],
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss'],
+  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss', './game-board-tribute.scss'],
   host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
@@ -76,6 +77,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private readonly RUMBLE_DURATION_MS = 2000;
   private readonly EXPLOSION_DURATION_MS = 600;
   private boardAnimation?: Animation;
+
+  // Personne à qui le niveau rend hommage : son nom pendant la partie, son histoire et la pique de la machine à la fin
+  public levelName = '';
+  // Les piques qui citent le nombre de clics l'écrivent en toutes lettres jusqu'à douze
+  private readonly MAX_CLICKS_IN_WORDS = 12;
 
   // Mini-tutoriel : affiché au premier niveau de la campagne, puis à la demande avec le bouton « ? »
   public showHelp = false;
@@ -143,6 +149,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.stopVictorySequence();
     const board = createBoard(levelData);
     this.specialBackground = null;
+    this.levelName = levelData.name;
     this.bounds = getScoreBounds(levelData);
     this.score = board.score;
     this.displayedScore = board.score;
@@ -308,6 +315,10 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     return !!introduced?.includes(button.name);
   }
 
+  public clicksInWordsKey(): string {
+    return this.levelClicks <= this.MAX_CLICKS_IN_WORDS ? `gameboard.clicksInWords.${this.levelClicks}` : 'gameboard.clicksInDigits';
+  }
+
   public stateLabelKey(button: GameButton): string {
     if (button.colorClass === 'is-legendary') return 'gameboard.stateLegendary';
     if (button.colorClass === 'is-gold') return 'gameboard.stateGold';
@@ -358,11 +369,18 @@ private shakeBoard(quake: QuakeOptions, duration: number): void {
 }
 
 private completeLevel(): void {
+  const levelNumber = this.levelService.currentLevelNumber();
   this.isExploding = false;
   this.gameState = 'level_complete';
   this.calculateEarnedMedal();
-  this.levelService.saveLevelResult(this.levelService.currentLevelNumber(), this.earnedMedal);
+  this.levelService.saveLevelResult(levelNumber, this.earnedMedal);
   this.backgroundService.changeBackground('constellation');
+
+  // Dernier niveau du monde terminé : un succès, et le monde suivant apparaît dans la sélection
+  const world = this.levelService.worlds().find(w => w.levels.some(level => level.levelNumber === levelNumber));
+  if (world && isWorldComplete(world, this.levelService.bestMedals())) {
+    this.achievementService.unlock(`world_${world.number}`);
+  }
 }
 
 /**

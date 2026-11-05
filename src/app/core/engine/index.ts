@@ -3,3 +3,4 @@ export * from './math';
 export * from './buttons';
 export * from './level';
 export * from './board';
+export * from './worlds';

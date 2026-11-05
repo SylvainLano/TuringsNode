@@ -15,7 +15,8 @@ import {
   isPrime,
   nextFibonacci,
   nextPrime,
-  nthFibonacci
+  nthFibonacci,
+  reverseDigits
 } from './math';
 
 describe('Engine math', () => {
@@ -108,5 +109,9 @@ describe('Engine math', () => {
   it('hasConsecutiveAscendingDigits', () => {
     expect([5, 34, 1234, 456789].every(hasConsecutiveAscendingDigits)).toBe(true);
     expect([21, 1243, 1235, 4321].some(hasConsecutiveAscendingDigits)).toBe(false);
+  });
+
+  it('reverseDigits', () => {
+    expect([123, 120, 7].map(reverseDigits)).toEqual([321, 21, 7]);
   });
 });

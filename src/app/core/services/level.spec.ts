@@ -6,11 +6,13 @@ import { APP_BASE_HREF } from '@angular/common';
 import { LevelService } from './level';
 import { Level } from '../engine';
 
-const BEST_MEDALS_KEY = 'turings_node_best_medals_v1';
-const OBSOLETE_MEDALS_KEY = 'turings_node_best_medals';
+const BEST_MEDALS_KEY = 'turings_node_best_medals_v2';
+const OBSOLETE_MEDALS_KEY = 'turings_node_best_medals_v1';
 
-const makeLevel = (levelNumber: number): Level => ({
+const makeLevel = (levelNumber: number, world = 1): Level => ({
   levelNumber,
+  world,
+  name: `level_${levelNumber}`,
   startScore: 10,
   minScore: 10,
   maxScore: null,
@@ -47,6 +49,14 @@ describe('LevelService', () => {
   it('forgets the medals saved for the previous levels', () => {
     expect(localStorage.getItem(OBSOLETE_MEDALS_KEY)).toBeNull();
     expect(service.bestMedals()).toEqual({});
+  });
+
+  it('shows a world only once the previous one is complete', () => {
+    service.levels.set([makeLevel(1, 1), makeLevel(2, 2)]);
+    expect(service.visibleWorlds().map(world => world.number)).toEqual([1]);
+
+    service.saveLevelResult(1, null);
+    expect(service.visibleWorlds().map(world => world.number)).toEqual([1, 2]);
   });
 
   it('starts on the first level', () => {

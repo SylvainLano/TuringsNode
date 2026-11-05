@@ -2,7 +2,7 @@
   <h1 class="title">{{ 'achievements.title' | translate }}</h1>
 
   <div class="achievements-list">
-    @for (achievementId of allAchievementsIds; track achievementId) {
+    @for (achievementId of allAchievementsIds(); track achievementId) {
       <div
         class="achievement-item"
         [ngClass]="{ 'is-unlocked': unlockedAchievements().has(achievementId) }">

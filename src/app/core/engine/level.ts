@@ -7,7 +7,9 @@ export interface LevelButtonConfig {
 
 export interface Level {
   levelNumber: number;
-  chapter?: number;
+  world: number;
+  // Personne à qui le niveau rend hommage : clé de son nom, de son histoire et de la pique de la machine (levels.<name> dans les traductions)
+  name: string;
   startScore: number;
   minScore: number | null;
   maxScore: number | null;

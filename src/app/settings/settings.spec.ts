@@ -30,7 +30,7 @@ describe('SettingsComponent', () => {
   });
 
   afterEach(() => {
-    localStorage.removeItem('turings_node_best_medals_v1');
+    localStorage.removeItem('turings_node_best_medals_v2');
     localStorage.removeItem('turings_node_achievements');
   });
 

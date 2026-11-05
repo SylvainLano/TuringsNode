@@ -36,9 +36,26 @@
 
 .levels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  // Tuiles de taille fixe, centrées : un petit monde (2 niveaux) reste au milieu de l'écran
+  grid-template-columns: repeat(auto-fit, 110px);
+  justify-content: center;
   gap: 20px;
   margin-bottom: 40px;
+}
+
+// Une tuile, et en dessous le nom du niveau une fois terminé
+.level-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.level-name {
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--theme-text-color, #2d3748);
+  overflow-wrap: break-word;
 }
 
 .level-button {
@@ -133,7 +150,7 @@
   }
 
   .levels-grid {
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fit, 96px);
     gap: 12px;
   }
 

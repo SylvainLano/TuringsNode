@@ -20,11 +20,13 @@ Made a wrong move? Undo it or restart the level from the controls in the bottom 
 
 ## The campaign
 
-30 levels in 9 chapters. The first chapter starts with two buttons. Each of the next seven brings in a new one and mixes it with the buttons you already know. The final chapter combines four buttons per level.
+The campaign is split into worlds. The first ones are short and gentle, with simple buttons; the next ones grow longer, and harder. A world only opens once the previous one is fully complete. How many are there? The machine won't say.
+
+Each level pays tribute to someone who made history, one way or another: famous blunders first, great minds later. Complete a level to hear their story, and what the machine thinks of you.
 
 ## Secrets
 
-Some scores hide more than a green button: rare colors, special backgrounds and 18 achievements are waiting to be found. No spoilers here.
+Some scores hide more than a green button: rare colors, special backgrounds and plenty of achievements are waiting to be found. No spoilers here.
 
 ## Features
 

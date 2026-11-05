@@ -3,6 +3,8 @@ import { Level, getScoreBounds } from './level';
 
 const makeLevel = (startScore: number, buttons: Level['buttons'], minScore: number | null = 12): Level => ({
   levelNumber: 1,
+  world: 1,
+  name: 'tester',
   startScore,
   minScore,
   maxScore: null,

@@ -2,6 +2,22 @@ import { applyButtonAction, isButtonConditionMet, isButtonLegendary, isGoldenSco
 
 describe('Engine buttons', () => {
   describe('actions', () => {
+    it('Plus adds the value, Minus subtracts it', () => {
+      expect(applyButtonAction('Plus', 20, 5)).toBe(25);
+      expect(applyButtonAction('Minus', 20, 5)).toBe(15);
+    });
+
+    it('Double doubles, Half halves and rounds up', () => {
+      expect(applyButtonAction('Double', 21, 7)).toBe(42);
+      expect(applyButtonAction('Half', 21, 4)).toBe(11);
+      expect(applyButtonAction('Half', 20, 4)).toBe(10);
+    });
+
+    it('Mirror reverses the digits and drops a leading zero', () => {
+      expect(applyButtonAction('Mirror', 123, 1)).toBe(321);
+      expect(applyButtonAction('Mirror', 120, 1)).toBe(21);
+    });
+
     it('Primer jumps to the next prime', () => {
       expect(applyButtonAction('Primer', 20, 1)).toBe(23);
     });
@@ -44,6 +60,32 @@ describe('Engine buttons', () => {
   });
 
   describe('conditions', () => {
+    it('Plus: even score', () => {
+      expect(isButtonConditionMet('Plus', 22, 1)).toBe(true);
+      expect(isButtonConditionMet('Plus', 23, 1)).toBe(false);
+    });
+
+    it('Minus: the score ends with the value', () => {
+      expect(isButtonConditionMet('Minus', 43, 3)).toBe(true);
+      expect(isButtonConditionMet('Minus', 43, 4)).toBe(false);
+    });
+
+    it('Double: the score starts with the value', () => {
+      expect(isButtonConditionMet('Double', 52, 5)).toBe(true);
+      expect(isButtonConditionMet('Double', 52, 2)).toBe(false);
+    });
+
+    it('Half: multiple of 10', () => {
+      expect(isButtonConditionMet('Half', 70, 1)).toBe(true);
+      expect(isButtonConditionMet('Half', 75, 1)).toBe(false);
+    });
+
+    it('Mirror: the score is greater than its mirror', () => {
+      expect(isButtonConditionMet('Mirror', 321, 1)).toBe(true);
+      expect(isButtonConditionMet('Mirror', 123, 1)).toBe(false);
+      expect(isButtonConditionMet('Mirror', 121, 1)).toBe(false);
+    });
+
     it('Primer: a prime within ±value', () => {
       expect(isButtonConditionMet('Primer', 14, 1)).toBe(true);
       expect(isButtonConditionMet('Primer', 26, 2)).toBe(false);
@@ -92,6 +134,37 @@ describe('Engine buttons', () => {
   });
 
   describe('legendary conditions', () => {
+    it('Plus: power of 10 from 100', () => {
+      expect(isButtonLegendary('Plus', 1000, 1)).toBe(true);
+      expect(isButtonLegendary('Plus', 10, 1)).toBe(false);
+      expect(isButtonLegendary('Plus', 110, 1)).toBe(false);
+    });
+
+    it('Minus: only the digit of the value, at least 3 times', () => {
+      expect(isButtonLegendary('Minus', 777, 7)).toBe(true);
+      expect(isButtonLegendary('Minus', 77, 7)).toBe(false);
+      expect(isButtonLegendary('Minus', 777, 6)).toBe(false);
+    });
+
+    it('Double: the value followed by zeros, at least 3 digits', () => {
+      expect(isButtonLegendary('Double', 500, 5)).toBe(true);
+      expect(isButtonLegendary('Double', 5000, 5)).toBe(true);
+      expect(isButtonLegendary('Double', 50, 5)).toBe(false);
+      expect(isButtonLegendary('Double', 505, 5)).toBe(false);
+    });
+
+    it('Half: multiple of 1000', () => {
+      expect(isButtonLegendary('Half', 3000, 1)).toBe(true);
+      expect(isButtonLegendary('Half', 2500, 1)).toBe(false);
+    });
+
+    it('Mirror: a multiple of its mirror that is not a palindrome', () => {
+      expect(isButtonLegendary('Mirror', 8712, 1)).toBe(true); // 4 × 2178
+      expect(isButtonLegendary('Mirror', 2178, 1)).toBe(false);
+      expect(isButtonLegendary('Mirror', 121, 1)).toBe(false);
+      expect(isButtonLegendary('Mirror', 100, 1)).toBe(false); // 100 = 100 × 1, mais le zéro final ne compte pas
+    });
+
     it('Primer: twin primes of at least 4 digits', () => {
       expect(isButtonLegendary('Primer', 1019, 1)).toBe(true); // 1019 et 1021
       expect(isButtonLegendary('Primer', 1021, 1)).toBe(false); // 1023 n'est pas premier

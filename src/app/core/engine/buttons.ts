@@ -15,10 +15,15 @@ import {
   isPrime,
   nextFibonacci,
   nextPrime,
-  nthFibonacci
+  nthFibonacci,
+  reverseDigits
 } from './math';
 
-export const BUTTON_NAMES = ['Primer', 'Split', 'Boost', 'Digit', 'Reduce', 'Align', 'Fiber', 'Factor', 'Cipher'] as const;
+// Les boutons simples des premiers mondes, puis les boutons de la campagne d'origine
+export const BUTTON_NAMES = [
+  'Plus', 'Minus', 'Double', 'Half', 'Mirror',
+  'Primer', 'Split', 'Boost', 'Digit', 'Reduce', 'Align', 'Fiber', 'Factor', 'Cipher'
+] as const;
 export type ButtonName = typeof BUTTON_NAMES[number];
 
 export const MIN_BUTTON_VALUE = 1;
@@ -34,6 +39,40 @@ interface ButtonRule {
 }
 
 const BUTTON_RULES: Record<ButtonName, ButtonRule> = {
+  // --- Boutons simples : une action évidente d'après le nom, une condition facile à deviner ---
+  Plus: {
+    action: (score, value) => score + value,
+    condition: score => score % 2 === 0,
+    // Une puissance de 10, à partir de 100
+    legendary: score => score >= 100 && /^10+$/.test(String(score))
+  },
+  Minus: {
+    action: (score, value) => score - value,
+    condition: (score, value) => score % 10 === value,
+    // Uniquement le chiffre de la valeur, sur au moins 3 chiffres (777 pour Minus 7)
+    legendary: (score, value) => new RegExp(`^${value}{3,}$`).test(String(score))
+  },
+  Double: {
+    action: score => score * 2,
+    condition: (score, value) => String(score).startsWith(String(value)),
+    // La valeur suivie de zéros, sur au moins 3 chiffres (500 pour Double 5)
+    legendary: (score, value) => new RegExp(`^${value}0{2,}$`).test(String(score))
+  },
+  Half: {
+    action: score => Math.ceil(score / 2),
+    condition: score => score % 10 === 0,
+    // Un multiple de 1000
+    legendary: score => score > 0 && score % 1000 === 0
+  },
+  Mirror: {
+    // Chiffres dans l'ordre inverse ; un zéro qui se retrouve en tête disparaît
+    action: score => reverseDigits(score),
+    condition: score => score > reverseDigits(score),
+    // Un multiple de son miroir sans être un palindrome (8712 = 4 × 2178) ; un zéro final ne compte pas
+    legendary: score => score % 10 !== 0 && !isPalindrome(score) && score % reverseDigits(score) === 0
+  },
+
+  // --- Boutons de la campagne d'origine ---
   Primer: {
     action: score => nextPrime(score),
     condition: (score, value) => {

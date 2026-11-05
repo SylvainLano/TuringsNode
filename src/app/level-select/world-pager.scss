@@ -1,0 +1,58 @@
+/* En-tête d'un monde : flèches, numéro et progression */
+.world-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.world-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--theme-text-color, #2d3748);
+}
+
+.world-name {
+  font-family: 'Rubik', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 2.4em;
+  line-height: 1.1;
+}
+
+.world-progress {
+  font-size: 0.95em;
+  opacity: 0.8;
+}
+
+.world-arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(45, 55, 72, 0.4);
+  color: #ffffff;
+  font-size: 1.6em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(45, 55, 72, 0.65);
+  }
+
+  // Pas de flèche vers un monde qui n'existe pas, ou pas encore
+  &:disabled {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 600px) {
+  .world-name {
+    font-size: 1.8em;
+  }
+}

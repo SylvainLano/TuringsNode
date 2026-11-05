@@ -2,7 +2,7 @@ import { Injectable, computed, signal, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage';
 import { APP_BASE_HREF } from '@angular/common';
-import { Level, getIntroducedButtons } from '../engine';
+import { Level, getIntroducedButtons, getVisibleWorlds, groupByWorld } from '../engine';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,9 @@ export class LevelService {
   public readonly currentLevelNumber = signal(1);
 
   public readonly bestMedals = signal<Record<number, string>>({});
-  private readonly BEST_MEDALS_KEY = 'turings_node_best_medals_v1';
-  // Médailles gagnées sur l'ancienne série de niveaux : elles ne correspondent plus aux mêmes niveaux
-  private readonly OBSOLETE_MEDALS_KEYS = ['turings_node_best_medals'];
+  private readonly BEST_MEDALS_KEY = 'turings_node_best_medals_v2';
+  // Médailles gagnées sur les anciennes séries de niveaux : elles ne correspondent plus aux mêmes niveaux
+  private readonly OBSOLETE_MEDALS_KEYS = ['turings_node_best_medals', 'turings_node_best_medals_v1'];
   private readonly MEDAL_HIERARCHY = ['Terminé', 'Bronze', 'Argent', 'Or', 'Platine'];
 
   public readonly currentLevelData = computed(() => {
@@ -32,6 +32,10 @@ export class LevelService {
 
   // Pour chaque niveau, les boutons que le joueur y découvre pour la première fois
   public readonly introducedButtons = computed(() => getIntroducedButtons(this.levels()));
+
+  // Les mondes, et ceux que le joueur peut voir : chacun n'apparaît qu'une fois le précédent terminé
+  public readonly worlds = computed(() => groupByWorld(this.levels()));
+  public readonly visibleWorlds = computed(() => getVisibleWorlds(this.worlds(), this.bestMedals()));
 
   constructor(
     private http: HttpClient,

@@ -1,5 +1,11 @@
-/* Plateau de jeu et flash de victoire, à part pour garder chaque feuille de style légère.
+/* Mise en page, plateau de jeu et flash de victoire, à part pour garder chaque feuille de style légère.
    La secousse et l'explosion du plateau sont tirées au hasard dans victory-quake.ts */
+
+/* Centré verticalement quand tout tient à l'écran ; sinon le haut reste visible et la page défile */
+:host {
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
 /* Plateau (aide, score et boutons) : c'est lui qui tremble puis explose à la victoire */
 .board {

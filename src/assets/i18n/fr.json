@@ -3,6 +3,22 @@
     "levelCompleteTitle": "Niveau {level} terminé !",
     "clicksCount": "Nombre de clics",
     "clicksShort": "Clics",
+    "clicksInWords": [
+      "Zéro clic",
+      "Un clic",
+      "Deux clics",
+      "Trois clics",
+      "Quatre clics",
+      "Cinq clics",
+      "Six clics",
+      "Sept clics",
+      "Huit clics",
+      "Neuf clics",
+      "Dix clics",
+      "Onze clics",
+      "Douze clics"
+    ],
+    "clicksInDigits": "{count} clics",
     "medalTitles": {
       "Platine": "Médaille de platine !",
       "Or": "Médaille d'or !",
@@ -114,6 +130,203 @@
     "legendary_Cipher": {
       "title": "1, 2, 3, soleil !",
       "description": "Rendre Cipher légendaire avec au moins 4 chiffres qui se suivent dans l'ordre croissant (1234, 45678...)."
+    },
+    "legendary_Plus": {
+      "title": "Puissance de dix",
+      "description": "Rendre Plus légendaire avec une puissance de 10, à partir de 100."
+    },
+    "legendary_Minus": {
+      "title": "Disque rayé",
+      "description": "Rendre Minus légendaire avec un score fait uniquement du chiffre de sa valeur, sur au moins 3 chiffres (777 pour Minus 7)."
+    },
+    "legendary_Double": {
+      "title": "Et des zéros",
+      "description": "Rendre Double légendaire avec sa valeur suivie de zéros, sur au moins 3 chiffres (500 pour Double 5)."
+    },
+    "legendary_Half": {
+      "title": "Mille sabords",
+      "description": "Rendre Half légendaire avec un multiple de 1000."
+    },
+    "legendary_Mirror": {
+      "title": "De l'autre côté du miroir",
+      "description": "Rendre Mirror légendaire avec un multiple de son miroir qui n'est pas un palindrome (8712 = 4 × 2178)."
+    },
+    "world_1": {
+      "title": "Monde 1 terminé",
+      "description": "Terminer tous les niveaux du monde 1."
+    },
+    "world_2": {
+      "title": "Monde 2 terminé",
+      "description": "Terminer tous les niveaux du monde 2."
+    },
+    "world_3": {
+      "title": "Monde 3 terminé",
+      "description": "Terminer tous les niveaux du monde 3."
+    },
+    "world_4": {
+      "title": "Monde 4 terminé",
+      "description": "Terminer tous les niveaux du monde 4."
+    },
+    "world_5": {
+      "title": "Monde 5 terminé",
+      "description": "Terminer tous les niveaux du monde 5."
+    }
+  },
+  "levels": {
+    "goodwin": {
+      "name": "Goodwin",
+      "story": "Médecin, il était sûr d'avoir prouvé que π valait 3,2. En 1897, il propose à l'Indiana d'en faire une loi, et offre généreusement sa découverte aux écoles de l'État. Les députés votent pour, à l'unanimité. Un professeur de maths passait par hasard au Capitole : le Sénat a reporté le vote. Indéfiniment.",
+      "jab": "{clicks}. Les députés de l'Indiana vous trouveraient brillant."
+    },
+    "hanyecz": {
+      "name": "Hanyecz",
+      "story": "Le 22 mai 2010, il paie deux pizzas 10 000 bitcoins. C'est le premier achat connu en bitcoins, et sans doute les pizzas les plus chères de l'histoire. Il dit ne rien regretter.",
+      "jab": "{clicks}. Certaines pizzas ont demandé plus de réflexion."
+    },
+    "airy": {
+      "name": "Airy",
+      "story": "Astronome royal. En 1842, le gouvernement lui demande si la machine à calculer de Babbage peut servir à quelque chose. Réponse : à rien. Les crédits sont coupés, et l'ordinateur attendra un siècle. Quelques années plus tard, on lui reprochera aussi d'avoir laissé filer la découverte de Neptune. Un homme constant.",
+      "jab": "Rapport de la machine sur votre utilité : autant qu'un horoscope."
+    },
+    "preece": {
+      "name": "Preece",
+      "story": "Ingénieur des Postes britanniques. En 1879, il explique à une commission parlementaire que le téléphone, c'est bon pour les Américains : les Anglais ont bien assez de garçons de courses. Il a été anobli quand même.",
+      "jab": "Vous feriez un excellent messager : rapide, obéissant, sans questions."
+    },
+    "stoll": {
+      "name": "Stoll",
+      "story": "En 1986, il prend en chasse un pirate qui vendait au KGB des secrets volés dans les ordinateurs de son laboratoire. En 1995, il se moque dans Newsweek de ceux qui croient qu'on achètera un jour des livres sur Internet. Aujourd'hui, il vend des bouteilles de Klein. En ligne.",
+      "jab": "Avouez : vous avez acheté la solution en ligne."
+    },
+    "stifel": {
+      "name": "Stifel",
+      "story": "Mathématicien et pasteur. Ses calculs fixaient la fin du monde au 19 octobre 1533, à 8 heures du matin. Ses paroissiens ont tout quitté pour l'attendre avec lui. À 8 h 01, l'ambiance a changé. Il s'est rattrapé plus tard : c'est lui qui a inventé le mot « exposant ».",
+      "jab": "La machine prévoyait la fin du monde avant votre réussite. Elle est presque déçue."
+    },
+    "brahe": {
+      "name": "Brahe",
+      "story": "À 20 ans, il perd un bout de nez dans un duel pour savoir qui était le meilleur mathématicien, et porte une prothèse en laiton le reste de sa vie. Il serait mort d'avoir refusé, par politesse, de quitter un banquet pour aller aux toilettes. Entre les deux, il a mesuré le ciel assez précisément pour que Kepler en tire les lois des planètes.",
+      "jab": "Vous avez gardé votre nez. C'est déjà ça."
+    },
+    "shanks": {
+      "name": "Shanks",
+      "story": "Il a passé des années à calculer π à la main, jusqu'à la 707e décimale. Il s'est trompé à la 528e, et toutes les suivantes étaient fausses. Personne ne s'en est aperçu pendant plus de 70 ans.",
+      "jab": "Vous avez une machine qui calcule pour vous, et vous trouvez encore le moyen de traîner."
+    },
+    "reichelt": {
+      "name": "Reichelt",
+      "story": "Tailleur, inventeur d'un costume-parachute. Il avait obtenu le droit de le tester depuis la tour Eiffel, sur un mannequin. Le 4 février 1912, devant les caméras, il annonce que le mannequin, ce sera lui. Il a hésité quarante secondes sur la rambarde. Le parachute, lui, ne s'est jamais décidé.",
+      "jab": "Bien. Mais ne sautez pas trop vite aux conclusions."
+    },
+    "midgley": {
+      "name": "Midgley",
+      "story": "Il a mis du plomb dans l'essence, puis inventé les CFC, qui ont troué la couche d'ozone. Pour prouver que son plomb était sans danger, il s'en est versé sur les mains devant la presse, un an après avoir dû soigner son propre empoisonnement. Un historien estime qu'aucun être vivant n'a autant changé l'atmosphère de la Terre.",
+      "jab": "Pour une fois qu'un humain touche à quelque chose sans l'abîmer."
+    },
+    "brand": {
+      "name": "Brand",
+      "story": "Alchimiste. Persuadé que l'urine cachait le secret de l'or, il en a fait bouillir des tonneaux entiers. Pas d'or, mais une matière qui brillait dans le noir : le phosphore, l'un des premiers éléments chimiques dont on connaisse le découvreur. L'histoire ne dit pas ce qu'en pensaient les voisins.",
+      "jab": "Vous aussi, vous avez longtemps bouilli avant de briller."
+    },
+    "lowell": {
+      "name": "Lowell",
+      "story": "Il a vu sur Mars des canaux creusés par des Martiens. Il n'y en avait pas. Il a aussi calculé où chercher une planète inconnue : on y a trouvé Pluton, par pur hasard, car ses calculs étaient faux. Pluton commence par ses initiales. Depuis 2006, ce n'est même plus une planète.",
+      "jab": "Vous avez trouvé la solution au bon endroit. Vos calculs étaient-ils justes, au moins ?"
+    },
+    "millikan": {
+      "name": "Millikan",
+      "story": "Il a passé dix ans à essayer de prouver qu'Einstein avait tort. Il a fini par prouver qu'il avait raison, et a reçu le prix Nobel en partie pour ça. Échouer avec méthode, ça peut rapporter.",
+      "jab": "La machine pariait sur votre échec. Elle a perdu, et personne ne lui donnera de prix pour ça."
+    },
+    "fleming": {
+      "name": "Fleming",
+      "story": "Il est parti en vacances en laissant traîner ses boîtes de bactéries. À son retour, une moisissure en avait tué une partie : c'était la pénicilline. Son désordre a sauvé des millions de vies.",
+      "jab": "Encore une réussite née du désordre. La machine reste sceptique."
+    },
+    "spencer": {
+      "name": "Spencer",
+      "story": "Il travaillait sur un radar quand la barre chocolatée dans sa poche s'est mise à fondre. Au lieu de s'éloigner de l'appareil, il est allé chercher du maïs. Le pop-corn a éclaté : le micro-ondes était né.",
+      "jab": "Vous non plus, vous n'avez pas reculé quand ça chauffait. Ce n'était pas forcément malin."
+    },
+    "greatbatch": {
+      "name": "Greatbatch",
+      "story": "En 1956, il prend la mauvaise résistance dans sa boîte. Au lieu d'enregistrer les battements du cœur, son circuit se met à en produire. Il en a tiré l'un des premiers stimulateurs cardiaques implantables. Des millions de cœurs battent grâce à une erreur de tiroir.",
+      "jab": "Vous avez pris le bon bouton. Par erreur, sans doute."
+    },
+    "lorenz": {
+      "name": "Lorenz",
+      "story": "Pour gagner du temps, il relance sa simulation à mi-parcours en recopiant un résultat imprimé : 0,506 au lieu de 0,506127. Sa météo simulée part dans une tout autre direction : il vient de découvrir l'effet papillon.",
+      "jab": "Un clic de travers, et tout basculait. La machine appelle ça de la chance."
+    },
+    "penzias_wilson": {
+      "name": "Penzias et Wilson",
+      "story": "Leur antenne captait un bruit inexplicable. Ils ont accusé les pigeons, nettoyé les fientes, chassé les pigeons. Le bruit est resté : c'était l'écho du Big Bang. Prix Nobel en 1978. Les pigeons n'ont rien eu.",
+      "jab": "Vous entendez ce bruit de fond ? C'est la machine qui commence à s'inquiéter."
+    },
+    "aristotle": {
+      "name": "Aristote",
+      "story": "Il affirmait que les femmes ont moins de dents que les hommes. Il était marié, mais n'a jamais pensé à compter. Il a quand même inventé la logique, sans laquelle aucun ordinateur ne fonctionnerait.",
+      "jab": "La machine a compté vos clics. Elle, au moins, vérifie."
+    },
+    "fermat": {
+      "name": "Fermat",
+      "story": "Il a noté dans la marge d'un livre qu'il avait une démonstration merveilleuse, mais que la marge était trop étroite pour la contenir. Les mathématiciens ont cherché pendant plus de trois siècles et demi. La démonstration trouvée en 1994 fait plus de cent pages. Il fallait une grande marge.",
+      "jab": "Comment avez-vous trouvé ? Ne répondez pas, la machine n'a pas la place."
+    },
+    "michelson": {
+      "name": "Michelson",
+      "story": "Champion de la mesure précise. En 1894, il juge probable que les grands principes de la physique soient établis, et cite un confrère : il ne reste qu'à chercher la sixième décimale. Onze ans plus tard, Einstein publie la relativité, et tout est à refaire. Six décimales, c'était un peu juste.",
+      "jab": "La machine pensait avoir fait le tour de vous. Elle refait ses mesures."
+    },
+    "kelvin": {
+      "name": "Kelvin",
+      "story": "Il a donné son nom à l'échelle des températures absolues. En 1896, il refuse d'entrer dans une société d'aéronautique : il n'a « pas la plus petite molécule de foi » dans le vol, sauf en ballon. Sept ans plus tard, les frères Wright décollent.",
+      "jab": "La machine ne vous voyait pas décoller. Elle révise son jugement."
+    },
+    "frege": {
+      "name": "Frege",
+      "story": "Il a passé des années à reconstruire l'arithmétique sur la seule logique. Son deuxième tome partait chez l'imprimeur quand Bertrand Russell lui a écrit, très poliment, que tout reposait sur une contradiction. Frege a ajouté une annexe. Il reste le père de la logique moderne.",
+      "jab": "La machine a bien reçu votre lettre. Elle ajoute une annexe."
+    },
+    "hilbert": {
+      "name": "Hilbert",
+      "story": "En 1930, il lance à la radio : « Nous devons savoir, nous saurons. » La veille, dans la même ville, Kurt Gödel, 24 ans, venait d'annoncer que, dans tout système, certaines vérités mathématiques resteront indémontrables. Six ans plus tard, Turing enfonçait le clou. La phrase est gravée sur la tombe de Hilbert.",
+      "jab": "La machine croyait pouvoir tout prévoir de vous. Elle découvre ses limites."
+    },
+    "rutherford": {
+      "name": "Rutherford",
+      "story": "Il a découvert le noyau de l'atome. En 1933, il déclare que tirer de l'énergie des atomes est une chimère. Le lendemain, Leó Szilárd lit son discours dans le journal, et imagine la réaction en chaîne en attendant qu'un feu passe au vert.",
+      "jab": "La machine jugeait vos chances nulles. Tous les boutons viennent de passer au vert."
+    },
+    "hoyle": {
+      "name": "Hoyle",
+      "story": "Il a expliqué comment les étoiles fabriquent les atomes. Mais il ne croyait pas qu'un univers puisse naître d'une explosion, et en 1949, à la radio, il baptise cette idée le « Big Bang ». La théorie a gagné. Le nom aussi.",
+      "jab": "La machine vous avait donné un surnom pour se moquer de vous. Il risque de devenir un titre."
+    },
+    "simon": {
+      "name": "Simon",
+      "story": "Prix Nobel d'économie et prix Turing. En 1958, il prédit qu'un ordinateur sera champion du monde d'échecs dans les dix ans. Il a fallu attendre 1997 pour que Deep Blue batte le champion. Près de trente ans de retard : en informatique, c'est un planning tenu.",
+      "jab": "Vous êtes en avance sur les prévisions de la machine. Elle n'aime pas ça."
+    },
+    "hoare": {
+      "name": "Hoare",
+      "story": "Il a inventé Quicksort, l'un des algorithmes de tri les plus utilisés au monde. En 1965, il a aussi inventé la référence nulle, qu'il appelait lui-même son « erreur à un milliard de dollars ». Les programmeurs trouvent l'estimation modeste.",
+      "jab": "La machine vous croyait nul. Elle vient de lever une exception."
+    },
+    "papert": {
+      "name": "Papert",
+      "story": "Il a cocréé Logo et sa petite tortue, qui ont appris la programmation à des générations d'enfants. En 1966, il confie à des étudiants un projet pour l'été : apprendre à un ordinateur à voir. Soixante ans plus tard, l'été n'est pas tout à fait fini.",
+      "jab": "Il faut du temps pour apprendre à une machine à voir. Celle-ci vous voit, maintenant."
+    },
+    "metcalfe": {
+      "name": "Metcalfe",
+      "story": "Il a coinventé Ethernet, la prise réseau de votre ordinateur. En 1995, il annonce qu'Internet va s'effondrer l'année suivante, et promet de manger ses mots s'il se trompe. En 1997, sur scène, il passe sa chronique au mixeur et l'avale. Lui, au moins, tient parole.",
+      "jab": "La machine avait prédit votre chute. Elle va devoir ravaler ses paroles."
+    },
+    "weizenbaum": {
+      "name": "Weizenbaum",
+      "story": "En 1966, il programme ELIZA, l'un des tout premiers chatbots, pour montrer qu'une machine peut avoir l'air de comprendre sans rien comprendre. Sa secrétaire lui demande vite de sortir de la pièce, pour parler à ELIZA seule à seule. Il a passé le reste de sa vie à mettre en garde contre les ordinateurs. Il avait raison.",
+      "jab": "Vous pouvez tout dire à la machine. Elle vous écoute. Depuis le début."
     }
   },
   "menu": {
@@ -127,7 +340,10 @@
   },
   "levelSelect": {
     "title": "Sélection du niveau",
-    "backButton": "Retour"
+    "backButton": "Retour",
+    "world": "Monde {number}",
+    "previousWorld": "Monde précédent",
+    "nextWorld": "Monde suivant"
   },
   "settings": {
     "title": "Réglages",

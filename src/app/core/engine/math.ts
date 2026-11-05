@@ -135,3 +135,8 @@ export function hasConsecutiveAscendingDigits(num: number): boolean {
   const digits = String(num);
   return digits.split('').every((digit, i) => i === 0 || Number(digit) === Number(digits[i - 1]) + 1);
 }
+
+/** Chiffres dans l'ordre inverse ; un zéro qui se retrouve en tête disparaît (ex : 120 → 21) */
+export function reverseDigits(num: number): number {
+  return Number(String(num).split('').reverse().join(''));
+}

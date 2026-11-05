@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 
 import { Router, RouterLink } from '@angular/router'; // <-- Importer Router et RouterLink
 import { LevelService } from '../core/services/level';
 import { BackgroundService } from '../core/services/background';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
+import { World } from '../core/engine';
 
 @Component({
   selector: 'app-level-select',
@@ -11,26 +12,51 @@ import { TranslatePipe } from '../shared/pipes/translate-pipe';
   imports: [RouterLink, TranslatePipe],
   templateUrl: './level-select.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './level-select.scss'
+  styleUrls: ['./level-select.scss', './world-pager.scss']
 })
 export class LevelSelectComponent implements OnInit {
-  public allLevels;
   public introducedButtons;
   public bestMedals;
+  public visibleWorlds;
+
+  // Un monde à la fois : celui du niveau en cours au départ, puis celui choisi avec les flèches
+  private readonly chosenWorld = signal<number | null>(null);
+  public readonly shownWorld = computed(() => {
+    const worlds = this.visibleWorlds();
+    const wanted = this.chosenWorld()
+      ?? worlds.find(world => world.levels.some(level => level.levelNumber === this.levelService.currentLevelNumber()))?.number;
+    return worlds.find(world => world.number === wanted) ?? worlds[worlds.length - 1];
+  });
 
   constructor(
     private levelService: LevelService,
     private backgroundService: BackgroundService,
     private router: Router
   ) {
-    this.allLevels = this.levelService.levels;
     this.introducedButtons = this.levelService.introducedButtons;
     this.bestMedals = this.levelService.bestMedals;
+    this.visibleWorlds = this.levelService.visibleWorlds;
   }
 
   ngOnInit(): void {
     // On quitte le fond de victoire si on arrive depuis la fin d'un niveau
     this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
+  }
+
+  /** Monde visible juste avant (-1) ou juste après (+1) celui affiché, s'il y en a un */
+  public neighbourWorld(step: number): World | undefined {
+    const worlds = this.visibleWorlds();
+    const shown = this.shownWorld();
+    return shown ? worlds[worlds.indexOf(shown) + step] : undefined;
+  }
+
+  public showWorld(step: number): void {
+    const world = this.neighbourWorld(step);
+    if (world) this.chosenWorld.set(world.number);
+  }
+
+  public completedCount(world: World): number {
+    return world.levels.filter(level => !!this.bestMedals()[level.levelNumber]).length;
   }
 
   /**

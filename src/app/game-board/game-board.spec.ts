@@ -6,11 +6,14 @@ import { APP_BASE_HREF } from '@angular/common';
 
 import { GameBoardComponent } from './game-board';
 import { LevelService } from '../core/services/level';
+import { AchievementService } from '../core/services/achievement';
 import { Level } from '../core/engine';
 
 // Le score 11 a pour racine numérique 2 : Digit passe au vert dès que sa valeur vaut 2
 const LEVEL: Level = {
   levelNumber: 1,
+  world: 1,
+  name: 'tester',
   startScore: 11,
   minScore: 10,
   maxScore: null,
@@ -44,7 +47,8 @@ describe('GameBoardComponent', () => {
   });
 
   afterEach(() => {
-    localStorage.removeItem('turings_node_best_medals_v1');
+    localStorage.removeItem('turings_node_best_medals_v2');
+    localStorage.removeItem('turings_node_achievements');
     vi.useRealTimers();
   });
 
@@ -168,6 +172,27 @@ describe('GameBoardComponent', () => {
 
     const nextButton: HTMLElement = fixture.nativeElement.querySelector('.next-level-button');
     expect(nextButton.textContent).toContain('menu.levelSelectButton');
+  });
+
+  it('shows the name of the level during the game', () => {
+    levelService.levels.set([LEVEL]);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.level-name')?.textContent).toBe('levels.tester.name');
+  });
+
+  it('completes the world with an achievement, then tells the story of the level and the machine jab', () => {
+    winLevel();
+    expect(TestBed.inject(AchievementService).unlockedAchievements().has('world_1')).toBe(true);
+
+    const tribute: HTMLElement = fixture.nativeElement.querySelector('.tribute');
+    expect([...tribute.querySelectorAll('p')].map(p => p.textContent)).toEqual(['levels.tester.name', 'levels.tester.story', 'levels.tester.jab']);
+  });
+
+  it('writes the real number of clicks in words for the jabs that quote it', () => {
+    winLevel();
+    expect(component.clicksInWordsKey()).toBe('gameboard.clicksInWords.1');
+    component.levelClicks = 13;
+    expect(component.clicksInWordsKey()).toBe('gameboard.clicksInDigits');
   });
 
   it('shows the campaign summary after the last level', () => {
