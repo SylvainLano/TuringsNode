@@ -1,6 +1,7 @@
 [
   {
     "levelNumber": 1,
+    "chapter": 1,
     "startScore": 27,
     "minScore": 10,
     "maxScore": null,
@@ -15,6 +16,7 @@
   },
   {
     "levelNumber": 2,
+    "chapter": 1,
     "startScore": 14,
     "minScore": 10,
     "maxScore": null,
@@ -29,6 +31,7 @@
   },
   {
     "levelNumber": 3,
+    "chapter": 1,
     "startScore": 33,
     "minScore": 10,
     "maxScore": null,
@@ -43,6 +46,7 @@
   },
   {
     "levelNumber": 4,
+    "chapter": 2,
     "startScore": 55,
     "minScore": 10,
     "maxScore": null,
@@ -57,6 +61,7 @@
   },
   {
     "levelNumber": 5,
+    "chapter": 2,
     "startScore": 33,
     "minScore": 10,
     "maxScore": null,
@@ -71,6 +76,7 @@
   },
   {
     "levelNumber": 6,
+    "chapter": 2,
     "startScore": 59,
     "minScore": 10,
     "maxScore": null,
@@ -86,6 +92,7 @@
   },
   {
     "levelNumber": 7,
+    "chapter": 3,
     "startScore": 81,
     "minScore": 10,
     "maxScore": null,
@@ -100,6 +107,7 @@
   },
   {
     "levelNumber": 8,
+    "chapter": 3,
     "startScore": 179,
     "minScore": 10,
     "maxScore": null,
@@ -114,6 +122,7 @@
   },
   {
     "levelNumber": 9,
+    "chapter": 3,
     "startScore": 75,
     "minScore": 10,
     "maxScore": null,
@@ -129,6 +138,7 @@
   },
   {
     "levelNumber": 10,
+    "chapter": 4,
     "startScore": 53,
     "minScore": 10,
     "maxScore": null,
@@ -143,6 +153,7 @@
   },
   {
     "levelNumber": 11,
+    "chapter": 4,
     "startScore": 479,
     "minScore": 10,
     "maxScore": null,
@@ -157,6 +168,7 @@
   },
   {
     "levelNumber": 12,
+    "chapter": 4,
     "startScore": 67,
     "minScore": 10,
     "maxScore": null,
@@ -172,6 +184,7 @@
   },
   {
     "levelNumber": 13,
+    "chapter": 5,
     "startScore": 693,
     "minScore": 10,
     "maxScore": null,
@@ -186,6 +199,7 @@
   },
   {
     "levelNumber": 14,
+    "chapter": 5,
     "startScore": 241,
     "minScore": 10,
     "maxScore": null,
@@ -201,6 +215,7 @@
   },
   {
     "levelNumber": 15,
+    "chapter": 5,
     "startScore": 768,
     "minScore": 10,
     "maxScore": null,
@@ -216,6 +231,7 @@
   },
   {
     "levelNumber": 16,
+    "chapter": 6,
     "startScore": 1534,
     "minScore": 10,
     "maxScore": null,
@@ -230,6 +246,7 @@
   },
   {
     "levelNumber": 17,
+    "chapter": 6,
     "startScore": 827,
     "minScore": 10,
     "maxScore": null,
@@ -245,6 +262,7 @@
   },
   {
     "levelNumber": 18,
+    "chapter": 6,
     "startScore": 897,
     "minScore": 10,
     "maxScore": null,
@@ -260,6 +278,7 @@
   },
   {
     "levelNumber": 19,
+    "chapter": 7,
     "startScore": 2273,
     "minScore": 10,
     "maxScore": null,
@@ -274,6 +293,7 @@
   },
   {
     "levelNumber": 20,
+    "chapter": 7,
     "startScore": 245,
     "minScore": 10,
     "maxScore": null,
@@ -289,6 +309,7 @@
   },
   {
     "levelNumber": 21,
+    "chapter": 7,
     "startScore": 4610,
     "minScore": 10,
     "maxScore": null,
@@ -304,6 +325,7 @@
   },
   {
     "levelNumber": 22,
+    "chapter": 8,
     "startScore": 9060,
     "minScore": 10,
     "maxScore": null,
@@ -318,6 +340,7 @@
   },
   {
     "levelNumber": 23,
+    "chapter": 8,
     "startScore": 7171,
     "minScore": 10,
     "maxScore": null,
@@ -333,6 +356,7 @@
   },
   {
     "levelNumber": 24,
+    "chapter": 8,
     "startScore": 9675,
     "minScore": 10,
     "maxScore": null,
@@ -348,6 +372,7 @@
   },
   {
     "levelNumber": 25,
+    "chapter": 9,
     "startScore": 6573,
     "minScore": 10,
     "maxScore": null,
@@ -364,6 +389,7 @@
   },
   {
     "levelNumber": 26,
+    "chapter": 9,
     "startScore": 4345,
     "minScore": 10,
     "maxScore": null,
@@ -380,6 +406,7 @@
   },
   {
     "levelNumber": 27,
+    "chapter": 9,
     "startScore": 57918,
     "minScore": 10,
     "maxScore": null,
@@ -396,6 +423,7 @@
   },
   {
     "levelNumber": 28,
+    "chapter": 9,
     "startScore": 46358,
     "minScore": 10,
     "maxScore": null,
@@ -412,6 +440,7 @@
   },
   {
     "levelNumber": 29,
+    "chapter": 9,
     "startScore": 37594,
     "minScore": 10,
     "maxScore": null,
@@ -428,6 +457,7 @@
   },
   {
     "levelNumber": 30,
+    "chapter": 9,
     "startScore": 44381,
     "minScore": 10,
     "maxScore": null,
