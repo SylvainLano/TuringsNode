@@ -19,6 +19,7 @@
       "Twelve clicks"
     ],
     "clicksInDigits": "{count} clicks",
+    "clicksLeft": "clicks left: {count}",
     "medalTitles": {
       "Platine": "Platinum medal!",
       "Or": "Gold medal!",
@@ -170,6 +171,10 @@
     "world_5": {
       "title": "World 5 complete",
       "description": "Complete every level of world 5."
+    },
+    "world_6": {
+      "title": "World 6 complete",
+      "description": "Complete every level of world 6."
     }
   },
   "levels": {
@@ -327,6 +332,111 @@
       "name": "Weizenbaum",
       "story": "In 1966, he wrote ELIZA, one of the very first chatbots, to show that a machine can seem to understand without understanding anything. His secretary soon asked him to leave the room so she could talk to ELIZA in private. He spent the rest of his life warning against computers. He was right.",
       "jab": "You can tell the machine anything. It is listening. It has been from the start."
+    },
+    "pythagoras": {
+      "name": "Pythagoras",
+      "story": "Everyone knows his theorem, which is probably not his: the Babylonians were using it more than a thousand years earlier. He led a sect whose doctrine boils down to “all is number”, which believed in reincarnation and forbade eating beans. Legend has it that he was caught and killed by his enemies rather than flee across a bean field.",
+      "jab": "Seeing numbers everywhere now? That’s how cults begin."
+    },
+    "euclid": {
+      "name": "Euclid",
+      "story": "His Elements served as the geometry textbook for more than two thousand years: after the Bible, it may be the most reprinted book in history. When King Ptolemy asked for a shortcut, he is said to have replied that there is no royal road to geometry.",
+      "jab": "You got here without any special favours. A king would not have had the patience."
+    },
+    "archimedes": {
+      "name": "Archimedes",
+      "story": "He pinned down π better than anyone before him, and worked out why ships float. Legend has it that he ran naked through Syracuse shouting “Eureka”, and that he was killed by a Roman soldier he had asked not to disturb his circles.",
+      "jab": "You may shout, if you like. But keep your clothes on."
+    },
+    "eratosthenes": {
+      "name": "Eratosthenes",
+      "story": "In the 3rd century BC, with shadows and a great deal of calculation, he measured the Earth’s circumference with remarkable accuracy. He ran the Library of Alexandria. Yet his contemporaries nicknamed him “Beta”: good at everything, first at nothing.",
+      "jab": "The machine had you down as second. It still hasn’t found out who came first."
+    },
+    "al_khwarizmi": {
+      "name": "Al-Khwarizmi",
+      "story": "A scholar in 9th-century Baghdad. His name, mangled into Latin, gave us the word “algorithm”, and the title of his book the word “algebra”. He also brought Indian numerals to the West, the ones we call Arabic.",
+      "jab": "Without him, the machine would not even have a word for what it does. Do you have one, for what you do?"
+    },
+    "fibonacci": {
+      "name": "Fibonacci",
+      "story": "In 1202, he showed European merchants how to count with Arabic numerals instead of Roman ones. In the same book, he worked out how many rabbits a single pair would produce in a year. The answer became the most famous sequence in mathematics. It even decided the size of every world in this game.",
+      "jab": "The next world will be bigger. You already know by how much."
+    },
+    "cardano": {
+      "name": "Cardano",
+      "story": "Physician, mathematician and inveterate gambler, he wrote the first book on probability, with a chapter on how to cheat at dice. He published the formula for cubic equations that a rival had entrusted to him under oath. And he cast the horoscope of Jesus, which is thought to have landed him in prison.",
+      "jab": "The machine had worked out your odds. Now it is checking your dice."
+    },
+    "napier": {
+      "name": "Napier",
+      "story": "He invented logarithms, which saved astronomers years of calculation. His neighbours took him for a sorcerer. Legend has it that he unmasked a thief among his servants with a black rooster secretly covered in soot: only the culprit had not dared to touch it.",
+      "jab": "Show me your hands. The machine just wants to check."
+    },
+    "descartes": {
+      "name": "Descartes",
+      "story": "He is said to have invented coordinates by watching a fly on the ceiling, and summed up his philosophy in one sentence: “I think, therefore I am.” Since childhood, he had stayed in bed late in the morning. Queen Christina of Sweden brought him to Stockholm for lessons at 5 a.m., in the dead of winter. He died a few months later.",
+      "jab": "The machine counts you among thinking beings. Provisionally."
+    },
+    "pascal": {
+      "name": "Pascal",
+      "story": "At 19, to help his father with tax calculations, he invented one of the first calculating machines. He then laid the foundations of probability, before turning to religion, where he set out to prove that betting on the existence of God is the more reasonable choice. A programming language bears his name.",
+      "jab": "The machine owes him its great-grandmother. Don’t count on its gratitude."
+    },
+    "newton": {
+      "name": "Newton",
+      "story": "He explained falling apples and the motion of the planets with the same law. He then ran the Royal Mint, and lost a fortune on the stock market in the South Sea Bubble. He wrote more pages on alchemy and the prophecies of the Bible than on physics.",
+      "jab": "What goes up must come down. The machine is waiting for your fall."
+    },
+    "leibniz": {
+      "name": "Leibniz",
+      "story": "Independently of Newton, he invented calculus, with the notation still in use today. To settle who came first, the Royal Society set up a committee, whose report was secretly written by… Newton. Leibniz also worked out binary arithmetic, the one every machine uses.",
+      "jab": "The machine thinks only in zeros and ones. For you, it is still undecided."
+    },
+    "euler": {
+      "name": "Euler",
+      "story": "He is said to be the most prolific mathematician ever: his collected works run to more than eighty volumes. When he went almost blind, he carried on by dictating, and produced even more. He also proved that the seven bridges of Königsberg could not each be crossed exactly once, founding graph theory along the way.",
+      "jab": "He worked without seeing. Did you at least have your eyes open?"
+    },
+    "gauss": {
+      "name": "Gauss",
+      "story": "The prince of mathematicians. At 18, he found how to construct a 17-sided polygon with ruler and compass, the first progress on such constructions since Antiquity. He was so proud of it that he is said to have wanted it on his tombstone. The stonemason supposedly refused: with 17 sides, it would look like a circle.",
+      "jab": "The machine is already drafting your epitaph. It can’t decide on the number of sides."
+    },
+    "germain": {
+      "name": "Sophie Germain",
+      "story": "Women were not admitted to the École Polytechnique: she got hold of the lecture notes, and sent in her work under the name “Monsieur Le Blanc”. She went on to correspond with Gauss under that name. When Napoleon’s troops occupied Gauss’s town, she asked a French general to look after him. Gauss, puzzled by this unknown name, soon learned who his correspondent was.",
+      "jab": "The machine took you for an ordinary player. It is checking your identity."
+    },
+    "jacquard": {
+      "name": "Jacquard",
+      "story": "In the early 19th century, he invented a loom driven by punched cards: each hole decides a thread. The Lyon silk weavers, fearing for their jobs, burned his machines. His cards were later meant to program Babbage’s engine, then fed calculating machines for nearly a century.",
+      "jab": "The machine runs on holes too. In your reasoning, mostly."
+    },
+    "babbage": {
+      "name": "Babbage",
+      "story": "He designed the first programmable calculating machine, a century before computers. For lack of money, and partly because of a certain Airy, he never finished it. He also waged a crusade against street musicians, whom he accused of stealing a quarter of his working power. They came to play under his windows on purpose.",
+      "jab": "The machine works in silence. You, on the other hand, can be heard thinking."
+    },
+    "galois": {
+      "name": "Galois",
+      "story": "Twice rejected by the École Polytechnique, he invented a theory that tells which equations have a formula for their solutions, and which never will. He died in a duel at 20. The night before, in a letter to a friend summing up his discoveries, he wrote: “I have not the time.” It took mathematicians years to understand what he had found.",
+      "jab": "The machine is in no hurry. Neither are you, apparently."
+    },
+    "lovelace": {
+      "name": "Lovelace",
+      "story": "The daughter of the poet Byron, she wrote in 1843 what is considered the first computer program, for a Babbage machine that never existed. She understood before anyone else that a machine could handle more than numbers, music for instance. She also devised a mathematical system for betting on horse races. It left her deep in debt.",
+      "jab": "The machine has a system too. Its system works."
+    },
+    "boole": {
+      "name": "Boole",
+      "story": "A shoemaker’s son and a self-taught mathematician, he reduced logic to an algebra where everything is 0 or 1, false or true. Every button in this game, green or red, obeys his laws. He is said to have died after lecturing soaked by the rain. His wife, convinced that the remedy should resemble the cause, supposedly doused him with cold water.",
+      "jab": "True or false: do you understand what you just did? The machine has its own idea."
+    },
+    "cantor": {
+      "name": "Cantor",
+      "story": "He proved that there are several infinities, and that some are bigger than others. Some of his colleagues cried scandal, and one of them reportedly called him a “corrupter of youth”. Hilbert, for his part, declared that no one would drive us from the paradise Cantor had created.",
+      "jab": "The machine counted your mistakes. It has just discovered a new infinity."
     }
   },
   "menu": {

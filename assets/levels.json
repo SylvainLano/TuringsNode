@@ -512,5 +512,359 @@
       { "name": "Split", "initialValue": 5 },
       { "name": "Align", "initialValue": 8 }
     ]
+  },
+  {
+    "levelNumber": 32,
+    "world": 6,
+    "name": "pythagoras",
+    "startScore": 7101,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 8 },
+      { "name": "Plus", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 33,
+    "world": 6,
+    "name": "euclid",
+    "startScore": 1162,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 6 },
+      { "name": "Double", "initialValue": 4 }
+    ]
+  },
+  {
+    "levelNumber": 34,
+    "world": 6,
+    "name": "archimedes",
+    "startScore": 2272,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 5 },
+      { "name": "Minus", "initialValue": 6 },
+      { "name": "Mirror", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 35,
+    "world": 6,
+    "name": "eratosthenes",
+    "startScore": 8983,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Split", "initialValue": 6, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 36,
+    "world": 6,
+    "name": "al_khwarizmi",
+    "startScore": 8889,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Factor", "initialValue": 4 },
+      { "name": "Cipher", "initialValue": 6 },
+      { "name": "Split", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 37,
+    "world": 6,
+    "name": "fibonacci",
+    "startScore": 8208,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 7 },
+      { "name": "Cipher", "initialValue": 9 },
+      { "name": "Double", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 38,
+    "world": 6,
+    "name": "cardano",
+    "startScore": 4279,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 1, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 39,
+    "world": 6,
+    "name": "napier",
+    "startScore": 3617,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
+    "buttons": [
+      { "name": "Plus", "initialValue": 7 },
+      { "name": "Double", "initialValue": 1, "totalClickLimit": 2 },
+      { "name": "Mirror", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 40,
+    "world": 6,
+    "name": "descartes",
+    "startScore": 4420,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 1 },
+      { "name": "Factor", "initialValue": 6 },
+      { "name": "Split", "initialValue": 5, "totalClickLimit": 2 }
+    ]
+  },
+  {
+    "levelNumber": 41,
+    "world": 6,
+    "name": "pascal",
+    "startScore": 3777,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Split", "initialValue": 4, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 5 },
+      { "name": "Minus", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 42,
+    "world": 6,
+    "name": "newton",
+    "startScore": 4379,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Split", "initialValue": 8 },
+      { "name": "Boost", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Double", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 43,
+    "world": 6,
+    "name": "leibniz",
+    "startScore": 5528,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Digit", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 44,
+    "world": 6,
+    "name": "euler",
+    "startScore": 8928,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Split", "initialValue": 4, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 4 },
+      { "name": "Digit", "initialValue": 9 },
+      { "name": "Plus", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 45,
+    "world": 6,
+    "name": "gauss",
+    "startScore": 2668,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Minus", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Double", "initialValue": 2 },
+      { "name": "Split", "initialValue": 4 }
+    ]
+  },
+  {
+    "levelNumber": 46,
+    "world": 6,
+    "name": "germain",
+    "startScore": 7089,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Primer", "initialValue": 4 },
+      { "name": "Split", "initialValue": 4, "totalClickLimit": 2 }
+    ]
+  },
+  {
+    "levelNumber": 47,
+    "world": 6,
+    "name": "jacquard",
+    "startScore": 7449,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Primer", "initialValue": 4 },
+      { "name": "Split", "initialValue": 7, "totalClickLimit": 2 },
+      { "name": "Boost", "initialValue": 9 },
+      { "name": "Double", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 48,
+    "world": 6,
+    "name": "babbage",
+    "startScore": 2772,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Split", "initialValue": 8 },
+      { "name": "Boost", "initialValue": 5 },
+      { "name": "Digit", "initialValue": 9 },
+      { "name": "Align", "initialValue": 9 },
+      { "name": "Plus", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 49,
+    "world": 6,
+    "name": "galois",
+    "startScore": 7708,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Split", "initialValue": 5 },
+      { "name": "Boost", "initialValue": 1, "totalClickLimit": 2 },
+      { "name": "Double", "initialValue": 4 }
+    ]
+  },
+  {
+    "levelNumber": 50,
+    "world": 6,
+    "name": "lovelace",
+    "startScore": 297,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Cipher", "initialValue": 2 },
+      { "name": "Factor", "initialValue": 7 },
+      { "name": "Boost", "initialValue": 7 },
+      { "name": "Fiber", "initialValue": 4 }
+    ]
+  },
+  {
+    "levelNumber": 51,
+    "world": 6,
+    "name": "boole",
+    "startScore": 1273,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Digit", "initialValue": 5, "totalClickLimit": 2 },
+      { "name": "Split", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 52,
+    "world": 6,
+    "name": "cantor",
+    "startScore": 3587,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Minus", "initialValue": 1, "totalClickLimit": 2 },
+      { "name": "Double", "initialValue": 1 }
+    ]
   }
 ]
