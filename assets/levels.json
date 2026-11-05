@@ -1,8 +1,24 @@
 [
   {
     "levelNumber": 1,
-    "chapter": 1,
-    "startScore": 27,
+    "world": 1,
+    "name": "goodwin",
+    "startScore": 23,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 1,
+    "goldSteps": 3,
+    "silverSteps": 6,
+    "bronzeSteps": 12,
+    "buttons": [
+      { "name": "Plus", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 2,
+    "world": 1,
+    "name": "hanyecz",
+    "startScore": 16,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 2,
@@ -10,14 +26,47 @@
     "silverSteps": 8,
     "bronzeSteps": 15,
     "buttons": [
-      { "name": "Split", "initialValue": 2 },
-      { "name": "Boost", "initialValue": 1 }
+      { "name": "Plus", "initialValue": 7 },
+      { "name": "Minus", "initialValue": 7 }
     ]
   },
   {
-    "levelNumber": 2,
-    "chapter": 1,
+    "levelNumber": 3,
+    "world": 2,
+    "name": "airy",
+    "startScore": 47,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 2,
+    "goldSteps": 5,
+    "silverSteps": 8,
+    "bronzeSteps": 15,
+    "buttons": [
+      { "name": "Double", "initialValue": 9 },
+      { "name": "Plus", "initialValue": 3 }
+    ]
+  },
+  {
+    "levelNumber": 4,
+    "world": 2,
+    "name": "preece",
     "startScore": 14,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 2,
+    "goldSteps": 5,
+    "silverSteps": 8,
+    "bronzeSteps": 15,
+    "buttons": [
+      { "name": "Half", "initialValue": 2 },
+      { "name": "Plus", "initialValue": 5 }
+    ]
+  },
+  {
+    "levelNumber": 5,
+    "world": 2,
+    "name": "stoll",
+    "startScore": 35,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 3,
@@ -25,14 +74,65 @@
     "silverSteps": 10,
     "bronzeSteps": 18,
     "buttons": [
-      { "name": "Boost", "initialValue": 8 },
-      { "name": "Split", "initialValue": 4 }
+      { "name": "Double", "initialValue": 3 },
+      { "name": "Half", "initialValue": 9 },
+      { "name": "Plus", "initialValue": 9 }
     ]
   },
   {
-    "levelNumber": 3,
-    "chapter": 1,
-    "startScore": 33,
+    "levelNumber": 6,
+    "world": 3,
+    "name": "stifel",
+    "startScore": 25,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 2,
+    "goldSteps": 5,
+    "silverSteps": 8,
+    "bronzeSteps": 15,
+    "buttons": [
+      { "name": "Mirror", "initialValue": 7 },
+      { "name": "Minus", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 7,
+    "world": 3,
+    "name": "brahe",
+    "startScore": 56,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 3,
+    "goldSteps": 6,
+    "silverSteps": 10,
+    "bronzeSteps": 18,
+    "buttons": [
+      { "name": "Mirror", "initialValue": 9 },
+      { "name": "Double", "initialValue": 2 }
+    ]
+  },
+  {
+    "levelNumber": 8,
+    "world": 3,
+    "name": "shanks",
+    "startScore": 68,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 3,
+    "goldSteps": 6,
+    "silverSteps": 10,
+    "bronzeSteps": 18,
+    "buttons": [
+      { "name": "Plus", "initialValue": 1 },
+      { "name": "Minus", "initialValue": 3 },
+      { "name": "Double", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 9,
+    "world": 3,
+    "name": "reichelt",
+    "startScore": 97,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 4,
@@ -40,14 +140,34 @@
     "silverSteps": 12,
     "bronzeSteps": 21,
     "buttons": [
-      { "name": "Split", "initialValue": 5 },
-      { "name": "Boost", "initialValue": 9 }
+      { "name": "Mirror", "initialValue": 8 },
+      { "name": "Half", "initialValue": 8 },
+      { "name": "Double", "initialValue": 3 }
     ]
   },
   {
-    "levelNumber": 4,
-    "chapter": 2,
-    "startScore": 55,
+    "levelNumber": 10,
+    "world": 3,
+    "name": "midgley",
+    "startScore": 82,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Plus", "initialValue": 7 },
+      { "name": "Minus", "initialValue": 5 },
+      { "name": "Double", "initialValue": 7 },
+      { "name": "Mirror", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 11,
+    "world": 4,
+    "name": "brand",
+    "startScore": 297,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 3,
@@ -55,14 +175,31 @@
     "silverSteps": 10,
     "bronzeSteps": 18,
     "buttons": [
-      { "name": "Primer", "initialValue": 2 },
-      { "name": "Boost", "initialValue": 1 }
+      { "name": "Split", "initialValue": 8 },
+      { "name": "Plus", "initialValue": 1 }
     ]
   },
   {
-    "levelNumber": 5,
-    "chapter": 2,
-    "startScore": 33,
+    "levelNumber": 12,
+    "world": 4,
+    "name": "lowell",
+    "startScore": 132,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 3,
+    "goldSteps": 6,
+    "silverSteps": 10,
+    "bronzeSteps": 18,
+    "buttons": [
+      { "name": "Boost", "initialValue": 6 },
+      { "name": "Minus", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 13,
+    "world": 4,
+    "name": "millikan",
+    "startScore": 344,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 4,
@@ -71,29 +208,14 @@
     "bronzeSteps": 21,
     "buttons": [
       { "name": "Split", "initialValue": 3 },
-      { "name": "Primer", "initialValue": 1 }
+      { "name": "Boost", "initialValue": 9 }
     ]
   },
   {
-    "levelNumber": 6,
-    "chapter": 2,
-    "startScore": 59,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 4,
-    "goldSteps": 8,
-    "silverSteps": 12,
-    "bronzeSteps": 21,
-    "buttons": [
-      { "name": "Primer", "initialValue": 6 },
-      { "name": "Split", "initialValue": 5 },
-      { "name": "Boost", "initialValue": 2 }
-    ]
-  },
-  {
-    "levelNumber": 7,
-    "chapter": 3,
-    "startScore": 81,
+    "levelNumber": 14,
+    "world": 4,
+    "name": "fleming",
+    "startScore": 492,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 3,
@@ -101,14 +223,15 @@
     "silverSteps": 10,
     "bronzeSteps": 18,
     "buttons": [
-      { "name": "Digit", "initialValue": 8 },
-      { "name": "Split", "initialValue": 7 }
+      { "name": "Primer", "initialValue": 4 },
+      { "name": "Double", "initialValue": 9 }
     ]
   },
   {
-    "levelNumber": 8,
-    "chapter": 3,
-    "startScore": 179,
+    "levelNumber": 15,
+    "world": 4,
+    "name": "spencer",
+    "startScore": 312,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 4,
@@ -116,14 +239,32 @@
     "silverSteps": 12,
     "bronzeSteps": 21,
     "buttons": [
-      { "name": "Boost", "initialValue": 6 },
-      { "name": "Digit", "initialValue": 4 }
+      { "name": "Primer", "initialValue": 9 },
+      { "name": "Split", "initialValue": 9 },
+      { "name": "Half", "initialValue": 1 }
     ]
   },
   {
-    "levelNumber": 9,
-    "chapter": 3,
-    "startScore": 75,
+    "levelNumber": 16,
+    "world": 4,
+    "name": "greatbatch",
+    "startScore": 474,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Digit", "initialValue": 6 },
+      { "name": "Mirror", "initialValue": 8 }
+    ]
+  },
+  {
+    "levelNumber": 17,
+    "world": 4,
+    "name": "lorenz",
+    "startScore": 142,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 5,
@@ -131,15 +272,33 @@
     "silverSteps": 14,
     "bronzeSteps": 24,
     "buttons": [
-      { "name": "Primer", "initialValue": 2 },
-      { "name": "Digit", "initialValue": 2 },
-      { "name": "Split", "initialValue": 3 }
+      { "name": "Digit", "initialValue": 9 },
+      { "name": "Boost", "initialValue": 1 },
+      { "name": "Minus", "initialValue": 7 }
     ]
   },
   {
-    "levelNumber": 10,
-    "chapter": 4,
-    "startScore": 53,
+    "levelNumber": 18,
+    "world": 4,
+    "name": "penzias_wilson",
+    "startScore": 419,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Primer", "initialValue": 5 },
+      { "name": "Digit", "initialValue": 5 },
+      { "name": "Split", "initialValue": 6 }
+    ]
+  },
+  {
+    "levelNumber": 19,
+    "world": 5,
+    "name": "aristotle",
+    "startScore": 807,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 4,
@@ -147,13 +306,96 @@
     "silverSteps": 12,
     "bronzeSteps": 21,
     "buttons": [
-      { "name": "Align", "initialValue": 9 },
-      { "name": "Boost", "initialValue": 5 }
+      { "name": "Align", "initialValue": 7 },
+      { "name": "Plus", "initialValue": 7 }
     ]
   },
   {
-    "levelNumber": 11,
-    "chapter": 4,
+    "levelNumber": 20,
+    "world": 5,
+    "name": "fermat",
+    "startScore": 210,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Align", "initialValue": 2 },
+      { "name": "Boost", "initialValue": 4 }
+    ]
+  },
+  {
+    "levelNumber": 21,
+    "world": 5,
+    "name": "michelson",
+    "startScore": 2895,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Digit", "initialValue": 2 },
+      { "name": "Align", "initialValue": 5 },
+      { "name": "Double", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 22,
+    "world": 5,
+    "name": "kelvin",
+    "startScore": 2369,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 5 },
+      { "name": "Double", "initialValue": 9 }
+    ]
+  },
+  {
+    "levelNumber": 23,
+    "world": 5,
+    "name": "frege",
+    "startScore": 66,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
+    "buttons": [
+      { "name": "Reduce", "initialValue": 8 },
+      { "name": "Split", "initialValue": 5 },
+      { "name": "Primer", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 24,
+    "world": 5,
+    "name": "hilbert",
+    "startScore": 293,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 4,
+    "goldSteps": 8,
+    "silverSteps": 12,
+    "bronzeSteps": 21,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 5 },
+      { "name": "Minus", "initialValue": 1 }
+    ]
+  },
+  {
+    "levelNumber": 25,
+    "world": 5,
+    "name": "rutherford",
     "startScore": 479,
     "minScore": 10,
     "maxScore": null,
@@ -162,314 +404,113 @@
     "silverSteps": 14,
     "bronzeSteps": 24,
     "buttons": [
-      { "name": "Digit", "initialValue": 7 },
-      { "name": "Align", "initialValue": 6 }
-    ]
-  },
-  {
-    "levelNumber": 12,
-    "chapter": 4,
-    "startScore": 67,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 5,
-    "goldSteps": 9,
-    "silverSteps": 14,
-    "bronzeSteps": 24,
-    "buttons": [
-      { "name": "Align", "initialValue": 1 },
-      { "name": "Primer", "initialValue": 6 },
-      { "name": "Split", "initialValue": 8 }
-    ]
-  },
-  {
-    "levelNumber": 13,
-    "chapter": 5,
-    "startScore": 693,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 4,
-    "goldSteps": 8,
-    "silverSteps": 12,
-    "bronzeSteps": 21,
-    "buttons": [
-      { "name": "Reduce", "initialValue": 7 },
+      { "name": "Fiber", "initialValue": 5 },
+      { "name": "Align", "initialValue": 3 },
       { "name": "Boost", "initialValue": 7 }
     ]
   },
   {
-    "levelNumber": 14,
-    "chapter": 5,
-    "startScore": 241,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 5,
-    "goldSteps": 9,
-    "silverSteps": 14,
-    "bronzeSteps": 24,
-    "buttons": [
-      { "name": "Digit", "initialValue": 3 },
-      { "name": "Reduce", "initialValue": 8 },
-      { "name": "Split", "initialValue": 9 }
-    ]
-  },
-  {
-    "levelNumber": 15,
-    "chapter": 5,
-    "startScore": 768,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 6,
-    "goldSteps": 11,
-    "silverSteps": 16,
-    "bronzeSteps": 27,
-    "buttons": [
-      { "name": "Reduce", "initialValue": 2 },
-      { "name": "Align", "initialValue": 2 },
-      { "name": "Primer", "initialValue": 1 }
-    ]
-  },
-  {
-    "levelNumber": 16,
-    "chapter": 6,
-    "startScore": 1534,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 4,
-    "goldSteps": 8,
-    "silverSteps": 12,
-    "bronzeSteps": 21,
-    "buttons": [
-      { "name": "Fiber", "initialValue": 8 },
-      { "name": "Split", "initialValue": 6 }
-    ]
-  },
-  {
-    "levelNumber": 17,
-    "chapter": 6,
-    "startScore": 827,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 5,
-    "goldSteps": 9,
-    "silverSteps": 14,
-    "bronzeSteps": 24,
-    "buttons": [
-      { "name": "Boost", "initialValue": 3 },
-      { "name": "Fiber", "initialValue": 6 },
-      { "name": "Digit", "initialValue": 1 }
-    ]
-  },
-  {
-    "levelNumber": 18,
-    "chapter": 6,
-    "startScore": 897,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 6,
-    "goldSteps": 11,
-    "silverSteps": 16,
-    "bronzeSteps": 27,
-    "buttons": [
-      { "name": "Fiber", "initialValue": 3 },
-      { "name": "Reduce", "initialValue": 7 },
-      { "name": "Align", "initialValue": 8 }
-    ]
-  },
-  {
-    "levelNumber": 19,
-    "chapter": 7,
-    "startScore": 2273,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 5,
-    "goldSteps": 9,
-    "silverSteps": 14,
-    "bronzeSteps": 24,
-    "buttons": [
-      { "name": "Factor", "initialValue": 1 },
-      { "name": "Boost", "initialValue": 5 }
-    ]
-  },
-  {
-    "levelNumber": 20,
-    "chapter": 7,
-    "startScore": 245,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 6,
-    "goldSteps": 11,
-    "silverSteps": 16,
-    "bronzeSteps": 27,
-    "buttons": [
-      { "name": "Split", "initialValue": 5 },
-      { "name": "Factor", "initialValue": 7 },
-      { "name": "Primer", "initialValue": 5 }
-    ]
-  },
-  {
-    "levelNumber": 21,
-    "chapter": 7,
-    "startScore": 4610,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 7,
-    "goldSteps": 12,
-    "silverSteps": 18,
-    "bronzeSteps": 30,
-    "buttons": [
-      { "name": "Factor", "initialValue": 8 },
-      { "name": "Fiber", "initialValue": 3 },
-      { "name": "Digit", "initialValue": 1 }
-    ]
-  },
-  {
-    "levelNumber": 22,
-    "chapter": 8,
-    "startScore": 9060,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 5,
-    "goldSteps": 9,
-    "silverSteps": 14,
-    "bronzeSteps": 24,
-    "buttons": [
-      { "name": "Cipher", "initialValue": 4 },
-      { "name": "Boost", "initialValue": 6 }
-    ]
-  },
-  {
-    "levelNumber": 23,
-    "chapter": 8,
-    "startScore": 7171,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 6,
-    "goldSteps": 11,
-    "silverSteps": 16,
-    "bronzeSteps": 27,
-    "buttons": [
-      { "name": "Digit", "initialValue": 3 },
-      { "name": "Cipher", "initialValue": 6 },
-      { "name": "Split", "initialValue": 6 }
-    ]
-  },
-  {
-    "levelNumber": 24,
-    "chapter": 8,
-    "startScore": 9675,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 7,
-    "goldSteps": 12,
-    "silverSteps": 18,
-    "bronzeSteps": 30,
-    "buttons": [
-      { "name": "Cipher", "initialValue": 2 },
-      { "name": "Factor", "initialValue": 6 },
-      { "name": "Primer", "initialValue": 7 }
-    ]
-  },
-  {
-    "levelNumber": 25,
-    "chapter": 9,
-    "startScore": 6573,
-    "minScore": 10,
-    "maxScore": null,
-    "minSteps": 7,
-    "goldSteps": 12,
-    "silverSteps": 18,
-    "bronzeSteps": 30,
-    "buttons": [
-      { "name": "Reduce", "initialValue": 5 },
-      { "name": "Fiber", "initialValue": 6 },
-      { "name": "Align", "initialValue": 7 },
-      { "name": "Boost", "initialValue": 3 }
-    ]
-  },
-  {
     "levelNumber": 26,
-    "chapter": 9,
-    "startScore": 4345,
+    "world": 5,
+    "name": "hoyle",
+    "startScore": 914,
     "minScore": 10,
     "maxScore": null,
-    "minSteps": 8,
-    "goldSteps": 14,
-    "silverSteps": 20,
-    "bronzeSteps": 33,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
     "buttons": [
-      { "name": "Primer", "initialValue": 4 },
-      { "name": "Split", "initialValue": 6 },
-      { "name": "Align", "initialValue": 8 },
-      { "name": "Digit", "initialValue": 5 }
+      { "name": "Factor", "initialValue": 7 },
+      { "name": "Plus", "initialValue": 7 }
     ]
   },
   {
     "levelNumber": 27,
-    "chapter": 9,
-    "startScore": 57918,
+    "world": 5,
+    "name": "simon",
+    "startScore": 1342,
     "minScore": 10,
     "maxScore": null,
-    "minSteps": 8,
-    "goldSteps": 14,
-    "silverSteps": 20,
-    "bronzeSteps": 33,
+    "minSteps": 5,
+    "goldSteps": 9,
+    "silverSteps": 14,
+    "bronzeSteps": 24,
     "buttons": [
-      { "name": "Fiber", "initialValue": 5 },
-      { "name": "Reduce", "initialValue": 6 },
-      { "name": "Factor", "initialValue": 9 },
-      { "name": "Align", "initialValue": 2 }
+      { "name": "Factor", "initialValue": 8 },
+      { "name": "Digit", "initialValue": 5 },
+      { "name": "Mirror", "initialValue": 6 }
     ]
   },
   {
     "levelNumber": 28,
-    "chapter": 9,
-    "startScore": 12041,
+    "world": 5,
+    "name": "hoare",
+    "startScore": 1519,
     "minScore": 10,
     "maxScore": null,
-    "minSteps": 8,
-    "goldSteps": 14,
-    "silverSteps": 20,
-    "bronzeSteps": 33,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
     "buttons": [
-      { "name": "Digit", "initialValue": 7 },
-      { "name": "Factor", "initialValue": 6 },
-      { "name": "Fiber", "initialValue": 2 },
-      { "name": "Split", "initialValue": 7 }
+      { "name": "Reduce", "initialValue": 5 },
+      { "name": "Fiber", "initialValue": 1 },
+      { "name": "Split", "initialValue": 5 }
     ]
   },
   {
     "levelNumber": 29,
-    "chapter": 9,
-    "startScore": 3405,
+    "world": 5,
+    "name": "papert",
+    "startScore": 2624,
     "minScore": 10,
     "maxScore": null,
-    "minSteps": 9,
-    "goldSteps": 15,
-    "silverSteps": 22,
-    "bronzeSteps": 36,
+    "minSteps": 6,
+    "goldSteps": 11,
+    "silverSteps": 16,
+    "bronzeSteps": 27,
     "buttons": [
-      { "name": "Cipher", "initialValue": 4 },
-      { "name": "Factor", "initialValue": 7 },
-      { "name": "Boost", "initialValue": 9 },
-      { "name": "Fiber", "initialValue": 2 }
+      { "name": "Primer", "initialValue": 4 },
+      { "name": "Factor", "initialValue": 1 },
+      { "name": "Align", "initialValue": 5 },
+      { "name": "Plus", "initialValue": 1 }
     ]
   },
   {
     "levelNumber": 30,
-    "chapter": 9,
-    "startScore": 25895,
+    "world": 5,
+    "name": "metcalfe",
+    "startScore": 2538,
     "minScore": 10,
     "maxScore": null,
-    "minSteps": 10,
-    "goldSteps": 17,
-    "silverSteps": 24,
-    "bronzeSteps": 39,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
     "buttons": [
-      { "name": "Align", "initialValue": 9 },
-      { "name": "Factor", "initialValue": 9 },
-      { "name": "Split", "initialValue": 7 },
-      { "name": "Boost", "initialValue": 6 }
+      { "name": "Digit", "initialValue": 7 },
+      { "name": "Reduce", "initialValue": 1 },
+      { "name": "Boost", "initialValue": 1 },
+      { "name": "Mirror", "initialValue": 7 }
+    ]
+  },
+  {
+    "levelNumber": 31,
+    "world": 5,
+    "name": "weizenbaum",
+    "startScore": 505,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Fiber", "initialValue": 7 },
+      { "name": "Factor", "initialValue": 1 },
+      { "name": "Split", "initialValue": 5 },
+      { "name": "Align", "initialValue": 8 }
     ]
   }
 ]

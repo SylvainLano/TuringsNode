@@ -1,0 +1,1 @@
+import"./main-XZE3N6GD.js";import{n as e}from"./chunk-BRf3E2HD.js";export{e as EmittersPluginInstance};
