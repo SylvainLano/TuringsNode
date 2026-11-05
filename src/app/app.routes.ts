@@ -1,15 +1,12 @@
 import { Routes } from '@angular/router';
-import { GameBoardComponent } from './game-board/game-board'
 import { MenuComponent } from './menu/menu'
-import { LevelSelectComponent } from './level-select/level-select';
-import { AchievementsComponent } from './achievements/achievements'
-import { SettingsComponent } from './settings/settings';
 
+// Le menu est chargé tout de suite ; les autres pages seulement quand on les ouvre
 export const routes: Routes = [
   { path: '', component: MenuComponent },
-  { path: 'game', component: GameBoardComponent },
-  { path: 'levels', component: LevelSelectComponent },
-  { path: 'achievements', component: AchievementsComponent },
-  { path: 'settings', component: SettingsComponent },
+  { path: 'game', loadComponent: () => import('./game-board/game-board').then(m => m.GameBoardComponent) },
+  { path: 'levels', loadComponent: () => import('./level-select/level-select').then(m => m.LevelSelectComponent) },
+  { path: 'achievements', loadComponent: () => import('./achievements/achievements').then(m => m.AchievementsComponent) },
+  { path: 'settings', loadComponent: () => import('./settings/settings').then(m => m.SettingsComponent) },
   { path: '**', redirectTo: '' }
 ];

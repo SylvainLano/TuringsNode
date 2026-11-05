@@ -424,24 +424,24 @@
   {
     "levelNumber": 28,
     "chapter": 9,
-    "startScore": 46358,
+    "startScore": 12041,
     "minScore": 10,
     "maxScore": null,
-    "minSteps": 9,
-    "goldSteps": 15,
-    "silverSteps": 22,
-    "bronzeSteps": 36,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
     "buttons": [
-      { "name": "Primer", "initialValue": 2 },
-      { "name": "Boost", "initialValue": 8 },
-      { "name": "Split", "initialValue": 3 },
-      { "name": "Align", "initialValue": 7 }
+      { "name": "Digit", "initialValue": 7 },
+      { "name": "Factor", "initialValue": 6 },
+      { "name": "Fiber", "initialValue": 2 },
+      { "name": "Split", "initialValue": 7 }
     ]
   },
   {
     "levelNumber": 29,
     "chapter": 9,
-    "startScore": 37594,
+    "startScore": 3405,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 9,
@@ -449,16 +449,16 @@
     "silverSteps": 22,
     "bronzeSteps": 36,
     "buttons": [
-      { "name": "Fiber", "initialValue": 2 },
-      { "name": "Reduce", "initialValue": 4 },
-      { "name": "Align", "initialValue": 9 },
-      { "name": "Primer", "initialValue": 6 }
+      { "name": "Cipher", "initialValue": 4 },
+      { "name": "Factor", "initialValue": 7 },
+      { "name": "Boost", "initialValue": 9 },
+      { "name": "Fiber", "initialValue": 2 }
     ]
   },
   {
     "levelNumber": 30,
     "chapter": 9,
-    "startScore": 44381,
+    "startScore": 25895,
     "minScore": 10,
     "maxScore": null,
     "minSteps": 10,
@@ -466,10 +466,10 @@
     "silverSteps": 24,
     "bronzeSteps": 39,
     "buttons": [
-      { "name": "Split", "initialValue": 9 },
-      { "name": "Fiber", "initialValue": 6 },
-      { "name": "Align", "initialValue": 8 },
-      { "name": "Boost", "initialValue": 9 }
+      { "name": "Align", "initialValue": 9 },
+      { "name": "Factor", "initialValue": 9 },
+      { "name": "Split", "initialValue": 7 },
+      { "name": "Boost", "initialValue": 6 }
     ]
   }
 ]

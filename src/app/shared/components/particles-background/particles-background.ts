@@ -2,7 +2,6 @@ import { Component, effect, signal, ChangeDetectionStrategy } from '@angular/cor
 import { NgParticlesService, NgxParticlesModule } from '@tsparticles/angular';
 import type { ISourceOptions } from '@tsparticles/engine';
 import { BackgroundService } from '../../../core/services/background';
-import { loadFull } from 'tsparticles';
 
 
 @Component({
@@ -25,7 +24,10 @@ export class ParticlesBackgroundComponent {
 
   // 2. On injecte les services
   constructor(private backgroundService: BackgroundService, particlesService: NgParticlesService) {
-    particlesService.init(loadFull).then(() => this.isEngineReady.set(true));
+    // Les modules de tsParticles arrivent dans un fichier à part, pour ne pas alourdir le premier chargement
+    particlesService
+      .init(async engine => (await import('tsparticles')).loadFull(engine))
+      .then(() => this.isEngineReady.set(true));
 
     // 3. On utilise un `effect` pour réagir aux changements
     effect(() => {

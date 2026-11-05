@@ -3,14 +3,20 @@ import { TestBed } from '@angular/core/testing';
 import { BackgroundService } from './background';
 
 describe('Background', () => {
-  let service: BackgroundService;
+  afterEach(() => vi.useRealTimers());
 
-  beforeEach(() => {
+  function createService(date: Date): BackgroundService {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(date);
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BackgroundService);
+    return TestBed.inject(BackgroundService);
+  }
+
+  it('starts with the day background during the day', () => {
+    expect(createService(new Date(2026, 5, 21, 14)).state().value).toBe('day');
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('starts with the night background at night', () => {
+    expect(createService(new Date(2026, 0, 15, 23)).state().value).toBe('night');
   });
 });

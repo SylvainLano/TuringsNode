@@ -29,7 +29,8 @@ const backgroundConfigs: Record<string, BackgroundState> = {
 })
 
 export class BackgroundService {
-  public readonly state = signal<BackgroundState>(backgroundConfigs['day']);
+  // Fond du moment de la journée dès le départ, même en arrivant directement sur une page sans passer par le menu
+  public readonly state = signal<BackgroundState>(backgroundConfigs[this.getDefaultThemeName()]);
 
   /**
    * Change le fond d'écran actif en utilisant son nom.
