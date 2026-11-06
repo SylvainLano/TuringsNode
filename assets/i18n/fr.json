@@ -58,8 +58,14 @@
     "button": "Implorer",
     "tooltip": "Ça va vous coûter.",
     "price": "Prix : votre {medal} du niveau {level}. Quel bouton vous dépasse ?",
+    "medalNames": {
+      "Platine": "médaille de platine",
+      "Or": "médaille d'or",
+      "Argent": "médaille d'argent",
+      "Bronze": "médaille de bronze"
+    },
     "cancel": "Finalement, non",
-    "nothingLeft": "Vous n'avez plus rien à offrir.",
+    "nothingLeft": "Vous n'avez plus rien à offrir dans ce monde.",
     "remarks": [
       "Votre tableau des niveaux sentira le chocolat. Tout le monde saura.",
       "Une médaille en chocolat : enfin une récompense à votre mesure.",
