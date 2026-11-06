@@ -19,4 +19,8 @@ describe('Background', () => {
   it('starts with the night background at night', () => {
     expect(createService(new Date(2026, 0, 15, 23)).state().value).toBe('night');
   });
+
+  it('shows fireflies between midnight and 4 a.m.', () => {
+    expect(createService(new Date(2026, 0, 15, 2)).state().value).toBe('fireflies');
+  });
 });

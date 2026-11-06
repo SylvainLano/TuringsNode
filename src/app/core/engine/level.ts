@@ -23,8 +23,11 @@ export interface Level {
   buttons: LevelButtonConfig[];
   // Objectif à atteindre exactement, à la place de « tous les boutons au vert »
   targetScore?: number;
-  // Niveau secret de son monde : il se débloque quand ce score apparaît dans l'un des niveaux du monde
-  secret?: { unlockScore: number };
+  // Niveau secret de son monde : il se débloque quand ce score apparaît dans l'un des niveaux du monde,
+  // ou quand le joueur y divise par zéro (Split à 0, qui n'apparaît que lorsque le favicon affiche 0)
+  secret?: { unlockScore?: number; divisionByZero?: boolean };
+  // Fond d'ambiance du niveau, à la place de celui du moment de la journée
+  background?: string;
 }
 
 // Numéro (et clé de sauvegarde) du n-ième niveau secret d'un monde (à partir de 0) : hors de la numérotation de la campagne

@@ -7,6 +7,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { GameBoardComponent } from './game-board';
 import { LevelService } from '../core/services/level';
 import { AchievementService } from '../core/services/achievement';
+import { FaviconService } from '../core/services/favicon';
+import { BackgroundService } from '../core/services/background';
 import { Level } from '../core/engine';
 
 // Le score 11 a pour racine numérique 2 : Digit passe au vert dès que sa valeur vaut 2
@@ -179,6 +181,8 @@ describe('GameBoardComponent', () => {
     fixture.detectChanges();
     expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['○○', true]);
     expect(fixture.nativeElement.querySelectorAll('.click-pips').length).toBe(1);
+    // Plus aucun clic sur les boutons limités : tout est grillé
+    expect(TestBed.inject(BackgroundService).state().value).toBe('burnt');
 
     component.undo();
     expect([component.clickPips(mirror), mirror.isDisabled]).toEqual(['●○', false]);
@@ -265,6 +269,43 @@ describe('GameBoardComponent', () => {
       expect(fixture.nativeElement.querySelector('h2')?.textContent).toContain('gameboard.secretCompleteTitle');
       expect(fixture.nativeElement.querySelector('.campaign-summary')).toBeNull();
       expect(levelService.bestMedals()[1001]).toBe('Platine');
+    });
+  });
+
+  describe('with a division by zero hidden in the world', () => {
+    const ZERO_SECRET: Level = { ...LEVEL, levelNumber: 1011, name: 'zero', minScore: 0, targetScore: 0, secret: { divisionByZero: true } };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      levelService.levels.set([{ ...LEVEL, buttons: [{ name: 'Split', initialValue: 9 }, { name: 'Digit', initialValue: 9 }] }]);
+      levelService.secretLevels.set([ZERO_SECRET]);
+    });
+
+    it('keeps Split from 9 to 1 while the favicon does not show 0', () => {
+      TestBed.inject(FaviconService).digit.set(4);
+      fixture.detectChanges();
+      component.onButtonClick(component.buttons[0]);
+      expect(component.buttons[0].value).toBe(1);
+    });
+
+    it('takes Split from 9 to 0 when the favicon shows 0, and crashes, unlocks and restarts when it is clicked', () => {
+      const favicon = TestBed.inject(FaviconService);
+      favicon.digit.set(0);
+      vi.spyOn(favicon, 'showDigit').mockResolvedValue();
+      fixture.detectChanges();
+      component.onButtonClick(component.buttons[0]);
+      expect(component.buttons[0].value).toBe(0);
+
+      component.isAnimatingScore = false;
+      component.onButtonClick(component.buttons[0]);
+      fixture.detectChanges();
+      expect(component.isCrashing).toBe(true);
+      expect(fixture.nativeElement.querySelector('.crash-screen')).toBeTruthy();
+
+      vi.advanceTimersByTime(3000);
+      expect(TestBed.inject(AchievementService).unlockedAchievements().has('secret_zero')).toBe(true);
+      expect(favicon.showDigit).toHaveBeenCalledWith(expect.any(Number));
+      expect([component.isCrashing, component.buttons[0].value, component.levelClicks]).toEqual([false, 9, 0]);
     });
   });
 

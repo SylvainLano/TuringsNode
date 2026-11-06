@@ -1,14 +1,16 @@
-import { Component, ElementRef, OnDestroy, OnInit, effect, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, effect, untracked, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { AchievementService } from '../core/services/achievement';
+import { FaviconService } from '../core/services/favicon';
 import {
   ButtonState,
   DEFAULT_MIN_SCORE,
   Level,
+  MAX_BUTTON_VALUE,
   Medal,
   ScoreBounds,
   createBoard,
@@ -52,7 +54,8 @@ interface BoardSnapshot {
   ],
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss', './game-board-tribute.scss', './game-board-limits.scss'],
+  styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss', './game-board-tribute.scss', './game-board-limits.scss',
+    './game-board-crash.scss'],
   host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
@@ -94,11 +97,18 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public showHelp = false;
   private isHelpDismissed = false;
 
+  // Division par zéro : quand le favicon affiche 0, Split peut passer de 9 à 0 dans le monde qui cache ce secret.
+  // Un clic dessus fait « planter » le jeu, débloque le secret, puis redémarre le niveau.
+  public isCrashing = false;
+  private crashTimer: ReturnType<typeof setTimeout> | undefined;
+  private readonly CRASH_DURATION_MS = 3000;
+
   constructor(
     private backgroundService: BackgroundService,
     public levelService: LevelService,
     private route: ActivatedRoute,
     private achievementService: AchievementService,
+    private faviconService: FaviconService,
     private host: ElementRef<HTMLElement>
   ) {
     effect(() => {
@@ -143,7 +153,13 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this.victoryTimer);
+    clearTimeout(this.crashTimer);
     this.boardAnimation?.cancel();
+  }
+
+  // Pendant l'animation du score, la victoire ou le plantage, les boutons ne répondent plus
+  public get isBusy(): boolean {
+    return this.isAnimatingScore || this.isExploding || this.isCrashing;
   }
 
   private setupLevel(levelData: Level): void {
@@ -154,8 +170,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
     // Réinitialisation des états du jeu
     this.stopVictorySequence();
+    clearTimeout(this.crashTimer);
+    this.isCrashing = false;
     const board = createBoard(levelData);
     this.specialBackground = null;
+    // Hors suivi : l'effet qui appelle setupLevel ne doit pas se relancer à chaque changement de fond
+    untracked(() => this.backgroundService.changeBackground(this.levelBackground()));
     this.levelName = levelData.name;
     this.targetScore = levelData.targetScore ?? null;
     this.bounds = getScoreBounds(levelData);
@@ -178,17 +198,22 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.updateAllButtons();
   }
 
+  // Le niveau suivant met en place son propre fond (voir setupLevel)
   public goToNextLevel(): void {
     this.levelService.advanceToNextLevel();
-    this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
   }
 
   public retryLevel(): void {
     const levelData = this.levelService.currentLevelData();
     if (levelData) {
       this.setupLevel(levelData);
-      this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
     }
+  }
+
+  // Fond d'ambiance du niveau s'il en a un (abysses des niveaux secrets, réseau de neurones des pionniers de l'IA),
+  // sinon celui du moment de la journée
+  private levelBackground(): string {
+    return this.levelService.currentLevelData()?.background ?? this.backgroundService.getDefaultThemeName();
   }
 
   /**
@@ -196,8 +221,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
-    if (this.isAnimatingScore || this.isExploding || button.isDisabled || this.gameState !== 'playing') return;
+    if (this.isBusy || button.isDisabled || this.gameState !== 'playing') return;
     this.stopVictorySequence();
+    if (button.name === 'Split' && button.value === 0) {
+      this.divideByZero();
+      return;
+    }
 
     this.history.push({
       score: this.score,
@@ -207,7 +236,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     });
 
     // Le moteur calcule le nouveau score ainsi que les nouvelles valeurs et compteurs des boutons
-    const board = pressButton({ score: this.score, buttons: this.buttons }, this.buttons.indexOf(button), this.bounds);
+    const index = this.buttons.indexOf(button);
+    const board = pressButton({ score: this.score, buttons: this.buttons }, index, this.bounds);
+    // Favicon à 0 : dans le monde de la division par zéro, Split passe de 9 à 0 au lieu de revenir à 1
+    if (button.name === 'Split' && button.value === MAX_BUTTON_VALUE && this.zeroSecret()) {
+      board.buttons[index].value = 0;
+    }
     board.buttons.forEach((state, i) => Object.assign(this.buttons[i], state));
     this.levelClicks++;
 
@@ -221,7 +255,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   }
 
   public get canUndo(): boolean {
-    return this.history.length > 0 && !this.isAnimatingScore && !this.isExploding && this.gameState === 'playing';
+    return this.history.length > 0 && !this.isBusy && this.gameState === 'playing';
   }
 
   /**
@@ -372,6 +406,36 @@ private checkSecretScore(): void {
     .forEach(secretLevel => this.achievementService.unlock(secretAchievementId(secretLevel)));
 }
 
+// Tous les boutons limités en nombre de clics n'en ont plus : « vous avez tout grillé »
+private allLimitedButtonsUsedUp(): boolean {
+  const limited = this.buttons.filter(button => button.clicksLeft !== null);
+  return limited.length > 0 && limited.every(button => button.clicksLeft === 0);
+}
+
+// Le niveau secret de la division par zéro du monde en cours, tant qu'il reste à trouver et que le favicon affiche 0
+private zeroSecret(): Level | undefined {
+  const level = this.levelService.currentLevelData();
+  if (!level || level.secret || this.faviconService.digit() !== 0) return undefined;
+  return this.levelService.secretLevelsOf(level.world).find(secretLevel =>
+    secretLevel.secret?.divisionByZero && !this.achievementService.unlockedAchievements().has(secretAchievementId(secretLevel)));
+}
+
+/**
+ * Split à 0 : le jeu tente de diviser par zéro et « plante » (fond qui bugue, message d'erreur, plateau qui tremble),
+ * puis débloque le niveau secret et redémarre le niveau. Le zéro a servi : l'onglet affiche un autre chiffre.
+ */
+private divideByZero(): void {
+  const secretLevel = this.zeroSecret();
+  this.isCrashing = true;
+  this.backgroundService.changeBackground('cyberpunk');
+  this.shakeBoard(RUMBLE_QUAKE, this.CRASH_DURATION_MS);
+  this.crashTimer = setTimeout(() => {
+    if (secretLevel) this.achievementService.unlock(secretAchievementId(secretLevel));
+    this.faviconService.showDigit(1 + Math.floor(Math.random() * MAX_BUTTON_VALUE));
+    this.retryLevel();
+  }, this.CRASH_DURATION_MS);
+}
+
 private startVictorySequence(): void {
   this.stopVictorySequence();
   this.isRumbling = true;
@@ -431,7 +495,7 @@ private checkBackgroundConditions(): void {
     const timeReached = timeElapsed >= this.SPECIAL_BG_TIME_LIMIT_MS;
 
     if (clicksReached || timeReached) {
-      this.backgroundService.changeBackground(this.backgroundService.getDefaultThemeName());
+      this.backgroundService.changeBackground(this.levelBackground());
       this.specialBackground = null;
       return; // Le thème a expiré, on arrête.
     }
@@ -445,6 +509,8 @@ private checkBackgroundConditions(): void {
     targetTheme = 'aurea';
   } else if (String(this.score).includes('777')) {
     targetTheme = 'casino';
+  } else if (this.allLimitedButtonsUsedUp()) {
+    targetTheme = 'burnt';
   } else if (this.buttons.every(btn => btn.colorClass === 'is-red')) {
     targetTheme = 'angry';
   } else if (/^[01]{8}$/.test(String(this.score))) {

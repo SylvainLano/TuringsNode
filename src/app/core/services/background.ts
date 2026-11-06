@@ -45,9 +45,14 @@ export class BackgroundService {
     }
   }
 
-  public getDefaultThemeName(): 'day' | 'night' {
+  public getDefaultThemeName(): 'day' | 'night' | 'fireflies' {
     const now = new Date();
     const currentHour = now.getHours();
+
+    // Pour les insomniaques : des lucioles entre minuit et 4 heures du matin
+    if (currentHour < 4) {
+      return 'fireflies';
+    }
 
     // Calcule le jour de l'année (de 1 à 365)
     const startOfYear = new Date(now.getFullYear(), 0, 0);

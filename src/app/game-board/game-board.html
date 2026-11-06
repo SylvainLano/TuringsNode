@@ -34,8 +34,8 @@
             [ngClass]="button.colorClass"
             [class.is-new]="isNewButton(button)"
             (click)="onButtonClick(button)"
-            [class.is-disabled]="isAnimatingScore || isExploding || button.isDisabled"
-            [disabled]="isAnimatingScore || isExploding || button.isDisabled"
+            [class.is-disabled]="isBusy || button.isDisabled"
+            [disabled]="isBusy || button.isDisabled"
             [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)
               + (button.clicksLeft === null ? '' : ', ' + ('gameboard.clicksLeft' | translate:{ count: button.clicksLeft }))
               + (button.streakLeft === null ? '' : ', ' + ('gameboard.streakLeft' | translate:{ count: button.streakLeft }))">
@@ -57,6 +57,14 @@
       <div class="victory-flash" aria-hidden="true"></div>
     }
 
+    <!-- Division par zéro : le jeu « plante » avant de redémarrer le niveau -->
+    @if (isCrashing) {
+      <div class="crash-screen" role="alert">
+        <p class="crash-error" [attr.data-text]="'gameboard.divisionByZero' | translate">{{ 'gameboard.divisionByZero' | translate }}</p>
+        <p class="crash-reboot">{{ 'gameboard.rebooting' | translate }}</p>
+      </div>
+    }
+
     <div class="play-controls">
       <span class="click-counter">{{ 'gameboard.clicksShort' | translate }} : <strong>{{ levelClicks }}</strong></span>
       <button class="control-button help-button" (click)="toggleHelp()" [class.is-active]="showHelp"
@@ -64,7 +72,7 @@
       <button class="control-button" (click)="undo()" [disabled]="!canUndo" title="Ctrl+Z">
         ↶ {{ 'gameboard.undoButton' | translate }}
       </button>
-      <button class="control-button" (click)="retryLevel()" [disabled]="isAnimatingScore || isExploding || levelClicks === 0">
+      <button class="control-button" (click)="retryLevel()" [disabled]="isBusy || levelClicks === 0">
         ⟲ {{ 'gameboard.restartButton' | translate }}
       </button>
     </div>

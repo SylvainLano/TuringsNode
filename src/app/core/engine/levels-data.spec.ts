@@ -71,14 +71,21 @@ describe('levels.json secret levels', () => {
 
   it('gives each secret level of a world its own secret score', () => {
     groupByWorld(CAMPAIGN).forEach(world => {
-      const scores = SECRETS.filter(level => level.world === world.number).map(level => level.secret?.unlockScore);
+      const scores = SECRETS.filter(level => level.world === world.number && level.secret?.unlockScore !== undefined)
+        .map(level => level.secret?.unlockScore);
       expect(new Set(scores).size, `monde ${world.number}`).toBe(scores.length);
     });
   });
 
-  it('gives every secret level a score to unlock it, a target and an achievement in French and in English', () => {
+  it('hides each secret level in the abyss', () => {
+    SECRETS.forEach(level => expect(level.background, level.name).toBe('abyss'));
+  });
+
+  it('gives every secret level one way to unlock it, a target and an achievement in French and in English', () => {
     SECRETS.forEach(level => {
-      expect(Number.isInteger(level.secret?.unlockScore) && Number.isInteger(level.targetScore), level.name).toBe(true);
+      // Un score secret, ou bien la division par zéro
+      expect(Number.isInteger(level.secret?.unlockScore) !== !!level.secret?.divisionByZero, level.name).toBe(true);
+      expect(Number.isInteger(level.targetScore), level.name).toBe(true);
       [fr.achievements, en.achievements].forEach(achievements =>
         expect(achievementTitle(achievements, secretAchievementId(level)), level.name).toBeTruthy());
     });

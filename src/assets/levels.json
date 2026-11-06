@@ -440,7 +440,8 @@
       { "name": "Factor", "initialValue": 8 },
       { "name": "Digit", "initialValue": 5 },
       { "name": "Mirror", "initialValue": 6 }
-    ]
+    ],
+    "background": "neural"
   },
   {
     "levelNumber": 28,
@@ -475,7 +476,8 @@
       { "name": "Factor", "initialValue": 1 },
       { "name": "Align", "initialValue": 5 },
       { "name": "Plus", "initialValue": 1 }
-    ]
+    ],
+    "background": "neural"
   },
   {
     "levelNumber": 30,
@@ -511,7 +513,8 @@
       { "name": "Factor", "initialValue": 1 },
       { "name": "Split", "initialValue": 5 },
       { "name": "Align", "initialValue": 8 }
-    ]
+    ],
+    "background": "neural"
   },
   {
     "levelNumber": 32,
@@ -1113,7 +1116,8 @@
       { "name": "Primer", "initialValue": 9 },
       { "name": "Split", "initialValue": 3, "totalClickLimit": 2 },
       { "name": "Boost", "initialValue": 9, "consecutiveClickLimit": 2 }
-    ]
+    ],
+    "background": "neural"
   },
   {
     "levelNumber": 68,
@@ -1146,7 +1150,8 @@
       { "name": "Split", "initialValue": 7 },
       { "name": "Boost", "initialValue": 1, "totalClickLimit": 2 },
       { "name": "Double", "initialValue": 3 }
-    ]
+    ],
+    "background": "neural"
   },
   {
     "levelNumber": 70,
@@ -1413,7 +1418,8 @@
     "buttons": [
       { "name": "Plus", "initialValue": 5 },
       { "name": "Double", "initialValue": 6, "consecutiveClickLimit": 1 }
-    ]
+    ],
+    "background": "neural"
   },
   {
     "levelNumber": 86,
@@ -1449,7 +1455,8 @@
       { "name": "Minus", "initialValue": 9 }
     ],
     "targetScore": 404,
-    "secret": { "unlockScore": 13 }
+    "secret": { "unlockScore": 13 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1002,
@@ -1468,7 +1475,8 @@
       { "name": "Mirror", "initialValue": 6 }
     ],
     "targetScore": 230,
-    "secret": { "unlockScore": 110 }
+    "secret": { "unlockScore": 110 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1003,
@@ -1486,7 +1494,8 @@
       { "name": "Minus", "initialValue": 5 }
     ],
     "targetScore": 64000,
-    "secret": { "unlockScore": 145 }
+    "secret": { "unlockScore": 145 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1004,
@@ -1505,7 +1514,27 @@
       { "name": "Split", "initialValue": 2 }
     ],
     "targetScore": 200000,
-    "secret": { "unlockScore": 200 }
+    "secret": { "unlockScore": 200 },
+    "background": "abyss"
+  },
+  {
+    "levelNumber": 1014,
+    "world": 4,
+    "name": "brahmagupta",
+    "startScore": 9999,
+    "minScore": 0,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Split", "initialValue": 8 },
+      { "name": "Minus", "initialValue": 4 }
+    ],
+    "targetScore": 0,
+    "secret": { "divisionByZero": true },
+    "background": "abyss"
   },
   {
     "levelNumber": 1005,
@@ -1523,7 +1552,8 @@
       { "name": "Plus", "initialValue": 6 }
     ],
     "targetScore": 8191,
-    "secret": { "unlockScore": 127 }
+    "secret": { "unlockScore": 127 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1006,
@@ -1542,7 +1572,8 @@
       { "name": "Half", "initialValue": 9 }
     ],
     "targetScore": 687,
-    "secret": { "unlockScore": 480 }
+    "secret": { "unlockScore": 480 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1007,
@@ -1561,7 +1592,8 @@
       { "name": "Digit", "initialValue": 5 }
     ],
     "targetScore": 384400,
-    "secret": { "unlockScore": 1202 }
+    "secret": { "unlockScore": 1202 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1017,
@@ -1580,7 +1612,8 @@
       { "name": "Half", "initialValue": 7 }
     ],
     "targetScore": 9232,
-    "secret": { "unlockScore": 27 }
+    "secret": { "unlockScore": 27 },
+    "background": "abyss"
   },
   {
     "levelNumber": 1027,
@@ -1599,6 +1632,7 @@
       { "name": "Split", "initialValue": 9 }
     ],
     "targetScore": 495,
-    "secret": { "unlockScore": 6174 }
+    "secret": { "unlockScore": 6174 },
+    "background": "abyss"
   }
 ]
