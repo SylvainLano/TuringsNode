@@ -709,7 +709,7 @@
     }
   },
   "menu": {
-    "title": "Turings Node",
+    "title": "Turing's Node",
     "playButton": "Start",
     "continueButton": "Continue",
     "levelSelectButton": "Level select",
