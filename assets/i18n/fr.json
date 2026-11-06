@@ -185,7 +185,39 @@
     },
     "secret_hamilton": {
       "title": "Alarme 1202",
-      "description": "Atteindre 1202 dans le monde 7, et découvrir son niveau secret."
+      "description": "Atteindre 1202 dans le monde 7, et découvrir un niveau secret."
+    },
+    "secret_murphy": {
+      "title": "Pas de chance",
+      "description": "Atteindre 13 dans le monde 1, et découvrir son niveau secret."
+    },
+    "secret_edison": {
+      "title": "Courant continu",
+      "description": "Atteindre 110 dans le monde 2, et découvrir son niveau secret."
+    },
+    "secret_richardson": {
+      "title": "Bulletin météo",
+      "description": "Atteindre 145 dans le monde 3, et découvrir son niveau secret."
+    },
+    "secret_goodyear": {
+      "title": "Sur le poêle",
+      "description": "Atteindre 200 dans le monde 4, et découvrir son niveau secret."
+    },
+    "secret_mersenne": {
+      "title": "Premier de la liste",
+      "description": "Atteindre 127 dans le monde 5, et découvrir son niveau secret."
+    },
+    "secret_kepler": {
+      "title": "Huit minutes d'arc",
+      "description": "Atteindre 480 dans le monde 6, et découvrir son niveau secret."
+    },
+    "secret_collatz": {
+      "title": "Trois fois plus un",
+      "description": "Atteindre 27 dans le monde 7, et découvrir un niveau secret."
+    },
+    "secret_kaprekar": {
+      "title": "Le nombre mystérieux",
+      "description": "Atteindre 6174 dans le monde 7, et découvrir un niveau secret."
     }
   },
   "levels": {
@@ -623,6 +655,46 @@
       "name": "Hamilton",
       "story": "Elle dirige l'équipe du MIT qui écrit le logiciel de bord des missions Apollo, et popularise l'expression « génie logiciel », qui fait d'abord sourire ses collègues. Le 20 juillet 1969, quelques minutes avant l'alunissage, l'ordinateur d'Apollo 11 déclenche l'alarme 1202 : il est surchargé. Le logiciel de son équipe abandonne les tâches secondaires, garde l'essentiel, et le module lunaire se pose. Sur une photo célèbre, elle pose à côté des listings de ce code, empilés aussi haut qu'elle.",
       "jab": "Son équipe a sauvé l'alunissage en sacrifiant les tâches secondaires. La machine, à leur place, aurait commencé par vous."
+    },
+    "murphy": {
+      "name": "Murphy",
+      "story": "Ingénieur de l'armée de l'air américaine. En 1949, lors d'essais sur un traîneau-fusée, des capteurs sont montés à l'envers. Murphy peste, dit-on, contre l'auteur de l'erreur : s'il existe une façon de se tromper, il la trouvera. Reformulée, la phrase devient la loi de Murphy : tout ce qui peut mal tourner tournera mal. L'histoire n'a pas retenu le nom du technicien.",
+      "jab": "Lui a donné son nom à toutes les erreurs du monde. Vous, vous vous contentez de les commettre."
+    },
+    "edison": {
+      "name": "Edison",
+      "story": "Il dépose plus de mille brevets. Mais pour défendre son courant continu contre le courant alternatif de Westinghouse et de Tesla, son camp électrocute des animaux en public, pour prouver que l'alternatif tue. Il perd la bataille : vos prises sont en courant alternatif.",
+      "jab": "Il a eu tort sur le courant, avec plus de mille brevets en poche. Vous avez tort sans en avoir déposé un seul."
+    },
+    "richardson": {
+      "name": "Richardson",
+      "story": "Ambulancier sur le front pendant la Première Guerre mondiale, il calcule à la main la première prévision météo tirée des équations : six semaines de calcul pour six heures de météo. Il annonce une hausse de pression de 145 hectopascals, absurde. Il rêvait d'une salle où 64 000 calculateurs humains prévoiraient le temps en direct. Les ordinateurs ont fini par le faire, avec sa méthode.",
+      "jab": "Son calcul était faux, mais il a inventé la météo moderne. Les vôtres sont faux aussi, sans rien inventer."
+    },
+    "goodyear": {
+      "name": "Goodyear",
+      "story": "Obsédé par le caoutchouc, qui fondait l'été et cassait l'hiver, il enchaîne les expériences et les séjours en prison pour dettes. En 1839, un mélange de caoutchouc et de soufre tombe sur un poêle brûlant : au lieu de fondre, il durcit. La vulcanisation est née. Il meurt en 1860 avec 200 000 dollars de dettes. Son nom est aujourd'hui sur des milliards de pneus, ceux d'une entreprise fondée après sa mort, sans aucun lien avec lui.",
+      "jab": "Même ruiné, il a laissé son nom sur les pneus du monde entier. Vous ne laisserez même pas une trace de pneu."
+    },
+    "mersenne": {
+      "name": "Mersenne",
+      "story": "Religieux et mathématicien, il sert de messagerie à toute la science de son temps : Descartes, Fermat et Pascal correspondent par lui. En 1644, il publie la liste des nombres 2ⁿ − 1 qui seraient premiers jusqu'à n = 257. Il s'y trompe cinq fois, et il faudra trois siècles pour vérifier toute sa liste. Les plus grands nombres premiers connus aujourd'hui portent encore son nom.",
+      "jab": "Il s'est trompé cinq fois, et il a fallu plus de deux siècles pour s'en apercevoir. Vos erreurs, elles, sautent aux yeux tout de suite."
+    },
+    "kepler": {
+      "name": "Kepler",
+      "story": "Pendant des années, il cherche l'orbite de Mars à partir des mesures de Brahe. Son meilleur modèle en cercles s'en écarte de 8 minutes d'arc, presque rien. Il refuse de l'ignorer, abandonne le cercle et découvre que les planètes suivent des ellipses. Il a aussi défendu sa mère, accusée de sorcellerie, et écrit l'un des premiers récits de science-fiction, un voyage vers la Lune.",
+      "jab": "Huit minutes d'erreur lui ont suffi pour réécrire le ciel. Vous, huit heures d'erreurs ne vous feraient pas changer d'avis."
+    },
+    "collatz": {
+      "name": "Collatz",
+      "story": "En 1937, il pose un problème qu'un enfant comprend : prenez un nombre, divisez-le par deux s'il est pair, sinon multipliez-le par trois et ajoutez un, puis recommencez. On finit toujours par tomber sur 1. Partant de 27, la suite grimpe jusqu'à 9 232 avant de redescendre. Personne n'a jamais su prouver que ça marche à tous les coups. Paul Erdős a jugé que les mathématiques n'étaient pas encore prêtes pour ce genre de problème.",
+      "jab": "Son problème tient en une ligne et résiste depuis près de quatre-vingt-dix ans. Vous aussi, vous tenez en une ligne, mais vous ne résistez à rien."
+    },
+    "kaprekar": {
+      "name": "Kaprekar",
+      "story": "Instituteur dans une petite ville indienne, il passe sa vie à jouer avec les nombres, sans que les mathématiciens de son pays le prennent au sérieux. Prenez quatre chiffres pas tous identiques, rangez-les du plus grand au plus petit, puis du plus petit au plus grand, et soustrayez en gardant les zéros ; recommencez avec le résultat : en sept étapes au plus, vous tombez sur 6 174. Il a fallu qu'un chroniqueur américain en parle pour que le monde le découvre.",
+      "jab": "Ses nombres finissent tous par tomber sur 6 174. Vous, vous finissez toujours par tomber à côté."
     }
   },
   "menu": {
