@@ -33,10 +33,12 @@ export class LevelSelectComponent implements OnInit {
   // ou chacune dès que son score secret est trouvé
   public readonly secretLevels = computed(() => {
     const world = this.shownWorld();
-    if (!world) return [];
-    const complete = isWorldComplete(world, this.bestMedals());
-    return this.levelService.secretLevelsOf(world.number).filter(level => complete || this.isSecretUnlocked(level));
+    return world ? this.visibleSecretsOf(world) : [];
   });
+
+  // Des tuiles secrètes dans au moins un monde : le panneau s'élargit pour leur faire de la place,
+  // et garde cette largeur d'un monde à l'autre
+  public readonly hasSecrets = computed(() => this.visibleWorlds().some(world => this.visibleSecretsOf(world).length > 0));
 
   private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };
 
@@ -74,6 +76,11 @@ export class LevelSelectComponent implements OnInit {
 
   public medalIcon(levelNumber: number): string {
     return this.MEDAL_ICONS[this.bestMedals()[levelNumber]] ?? '';
+  }
+
+  private visibleSecretsOf(world: World): Level[] {
+    const complete = isWorldComplete(world, this.bestMedals());
+    return this.levelService.secretLevelsOf(world.number).filter(level => complete || this.isSecretUnlocked(level));
   }
 
   public isSecretUnlocked(level: Level): boolean {

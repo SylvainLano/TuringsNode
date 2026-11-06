@@ -9,6 +9,7 @@ Turing's Node is a mathematical puzzle game. Every button changes the score in i
 - **The score**, at the top, is not a target. It only decides the color of each button.
 - **Each button** has a name and a value from 1 to 9. A click changes the score according to the button and its current value, then moves the value on to the next one (after 9 comes 1).
 - **A button turns green** when the score meets its condition, and red when it does not. A ✓ or ✕ symbol repeats the color, so the game can be played without telling red from green.
+- **Some buttons run out** in later worlds. Dots in their corner count the clicks they have left (● left, ○ used), squares the clicks allowed in a row (■ left, □ used), which come back as soon as you click another button.
 - **Turn every button green** to complete the level. The fewer clicks you need, the better the medal: Bronze, Silver, Gold, and Platinum for the shortest solution.
 
 Made a wrong move? Undo it or restart the level from the controls in the bottom right corner.
@@ -26,13 +27,13 @@ Each level pays tribute to someone who made history, one way or another: famous 
 
 ## Secrets
 
-Some scores hide more than a green button: rare colors, special backgrounds and plenty of achievements are waiting to be found. No spoilers here.
+Not everything is on the map: hidden levels, rare colors, special backgrounds and plenty of achievements are waiting to be found. No spoilers here.
 
 ## Features
 
 - French and English, picked from the browser language and changeable in the settings
 - Progress, medals and achievements saved in the browser
-- Phone and desktop layouts
+- Phone and desktop layouts, and a home screen icon when added to a phone
 - Day and night backgrounds that follow the time of day
 
 ## Development

@@ -1,4 +1,4 @@
-<div class="level-select-container">
+<div class="level-select-container" [class.has-secrets]="hasSecrets()">
   <h1 class="title">{{ 'levelSelect.title' | translate }}</h1>
 
   @if (shownWorld(); as world) {

@@ -117,4 +117,24 @@ describe('LevelSelectComponent', () => {
     localStorage.removeItem('turings_node_best_medals_v2');
     localStorage.removeItem('turings_node_achievements');
   });
+
+  it('widens the panel in every world once one world shows secret tiles', () => {
+    const base = { minScore: 10, maxScore: null, startScore: 20, minSteps: 1, goldSteps: 2, silverSteps: 3, bronzeSteps: 4, buttons: [] };
+    const levelService = TestBed.inject(LevelService);
+    levelService.levels.set([{ ...base, levelNumber: 1, world: 1, name: 'first' }, { ...base, levelNumber: 2, world: 2, name: 'second' }]);
+    levelService.secretLevels.set([{ ...base, levelNumber: 1001, world: 1, name: 'hidden', targetScore: 100, secret: { unlockScore: 50 } }]);
+    fixture.detectChanges();
+
+    const panel = () => (fixture.nativeElement as HTMLElement).querySelector('.level-select-container')!;
+    expect(panel().classList.contains('has-secrets')).toBe(false);
+
+    // Monde 1 terminé : sa tuile secrète apparaît, et le panneau reste large dans le monde 2
+    levelService.saveLevelResult(1, 'Or');
+    component.showWorld(1);
+    fixture.detectChanges();
+    expect(component.secretLevels()).toEqual([]);
+    expect(panel().classList.contains('has-secrets')).toBe(true);
+
+    localStorage.removeItem('turings_node_best_medals_v2');
+  });
 });
