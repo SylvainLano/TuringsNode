@@ -58,6 +58,13 @@ describe('Engine board', () => {
     expect(isLevelComplete(pressButton(start, 0, getScoreBounds(level)))).toBe(true);
   });
 
+  it('isLevelComplete only checks the score when the level has a target', () => {
+    const level = makeLevel(11, [{ name: 'Digit', initialValue: 2 }], 10);
+    const start = createBoard(level); // Digit 2 est déjà vert sur 11
+    expect(isLevelComplete(start, 22)).toBe(false);
+    expect(isLevelComplete(pressButton(start, 0, getScoreBounds(level)), 22)).toBe(true); // 11 × 2
+  });
+
   it('isButtonDisabled respects total and consecutive click limits', () => {
     const button = createBoard(LEVEL).buttons[0];
     expect(isButtonDisabled({ ...button, totalClickCount: 5 })).toBe(false);

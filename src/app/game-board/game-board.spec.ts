@@ -234,6 +234,40 @@ describe('GameBoardComponent', () => {
     expect(component.isAllPlatinum()).toBe(true);
   });
 
+  describe('with a secret level in the world', () => {
+    // Digit 1 laisse le score à 11 : c'est le score secret, et l'objectif du niveau secret
+    const SECRET: Level = { ...LEVEL, levelNumber: 1001, name: 'secret', targetScore: 11, secret: { unlockScore: 11 },
+      buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 3 }] };
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      levelService.levels.set([{ ...LEVEL, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 3 }] }]);
+      levelService.secretLevels.set([SECRET]);
+    });
+
+    it('unlocks the secret level when its score appears in a level of its world', () => {
+      fixture.detectChanges();
+      component.onButtonClick(component.buttons[0]);
+      expect(TestBed.inject(AchievementService).unlockedAchievements().has('secret_secret')).toBe(true);
+    });
+
+    it('wins a level with a target by reaching that exact score, even with red buttons', () => {
+      levelService.currentLevelNumber.set(1001);
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.target-score')?.textContent).toBe('gameboard.target');
+
+      component.onButtonClick(component.buttons[0]); // Split 3 reste rouge sur 11
+      expect(component.buttons[1].colorClass).toBe('is-red');
+      vi.advanceTimersByTime(3000);
+      fixture.detectChanges();
+
+      expect(component.gameState).toBe('level_complete');
+      expect(fixture.nativeElement.querySelector('h2')?.textContent).toContain('gameboard.secretCompleteTitle');
+      expect(fixture.nativeElement.querySelector('.campaign-summary')).toBeNull();
+      expect(levelService.bestMedals()[1001]).toBe('Platine');
+    });
+  });
+
   it('marks the buttons the player discovers in this level', () => {
     levelService.levels.set([LEVEL, { ...LEVEL, levelNumber: 2, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 1 }] }]);
     levelService.currentLevelNumber.set(2);

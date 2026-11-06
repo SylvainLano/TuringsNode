@@ -21,7 +21,17 @@ export interface Level {
   silverSteps: number;
   bronzeSteps: number;
   buttons: LevelButtonConfig[];
+  // Objectif à atteindre exactement, à la place de « tous les boutons au vert »
+  targetScore?: number;
+  // Niveau secret de son monde : il se débloque quand ce score apparaît dans l'un des niveaux du monde
+  secret?: { unlockScore: number };
 }
+
+// Numéro (et clé de sauvegarde) du niveau secret d'un monde : hors de la numérotation de la campagne
+export const SECRET_LEVEL_OFFSET = 1000;
+export const secretLevelNumber = (world: number) => SECRET_LEVEL_OFFSET + world;
+// Le succès gagné en trouvant le score secret est aussi ce qui débloque le niveau
+export const secretAchievementId = (level: Level) => `secret_${level.name}`;
 
 export interface ScoreBounds {
   min: number;

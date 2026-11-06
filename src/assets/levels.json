@@ -1432,5 +1432,24 @@
       { "name": "Boost", "initialValue": 3 },
       { "name": "Fiber", "initialValue": 2 }
     ]
+  },
+  {
+    "levelNumber": 1007,
+    "world": 7,
+    "name": "hamilton",
+    "startScore": 1202,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Double", "initialValue": 1, "consecutiveClickLimit": 2 },
+      { "name": "Minus", "initialValue": 6 },
+      { "name": "Digit", "initialValue": 5 }
+    ],
+    "targetScore": 384400,
+    "secret": { "unlockScore": 1202 }
   }
 ]

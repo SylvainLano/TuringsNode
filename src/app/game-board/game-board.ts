@@ -21,7 +21,8 @@ import {
   isWorldComplete,
   pressButton,
   remainingClicks,
-  remainingStreakClicks
+  remainingStreakClicks,
+  secretAchievementId
 } from '../core/engine';
 import { EXPLOSION_QUAKE, QuakeOptions, RUMBLE_QUAKE, quakeKeyframes } from './victory-quake';
 
@@ -84,6 +85,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   // Personne à qui le niveau rend hommage : son nom pendant la partie, son histoire et la pique de la machine à la fin
   public levelName = '';
+  // Objectif d'un niveau secret : le score à atteindre exactement, à la place des boutons tous verts
+  public targetScore: number | null = null;
   // Les piques qui citent le nombre de clics l'écrivent en toutes lettres jusqu'à douze
   private readonly MAX_CLICKS_IN_WORDS = 12;
 
@@ -154,6 +157,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     const board = createBoard(levelData);
     this.specialBackground = null;
     this.levelName = levelData.name;
+    this.targetScore = levelData.targetScore ?? null;
     this.bounds = getScoreBounds(levelData);
     this.score = board.score;
     this.displayedScore = board.score;
@@ -212,6 +216,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       this.updateAllButtons();
       this.checkGameState();
       this.checkBackgroundConditions();
+      this.checkSecretScore();
     });
   }
 
@@ -350,8 +355,20 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 private checkGameState(): void {
   if (this.gameState !== 'playing') return;
 
-  if (this.buttons.every(btn => btn.isConditionMet)) {
+  const won = this.targetScore !== null ? this.score === this.targetScore : this.buttons.every(btn => btn.isConditionMet);
+  if (won) {
     this.startVictorySequence();
+  }
+}
+
+/**
+ * Le score secret d'un monde, atteint dans l'un de ses niveaux, débloque son niveau secret (avec un succès).
+ */
+private checkSecretScore(): void {
+  const level = this.levelService.currentLevelData();
+  const secretLevel = level && !level.secret ? this.levelService.secretLevelOf(level.world) : undefined;
+  if (secretLevel && this.score === secretLevel.secret?.unlockScore) {
+    this.achievementService.unlock(secretAchievementId(secretLevel));
   }
 }
 

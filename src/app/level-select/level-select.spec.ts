@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { LevelSelectComponent } from './level-select';
 import { LevelService } from '../core/services/level';
+import { AchievementService } from '../core/services/achievement';
 
 describe('LevelSelectComponent', () => {
   let component: LevelSelectComponent;
@@ -72,5 +73,34 @@ describe('LevelSelectComponent', () => {
     expect(element.querySelector('.level-name')).toBeNull();
     expect(element.querySelector('.world-progress')?.textContent?.trim()).toBe('0 / 1');
     localStorage.removeItem('turings_node_best_medals_v2');
+  });
+
+  it('shows the secret tile once the world is complete, and opens it once its score is found', () => {
+    const base = { world: 1, minScore: 10, maxScore: null, startScore: 20, minSteps: 1, goldSteps: 2, silverSteps: 3, bronzeSteps: 4, buttons: [] };
+    const levelService = TestBed.inject(LevelService);
+    vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    levelService.levels.set([{ ...base, levelNumber: 1, name: 'first' }]);
+    levelService.secretLevels.set([{ ...base, levelNumber: 1001, name: 'hidden', targetScore: 100, secret: { unlockScore: 50 } }]);
+    fixture.detectChanges();
+
+    const element: HTMLElement = fixture.nativeElement;
+    const tile = () => element.querySelector('.secret-button');
+    expect(tile()).toBeNull();
+
+    levelService.saveLevelResult(1, 'Or');
+    fixture.detectChanges();
+    expect(tile()?.textContent).toContain('?');
+    expect(tile()?.classList.contains('is-locked')).toBe(true);
+    component.selectSecretLevel(component.secretLevel()!);
+    expect(levelService.currentLevelNumber()).toBe(1);
+
+    TestBed.inject(AchievementService).unlock('secret_hidden');
+    fixture.detectChanges();
+    expect(tile()?.classList.contains('is-waiting')).toBe(true);
+    component.selectSecretLevel(component.secretLevel()!);
+    expect(levelService.currentLevelNumber()).toBe(1001);
+
+    localStorage.removeItem('turings_node_best_medals_v2');
+    localStorage.removeItem('turings_node_achievements');
   });
 });

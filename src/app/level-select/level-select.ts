@@ -4,7 +4,8 @@ import { Router, RouterLink } from '@angular/router'; // <-- Importer Router et 
 import { LevelService } from '../core/services/level';
 import { BackgroundService } from '../core/services/background';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
-import { World } from '../core/engine';
+import { AchievementService } from '../core/services/achievement';
+import { Level, World, isWorldComplete, secretAchievementId } from '../core/engine';
 
 @Component({
   selector: 'app-level-select',
@@ -12,7 +13,7 @@ import { World } from '../core/engine';
   imports: [RouterLink, TranslatePipe],
   templateUrl: './level-select.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./level-select.scss', './world-pager.scss']
+  styleUrls: ['./level-select.scss', './world-pager.scss', './secret-slot.scss']
 })
 export class LevelSelectComponent implements OnInit {
   public introducedButtons;
@@ -28,9 +29,19 @@ export class LevelSelectComponent implements OnInit {
     return worlds.find(world => world.number === wanted) ?? worlds[worlds.length - 1];
   });
 
+  // Niveau secret du monde affiché : sa tuile « ? » apparaît une fois le monde terminé, ou dès que son score secret est trouvé
+  public readonly secretLevel = computed(() => {
+    const world = this.shownWorld();
+    const secret = world ? this.levelService.secretLevelOf(world.number) : undefined;
+    return secret && (isWorldComplete(world!, this.bestMedals()) || this.isSecretUnlocked(secret)) ? secret : null;
+  });
+
+  private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };
+
   constructor(
     private levelService: LevelService,
     private backgroundService: BackgroundService,
+    private achievementService: AchievementService,
     private router: Router
   ) {
     this.introducedButtons = this.levelService.introducedButtons;
@@ -57,6 +68,20 @@ export class LevelSelectComponent implements OnInit {
 
   public completedCount(world: World): number {
     return world.levels.filter(level => !!this.bestMedals()[level.levelNumber]).length;
+  }
+
+  public medalIcon(levelNumber: number): string {
+    return this.MEDAL_ICONS[this.bestMedals()[levelNumber]] ?? '';
+  }
+
+  public isSecretUnlocked(level: Level): boolean {
+    return this.achievementService.unlockedAchievements().has(secretAchievementId(level));
+  }
+
+  public selectSecretLevel(level: Level): void {
+    if (!this.isSecretUnlocked(level)) return;
+    this.levelService.currentLevelNumber.set(level.levelNumber);
+    this.router.navigate(['/game']);
   }
 
   /**

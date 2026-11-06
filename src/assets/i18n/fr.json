@@ -21,6 +21,8 @@
     "clicksInDigits": "{count} clics",
     "clicksLeft": "clics restants : {count}",
     "streakLeft": "clics d'affilée restants : {count}",
+    "target": "Objectif : {target}",
+    "secretCompleteTitle": "Niveau secret terminé !",
     "medalTitles": {
       "Platine": "Médaille de platine !",
       "Or": "Médaille d'or !",
@@ -180,6 +182,10 @@
     "world_7": {
       "title": "Monde 7 terminé",
       "description": "Terminer tous les niveaux du monde 7."
+    },
+    "secret_hamilton": {
+      "title": "Alarme 1202",
+      "description": "Atteindre 1202 dans le monde 7, et découvrir son niveau secret."
     }
   },
   "levels": {
@@ -612,6 +618,11 @@
       "name": "Turing",
       "story": "En 1936, à 23 ans, pour prouver que certains problèmes ne seront jamais résolus par le calcul, il imagine une machine capable de faire n'importe quel calcul : l'ordinateur, sur le papier. Pendant la guerre, à Bletchley Park, il aide à briser Enigma. En 1950, il pose la question qui hante ce jeu : les machines peuvent-elles penser ? Son visage est aujourd'hui sur les billets de 50 livres.",
       "jab": "Il se demandait si les machines pourraient penser. Après tous ces niveaux, la machine se pose la même question à votre sujet."
+    },
+    "hamilton": {
+      "name": "Hamilton",
+      "story": "Elle dirige l'équipe du MIT qui écrit le logiciel de bord des missions Apollo, et popularise l'expression « génie logiciel », qui fait d'abord sourire ses collègues. Le 20 juillet 1969, quelques minutes avant l'alunissage, l'ordinateur d'Apollo 11 déclenche l'alarme 1202 : il est surchargé. Le logiciel de son équipe abandonne les tâches secondaires, garde l'essentiel, et le module lunaire se pose. Sur une photo célèbre, elle pose à côté des listings de ce code, empilés aussi haut qu'elle.",
+      "jab": "Son équipe a sauvé l'alunissage en sacrifiant les tâches secondaires. La machine, à leur place, aurait commencé par vous."
     }
   },
   "menu": {
@@ -628,7 +639,8 @@
     "backButton": "Retour",
     "world": "Monde {number}",
     "previousWorld": "Monde précédent",
-    "nextWorld": "Monde suivant"
+    "nextWorld": "Monde suivant",
+    "secretLevel": "Niveau secret"
   },
   "settings": {
     "title": "Réglages",

@@ -21,6 +21,8 @@
     "clicksInDigits": "{count} clicks",
     "clicksLeft": "clicks left: {count}",
     "streakLeft": "clicks in a row left: {count}",
+    "target": "Target: {target}",
+    "secretCompleteTitle": "Secret level complete!",
     "medalTitles": {
       "Platine": "Platinum medal!",
       "Or": "Gold medal!",
@@ -180,6 +182,10 @@
     "world_7": {
       "title": "World 7 complete",
       "description": "Complete every level of world 7."
+    },
+    "secret_hamilton": {
+      "title": "Alarm 1202",
+      "description": "Reach 1202 in world 7, and discover its secret level."
     }
   },
   "levels": {
@@ -612,6 +618,11 @@
       "name": "Turing",
       "story": "In 1936, at 23, to prove that some problems can never be solved by computation, he imagined a machine able to carry out any computation: the computer, on paper. During the war, at Bletchley Park, he helped break Enigma. In 1950, he asked the question that haunts this game: can machines think? His face is now on the £50 note.",
       "jab": "He wondered whether machines could think. After all these levels, the machine is asking the same question about you."
+    },
+    "hamilton": {
+      "name": "Hamilton",
+      "story": "She led the MIT team that wrote the on-board software for the Apollo missions, and popularised the term “software engineering”, which at first made her colleagues smile. On July 20, 1969, a few minutes before the landing, Apollo 11’s computer raised alarm 1202: it was overloaded. Her team’s software dropped the secondary tasks, kept the essentials, and the lunar module touched down. In a famous photo, she stands next to the listings of that code, stacked as high as she is.",
+      "jab": "Her team saved the Moon landing by sacrificing secondary tasks. In their place, the machine would have started with you."
     }
   },
   "menu": {
@@ -628,7 +639,8 @@
     "backButton": "Back",
     "world": "World {number}",
     "previousWorld": "Previous world",
-    "nextWorld": "Next world"
+    "nextWorld": "Next world",
+    "secretLevel": "Secret level"
   },
   "settings": {
     "title": "Settings",

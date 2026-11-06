@@ -20,6 +20,9 @@
       @if (levelName) {
         <p class="level-name" [style.color]="getScoreColor()">{{ 'levels.' + levelName + '.name' | translate }}</p>
       }
+      @if (targetScore !== null) {
+        <p class="target-score" [style.color]="getScoreColor()">{{ 'gameboard.target' | translate:{ target: targetScore } }}</p>
+      }
 
       <!-- Pas de séparateur de milliers : chaque chiffre du score compte -->
       <div class="score-display" [style.color]="getScoreColor()">{{ displayedScore }}</div>
@@ -69,7 +72,8 @@
 
   @if (gameState === 'level_complete') {
     <div class="level-complete-container" [style.color]="getScoreColor()">
-      <h2>{{ 'gameboard.levelCompleteTitle' | translate:{ level: levelService.currentLevelNumber() } }}</h2>
+      <h2>{{ (levelService.currentLevelData()?.secret ? 'gameboard.secretCompleteTitle' : 'gameboard.levelCompleteTitle')
+        | translate:{ level: levelService.currentLevelNumber() } }}</h2>
       @if (levelName) {
         <!-- L'histoire de la personne, puis la pique de la machine au joueur -->
         <div class="tribute">
@@ -127,7 +131,7 @@
           }
         </span>
       </div>
-      @if (!levelService.hasNextLevel()) {
+      @if (levelService.isLastLevel()) {
         <div class="campaign-summary">
           <h3>{{ 'gameboard.campaignCompleteTitle' | translate }}</h3>
           <p>{{ 'gameboard.campaignCompleteText' | translate:{ total: levelService.levels().length } }}</p>

@@ -70,6 +70,8 @@ export function pressButton(board: BoardState, index: number, bounds: ScoreBound
   };
 }
 
-export function isLevelComplete(board: BoardState): boolean {
+/** Gagné quand tous les boutons sont verts, ou, si le niveau a un objectif, quand le score l'atteint exactement */
+export function isLevelComplete(board: BoardState, targetScore: number | null = null): boolean {
+  if (targetScore !== null) return board.score === targetScore;
   return board.buttons.every(button => isButtonConditionMet(button.name, board.score, button.value));
 }

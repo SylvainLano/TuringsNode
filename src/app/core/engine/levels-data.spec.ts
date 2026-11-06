@@ -2,16 +2,20 @@ import levelsData from '../../../assets/levels.json';
 import fr from '../../../assets/i18n/fr.json';
 import en from '../../../assets/i18n/en.json';
 import { BUTTON_NAMES, MAX_BUTTON_VALUE, MIN_BUTTON_VALUE } from './buttons';
-import { Level } from './level';
+import { Level, secretAchievementId, secretLevelNumber } from './level';
 import { groupByWorld } from './worlds';
 
-// Vérifications de structure des niveaux livrés avec le jeu
+// Vérifications de structure des niveaux livrés avec le jeu : la campagne, et à part les niveaux secrets
 const LEVELS = levelsData as Level[];
+const CAMPAIGN = LEVELS.filter(level => !level.secret);
+const SECRETS = LEVELS.filter(level => level.secret);
 type LevelTexts = Record<string, { name: string; story: string; jab: string }>;
+const achievementTitle = (achievements: object, id: string) =>
+  ((achievements as Record<string, unknown>)[id] as { title?: string } | undefined)?.title;
 
 describe('levels.json', () => {
-  it('numbers the levels from 1 without gaps', () => {
-    expect(LEVELS.map(level => level.levelNumber)).toEqual(LEVELS.map((_, i) => i + 1));
+  it('numbers the levels of the campaign from 1 without gaps', () => {
+    expect(CAMPAIGN.map(level => level.levelNumber)).toEqual(CAMPAIGN.map((_, i) => i + 1));
   });
 
   it('only uses known buttons with values from 1 to 9', () => {
@@ -40,23 +44,40 @@ describe('levels.json', () => {
 
 describe('levels.json worlds', () => {
   it('gives every level a world, numbered from 1 without gaps and in order', () => {
-    const worlds = LEVELS.map(level => level.world);
+    const worlds = CAMPAIGN.map(level => level.world);
     expect(worlds.every(world => Number.isInteger(world))).toBe(true);
     expect(worlds[0]).toBe(1);
     worlds.slice(1).forEach((world, i) => expect([worlds[i], worlds[i] + 1]).toContain(world));
   });
 
   it('sizes the worlds along the Fibonacci sequence (2, 3, 5, 8, 13…)', () => {
-    const sizes = groupByWorld(LEVELS).map(world => world.levels.length);
+    const sizes = groupByWorld(CAMPAIGN).map(world => world.levels.length);
     expect(sizes.slice(0, 2)).toEqual([2, 3]);
     sizes.slice(2).forEach((size, i) => expect(size).toBe(sizes[i] + sizes[i + 1]));
   });
 
   it('has an achievement for every world, in French and in English', () => {
-    [fr.achievements, en.achievements].forEach(achievements => groupByWorld(LEVELS).forEach(world => {
-      const achievement = (achievements as Record<string, unknown>)[`world_${world.number}`] as { title?: string } | undefined;
-      expect(achievement?.title, `world_${world.number}`).toBeTruthy();
-    }));
+    [fr.achievements, en.achievements].forEach(achievements => groupByWorld(CAMPAIGN).forEach(world =>
+      expect(achievementTitle(achievements, `world_${world.number}`), `world_${world.number}`).toBeTruthy()));
+  });
+});
+
+describe('levels.json secret levels', () => {
+  it('hides at most one secret level per world, numbered outside the campaign', () => {
+    const worlds = groupByWorld(CAMPAIGN).map(world => world.number);
+    SECRETS.forEach(level => {
+      expect(worlds).toContain(level.world);
+      expect(level.levelNumber).toBe(secretLevelNumber(level.world));
+    });
+    expect(new Set(SECRETS.map(level => level.world)).size).toBe(SECRETS.length);
+  });
+
+  it('gives every secret level a score to unlock it, a target and an achievement in French and in English', () => {
+    SECRETS.forEach(level => {
+      expect(Number.isInteger(level.secret?.unlockScore) && Number.isInteger(level.targetScore), level.name).toBe(true);
+      [fr.achievements, en.achievements].forEach(achievements =>
+        expect(achievementTitle(achievements, secretAchievementId(level)), level.name).toBeTruthy());
+    });
   });
 });
 

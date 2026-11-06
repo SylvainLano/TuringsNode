@@ -8,7 +8,9 @@ import { Level, getIntroducedButtons, getVisibleWorlds, groupByWorld } from '../
   providedIn: 'root'
 })
 export class LevelService {
+  // Les niveaux de la campagne, et à part les niveaux secrets (un au plus par monde), qui n'en font pas partie
   public readonly levels = signal<Level[]>([]);
+  public readonly secretLevels = signal<Level[]>([]);
   public readonly currentLevelNumber = signal(1);
 
   public readonly bestMedals = signal<Record<number, string>>({});
@@ -18,17 +20,19 @@ export class LevelService {
   private readonly MEDAL_HIERARCHY = ['Terminé', 'Bronze', 'Argent', 'Or', 'Platine'];
 
   public readonly currentLevelData = computed(() => {
-    const allLevels = this.levels();
     const levelNum = this.currentLevelNumber();
-    return allLevels.find(l => l.levelNumber === levelNum) || null;
+    return [...this.levels(), ...this.secretLevels()].find(l => l.levelNumber === levelNum) || null;
   });
 
-  // Faux sur le dernier niveau de la liste (dans l'ordre courant, éventuellement inversé)
+  // Faux sur le dernier niveau de la liste (dans l'ordre courant, éventuellement inversé) et sur un niveau secret
   public readonly hasNextLevel = computed(() => {
     const allLevels = this.levels();
     const currentIndex = allLevels.findIndex(l => l.levelNumber === this.currentLevelNumber());
     return currentIndex > -1 && currentIndex < allLevels.length - 1;
   });
+
+  // Dernier niveau de la campagne : son écran de fin fait le bilan
+  public readonly isLastLevel = computed(() => this.levels().at(-1)?.levelNumber === this.currentLevelNumber());
 
   // Pour chaque niveau, les boutons que le joueur y découvre pour la première fois
   public readonly introducedButtons = computed(() => getIntroducedButtons(this.levels()));
@@ -47,7 +51,8 @@ export class LevelService {
     const path = `${this.baseHref}assets/levels.json`;
 
     this.http.get<Level[]>(path).subscribe(data => {
-      this.levels.set(data);
+      this.levels.set(data.filter(level => !level.secret));
+      this.secretLevels.set(data.filter(level => level.secret));
 
       const savedMedals = this.storageService.getData(this.BEST_MEDALS_KEY);
       if (savedMedals) {
@@ -57,6 +62,10 @@ export class LevelService {
       // On définit le niveau de départ comme le premier niveau non terminé
       this.setInitialLevel();
     });
+  }
+
+  public secretLevelOf(world: number): Level | undefined {
+    return this.secretLevels().find(level => level.world === world);
   }
 
   public saveLevelResult(levelNumber: number, medal: string | null): void {

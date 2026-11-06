@@ -23,6 +23,8 @@ const makeLevel = (levelNumber: number, world = 1): Level => ({
   buttons: []
 });
 
+const SECRET_LEVEL: Level = { ...makeLevel(1001), name: 'secret', targetScore: 100, secret: { unlockScore: 50 } };
+
 describe('LevelService', () => {
   let service: LevelService;
 
@@ -38,7 +40,7 @@ describe('LevelService', () => {
       ]
     });
     service = TestBed.inject(LevelService);
-    TestBed.inject(HttpTestingController).expectOne('/assets/levels.json').flush([makeLevel(1), makeLevel(2)]);
+    TestBed.inject(HttpTestingController).expectOne('/assets/levels.json').flush([makeLevel(1), makeLevel(2), SECRET_LEVEL]);
   });
 
   afterEach(() => {
@@ -71,6 +73,16 @@ describe('LevelService', () => {
 
     service.advanceToNextLevel();
     expect(service.currentLevelNumber()).toBe(2);
+  });
+
+  it('keeps the secret levels apart from the campaign', () => {
+    expect(service.levels().map(level => level.levelNumber)).toEqual([1, 2]);
+    expect(service.secretLevelOf(1)).toEqual(SECRET_LEVEL);
+    expect(service.secretLevelOf(2)).toBeUndefined();
+
+    service.currentLevelNumber.set(1001);
+    expect(service.currentLevelData()).toEqual(SECRET_LEVEL);
+    expect([service.hasNextLevel(), service.isLastLevel()]).toEqual([false, false]);
   });
 
   it('keeps only the best medal of a level', () => {
