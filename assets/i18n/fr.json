@@ -139,6 +139,18 @@
       }
     }
   },
+  "share": {
+    "button": "Partager",
+    "copied": "Copié !",
+    "failed": "Impossible de copier",
+    "text": "Turing's Node, niveau {level} : {result}. Et vous ?",
+    "secretText": "Turing's Node, un niveau secret : {result}. Et vous ?",
+    "medal": "{medal} en {clicks}",
+    "noMedal": "terminé en {clicks}",
+    "clicks": "{count} clics",
+    "oneClick": "1 clic",
+    "helped": "{result}, avec la notice de la machine 🍫"
+  },
   "level_data_not_found": "Données du niveau introuvable.",
   "medals": {
     "Platine": "Platine",
@@ -312,8 +324,11 @@
       "description": "Diviser par zéro dans le monde 4, et découvrir un niveau secret."
     },
     "count": "Succès",
-    "locked": "???",
     "hint": "Survolez ou touchez un succès débloqué, ou une médaille : sa description s'affiche ici.",
+    "blocks": {
+      "palmares": "Palmarès",
+      "counters": "La machine a compté"
+    },
     "palmares": {
       "Platine": "Le nombre minimal de clics. Pas un de plus.",
       "Or": "À peine plus que le minimum. La machine l'a vu.",
@@ -321,6 +336,32 @@
       "Bronze": "Beaucoup de clics de trop. Mais c'est fini, c'est déjà ça.",
       "Chocolat": "Des médailles fondues pour payer une aide. Regagnez le niveau pour en retrouver une vraie.",
       "count": "Tous vos succès, de la fierté à la honte."
+    },
+    "stats": {
+      "clicks": {
+        "title": "Clics",
+        "description": "Tous notés. La machine a de la mémoire, et du temps."
+      },
+      "undos": {
+        "title": "Annulations",
+        "description": "Le nombre de fois où vous avez changé d'avis. Au moins, vous le reconnaissez."
+      },
+      "restarts": {
+        "title": "Redémarrages",
+        "description": "Le même niveau, depuis le début. Encore."
+      },
+      "levels": {
+        "title": "Niveaux terminés",
+        "description": "Terminés, d'une manière ou d'une autre."
+      },
+      "melts": {
+        "title": "Supplications",
+        "description": "Chacune payée d'une médaille. La machine se souvient du prix."
+      },
+      "notices": {
+        "title": "Notices",
+        "description": "Moitiés de notice obtenues. Pas une n'a été gratuite."
+      }
     },
     "sections": {
       "golden": "Constantes",
