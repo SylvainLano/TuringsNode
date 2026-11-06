@@ -185,7 +185,39 @@
     },
     "secret_hamilton": {
       "title": "Alarm 1202",
-      "description": "Reach 1202 in world 7, and discover its secret level."
+      "description": "Reach 1202 in world 7, and discover a secret level."
+    },
+    "secret_murphy": {
+      "title": "Bad luck",
+      "description": "Reach 13 in world 1, and discover its secret level."
+    },
+    "secret_edison": {
+      "title": "Direct current",
+      "description": "Reach 110 in world 2, and discover its secret level."
+    },
+    "secret_richardson": {
+      "title": "Weather report",
+      "description": "Reach 145 in world 3, and discover its secret level."
+    },
+    "secret_goodyear": {
+      "title": "On the stove",
+      "description": "Reach 200 in world 4, and discover its secret level."
+    },
+    "secret_mersenne": {
+      "title": "Prime of the list",
+      "description": "Reach 127 in world 5, and discover its secret level."
+    },
+    "secret_kepler": {
+      "title": "Eight arcminutes",
+      "description": "Reach 480 in world 6, and discover its secret level."
+    },
+    "secret_collatz": {
+      "title": "Three times plus one",
+      "description": "Reach 27 in world 7, and discover a secret level."
+    },
+    "secret_kaprekar": {
+      "title": "The mysterious number",
+      "description": "Reach 6174 in world 7, and discover a secret level."
     }
   },
   "levels": {
@@ -623,6 +655,46 @@
       "name": "Hamilton",
       "story": "She led the MIT team that wrote the on-board software for the Apollo missions, and popularised the term “software engineering”, which at first made her colleagues smile. On July 20, 1969, a few minutes before the landing, Apollo 11’s computer raised alarm 1202: it was overloaded. Her team’s software dropped the secondary tasks, kept the essentials, and the lunar module touched down. In a famous photo, she stands next to the listings of that code, stacked as high as she is.",
       "jab": "Her team saved the Moon landing by sacrificing secondary tasks. In their place, the machine would have started with you."
+    },
+    "murphy": {
+      "name": "Murphy",
+      "story": "An engineer for the US Air Force. In 1949, during tests on a rocket sled, some sensors were mounted the wrong way round. Murphy reportedly cursed whoever had made the mistake: if there is a way to get it wrong, he will find it. Reworded, the remark became Murphy’s law: anything that can go wrong will go wrong. History did not keep the technician’s name.",
+      "jab": "He gave his name to every mistake in the world. You just make them."
+    },
+    "edison": {
+      "name": "Edison",
+      "story": "He filed more than a thousand patents. But to defend his direct current against the alternating current of Westinghouse and Tesla, his camp electrocuted animals in public, to prove that AC kills. He lost the battle: your sockets run on alternating current.",
+      "jab": "He was wrong about electricity with more than a thousand patents to his name. You are wrong without having filed a single one."
+    },
+    "richardson": {
+      "name": "Richardson",
+      "story": "An ambulance driver on the front during the First World War, he computed by hand the first weather forecast drawn from the equations: six weeks of calculation for six hours of weather. He predicted a pressure rise of 145 hectopascals, an absurd figure. He dreamed of a hall where 64,000 human computers would forecast the weather live. Computers ended up doing it, with his method.",
+      "jab": "His calculation was wrong, but he invented modern weather forecasting. Yours are wrong too, without inventing anything."
+    },
+    "goodyear": {
+      "name": "Goodyear",
+      "story": "Obsessed with rubber, which melted in summer and cracked in winter, he went from experiment to experiment, and in and out of debtors’ prison. In 1839, a mix of rubber and sulphur fell on a hot stove: instead of melting, it hardened. Vulcanisation was born. He died in 1860 with $200,000 of debt. His name is now on billions of tyres, made by a company founded after his death, with no link to him.",
+      "jab": "Even broke, he left his name on tyres all over the world. You won’t even leave a skid mark."
+    },
+    "mersenne": {
+      "name": "Mersenne",
+      "story": "A friar and mathematician, he acted as the post office for all the science of his time: Descartes, Fermat and Pascal corresponded through him. In 1644, he published the list of numbers 2ⁿ − 1 that he claimed were prime up to n = 257. He got it wrong five times, and it took three centuries to check his whole list. The largest known primes still bear his name.",
+      "jab": "He got it wrong five times, and it took more than two centuries to notice. Your mistakes are obvious right away."
+    },
+    "kepler": {
+      "name": "Kepler",
+      "story": "For years, he worked out the orbit of Mars from Brahe’s measurements. His best circular model missed by 8 arcminutes, almost nothing. He refused to ignore it, gave up the circle, and discovered that planets follow ellipses. He also defended his mother, accused of witchcraft, and wrote one of the first science-fiction stories, a journey to the Moon.",
+      "jab": "Eight minutes of error were enough for him to rewrite the sky. Eight hours of errors wouldn’t make you change your mind."
+    },
+    "collatz": {
+      "name": "Collatz",
+      "story": "In 1937, he posed a problem a child can understand: take a number, halve it if it is even, otherwise multiply it by three and add one, then start again. You always end up at 1. Starting from 27, the sequence climbs to 9,232 before coming back down. Nobody has ever managed to prove it always works. Paul Erdős judged that mathematics was not yet ready for such problems.",
+      "jab": "His problem fits on one line and has held out for nearly ninety years. You fit on one line too, but you hold out against nothing."
+    },
+    "kaprekar": {
+      "name": "Kaprekar",
+      "story": "A schoolteacher in a small Indian town, he spent his life playing with numbers, without the mathematicians of his country taking him seriously. Take four digits that are not all the same, arrange them from largest to smallest, then from smallest to largest, and subtract, keeping the zeros; repeat with the result: in seven steps at most, you land on 6,174. It took an American columnist writing about him for the world to discover him.",
+      "jab": "His numbers all end up landing on 6,174. You always end up landing next to it."
     }
   },
   "menu": {

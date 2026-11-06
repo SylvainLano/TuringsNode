@@ -362,14 +362,14 @@ private checkGameState(): void {
 }
 
 /**
- * Le score secret d'un monde, atteint dans l'un de ses niveaux, débloque son niveau secret (avec un succès).
+ * Un score secret, atteint dans l'un des niveaux de son monde, débloque le niveau secret correspondant (avec un succès).
  */
 private checkSecretScore(): void {
   const level = this.levelService.currentLevelData();
-  const secretLevel = level && !level.secret ? this.levelService.secretLevelOf(level.world) : undefined;
-  if (secretLevel && this.score === secretLevel.secret?.unlockScore) {
-    this.achievementService.unlock(secretAchievementId(secretLevel));
-  }
+  if (!level || level.secret) return;
+  this.levelService.secretLevelsOf(level.world)
+    .filter(secretLevel => this.score === secretLevel.secret?.unlockScore)
+    .forEach(secretLevel => this.achievementService.unlock(secretAchievementId(secretLevel)));
 }
 
 private startVictorySequence(): void {

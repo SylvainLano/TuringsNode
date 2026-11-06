@@ -1434,6 +1434,117 @@
     ]
   },
   {
+    "levelNumber": 1001,
+    "world": 1,
+    "name": "murphy",
+    "startScore": 13,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Double", "initialValue": 9 },
+      { "name": "Minus", "initialValue": 9 }
+    ],
+    "targetScore": 404,
+    "secret": { "unlockScore": 13 }
+  },
+  {
+    "levelNumber": 1002,
+    "world": 2,
+    "name": "edison",
+    "startScore": 110,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Plus", "initialValue": 6 },
+      { "name": "Half", "initialValue": 7 },
+      { "name": "Mirror", "initialValue": 6 }
+    ],
+    "targetScore": 230,
+    "secret": { "unlockScore": 110 }
+  },
+  {
+    "levelNumber": 1003,
+    "world": 3,
+    "name": "richardson",
+    "startScore": 145,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 7,
+    "goldSteps": 12,
+    "silverSteps": 18,
+    "bronzeSteps": 30,
+    "buttons": [
+      { "name": "Digit", "initialValue": 7 },
+      { "name": "Minus", "initialValue": 5 }
+    ],
+    "targetScore": 64000,
+    "secret": { "unlockScore": 145 }
+  },
+  {
+    "levelNumber": 1004,
+    "world": 4,
+    "name": "goodyear",
+    "startScore": 200,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 10,
+    "goldSteps": 17,
+    "silverSteps": 24,
+    "bronzeSteps": 39,
+    "buttons": [
+      { "name": "Factor", "initialValue": 5 },
+      { "name": "Double", "initialValue": 9 },
+      { "name": "Split", "initialValue": 2 }
+    ],
+    "targetScore": 200000,
+    "secret": { "unlockScore": 200 }
+  },
+  {
+    "levelNumber": 1005,
+    "world": 5,
+    "name": "mersenne",
+    "startScore": 127,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Double", "initialValue": 9 },
+      { "name": "Plus", "initialValue": 6 }
+    ],
+    "targetScore": 8191,
+    "secret": { "unlockScore": 127 }
+  },
+  {
+    "levelNumber": 1006,
+    "world": 6,
+    "name": "kepler",
+    "startScore": 480,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 8,
+    "goldSteps": 14,
+    "silverSteps": 20,
+    "bronzeSteps": 33,
+    "buttons": [
+      { "name": "Boost", "initialValue": 4 },
+      { "name": "Mirror", "initialValue": 6 },
+      { "name": "Half", "initialValue": 9 }
+    ],
+    "targetScore": 687,
+    "secret": { "unlockScore": 480 }
+  },
+  {
     "levelNumber": 1007,
     "world": 7,
     "name": "hamilton",
@@ -1451,5 +1562,43 @@
     ],
     "targetScore": 384400,
     "secret": { "unlockScore": 1202 }
+  },
+  {
+    "levelNumber": 1017,
+    "world": 7,
+    "name": "collatz",
+    "startScore": 27,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 11,
+    "goldSteps": 18,
+    "silverSteps": 26,
+    "bronzeSteps": 42,
+    "buttons": [
+      { "name": "Digit", "initialValue": 9 },
+      { "name": "Plus", "initialValue": 7 },
+      { "name": "Half", "initialValue": 7 }
+    ],
+    "targetScore": 9232,
+    "secret": { "unlockScore": 27 }
+  },
+  {
+    "levelNumber": 1027,
+    "world": 7,
+    "name": "kaprekar",
+    "startScore": 6174,
+    "minScore": 10,
+    "maxScore": null,
+    "minSteps": 9,
+    "goldSteps": 15,
+    "silverSteps": 22,
+    "bronzeSteps": 36,
+    "buttons": [
+      { "name": "Mirror", "initialValue": 5 },
+      { "name": "Minus", "initialValue": 4 },
+      { "name": "Split", "initialValue": 9 }
+    ],
+    "targetScore": 495,
+    "secret": { "unlockScore": 6174 }
   }
 ]

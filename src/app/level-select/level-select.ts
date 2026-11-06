@@ -29,11 +29,13 @@ export class LevelSelectComponent implements OnInit {
     return worlds.find(world => world.number === wanted) ?? worlds[worlds.length - 1];
   });
 
-  // Niveau secret du monde affiché : sa tuile « ? » apparaît une fois le monde terminé, ou dès que son score secret est trouvé
-  public readonly secretLevel = computed(() => {
+  // Niveaux secrets du monde affiché : leurs tuiles « ? » apparaissent une fois le monde terminé,
+  // ou chacune dès que son score secret est trouvé
+  public readonly secretLevels = computed(() => {
     const world = this.shownWorld();
-    const secret = world ? this.levelService.secretLevelOf(world.number) : undefined;
-    return secret && (isWorldComplete(world!, this.bestMedals()) || this.isSecretUnlocked(secret)) ? secret : null;
+    if (!world) return [];
+    const complete = isWorldComplete(world, this.bestMedals());
+    return this.levelService.secretLevelsOf(world.number).filter(level => complete || this.isSecretUnlocked(level));
   });
 
   private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };

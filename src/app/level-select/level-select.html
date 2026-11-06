@@ -41,25 +41,27 @@
         }
       </div>
 
-      <!-- Niveau secret, à part de la grille : il apparaît une fois le monde terminé, ou dès que son score secret est trouvé -->
-      @if (secretLevel(); as secret) {
+      <!-- Niveaux secrets, à part de la grille : ils apparaissent une fois le monde terminé, ou dès que leur score secret est trouvé -->
+      @if (secretLevels().length) {
         <div class="secret-slot">
-          <div class="level-cell">
-            <a
-              class="level-button secret-button"
-              [class.is-locked]="!isSecretUnlocked(secret)"
-              [class.is-waiting]="isSecretUnlocked(secret) && !bestMedals()[secret.levelNumber]"
-              [attr.aria-label]="'levelSelect.secretLevel' | translate"
-              (click)="selectSecretLevel(secret)">
-              <span class="level-number">?</span>
-              <div class="icons-container">
-                <div class="medal-icon-display">{{ medalIcon(secret.levelNumber) }}</div>
-              </div>
-            </a>
-            @if (bestMedals()[secret.levelNumber]) {
-              <span class="level-name">{{ 'levels.' + secret.name + '.name' | translate }}</span>
-            }
-          </div>
+          @for (secret of secretLevels(); track secret.levelNumber) {
+            <div class="level-cell">
+              <a
+                class="level-button secret-button"
+                [class.is-locked]="!isSecretUnlocked(secret)"
+                [class.is-waiting]="isSecretUnlocked(secret) && !bestMedals()[secret.levelNumber]"
+                [attr.aria-label]="'levelSelect.secretLevel' | translate"
+                (click)="selectSecretLevel(secret)">
+                <span class="level-number">?</span>
+                <div class="icons-container">
+                  <div class="medal-icon-display">{{ medalIcon(secret.levelNumber) }}</div>
+                </div>
+              </a>
+              @if (bestMedals()[secret.levelNumber]) {
+                <span class="level-name">{{ 'levels.' + secret.name + '.name' | translate }}</span>
+              }
+            </div>
+          }
         </div>
       }
     </div>

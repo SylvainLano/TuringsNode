@@ -75,6 +75,20 @@ describe('LevelSelectComponent', () => {
     localStorage.removeItem('turings_node_best_medals_v2');
   });
 
+  it('shows a world\'s secret tile as soon as its score is found, even before the world is complete', () => {
+    const base = { world: 1, minScore: 10, maxScore: null, startScore: 20, minSteps: 1, goldSteps: 2, silverSteps: 3, bronzeSteps: 4, buttons: [] };
+    const levelService = TestBed.inject(LevelService);
+    levelService.levels.set([{ ...base, levelNumber: 1, name: 'first' }]);
+    levelService.secretLevels.set(['one', 'two'].map((name, i) =>
+      ({ ...base, levelNumber: 1001 + 10 * i, name, targetScore: 100, secret: { unlockScore: 50 + i } })));
+    TestBed.inject(AchievementService).unlock('secret_two');
+    fixture.detectChanges();
+
+    expect(component.secretLevels().map(level => level.name)).toEqual(['two']);
+    expect(fixture.nativeElement.querySelectorAll('.secret-button').length).toBe(1);
+    localStorage.removeItem('turings_node_achievements');
+  });
+
   it('shows the secret tile once the world is complete, and opens it once its score is found', () => {
     const base = { world: 1, minScore: 10, maxScore: null, startScore: 20, minSteps: 1, goldSteps: 2, silverSteps: 3, bronzeSteps: 4, buttons: [] };
     const levelService = TestBed.inject(LevelService);
@@ -91,13 +105,13 @@ describe('LevelSelectComponent', () => {
     fixture.detectChanges();
     expect(tile()?.textContent).toContain('?');
     expect(tile()?.classList.contains('is-locked')).toBe(true);
-    component.selectSecretLevel(component.secretLevel()!);
+    component.selectSecretLevel(component.secretLevels()[0]);
     expect(levelService.currentLevelNumber()).toBe(1);
 
     TestBed.inject(AchievementService).unlock('secret_hidden');
     fixture.detectChanges();
     expect(tile()?.classList.contains('is-waiting')).toBe(true);
-    component.selectSecretLevel(component.secretLevel()!);
+    component.selectSecretLevel(component.secretLevels()[0]);
     expect(levelService.currentLevelNumber()).toBe(1001);
 
     localStorage.removeItem('turings_node_best_medals_v2');

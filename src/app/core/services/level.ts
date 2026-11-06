@@ -8,7 +8,7 @@ import { Level, getIntroducedButtons, getVisibleWorlds, groupByWorld } from '../
   providedIn: 'root'
 })
 export class LevelService {
-  // Les niveaux de la campagne, et à part les niveaux secrets (un au plus par monde), qui n'en font pas partie
+  // Les niveaux de la campagne, et à part les niveaux secrets (un ou plusieurs par monde), qui n'en font pas partie
   public readonly levels = signal<Level[]>([]);
   public readonly secretLevels = signal<Level[]>([]);
   public readonly currentLevelNumber = signal(1);
@@ -64,8 +64,8 @@ export class LevelService {
     });
   }
 
-  public secretLevelOf(world: number): Level | undefined {
-    return this.secretLevels().find(level => level.world === world);
+  public secretLevelsOf(world: number): Level[] {
+    return this.secretLevels().filter(level => level.world === world).sort((a, b) => a.levelNumber - b.levelNumber);
   }
 
   public saveLevelResult(levelNumber: number, medal: string | null): void {

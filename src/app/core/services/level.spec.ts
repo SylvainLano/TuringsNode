@@ -77,8 +77,8 @@ describe('LevelService', () => {
 
   it('keeps the secret levels apart from the campaign', () => {
     expect(service.levels().map(level => level.levelNumber)).toEqual([1, 2]);
-    expect(service.secretLevelOf(1)).toEqual(SECRET_LEVEL);
-    expect(service.secretLevelOf(2)).toBeUndefined();
+    expect(service.secretLevelsOf(1)).toEqual([SECRET_LEVEL]);
+    expect(service.secretLevelsOf(2)).toEqual([]);
 
     service.currentLevelNumber.set(1001);
     expect(service.currentLevelData()).toEqual(SECRET_LEVEL);

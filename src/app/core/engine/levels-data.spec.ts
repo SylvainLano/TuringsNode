@@ -63,13 +63,17 @@ describe('levels.json worlds', () => {
 });
 
 describe('levels.json secret levels', () => {
-  it('hides at most one secret level per world, numbered outside the campaign', () => {
-    const worlds = groupByWorld(CAMPAIGN).map(world => world.number);
-    SECRETS.forEach(level => {
-      expect(worlds).toContain(level.world);
-      expect(level.levelNumber).toBe(secretLevelNumber(level.world));
+  it('numbers the secret levels of each world in order, outside the campaign', () => {
+    groupByWorld(CAMPAIGN).forEach(world => SECRETS.filter(level => level.world === world.number)
+      .forEach((level, index) => expect(level.levelNumber, level.name).toBe(secretLevelNumber(world.number, index))));
+    expect(SECRETS.every(level => groupByWorld(CAMPAIGN).some(world => world.number === level.world))).toBe(true);
+  });
+
+  it('gives each secret level of a world its own secret score', () => {
+    groupByWorld(CAMPAIGN).forEach(world => {
+      const scores = SECRETS.filter(level => level.world === world.number).map(level => level.secret?.unlockScore);
+      expect(new Set(scores).size, `monde ${world.number}`).toBe(scores.length);
     });
-    expect(new Set(SECRETS.map(level => level.world)).size).toBe(SECRETS.length);
   });
 
   it('gives every secret level a score to unlock it, a target and an achievement in French and in English', () => {

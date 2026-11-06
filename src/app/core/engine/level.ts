@@ -27,9 +27,9 @@ export interface Level {
   secret?: { unlockScore: number };
 }
 
-// Numéro (et clé de sauvegarde) du niveau secret d'un monde : hors de la numérotation de la campagne
+// Numéro (et clé de sauvegarde) du n-ième niveau secret d'un monde (à partir de 0) : hors de la numérotation de la campagne
 export const SECRET_LEVEL_OFFSET = 1000;
-export const secretLevelNumber = (world: number) => SECRET_LEVEL_OFFSET + world;
+export const secretLevelNumber = (world: number, index = 0) => SECRET_LEVEL_OFFSET + 10 * index + world;
 // Le succès gagné en trouvant le score secret est aussi ce qui débloque le niveau
 export const secretAchievementId = (level: Level) => `secret_${level.name}`;
 
