@@ -54,16 +54,102 @@
     "helpButton": "How to play",
     "helpClose": "Close"
   },
+  "beg": {
+    "button": "Beg",
+    "tooltip": "It will cost you.",
+    "price": "Price: your {medal} from the {level} level. Which button is beyond you?",
+    "cancel": "Never mind",
+    "nothingLeft": "You have nothing left to offer.",
+    "remarks": [
+      "Your level board will smell of chocolate. Everyone will know.",
+      "A chocolate medal: finally a reward your size.",
+      "You had earned it. So that was an accident.",
+      "Even {name} wouldn't have asked.",
+      "A medal for a hint. You've just invented the losing trade.",
+      "Dark chocolate. Like your future in this game.",
+      "Manual delivered. Your dignity is non-refundable.",
+      "Take notes. Oh wait, I already took them for you."
+    ],
+    "shameJabs": [
+      "The machine held your hand. Now it has to wash it.",
+      "{button} had no secret. Someone had to whisper it to you.",
+      "This level honours a free mind. You honour the manual.",
+      "Even a machine took pity on you. Think about that.",
+      "You won. Well, the manual won. You clicked.",
+      "You found the solution. It was waiting for you, on a sticky note.",
+      "Legend will remember your victory. The machine will remember your begging.",
+      "Well done. Next time, the machine will just play for you."
+    ],
+    "notices": {
+      "Plus": {
+        "green": "When the score is even.",
+        "action": "Adds its value to the score."
+      },
+      "Minus": {
+        "green": "When the score ends with its value.",
+        "action": "Subtracts its value from the score."
+      },
+      "Double": {
+        "green": "When the score starts with its value.",
+        "action": "Doubles the score."
+      },
+      "Half": {
+        "green": "When the score ends in 0.",
+        "action": "Halves the score, rounding up."
+      },
+      "Mirror": {
+        "green": "When the score is bigger than its reflection.",
+        "action": "Writes the score backwards; a zero that ends up in front disappears."
+      },
+      "Primer": {
+        "green": "When a prime number is within its value of the score.",
+        "action": "Jumps to the next prime number."
+      },
+      "Split": {
+        "green": "When the score is divisible by its value.",
+        "action": "Divides the score by its value, rounding up."
+      },
+      "Boost": {
+        "green": "When a perfect square is within its value of the score.",
+        "action": "Adds its value to the score."
+      },
+      "Digit": {
+        "green": "When the score's digital root equals its value: add up its digits, again and again, until only one is left.",
+        "action": "Multiplies the score by its value."
+      },
+      "Reduce": {
+        "green": "When the score is divisible by a perfect square: 4, 9, 16, 25…",
+        "action": "Divides the score by its value squared, rounding up."
+      },
+      "Align": {
+        "green": "When the score is a palindrome.",
+        "action": "Climbs to the next multiple of its value."
+      },
+      "Fiber": {
+        "green": "When a Fibonacci number is close to the score. Allowed gap by value: 1, 1, 2, 3, 5, 8, 13, 21, 34.",
+        "action": "Jumps to the next Fibonacci number."
+      },
+      "Factor": {
+        "green": "When the score is divisible by the factorial of its value. Never at value 1.",
+        "action": "Adds the factorial of its value to the score (3! = 1 × 2 × 3 = 6)."
+      },
+      "Cipher": {
+        "green": "When all the score's digits are different.",
+        "action": "Adds its value to every digit of the score, with no carry (9 + 2 gives 1)."
+      }
+    }
+  },
   "level_data_not_found": "Level data not found.",
   "medals": {
     "Platine": "Platinum",
     "Or": "Gold",
     "Argent": "Silver",
     "Bronze": "Bronze",
-    "Terminé": "Completed"
+    "Terminé": "Completed",
+    "Chocolat": "Chocolate"
   },
   "achievements": {
-    "title": "Unlocked Achievements",
+    "title": "Your dossier",
     "backButton": "Back to Menu",
     "golden_1": {
       "title": "Perfectly balanced.",
@@ -224,6 +310,78 @@
     "secret_brahmagupta": {
       "title": "Division by zero",
       "description": "Divide by zero in world 4, and discover a secret level."
+    },
+    "count": "Achievements",
+    "locked": "???",
+    "hint": "Hover or tap an unlocked achievement, or a medal: its description shows up here.",
+    "palmares": {
+      "Platine": "The minimum number of clicks. Not one more.",
+      "Or": "Barely over the minimum. The machine noticed.",
+      "Argent": "A few clicks too many. The hesitation shows.",
+      "Bronze": "Far too many clicks. But it's over, that's something.",
+      "Chocolat": "Medals melted to pay for help. Win the level again to get a real one back.",
+      "count": "All your achievements, from pride to shame."
+    },
+    "sections": {
+      "golden": "Constants",
+      "legendary": "Legendaries",
+      "feat": "Feats",
+      "habit": "The machine is watching",
+      "shame": "Shame",
+      "world": "Worlds",
+      "secret": "Secrets"
+    },
+    "shame_first": {
+      "title": "Swallowing your pride",
+      "description": "Beg for the first time. It gets easier, you'll see."
+    },
+    "shame_ten": {
+      "title": "Master chocolatier",
+      "description": "Melt ten medals. You've found your calling."
+    },
+    "shame_all": {
+      "title": "The complete manual",
+      "description": "Get the whole manual for every button. You know everything and found nothing."
+    },
+    "shame_wonka": {
+      "title": "Willy Wonka",
+      "description": "Keep nothing but chocolate medals, at least eighteen of them. A whole factory, and not one golden ticket."
+    },
+    "feat_first_try": {
+      "title": "First try",
+      "description": "Finish a world 6 or 7 level in platinum on your first attempt, without undoing or restarting. Admit it, you had the solution."
+    },
+    "feat_world": {
+      "title": "Not a wrong note",
+      "description": "Finish every level of a world in platinum, from world 4 on."
+    },
+    "feat_campaign": {
+      "title": "River of diamonds",
+      "description": "Finish the whole campaign in platinum. Nothing left to blame you for. For now."
+    },
+    "habit_restart": {
+      "title": "Stubborn as a mule",
+      "description": "Restart the same level ten times in a row. Doing the same thing and expecting a different result: there's a word for that."
+    },
+    "habit_undo": {
+      "title": "Ctrl+Z, Ctrl+Z, Ctrl+Z",
+      "description": "Undo a hundred moves. You mostly play backwards."
+    },
+    "habit_clicks": {
+      "title": "Tendinitis",
+      "description": "Click five thousand times. Your index finger has asked for a lawyer."
+    },
+    "habit_idle": {
+      "title": "Anyone there?",
+      "description": "Go a minute without clicking during a game. I thought you were thinking."
+    },
+    "habit_night": {
+      "title": "Insomniac",
+      "description": "Play between midnight and 4 a.m. You'll do better tomorrow. Or not."
+    },
+    "habit_burnt": {
+      "title": "Scorched earth",
+      "description": "Use up every limited button in a level. All that's left is to start over."
     }
   },
   "levels": {
@@ -714,7 +872,7 @@
     "continueButton": "Continue",
     "levelSelectButton": "Level select",
     "restartButton": "Restart",
-    "achievementsButton": "Achievements",
+    "achievementsButton": "Dossier",
     "settingsButton": "Settings"
   },
   "levelSelect": {

@@ -54,16 +54,102 @@
     "helpButton": "Comment jouer",
     "helpClose": "Fermer"
   },
+  "beg": {
+    "button": "Implorer",
+    "tooltip": "Ça va vous coûter.",
+    "price": "Prix : votre {medal} du niveau {level}. Quel bouton vous dépasse ?",
+    "cancel": "Finalement, non",
+    "nothingLeft": "Vous n'avez plus rien à offrir.",
+    "remarks": [
+      "Votre tableau des niveaux sentira le chocolat. Tout le monde saura.",
+      "Une médaille en chocolat : enfin une récompense à votre mesure.",
+      "Vous l'aviez méritée. C'était donc un accident.",
+      "Même {name} n'aurait pas demandé.",
+      "Une médaille contre un indice. Vous venez d'inventer le troc perdant.",
+      "Chocolat noir. Comme votre avenir dans ce jeu.",
+      "Notice délivrée. Votre dignité n'est pas remboursée.",
+      "Prenez des notes. Ah non, je les ai déjà prises pour vous."
+    ],
+    "shameJabs": [
+      "La machine vous a tenu la main. Elle va devoir se la laver.",
+      "{button} n'avait pas de secret. Il a fallu vous le souffler.",
+      "Ce niveau rend hommage à un esprit libre. Vous, vous rendez hommage à la notice.",
+      "Même une machine a eu pitié de vous. Pensez-y.",
+      "Vous avez gagné. Enfin, la notice a gagné. Vous, vous avez cliqué.",
+      "Vous avez trouvé la solution. Elle vous attendait, sur un post-it.",
+      "La légende retiendra votre victoire. La machine retiendra vos supplications.",
+      "Bravo. La prochaine fois, la machine jouera directement à votre place."
+    ],
+    "notices": {
+      "Plus": {
+        "green": "Quand le score est pair.",
+        "action": "Ajoute sa valeur au score."
+      },
+      "Minus": {
+        "green": "Quand le score finit par sa valeur.",
+        "action": "Soustrait sa valeur du score."
+      },
+      "Double": {
+        "green": "Quand le score commence par sa valeur.",
+        "action": "Double le score."
+      },
+      "Half": {
+        "green": "Quand le score finit par 0.",
+        "action": "Divise le score par deux, arrondi au-dessus."
+      },
+      "Mirror": {
+        "green": "Quand le score est plus grand que son reflet.",
+        "action": "Écrit le score à l'envers ; un zéro passé devant disparaît."
+      },
+      "Primer": {
+        "green": "Quand un nombre premier est à sa valeur d'écart du score, ou moins.",
+        "action": "Saute au nombre premier suivant."
+      },
+      "Split": {
+        "green": "Quand le score est divisible par sa valeur.",
+        "action": "Divise le score par sa valeur, arrondi au-dessus."
+      },
+      "Boost": {
+        "green": "Quand un carré parfait est à sa valeur d'écart du score, ou moins.",
+        "action": "Ajoute sa valeur au score."
+      },
+      "Digit": {
+        "green": "Quand la racine numérique du score vaut sa valeur : additionnez ses chiffres, encore et encore, jusqu'à n'en garder qu'un.",
+        "action": "Multiplie le score par sa valeur."
+      },
+      "Reduce": {
+        "green": "Quand le score est divisible par un carré parfait : 4, 9, 16, 25…",
+        "action": "Divise le score par le carré de sa valeur, arrondi au-dessus."
+      },
+      "Align": {
+        "green": "Quand le score est un palindrome.",
+        "action": "Monte au multiple suivant de sa valeur."
+      },
+      "Fiber": {
+        "green": "Quand un nombre de Fibonacci est proche du score. Écart permis selon sa valeur : 1, 1, 2, 3, 5, 8, 13, 21, 34.",
+        "action": "Saute au nombre de Fibonacci suivant."
+      },
+      "Factor": {
+        "green": "Quand le score est divisible par la factorielle de sa valeur. Jamais à la valeur 1.",
+        "action": "Ajoute au score la factorielle de sa valeur (3! = 1 × 2 × 3 = 6)."
+      },
+      "Cipher": {
+        "green": "Quand tous les chiffres du score sont différents.",
+        "action": "Ajoute sa valeur à chaque chiffre du score, sans retenue (9 + 2 donne 1)."
+      }
+    }
+  },
   "level_data_not_found": "Données du niveau introuvable.",
   "medals": {
     "Platine": "Platine",
     "Or": "Or",
     "Argent": "Argent",
     "Bronze": "Bronze",
-    "Terminé": "Terminé"
+    "Terminé": "Terminé",
+    "Chocolat": "Chocolat"
   },
   "achievements": {
-    "title": "Succès Déverrouillés",
+    "title": "Votre dossier",
     "backButton": "Retour au Menu",
     "golden_1": {
       "title": "Proportions divines !",
@@ -224,6 +310,78 @@
     "secret_brahmagupta": {
       "title": "Division par zéro",
       "description": "Diviser par zéro dans le monde 4, et découvrir un niveau secret."
+    },
+    "count": "Succès",
+    "locked": "???",
+    "hint": "Survolez ou touchez un succès débloqué, ou une médaille : sa description s'affiche ici.",
+    "palmares": {
+      "Platine": "Le nombre minimal de clics. Pas un de plus.",
+      "Or": "À peine plus que le minimum. La machine l'a vu.",
+      "Argent": "Quelques clics de trop. L'hésitation se voit.",
+      "Bronze": "Beaucoup de clics de trop. Mais c'est fini, c'est déjà ça.",
+      "Chocolat": "Des médailles fondues pour payer une aide. Regagnez le niveau pour en retrouver une vraie.",
+      "count": "Tous vos succès, de la fierté à la honte."
+    },
+    "sections": {
+      "golden": "Constantes",
+      "legendary": "Légendaires",
+      "feat": "Exploits",
+      "habit": "La machine vous observe",
+      "shame": "Honte",
+      "world": "Mondes",
+      "secret": "Secrets"
+    },
+    "shame_first": {
+      "title": "Ravaler sa fierté",
+      "description": "Implorer pour la première fois. Ça devient plus facile, vous verrez."
+    },
+    "shame_ten": {
+      "title": "Maître chocolatier",
+      "description": "Faire fondre dix médailles. Vous avez trouvé votre vocation."
+    },
+    "shame_all": {
+      "title": "La notice complète",
+      "description": "Obtenir toute la notice de chaque bouton. Vous savez tout, sans avoir rien trouvé."
+    },
+    "shame_wonka": {
+      "title": "Willy Wonka",
+      "description": "Ne garder que des médailles en chocolat, au moins dix-huit. Une usine entière, et pas un seul ticket d'or."
+    },
+    "feat_first_try": {
+      "title": "Du premier coup",
+      "description": "Terminer en platine un niveau du monde 6 ou 7 au premier essai, sans annuler ni recommencer. Avouez, vous aviez la solution."
+    },
+    "feat_world": {
+      "title": "Sans fausse note",
+      "description": "Terminer en platine tous les niveaux d'un monde, à partir du monde 4."
+    },
+    "feat_campaign": {
+      "title": "Rivière de diamants",
+      "description": "Terminer toute la campagne en platine. Plus rien à vous reprocher. Pour l'instant."
+    },
+    "habit_restart": {
+      "title": "Têtu comme une mule",
+      "description": "Recommencer dix fois de suite le même niveau. Faire la même chose en espérant un autre résultat, il y a un mot pour ça."
+    },
+    "habit_undo": {
+      "title": "Ctrl+Z, Ctrl+Z, Ctrl+Z",
+      "description": "Annuler cent coups. Vous jouez surtout à l'envers."
+    },
+    "habit_clicks": {
+      "title": "Tendinite",
+      "description": "Cliquer cinq mille fois. Votre index a demandé un avocat."
+    },
+    "habit_idle": {
+      "title": "Il y a quelqu'un ?",
+      "description": "Rester une minute sans cliquer pendant une partie. Je croyais que vous réfléchissiez."
+    },
+    "habit_night": {
+      "title": "Insomniaque",
+      "description": "Jouer entre minuit et 4 heures. Vous trouverez mieux demain. Ou pas."
+    },
+    "habit_burnt": {
+      "title": "Terre brûlée",
+      "description": "Épuiser tous les boutons limités d'un niveau. Il ne reste plus qu'à recommencer."
     }
   },
   "levels": {
@@ -714,7 +872,7 @@
     "continueButton": "Continuer",
     "levelSelectButton": "Sélection du niveau",
     "restartButton": "Recommencer",
-    "achievementsButton": "Succès",
+    "achievementsButton": "Dossier",
     "settingsButton": "Réglages"
   },
   "levelSelect": {
