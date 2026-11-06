@@ -6,7 +6,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { AchievementService } from '../core/services/achievement';
 import { FaviconService } from '../core/services/favicon';
+import { NOTICE_PARTS, StatsService } from '../core/services/stats';
 import {
+  ButtonName,
   ButtonState,
   DEFAULT_MIN_SCORE,
   Level,
@@ -19,8 +21,11 @@ import {
   isButtonConditionMet,
   isButtonDisabled,
   isButtonLegendary,
+  isAllPlatinum,
   isGoldenScore,
   isWorldComplete,
+  countPalmares,
+  pickMedalToMelt,
   pressButton,
   remainingClicks,
   remainingStreakClicks,
@@ -44,6 +49,9 @@ interface BoardSnapshot {
   clicks: number;
 }
 
+// Ce que la machine dit sous les boutons après une supplication : rien à donner, ou la médaille qui vient de fondre
+type BegNote = { kind: 'nothing' } | { kind: 'melted'; icon: string; levelName: string; remark: number };
+
 @Component({
   selector: 'app-game-board',
   standalone: true,
@@ -55,7 +63,7 @@ interface BoardSnapshot {
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./game-board.scss', './game-board-help.scss', './game-board-victory.scss', './game-board-tribute.scss', './game-board-limits.scss',
-    './game-board-crash.scss'],
+    './game-board-crash.scss', './game-board-beg.scss'],
   host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
@@ -76,7 +84,7 @@ export class GameBoardComponent implements OnDestroy {
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
   private initialSetupDone = false;
   private history: BoardSnapshot[] = [];
-  private readonly MEDAL_ICONS = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };
+  private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Chocolat: '🍫', Terminé: '✔️' };
 
   // Victoire : le plateau tremble de plus en plus fort, puis explose. Un clic pendant le tremblement l'apaise.
   public isRumbling = false;
@@ -107,12 +115,34 @@ export class GameBoardComponent implements OnDestroy {
   private idleTimer: ReturnType<typeof setTimeout> | undefined;
   private readonly IDLE_DELAY_MS = 60 * 1000;
 
+  // L'aide qui se paie en honte : après trois redémarrages, le joueur peut implorer la notice d'un bouton.
+  // Le prix : sa plus belle médaille fond (en chocolat sur son niveau, jusqu'à ce qu'il le regagne), et la pique de fin
+  // de niveau devient une pique de honte. Les notices restent affichées jusqu'à ce qu'il quitte le niveau.
+  private readonly RESTARTS_BEFORE_BEG = 3;
+  private readonly RESTARTS_FOR_MULE = 10;
+  public readonly BEG_REMARKS = 8;
+  public readonly SHAME_JABS = 8;
+  // « Du premier coup » : seulement dans les deux derniers mondes
+  private readonly FIRST_TRY_FROM_WORLD = 6;
+  private visitedLevel: number | null = null;
+  private restartsSinceBeg = 0;
+  private restartsInARow = 0;
+  private cleanAttempt = true; // Ni annulation ni redémarrage depuis l'arrivée dans le niveau
+  public isChoosingNotice = false;
+  public begPrice: { icon: string; levelName: string } | null = null;
+  public begNote: BegNote | null = null;
+  // Pour chaque bouton imploré : le nombre de moitiés de notice dévoilées (quand il est vert, puis ce qu'il fait)
+  public notices = new Map<ButtonName, number>();
+  public lastBeggedButton: ButtonName | null = null;
+  public shameJab = 0;
+
   constructor(
     private backgroundService: BackgroundService,
     public levelService: LevelService,
     private route: ActivatedRoute,
     private achievementService: AchievementService,
     private faviconService: FaviconService,
+    private statsService: StatsService,
     private host: ElementRef<HTMLElement>
   ) {
     effect(() => {
@@ -187,6 +217,16 @@ export class GameBoardComponent implements OnDestroy {
     this.gameState = 'playing';
     this.levelClicks = 0;
     this.history = [];
+    this.isChoosingNotice = false;
+    if (levelData.levelNumber !== this.visitedLevel) {
+      this.visitedLevel = levelData.levelNumber;
+      this.restartsSinceBeg = 0;
+      this.restartsInARow = 0;
+      this.cleanAttempt = true;
+      this.notices = new Map();
+      this.begNote = null;
+      this.lastBeggedButton = null;
+    }
     this.restartIdleTimer();
 
     // Création des boutons à partir des données du niveau
@@ -207,7 +247,18 @@ export class GameBoardComponent implements OnDestroy {
     this.levelService.advanceToNextLevel();
   }
 
+  // Recommencer en pleine partie compte pour l'aide et pour « Têtu comme une mule » ; rejouer après une victoire, non
   public retryLevel(): void {
+    if (this.gameState === 'playing') {
+      this.restartsSinceBeg++;
+      this.restartsInARow++;
+      this.cleanAttempt = false;
+      if (this.restartsInARow >= this.RESTARTS_FOR_MULE) this.achievementService.unlock('habit_restart');
+    }
+    this.reloadLevel();
+  }
+
+  private reloadLevel(): void {
     const levelData = this.levelService.currentLevelData();
     if (levelData) {
       this.setupLevel(levelData);
@@ -225,6 +276,10 @@ export class GameBoardComponent implements OnDestroy {
    * @param button L'objet bouton sur lequel on a cliqué
    */
   public onButtonClick(button: GameButton): void {
+    if (this.isChoosingNotice) {
+      this.chooseNotice(button);
+      return;
+    }
     if (this.isBusy || button.isDisabled || this.gameState !== 'playing') return;
     this.wakeUp();
     this.stopVictorySequence();
@@ -249,6 +304,8 @@ export class GameBoardComponent implements OnDestroy {
     }
     board.buttons.forEach((state, i) => Object.assign(this.buttons[i], state));
     this.levelClicks++;
+    this.statsService.addClick();
+    if (new Date().getHours() < 4) this.achievementService.unlock('habit_night');
 
     this.animateScoreTo(board.score, () => {
       // Ce code ne s'exécutera QUE lorsque le score aura atteint sa cible
@@ -256,6 +313,7 @@ export class GameBoardComponent implements OnDestroy {
       this.checkGameState();
       this.checkBackgroundConditions();
       this.checkSecretScore();
+      if (this.allLimitedButtonsUsedUp()) this.achievementService.unlock('habit_burnt');
     });
   }
 
@@ -271,6 +329,9 @@ export class GameBoardComponent implements OnDestroy {
     if (!previous) return;
     this.wakeUp();
     this.stopVictorySequence();
+    this.isChoosingNotice = false;
+    this.cleanAttempt = false;
+    this.statsService.addUndo();
 
     this.score = previous.score;
     this.displayedScore = previous.score;
@@ -294,7 +355,9 @@ export class GameBoardComponent implements OnDestroy {
     clearTimeout(this.idleTimer);
     this.idleTimer = setTimeout(() => {
       // Pas de bulles par-dessus un autre fond spécial, une victoire ou un plantage
-      if (this.gameState !== 'playing' || this.isBusy || this.isRumbling || this.specialBackground) return;
+      if (this.gameState !== 'playing' || this.isBusy || this.isRumbling) return;
+      this.achievementService.unlock('habit_idle');
+      if (this.specialBackground) return;
       this.backgroundService.changeBackground('bubbles');
       this.specialBackground = 'bubbles';
     }, this.IDLE_DELAY_MS);
@@ -315,12 +378,18 @@ export class GameBoardComponent implements OnDestroy {
   public onKeydown(event: KeyboardEvent): void {
     if (event.altKey) return;
 
+    if (event.key === 'Escape' && this.isChoosingNotice) {
+      this.cancelBeg();
+      return;
+    }
+
     if (event.key === 'Escape' && this.showHelp) {
       this.closeHelp();
       return;
     }
 
     if (((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') || event.key === 'Backspace') {
+      if (this.isChoosingNotice) return;
       event.preventDefault();
       this.undo();
       return;
@@ -370,15 +439,81 @@ export class GameBoardComponent implements OnDestroy {
     return button.isConditionMet ? '✓' : '✕';
   }
 
-  // Bilan de la campagne, affiché après le dernier niveau
+  // Bilan de la campagne, affiché après le dernier niveau, médailles fondues (en chocolat) comprises
   public medalTally(): { name: string; icon: string; count: number }[] {
-    const results = Object.values(this.levelService.bestMedals());
-    return Object.entries(this.MEDAL_ICONS).map(([name, icon]) => ({ name, icon, count: results.filter(r => r === name).length }));
+    const palmares = countPalmares(this.levelService.bestMedals());
+    return Object.entries(palmares).map(([name, count]) => ({ name, icon: this.MEDAL_ICONS[name], count }));
   }
 
   public isAllPlatinum(): boolean {
-    const medals = this.levelService.bestMedals();
-    return this.levelService.levels().every(level => medals[level.levelNumber] === 'Platine');
+    return isAllPlatinum(this.levelService.levels(), this.levelService.bestMedals());
+  }
+
+  // --- L'AIDE QUI SE PAIE EN HONTE ---
+
+  // Pas dans un niveau secret, et plus une fois que chaque bouton du niveau a sa notice complète
+  public get canBeg(): boolean {
+    const level = this.levelService.currentLevelData();
+    return this.gameState === 'playing' && !!level && !level.secret && this.restartsSinceBeg >= this.RESTARTS_BEFORE_BEG
+      && this.buttons.some(button => !this.isNoticeComplete(button));
+  }
+
+  public isNoticeComplete(button: GameButton): boolean {
+    return (this.notices.get(button.name) ?? 0) >= NOTICE_PARTS.length;
+  }
+
+  // Un clic sur « Implorer » : la machine annonce son prix, puis le joueur clique sur le bouton qui le dépasse
+  public beg(): void {
+    if (this.isChoosingNotice) {
+      this.cancelBeg();
+      return;
+    }
+    if (this.isBusy || this.isRumbling || !this.canBeg) return;
+    this.wakeUp();
+    const results = this.levelService.bestMedals();
+    const levelNumber = pickMedalToMelt(results);
+    if (levelNumber === undefined) {
+      this.begNote = { kind: 'nothing' };
+      return;
+    }
+    this.begPrice = { icon: this.MEDAL_ICONS[results[levelNumber]], levelName: this.levelNameOf(levelNumber) };
+    this.isChoosingNotice = true;
+  }
+
+  public cancelBeg(): void {
+    this.isChoosingNotice = false;
+  }
+
+  // Le prix est payé : la médaille fond (en chocolat sur son niveau), et la moitié suivante de la notice s'affiche
+  private chooseNotice(button: GameButton): void {
+    if (this.isNoticeComplete(button)) return;
+    const levelNumber = pickMedalToMelt(this.levelService.bestMedals());
+    this.isChoosingNotice = false;
+    if (levelNumber === undefined) return;
+
+    const meltedMedal = this.levelService.bestMedals()[levelNumber];
+    this.levelService.meltMedal(levelNumber);
+    const revealed = this.notices.get(button.name) ?? 0;
+    this.statsService.payForNotice(`${button.name}:${NOTICE_PARTS[revealed]}`, this.levelService.bestMedals());
+    this.notices = new Map(this.notices).set(button.name, revealed + 1);
+    this.begNote = {
+      kind: 'melted',
+      icon: this.MEDAL_ICONS[meltedMedal],
+      levelName: this.levelNameOf(levelNumber),
+      remark: Math.floor(Math.random() * this.BEG_REMARKS)
+    };
+    this.lastBeggedButton = button.name;
+    this.restartsSinceBeg = 0;
+  }
+
+  // Les notices obtenues dans ce niveau, une par bouton, dans l'ordre des boutons
+  public noticeButtons(): { name: ButtonName; parts: string[] }[] {
+    const names = [...new Set(this.buttons.map(button => button.name))].filter(name => this.notices.has(name));
+    return names.map(name => ({ name, parts: NOTICE_PARTS.slice(0, this.notices.get(name)) }));
+  }
+
+  private levelNameOf(levelNumber: number): string {
+    return [...this.levelService.levels(), ...this.levelService.secretLevels()].find(level => level.levelNumber === levelNumber)?.name ?? '';
   }
 
   // Bouton que le joueur découvre pour la première fois dans ce niveau
@@ -457,7 +592,7 @@ private divideByZero(): void {
   this.crashTimer = setTimeout(() => {
     if (secretLevel) this.achievementService.unlock(secretAchievementId(secretLevel));
     this.faviconService.showDigit(1 + Math.floor(Math.random() * MAX_BUTTON_VALUE));
-    this.retryLevel();
+    this.reloadLevel();
   }, this.CRASH_DURATION_MS);
 }
 
@@ -495,11 +630,22 @@ private shakeBoard(quake: QuakeOptions, duration: number): void {
 
 private completeLevel(): void {
   const levelNumber = this.levelService.currentLevelNumber();
+  const level = this.levelService.currentLevelData();
+  const isFirstResult = !this.levelService.bestMedals()[levelNumber];
   this.isExploding = false;
   this.gameState = 'level_complete';
   this.calculateEarnedMedal();
   this.levelService.saveLevelResult(levelNumber, this.earnedMedal);
   this.backgroundService.changeBackground('constellation');
+  // Niveau joué avec une notice : la pique de fin sera une pique de honte
+  this.shameJab = Math.floor(Math.random() * this.SHAME_JABS);
+  this.restartsInARow = 0;
+
+  if (isFirstResult && this.cleanAttempt && this.earnedMedal === 'Platine' && level && !level.secret
+    && level.world >= this.FIRST_TRY_FROM_WORLD) {
+    this.achievementService.unlock('feat_first_try');
+  }
+  this.statsService.checkMedalAchievements(this.levelService.levels(), this.levelService.worlds(), this.levelService.bestMedals());
 
   // Dernier niveau du monde terminé : un succès, et le monde suivant apparaît dans la sélection
   const world = this.levelService.worlds().find(w => w.levels.some(level => level.levelNumber === levelNumber));

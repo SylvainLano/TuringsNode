@@ -2,7 +2,7 @@ import { Injectable, computed, signal, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage';
 import { APP_BASE_HREF } from '@angular/common';
-import { Level, getIntroducedButtons, getVisibleWorlds, groupByWorld } from '../engine';
+import { CHOCOLATE, Level, getIntroducedButtons, getVisibleWorlds, groupByWorld } from '../engine';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class LevelService {
   private readonly BEST_MEDALS_KEY = 'turings_node_best_medals_v2';
   // Médailles gagnées sur les anciennes séries de niveaux : elles ne correspondent plus aux mêmes niveaux
   private readonly OBSOLETE_MEDALS_KEYS = ['turings_node_best_medals', 'turings_node_best_medals_v1'];
-  private readonly MEDAL_HIERARCHY = ['Terminé', 'Bronze', 'Argent', 'Or', 'Platine'];
+  // Le chocolat d'une médaille fondue vaut mieux que rien, mais n'importe quelle vraie médaille le remplace
+  private readonly MEDAL_HIERARCHY = ['Terminé', CHOCOLATE, 'Bronze', 'Argent', 'Or', 'Platine'];
 
   public readonly currentLevelData = computed(() => {
     const levelNum = this.currentLevelNumber();
@@ -87,6 +88,15 @@ export class LevelService {
       }));
       this.storageService.saveData(this.BEST_MEDALS_KEY, this.bestMedals());
     }
+  }
+
+  /**
+   * Le prix d'une aide : la médaille de ce niveau fond et devient du chocolat, jusqu'à ce que le joueur
+   * regagne ce niveau avec une vraie médaille.
+   */
+  public meltMedal(levelNumber: number): void {
+    this.bestMedals.update(medals => ({ ...medals, [levelNumber]: CHOCOLATE }));
+    this.storageService.saveData(this.BEST_MEDALS_KEY, this.bestMedals());
   }
 
   private setInitialLevel(): void {

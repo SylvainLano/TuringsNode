@@ -59,3 +59,11 @@
     }
   }
 }
+
+// Numéro de version, discret sous le bouton de retour
+.version {
+  margin: 20px 0 0;
+  font-size: 0.8em;
+  color: var(--theme-text-color, #2d3748);
+  opacity: 0.5;
+}

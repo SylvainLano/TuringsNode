@@ -40,7 +40,7 @@ export class LevelSelectComponent implements OnInit {
   // et garde cette largeur d'un monde à l'autre
   public readonly hasSecrets = computed(() => this.visibleWorlds().some(world => this.visibleSecretsOf(world).length > 0));
 
-  private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Terminé: '✔️' };
+  private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Chocolat: '🍫', Terminé: '✔️' };
 
   constructor(
     private levelService: LevelService,

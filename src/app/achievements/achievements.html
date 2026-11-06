@@ -1,30 +1,69 @@
-<div class="achievements-container">
-  <h1 class="title">{{ 'achievements.title' | translate }}</h1>
+<div class="dossier">
+  <div class="achievements-container">
+    <h1 class="title">{{ 'achievements.title' | translate }}</h1>
 
-  <div class="achievements-list">
-    @for (achievementId of allAchievementsIds(); track achievementId) {
-      <div
-        class="achievement-item"
-        [ngClass]="{ 'is-unlocked': unlockedAchievements().has(achievementId) }">
-        <div class="achievement-icon">
-          @if (unlockedAchievements().has(achievementId)) {
-            <span>{{ achievementIcon(achievementId) }}</span>
-          } @else {
-            <span>🔒</span>
+    <!-- Le palmarès : les médailles, chocolat compris, puis le nombre de succès -->
+    <div class="palmares">
+      @for (medal of palmares(); track medal.key) {
+        <button class="palmares-item" [class.is-chocolate]="medal.key === 'Chocolat'" [class.is-selected]="detail()?.key === medal.key"
+          (mouseenter)="showMedal(medal)" (focus)="showMedal(medal)" (click)="showMedal(medal)">
+          <span class="palmares-icon" aria-hidden="true">{{ medal.icon }}</span>
+          <strong>{{ medal.count }}</strong>
+          <span class="palmares-label">{{ medal.title | translate }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="achievements-list">
+      @for (section of sections(); track section.key) {
+        <section class="achievement-section">
+          <h2 class="section-title">
+            <span aria-hidden="true">{{ section.icon }}</span>
+            {{ 'achievements.sections.' + section.key | translate }}
+            <small>{{ section.unlocked }}{{ section.total !== null ? ' / ' + section.total : '' }}</small>
+          </h2>
+          @if (section.total !== null) {
+            <div class="section-progress"><div [style.width.%]="100 * section.unlocked / section.total"></div></div>
           }
-        </div>
-        @if (unlockedAchievements().has(achievementId)) {
-          <div class="achievement-details">
-            <h3 class="achievement-title">{{ 'achievements.' + achievementId + '.title' | translate }}</h3>
-            <p class="achievement-description">{{ 'achievements.' + achievementId + '.description' | translate }}</p>
+          <div class="badges">
+            @for (achievementId of section.ids; track achievementId) {
+              @if (unlockedAchievements().has(achievementId)) {
+                <!-- Survolé, sélectionné au clavier ou touché : sa description s'affiche dans l'encart -->
+                <button class="badge" [class.is-selected]="detail()?.key === achievementId"
+                  (mouseenter)="showAchievement(achievementId, section.icon)" (focus)="showAchievement(achievementId, section.icon)"
+                  (click)="showAchievement(achievementId, section.icon)">
+                  <span class="badge-icon" aria-hidden="true">{{ section.icon }}</span>
+                  <span class="badge-title"><span>{{ 'achievements.' + achievementId + '.title' | translate }}</span></span>
+                </button>
+              } @else {
+                <div class="badge is-locked">
+                  <span class="badge-icon" aria-hidden="true">🔒</span>
+                  <span class="badge-title"><span>{{ 'achievements.locked' | translate }}</span></span>
+                </div>
+              }
+            }
           </div>
-        }
-      </div>
-    }
+        </section>
+      }
+    </div>
   </div>
 
-  <a routerLink="/" class="back-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-    <span>{{ 'achievements.backButton' | translate }}</span>
-  </a>
+  <!-- L'encart : le retour au menu, puis la description de ce que le joueur pointe -->
+  <aside class="dossier-aside">
+    <a routerLink="/" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <span>{{ 'achievements.backButton' | translate }}</span>
+    </a>
+    <div class="dossier-detail" aria-live="polite">
+      @if (detail(); as shown) {
+        <span class="detail-icon" aria-hidden="true">{{ shown.icon }}</span>
+        <div>
+          <p class="detail-title">{{ shown.title | translate }}</p>
+          <p class="detail-description">{{ shown.description | translate }}</p>
+        </div>
+      } @else {
+        <p class="detail-hint">{{ 'achievements.hint' | translate }}</p>
+      }
+    </div>
+  </aside>
 </div>

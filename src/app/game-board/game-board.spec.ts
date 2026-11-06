@@ -9,6 +9,7 @@ import { LevelService } from '../core/services/level';
 import { AchievementService } from '../core/services/achievement';
 import { FaviconService } from '../core/services/favicon';
 import { BackgroundService } from '../core/services/background';
+import { StatsService } from '../core/services/stats';
 import { Level } from '../core/engine';
 
 // Le score 11 a pour racine numérique 2 : Digit passe au vert dès que sa valeur vaut 2
@@ -51,6 +52,7 @@ describe('GameBoardComponent', () => {
   afterEach(() => {
     localStorage.removeItem('turings_node_best_medals_v2');
     localStorage.removeItem('turings_node_achievements');
+    localStorage.removeItem('turings_node_stats');
     vi.useRealTimers();
   });
 
@@ -323,6 +325,160 @@ describe('GameBoardComponent', () => {
 
     component.onButtonClick(component.buttons[0]); // Digit 1 : le score ne bouge pas
     expect(background.state().value).not.toBe('bubbles');
+  });
+
+  describe('when the player begs for a notice', () => {
+    // Le niveau 2 se joue entre deux niveaux déjà terminés : Digit 1 garde le score à 11, Split 3 reste rouge
+    const PLAYED: Level = { ...LEVEL, levelNumber: 2, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 3 }] };
+    let stats: StatsService;
+    let achievements: AchievementService;
+
+    beforeEach(() => {
+      stats = TestBed.inject(StatsService);
+      achievements = TestBed.inject(AchievementService);
+    });
+
+    function play(level: Level, results: Record<number, string>): void {
+      levelService.levels.set([{ ...LEVEL, levelNumber: 1 }, level, { ...LEVEL, levelNumber: 3 }]);
+      Object.entries(results).forEach(([levelNumber, medal]) => levelService.saveLevelResult(Number(levelNumber), medal));
+      levelService.currentLevelNumber.set(level.levelNumber);
+      fixture.detectChanges();
+    }
+
+    // Un clic sur Digit 1 (le score ne bouge pas), puis Recommencer
+    function restart(times: number): void {
+      for (let i = 0; i < times; i++) {
+        component.onButtonClick(component.buttons[0]);
+        component.retryLevel();
+      }
+      fixture.detectChanges();
+    }
+
+    it('only lets the player beg after three restarts', () => {
+      play(PLAYED, { 1: 'Or' });
+      restart(2);
+      expect([component.canBeg, fixture.nativeElement.querySelector('.beg-button')]).toEqual([false, null]);
+      restart(1);
+      expect(component.canBeg).toBe(true);
+      expect(fixture.nativeElement.querySelector('.beg-button')?.textContent?.trim()).toBe('beg.button');
+    });
+
+    it('melts the best medal into chocolate on its level, and shows the notice half by half', () => {
+      play(PLAYED, { 1: 'Or', 3: 'Platine' });
+      restart(3);
+      component.beg();
+      fixture.detectChanges();
+      expect(component.isChoosingNotice).toBe(true);
+      expect(component.begPrice).toEqual({ icon: '💎', levelName: 'tester' });
+      expect(fixture.nativeElement.querySelectorAll('.game-button.is-choosable').length).toBe(2);
+
+      // Choisir un bouton ne l'enfonce pas : seul le prix est payé
+      component.onButtonClick(component.buttons[1]);
+      fixture.detectChanges();
+      expect([component.isChoosingNotice, component.levelClicks, component.buttons[1].value]).toEqual([false, 0, 3]);
+      expect(levelService.bestMedals()).toEqual({ 1: 'Or', 3: 'Chocolat' });
+      expect(stats.stats().melts).toBe(1);
+      expect(achievements.unlockedAchievements().has('shame_first')).toBe(true);
+      expect(fixture.nativeElement.querySelector('.beg-melt')?.textContent).toContain('💎');
+      expect([...fixture.nativeElement.querySelectorAll('.notices span')].map((span: HTMLElement) => span.textContent))
+        .toEqual(['beg.notices.Split.green']);
+      expect(component.canBeg).toBe(false);
+
+      // Trois redémarrages plus tard : l'autre moitié, payée avec la médaille suivante
+      restart(3);
+      component.beg();
+      component.onButtonClick(component.buttons[1]);
+      fixture.detectChanges();
+      expect(levelService.bestMedals()).toEqual({ 1: 'Chocolat', 3: 'Chocolat' });
+      expect([...fixture.nativeElement.querySelectorAll('.notices span')].map((span: HTMLElement) => span.textContent))
+        .toEqual(['beg.notices.Split.green', 'beg.notices.Split.action']);
+    });
+
+    it('cancels the choice without paying', () => {
+      play(PLAYED, { 1: 'Or' });
+      restart(3);
+      component.beg();
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      expect(component.isChoosingNotice).toBe(false);
+      component.onButtonClick(component.buttons[0]);
+      expect([component.levelClicks, stats.stats().melts, levelService.bestMedals()[1]]).toEqual([1, 0, 'Or']);
+    });
+
+    it('tells the player when there is nothing left to offer', () => {
+      play(PLAYED, { 1: 'Terminé' });
+      restart(3);
+      component.beg();
+      fixture.detectChanges();
+      expect(component.isChoosingNotice).toBe(false);
+      expect(fixture.nativeElement.querySelector('.beg-remark')?.textContent).toBe('beg.nothingLeft');
+    });
+
+    it('never offers help in a secret level', () => {
+      levelService.levels.set([{ ...LEVEL, levelNumber: 1 }]);
+      levelService.secretLevels.set([{ ...PLAYED, levelNumber: 1001, targetScore: 99, secret: { unlockScore: 50 } }]);
+      levelService.saveLevelResult(1, 'Or');
+      levelService.currentLevelNumber.set(1001);
+      fixture.detectChanges();
+      restart(3);
+      expect(component.canBeg).toBe(false);
+    });
+
+    it('ends the level on a shame jab, and gives a real medal back to a chocolate level won again', () => {
+      vi.useFakeTimers();
+      levelService.levels.set([{ ...LEVEL, levelNumber: 1 }, { ...LEVEL, levelNumber: 2 }]);
+      levelService.saveLevelResult(1, 'Platine');
+      levelService.currentLevelNumber.set(2);
+      fixture.detectChanges();
+      restart(3); // Digit 1 gagne ce niveau : chaque redémarrage interrompt le tremblement
+      component.beg();
+      component.onButtonClick(component.buttons[0]);
+      component.onButtonClick(component.buttons[0]);
+      vi.advanceTimersByTime(3000);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.machine-jab')?.textContent).toMatch(/^beg\.shameJabs\.[0-7]$/);
+      const tally = fixture.nativeElement.querySelector('.medal-tally')?.textContent;
+      expect(tally).toContain('💎 1');
+      expect(tally).toContain('🍫 1');
+      expect(component.isAllPlatinum()).toBe(false);
+
+      // Le niveau 1 regagné : sa médaille en chocolat redevient une vraie médaille
+      levelService.currentLevelNumber.set(1);
+      fixture.detectChanges();
+      component.onButtonClick(component.buttons[0]);
+      vi.advanceTimersByTime(3000);
+      expect(levelService.bestMedals()).toEqual({ 1: 'Platine', 2: 'Platine' });
+    });
+  });
+
+  it('notices a player who restarts the same level ten times in a row', () => {
+    levelService.levels.set([{ ...LEVEL, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 3 }] }]);
+    fixture.detectChanges();
+    for (let i = 0; i < 10; i++) {
+      component.onButtonClick(component.buttons[0]);
+      component.retryLevel();
+    }
+    expect(TestBed.inject(AchievementService).unlockedAchievements().has('habit_restart')).toBe(true);
+  });
+
+  it('rewards a platinum on the first try in the last worlds, but not after an undo', () => {
+    const achievements = TestBed.inject(AchievementService);
+    vi.useFakeTimers();
+    levelService.levels.set([{ ...LEVEL, world: 6 }]);
+    fixture.detectChanges();
+    component.onButtonClick(component.buttons[0]);
+    component.undo();
+    component.onButtonClick(component.buttons[0]);
+    vi.advanceTimersByTime(3000);
+    expect([component.earnedMedal, achievements.unlockedAchievements().has('feat_first_try')]).toEqual(['Platine', false]);
+
+    levelService.resetProgress();
+    levelService.levels.set([{ ...LEVEL, levelNumber: 2, world: 6 }]);
+    levelService.currentLevelNumber.set(2);
+    fixture.detectChanges();
+    component.onButtonClick(component.buttons[0]);
+    vi.advanceTimersByTime(3000);
+    expect(achievements.unlockedAchievements().has('feat_first_try')).toBe(true);
   });
 
   it('marks the buttons the player discovers in this level', () => {

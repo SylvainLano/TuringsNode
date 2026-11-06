@@ -34,8 +34,9 @@
             [ngClass]="button.colorClass"
             [class.is-new]="isNewButton(button)"
             (click)="onButtonClick(button)"
-            [class.is-disabled]="isBusy || button.isDisabled"
-            [disabled]="isBusy || button.isDisabled"
+            [class.is-choosable]="isChoosingNotice && !isNoticeComplete(button)"
+            [class.is-disabled]="isChoosingNotice ? isNoticeComplete(button) : isBusy || button.isDisabled"
+            [disabled]="isChoosingNotice ? isNoticeComplete(button) : isBusy || button.isDisabled"
             [attr.aria-label]="button.name + ' ' + button.value + ' : ' + (stateLabelKey(button) | translate)
               + (button.clicksLeft === null ? '' : ', ' + ('gameboard.clicksLeft' | translate:{ count: button.clicksLeft }))
               + (button.streakLeft === null ? '' : ', ' + ('gameboard.streakLeft' | translate:{ count: button.streakLeft }))">
@@ -51,6 +52,33 @@
           </button>
         }
       </div>
+
+      <!-- L'aide qui se paie en honte : le prix, la médaille qui fond, puis les notices obtenues dans ce niveau -->
+      @if (isChoosingNotice || begNote || notices.size) {
+        <div class="beg-panel" aria-live="polite">
+          @if (isChoosingNotice && begPrice) {
+            <p class="beg-prompt">{{ 'beg.price' | translate:{ medal: begPrice.icon, level: ('levels.' + begPrice.levelName + '.name' | translate) } }}</p>
+            <button class="control-button beg-cancel" (click)="cancelBeg()">{{ 'beg.cancel' | translate }}</button>
+          } @else if (begNote?.kind === 'nothing') {
+            <p class="beg-remark">{{ 'beg.nothingLeft' | translate }}</p>
+          } @else if (begNote?.kind === 'melted') {
+            <p class="beg-melt">{{ begNote.icon }} {{ 'levels.' + begNote.levelName + '.name' | translate }} → 🍫</p>
+            <p class="beg-remark">{{ 'beg.remarks.' + begNote.remark | translate:{ name: ('levels.' + levelName + '.name' | translate) } }}</p>
+          }
+          @if (notices.size) {
+            <ul class="notices">
+              @for (notice of noticeButtons(); track notice.name) {
+                <li>
+                  <strong>{{ notice.name }}</strong>
+                  @for (part of notice.parts; track part) {
+                    <span class="notice-{{ part }}">{{ 'beg.notices.' + notice.name + '.' + part | translate }}</span>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
     </div>
 
     @if (isExploding) {
@@ -67,6 +95,10 @@
 
     <div class="play-controls">
       <span class="click-counter">{{ 'gameboard.clicksShort' | translate }} : <strong>{{ levelClicks }}</strong></span>
+      @if (canBeg) {
+        <button class="control-button beg-button" (click)="beg()" [class.is-active]="isChoosingNotice"
+          [title]="'beg.tooltip' | translate">{{ 'beg.button' | translate }}</button>
+      }
       <button class="control-button help-button" (click)="toggleHelp()" [class.is-active]="showHelp"
         [attr.aria-label]="'gameboard.helpButton' | translate" [title]="'gameboard.helpButton' | translate">?</button>
       <button class="control-button" (click)="undo()" [disabled]="!canUndo" title="Ctrl+Z">
@@ -87,7 +119,12 @@
         <div class="tribute">
           <p class="tribute-name">{{ 'levels.' + levelName + '.name' | translate }}</p>
           <p class="tribute-story">{{ 'levels.' + levelName + '.story' | translate }}</p>
-          <p class="machine-jab">{{ 'levels.' + levelName + '.jab' | translate:{ clicks: (clicksInWordsKey() | translate:{ count: levelClicks }) } }}</p>
+          <!-- Niveau joué avec une notice : une pique de honte à la place de la pique habituelle -->
+          @if (notices.size) {
+            <p class="machine-jab">{{ 'beg.shameJabs.' + shameJab | translate:{ button: lastBeggedButton ?? '' } }}</p>
+          } @else {
+            <p class="machine-jab">{{ 'levels.' + levelName + '.jab' | translate:{ clicks: (clicksInWordsKey() | translate:{ count: levelClicks }) } }}</p>
+          }
         </div>
       }
       <div class="stats">

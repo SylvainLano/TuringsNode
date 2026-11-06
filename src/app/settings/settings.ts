@@ -5,6 +5,8 @@ import { TranslationService } from '../core/services/translation';
 import { LevelService } from '../core/services/level';
 import { AchievementService } from '../core/services/achievement';
 import { BackgroundService } from '../core/services/background';
+import { StatsService } from '../core/services/stats';
+import { version } from '../../../package.json';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +23,9 @@ export class SettingsComponent implements OnInit {
     { code: 'en', name: 'English' }
   ];
 
+  // Version du jeu, lue dans package.json : utile quand un joueur signale un bug
+  public readonly version = version;
+
   // L'effacement de la progression se fait en deux temps pour éviter les accidents
   public readonly resetState = signal<'idle' | 'confirming' | 'done'>('idle');
 
@@ -28,6 +33,7 @@ export class SettingsComponent implements OnInit {
     public translationService: TranslationService,
     private levelService: LevelService,
     private achievementService: AchievementService,
+    private statsService: StatsService,
     private backgroundService: BackgroundService
   ) {}
 
@@ -42,6 +48,8 @@ export class SettingsComponent implements OnInit {
   public confirmReset(): void {
     this.levelService.resetProgress();
     this.achievementService.resetAchievements();
+    // Médailles fondues, clics, annulations, notices : le dossier repart de zéro lui aussi
+    this.statsService.reset();
     this.resetState.set('done');
   }
 }

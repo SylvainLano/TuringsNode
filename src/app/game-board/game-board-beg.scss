@@ -1,0 +1,112 @@
+/* L'aide qui se paie en honte, à part pour garder chaque feuille de style légère */
+
+/* Le bouton « Implorer » : dans les commandes, teinté chocolat */
+.play-controls .beg-button {
+    border-color: rgba(210, 140, 80, 0.8);
+    background-color: rgba(123, 63, 0, 0.55);
+
+    &:hover:not(:disabled),
+    &.is-active {
+        background-color: rgba(160, 90, 30, 0.8);
+    }
+}
+
+/* Choix du bouton dont on implore la notice : contour en pointillés qui palpite,
+   de la couleur du texte du fond pour rester visible de jour comme de nuit */
+.game-button.is-choosable {
+    outline: 3px dashed var(--theme-text-color, #2d3748);
+    outline-offset: 4px;
+    animation: beg-pulse 0.8s ease-in-out infinite alternate;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@keyframes beg-pulse {
+    to {
+        outline-offset: 9px;
+    }
+}
+
+/* Sous les boutons : le prix, la médaille qui fond, puis les notices */
+.beg-panel {
+    max-width: 680px;
+    margin-top: 40px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background-color: rgba(45, 55, 72, 0.85);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.45;
+
+    p {
+        margin: 0 0 8px;
+    }
+
+    // La machine parle : même voix que sa pique de fin de niveau
+    .beg-prompt,
+    .beg-remark {
+        font-style: italic;
+        font-size: 1.1em;
+        color: #f6e05e;
+    }
+
+    .beg-melt {
+        font-size: 1.1em;
+        letter-spacing: 1px;
+    }
+
+    .beg-cancel {
+        margin-bottom: 4px;
+    }
+}
+
+.notices {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+
+    li {
+        padding: 8px 0;
+        border-top: 1px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    span {
+        display: block;
+        margin-top: 2px;
+    }
+
+    // Quand il est vert (le symbole des boutons verts), puis ce qu'il fait au score
+    .notice-green::before {
+        content: '✓ ';
+    }
+
+    .notice-action::before {
+        content: '➜ ';
+    }
+}
+
+/* Sur téléphone, « Implorer » ne tient plus : il passe seul sur une seconde ligne, à droite */
+@media (max-width: 600px) {
+    .play-controls {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: calc(100vw - 24px);
+        box-sizing: border-box;
+
+        .beg-button {
+            order: 1;
+        }
+    }
+
+    .beg-panel {
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+        margin-top: 24px;
+    }
+}

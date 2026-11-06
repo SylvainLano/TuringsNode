@@ -93,6 +93,18 @@ describe('LevelService', () => {
     expect(service.bestMedals()).toEqual({ 1: 'Or', 2: 'Terminé' });
   });
 
+  it('melts a medal into chocolate, which only a real medal replaces', () => {
+    service.saveLevelResult(1, 'Platine');
+    service.meltMedal(1);
+    expect(service.bestMedals()[1]).toBe('Chocolat');
+    expect(JSON.parse(localStorage.getItem('turings_node_best_medals_v2')!)).toEqual({ 1: 'Chocolat' });
+
+    service.saveLevelResult(1, null);
+    expect(service.bestMedals()[1]).toBe('Chocolat');
+    service.saveLevelResult(1, 'Bronze');
+    expect(service.bestMedals()[1]).toBe('Bronze');
+  });
+
   it('erases every medal and goes back to the first level', () => {
     service.saveLevelResult(1, 'Or');
     service.advanceToNextLevel();

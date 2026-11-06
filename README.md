@@ -14,6 +14,8 @@ Turing's Node is a mathematical puzzle game. Every button changes the score in i
 
 Made a wrong move? Undo it or restart the level from the controls in the bottom right corner.
 
+Really stuck? After a few restarts, you can beg the machine for a button's manual. It will cost you your best medal, which turns to chocolate until you win its level again. And the machine will make sure you remember it.
+
 | Key | Action |
 |---|---|
 | `1` to `9` | Click the matching button |
@@ -32,7 +34,7 @@ Not everything is on the map: hidden levels, rare colors, special backgrounds an
 ## Features
 
 - French and English, picked from the browser language and changeable in the settings
-- Progress, medals and achievements saved in the browser
+- Progress, medals and achievements saved in the browser, along with the dossier the machine keeps on you
 - Phone and desktop layouts, and a home screen icon when added to a phone
 - Day and night backgrounds that follow the time of day
 

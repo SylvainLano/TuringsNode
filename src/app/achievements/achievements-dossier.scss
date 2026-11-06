@@ -1,0 +1,178 @@
+/* Le dossier : palmarès, familles de succès et pastilles, à part pour garder chaque feuille de style légère */
+
+$gold: #F6E05E;
+$card: rgba(45, 55, 72, 0.8);
+$locked: rgba(0, 0, 0, 0.45);
+
+/* Le palmarès : une case par médaille, chocolat compris, puis les succès */
+.palmares {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+// Chaque case se survole ou se touche : sa description s'affiche dans l'encart
+.palmares-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px;
+  border-radius: 12px;
+  background-color: $card;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #E2E8F0;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+
+  &:hover,
+  &.is-selected {
+    border-color: $gold;
+  }
+
+  .palmares-icon {
+    font-size: 1.6em;
+  }
+
+  strong {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.6em;
+    line-height: 1.2;
+  }
+
+  .palmares-label {
+    font-size: 0.8em;
+    color: #A0AEC0;
+  }
+
+  // La honte se voit : le chocolat a sa propre couleur
+  &.is-chocolate {
+    background-color: rgba(123, 63, 0, 0.75);
+    border-color: rgba(210, 140, 80, 0.6);
+
+    .palmares-label {
+      color: #F6C99A;
+    }
+  }
+}
+
+/* Une famille : son titre, sa progression, puis ses pastilles */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 6px;
+  font-size: 1.15em;
+  color: var(--theme-text-color, #2d3748); // Suit le fond, comme le titre
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  small {
+    margin-left: auto;
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+}
+
+.section-progress {
+  height: 4px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  div {
+    height: 100%;
+    border-radius: 2px;
+    background-color: $gold;
+  }
+}
+
+// Des pastilles plus larges que hautes, cinq par ligne : assez larges pour que chaque titre tienne sur deux lignes
+.badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(144px, 1fr)); // 5 × 144 px + 4 espaces = 760 px, la largeur de la page
+  gap: 10px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  // Hauteur fixe, plus petite que la largeur (144 px au moins) : toutes les pastilles sont identiques,
+  // quels que soient le titre et la police des emojis du navigateur
+  height: 104px;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0; // Un titre trop long se coupe au lieu d'élargir la pastille
+  padding: 10px 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: $card;
+  color: #E2E8F0;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+
+  // Celle dont l'encart affiche la description
+  &:hover,
+  &.is-selected {
+    border-color: $gold;
+  }
+
+  .badge-icon {
+    font-size: 2.2em;
+    line-height: 1; // Sinon la hauteur de ligne des emojis varie d'un navigateur à l'autre
+  }
+
+  // Deux lignes toujours réservées, le titre calé en bas : la pastille ne change pas de taille, les icônes
+  // d'une même ligne restent alignées, et un titre court se pose sur la seconde ligne. Au-delà de deux
+  // lignes, « … » ; le titre entier s'affiche dans l'encart
+  .badge-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 2.5em; // Deux lignes de 1.25
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1.25;
+    color: $gold;
+
+    span {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+  }
+
+  &.is-locked {
+    background-color: $locked;
+    border-color: rgba(255, 255, 255, 0.05);
+    cursor: default;
+
+    .badge-icon {
+      opacity: 0.4;
+    }
+
+    .badge-title {
+      color: #718096;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .palmares {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // Deux pastilles par ligne
+  .badges {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
