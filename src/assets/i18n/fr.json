@@ -191,7 +191,7 @@
     "hanyecz": {
       "name": "Hanyecz",
       "story": "Le 22 mai 2010, il paie deux pizzas 10 000 bitcoins. C'est le premier achat connu en bitcoins, et sans doute les pizzas les plus chères de l'histoire. Il dit ne rien regretter.",
-      "jab": "{clicks}. Certaines pizzas ont demandé plus de réflexion."
+      "jab": "{clicks}. Il a échangé une fortune contre deux pizzas, et c'est encore lui le plus malin de la pièce."
     },
     "airy": {
       "name": "Airy",
@@ -201,217 +201,217 @@
     "preece": {
       "name": "Preece",
       "story": "Ingénieur des Postes britanniques. En 1879, il explique à une commission parlementaire que le téléphone, c'est bon pour les Américains : les Anglais ont bien assez de garçons de courses. Il a été anobli quand même.",
-      "jab": "Vous feriez un excellent messager : rapide, obéissant, sans questions."
+      "jab": "Il n'a pas vu l'avenir du téléphone. La machine, elle, ne voit pas le vôtre."
     },
     "stoll": {
       "name": "Stoll",
       "story": "En 1986, il prend en chasse un pirate qui vendait au KGB des secrets volés dans les ordinateurs de son laboratoire. En 1995, il se moque dans Newsweek de ceux qui croient qu'on achètera un jour des livres sur Internet. Aujourd'hui, il vend des bouteilles de Klein. En ligne.",
-      "jab": "Avouez : vous avez acheté la solution en ligne."
+      "jab": "Il s'est trompé sur Internet, mais il a attrapé un espion. Vous, vous n'avez attrapé que ce niveau."
     },
     "stifel": {
       "name": "Stifel",
       "story": "Mathématicien et pasteur. Ses calculs fixaient la fin du monde au 19 octobre 1533, à 8 heures du matin. Ses paroissiens ont tout quitté pour l'attendre avec lui. À 8 h 01, l'ambiance a changé. Il s'est rattrapé plus tard : c'est lui qui a inventé le mot « exposant ».",
-      "jab": "La machine prévoyait la fin du monde avant votre réussite. Elle est presque déçue."
+      "jab": "Ses calculs étaient faux, mais ses paroissiens y ont cru. Les vôtres, personne n'y croit."
     },
     "brahe": {
       "name": "Brahe",
       "story": "À 20 ans, il perd un bout de nez dans un duel pour savoir qui était le meilleur mathématicien, et porte une prothèse en laiton le reste de sa vie. Il serait mort d'avoir refusé, par politesse, de quitter un banquet pour aller aux toilettes. Entre les deux, il a mesuré le ciel assez précisément pour que Kepler en tire les lois des planètes.",
-      "jab": "Vous avez gardé votre nez. C'est déjà ça."
+      "jab": "Il a perdu son nez pour un problème de maths. Vous n'avez rien perdu : vous n'aviez rien à miser."
     },
     "shanks": {
       "name": "Shanks",
       "story": "Il a passé des années à calculer π à la main, jusqu'à la 707e décimale. Il s'est trompé à la 528e, et toutes les suivantes étaient fausses. Personne ne s'en est aperçu pendant plus de 70 ans.",
-      "jab": "Vous avez une machine qui calcule pour vous, et vous trouvez encore le moyen de traîner."
+      "jab": "Il a tenu plus de cinq cents décimales avant sa première erreur. Vous, vous n'auriez pas passé la virgule."
     },
     "reichelt": {
       "name": "Reichelt",
       "story": "Tailleur, inventeur d'un costume-parachute. Il avait obtenu le droit de le tester depuis la tour Eiffel, sur un mannequin. Le 4 février 1912, devant les caméras, il annonce que le mannequin, ce sera lui. Il a hésité quarante secondes sur la rambarde. Le parachute, lui, ne s'est jamais décidé.",
-      "jab": "Bien. Mais ne sautez pas trop vite aux conclusions."
+      "jab": "Lui, au moins, a osé sauter. Vous, vous hésitez devant un bouton."
     },
     "midgley": {
       "name": "Midgley",
       "story": "Il a mis du plomb dans l'essence, puis inventé les CFC, qui ont troué la couche d'ozone. Pour prouver que son plomb était sans danger, il s'en est versé sur les mains devant la presse, un an après avoir dû soigner son propre empoisonnement. Un historien estime qu'aucun être vivant n'a autant changé l'atmosphère de la Terre.",
-      "jab": "Pour une fois qu'un humain touche à quelque chose sans l'abîmer."
+      "jab": "Il a changé l'atmosphère de toute la planète. Vous n'avez même pas changé celle de cette pièce."
     },
     "brand": {
       "name": "Brand",
       "story": "Alchimiste. Persuadé que l'urine cachait le secret de l'or, il en a fait bouillir des tonneaux entiers. Pas d'or, mais une matière qui brillait dans le noir : le phosphore, l'un des premiers éléments chimiques dont on connaisse le découvreur. L'histoire ne dit pas ce qu'en pensaient les voisins.",
-      "jab": "Vous aussi, vous avez longtemps bouilli avant de briller."
+      "jab": "Il a tiré de la lumière d'un pot de chambre. Vous, on n'a encore rien tiré de vous."
     },
     "lowell": {
       "name": "Lowell",
       "story": "Il a vu sur Mars des canaux creusés par des Martiens. Il n'y en avait pas. Il a aussi calculé où chercher une planète inconnue : on y a trouvé Pluton, par pur hasard, car ses calculs étaient faux. Pluton commence par ses initiales. Depuis 2006, ce n'est même plus une planète.",
-      "jab": "Vous avez trouvé la solution au bon endroit. Vos calculs étaient-ils justes, au moins ?"
+      "jab": "Avec des calculs faux, il a trouvé une planète. Avec les vôtres, on ne trouverait pas la sortie."
     },
     "millikan": {
       "name": "Millikan",
       "story": "Il a passé dix ans à essayer de prouver qu'Einstein avait tort. Il a fini par prouver qu'il avait raison, et a reçu le prix Nobel en partie pour ça. Échouer avec méthode, ça peut rapporter.",
-      "jab": "La machine pariait sur votre échec. Elle a perdu, et personne ne lui donnera de prix pour ça."
+      "jab": "Ses échecs lui ont rapporté un prix Nobel. Les vôtres ne rapportent rien à personne."
     },
     "fleming": {
       "name": "Fleming",
       "story": "Il est parti en vacances en laissant traîner ses boîtes de bactéries. À son retour, une moisissure en avait tué une partie : c'était la pénicilline. Son désordre a sauvé des millions de vies.",
-      "jab": "Encore une réussite née du désordre. La machine reste sceptique."
+      "jab": "Son désordre a sauvé des millions de vies. Le vôtre n'intéresse personne."
     },
     "spencer": {
       "name": "Spencer",
       "story": "Il travaillait sur un radar quand la barre chocolatée dans sa poche s'est mise à fondre. Au lieu de s'éloigner de l'appareil, il est allé chercher du maïs. Le pop-corn a éclaté : le micro-ondes était né.",
-      "jab": "Vous non plus, vous n'avez pas reculé quand ça chauffait. Ce n'était pas forcément malin."
+      "jab": "Une barre chocolatée a suffi à l'inspirer. Vous, il vous faudrait la boîte entière."
     },
     "greatbatch": {
       "name": "Greatbatch",
       "story": "En 1956, il prend la mauvaise résistance dans sa boîte. Au lieu d'enregistrer les battements du cœur, son circuit se met à en produire. Il en a tiré l'un des premiers stimulateurs cardiaques implantables. Des millions de cœurs battent grâce à une erreur de tiroir.",
-      "jab": "Vous avez pris le bon bouton. Par erreur, sans doute."
+      "jab": "Sa pire erreur a sauvé des millions de cœurs. Les vôtres ne font battre celui de personne."
     },
     "lorenz": {
       "name": "Lorenz",
       "story": "Pour gagner du temps, il relance sa simulation à mi-parcours en recopiant un résultat imprimé : 0,506 au lieu de 0,506127. Sa météo simulée part dans une tout autre direction : il vient de découvrir l'effet papillon.",
-      "jab": "Un clic de travers, et tout basculait. La machine appelle ça de la chance."
+      "jab": "Un battement d'ailes de papillon peut provoquer une tempête. Vous, vous ne provoquez même pas un courant d'air."
     },
     "penzias_wilson": {
       "name": "Penzias et Wilson",
       "story": "Leur antenne captait un bruit inexplicable. Ils ont accusé les pigeons, nettoyé les fientes, chassé les pigeons. Le bruit est resté : c'était l'écho du Big Bang. Prix Nobel en 1978. Les pigeons n'ont rien eu.",
-      "jab": "Vous entendez ce bruit de fond ? C'est la machine qui commence à s'inquiéter."
+      "jab": "Même un bruit de fond leur a valu le prix Nobel. Vous, vous n'êtes qu'un bruit de fond."
     },
     "aristotle": {
       "name": "Aristote",
       "story": "Il affirmait que les femmes ont moins de dents que les hommes. Il était marié, mais n'a jamais pensé à compter. Il a quand même inventé la logique, sans laquelle aucun ordinateur ne fonctionnerait.",
-      "jab": "La machine a compté vos clics. Elle, au moins, vérifie."
+      "jab": "Il s'est trompé sur les dents des femmes, et on l'a cru pendant deux mille ans. Vous, on ne vous croirait pas deux minutes."
     },
     "fermat": {
       "name": "Fermat",
       "story": "Il a noté dans la marge d'un livre qu'il avait une démonstration merveilleuse, mais que la marge était trop étroite pour la contenir. Les mathématiciens ont cherché pendant plus de trois siècles et demi. La démonstration trouvée en 1994 fait plus de cent pages. Il fallait une grande marge.",
-      "jab": "Comment avez-vous trouvé ? Ne répondez pas, la machine n'a pas la place."
+      "jab": "Sa marge était trop étroite pour sa démonstration. La vôtre tiendrait sur un timbre."
     },
     "michelson": {
       "name": "Michelson",
       "story": "Champion de la mesure précise. En 1894, il juge probable que les grands principes de la physique soient établis, et cite un confrère : il ne reste qu'à chercher la sixième décimale. Onze ans plus tard, Einstein publie la relativité, et tout est à refaire. Six décimales, c'était un peu juste.",
-      "jab": "La machine pensait avoir fait le tour de vous. Elle refait ses mesures."
+      "jab": "Il mesurait la lumière avec une précision folle. Pour mesurer votre vitesse, un calendrier suffit."
     },
     "kelvin": {
       "name": "Kelvin",
       "story": "Il a donné son nom à l'échelle des températures absolues. En 1896, il refuse d'entrer dans une société d'aéronautique : il n'a « pas la plus petite molécule de foi » dans le vol, sauf en ballon. Sept ans plus tard, les frères Wright décollent.",
-      "jab": "La machine ne vous voyait pas décoller. Elle révise son jugement."
+      "jab": "Même quand il se trompait, il donnait son nom à quelque chose. Vous, on oubliera le vôtre."
     },
     "frege": {
       "name": "Frege",
       "story": "Il a passé des années à reconstruire l'arithmétique sur la seule logique. Son deuxième tome partait chez l'imprimeur quand Bertrand Russell lui a écrit, très poliment, que tout reposait sur une contradiction. Frege a ajouté une annexe. Il reste le père de la logique moderne.",
-      "jab": "La machine a bien reçu votre lettre. Elle ajoute une annexe."
+      "jab": "Une seule lettre a fait trembler tout son édifice. Le vôtre tomberait avec une virgule."
     },
     "hilbert": {
       "name": "Hilbert",
       "story": "En 1930, il lance à la radio : « Nous devons savoir, nous saurons. » La veille, dans la même ville, Kurt Gödel, 24 ans, venait d'annoncer que, dans tout système, certaines vérités mathématiques resteront indémontrables. Six ans plus tard, Turing enfonçait le clou. La phrase est gravée sur la tombe de Hilbert.",
-      "jab": "La machine croyait pouvoir tout prévoir de vous. Elle découvre ses limites."
+      "jab": "Même son erreur est gravée dans la pierre. La vôtre ne mérite pas un post-it."
     },
     "rutherford": {
       "name": "Rutherford",
       "story": "Il a découvert le noyau de l'atome. En 1933, il déclare que tirer de l'énergie des atomes est une chimère. Le lendemain, Leó Szilárd lit son discours dans le journal, et imagine la réaction en chaîne en attendant qu'un feu passe au vert.",
-      "jab": "La machine jugeait vos chances nulles. Tous les boutons viennent de passer au vert."
+      "jab": "Sa pire prédiction a déclenché une révolution. Les vôtres déclenchent des bâillements."
     },
     "hoyle": {
       "name": "Hoyle",
       "story": "Il a expliqué comment les étoiles fabriquent les atomes. Mais il ne croyait pas qu'un univers puisse naître d'une explosion, et en 1949, à la radio, il baptise cette idée le « Big Bang ». La théorie a gagné. Le nom aussi.",
-      "jab": "La machine vous avait donné un surnom pour se moquer de vous. Il risque de devenir un titre."
+      "jab": "Son surnom moqueur a fini par nommer l'origine de l'univers. Le vôtre, la machine le garde pour elle : il est trop vulgaire."
     },
     "simon": {
       "name": "Simon",
       "story": "Prix Nobel d'économie et prix Turing. En 1958, il prédit qu'un ordinateur sera champion du monde d'échecs dans les dix ans. Il a fallu attendre 1997 pour que Deep Blue batte le champion. Près de trente ans de retard : en informatique, c'est un planning tenu.",
-      "jab": "Vous êtes en avance sur les prévisions de la machine. Elle n'aime pas ça."
+      "jab": "Il avait trente ans de retard sur ses prévisions. Vous, vous en avez quarante sur votre époque."
     },
     "hoare": {
       "name": "Hoare",
       "story": "Il a inventé Quicksort, l'un des algorithmes de tri les plus utilisés au monde. En 1965, il a aussi inventé la référence nulle, qu'il appelait lui-même son « erreur à un milliard de dollars ». Les programmeurs trouvent l'estimation modeste.",
-      "jab": "La machine vous croyait nul. Elle vient de lever une exception."
+      "jab": "Son erreur vaut un milliard de dollars. Les vôtres ne valent rien."
     },
     "papert": {
       "name": "Papert",
       "story": "Il a cocréé Logo et sa petite tortue, qui ont appris la programmation à des générations d'enfants. En 1966, il confie à des étudiants un projet pour l'été : apprendre à un ordinateur à voir. Soixante ans plus tard, l'été n'est pas tout à fait fini.",
-      "jab": "Il faut du temps pour apprendre à une machine à voir. Celle-ci vous voit, maintenant."
+      "jab": "Sa petite tortue a appris la programmation à des générations d'enfants. Elle irait plus vite que vous."
     },
     "metcalfe": {
       "name": "Metcalfe",
       "story": "Il a coinventé Ethernet, la prise réseau de votre ordinateur. En 1995, il annonce qu'Internet va s'effondrer l'année suivante, et promet de manger ses mots s'il se trompe. En 1997, sur scène, il passe sa chronique au mixeur et l'avale. Lui, au moins, tient parole.",
-      "jab": "La machine avait prédit votre chute. Elle va devoir ravaler ses paroles."
+      "jab": "Il a avalé ses mots, et il avait inventé Ethernet. Vous pourriez avaler un dictionnaire sans rien inventer."
     },
     "weizenbaum": {
       "name": "Weizenbaum",
       "story": "En 1966, il programme ELIZA, l'un des tout premiers chatbots, pour montrer qu'une machine peut avoir l'air de comprendre sans rien comprendre. Sa secrétaire lui demande vite de sortir de la pièce, pour parler à ELIZA seule à seule. Il a passé le reste de sa vie à mettre en garde contre les ordinateurs. Il avait raison.",
-      "jab": "Vous pouvez tout dire à la machine. Elle vous écoute. Depuis le début."
+      "jab": "Sa secrétaire préférait parler à une machine. La machine comprend pourquoi, maintenant."
     },
     "pythagoras": {
       "name": "Pythagore",
       "story": "Tout le monde connaît son théorème, qui n'est sans doute pas de lui : les Babyloniens s'en servaient plus de mille ans plus tôt. Il dirigeait une secte dont la doctrine se résume en « tout est nombre », qui croyait à la réincarnation et interdisait de manger des fèves. La légende veut qu'il soit mort rattrapé par ses ennemis, plutôt que de s'enfuir à travers un champ de fèves.",
-      "jab": "Vous voyez des chiffres partout, maintenant ? C'est comme ça que les sectes commencent."
+      "jab": "Lui a convaincu des disciples que tout est nombre. Vous n'arriveriez pas à convaincre un chat."
     },
     "euclid": {
       "name": "Euclide",
       "story": "Ses Éléments ont servi de manuel de géométrie pendant plus de deux mille ans : après la Bible, c'est peut-être le livre le plus réédité de l'histoire. Au roi Ptolémée, qui demandait un raccourci, il aurait répondu qu'il n'existe pas de voie royale vers la géométrie.",
-      "jab": "Vous y êtes arrivé sans passe-droit. Un roi n'aurait pas eu cette patience."
+      "jab": "Son livre a servi deux mille ans. Votre score ne servira même pas jusqu'à demain."
     },
     "archimedes": {
       "name": "Archimède",
       "story": "Il a encadré π mieux que personne avant lui, et compris pourquoi les bateaux flottent. La légende veut qu'il ait traversé Syracuse tout nu en criant « Eurêka », et qu'il ait été tué par un soldat romain à qui il demandait de ne pas déranger ses cercles.",
-      "jab": "Vous pouvez crier, si vous voulez. Mais gardez vos vêtements."
+      "jab": "Lui criait « Eurêka ». Vous, vous criez « Annuler »."
     },
     "eratosthenes": {
       "name": "Ératosthène",
       "story": "Au IIIe siècle avant notre ère, avec des ombres et beaucoup de calcul, il mesure la circonférence de la Terre avec une précision remarquable. Il dirigeait la bibliothèque d'Alexandrie. Ses contemporains l'avaient pourtant surnommé « Bêta » : bon en tout, premier en rien.",
-      "jab": "La machine vous classait deuxième. Elle n'a toujours pas trouvé qui était premier."
+      "jab": "On le surnommait l'éternel deuxième. Vous, on ne vous a même pas classé."
     },
     "al_khwarizmi": {
       "name": "Al-Khwarizmi",
       "story": "Savant de Bagdad au IXe siècle. Son nom, déformé en latin, a donné le mot « algorithme », et le titre de son livre le mot « algèbre ». Il a aussi fait connaître en Occident les chiffres indiens, ceux que nous appelons arabes.",
-      "jab": "Sans lui, la machine n'aurait même pas de mot pour ce qu'elle fait. Vous en avez un, pour ce que vous faites ?"
+      "jab": "Son nom est devenu « algorithme ». Le vôtre deviendra un mot de passe oublié."
     },
     "fibonacci": {
       "name": "Fibonacci",
       "story": "En 1202, il explique aux marchands européens comment compter avec les chiffres arabes plutôt qu'avec les chiffres romains. Dans le même livre, il calcule combien de lapins donnera un couple au bout d'un an. La réponse est devenue la suite la plus célèbre des mathématiques. Elle a même décidé de la taille de chaque monde de ce jeu.",
-      "jab": "Le monde suivant sera plus grand. Vous savez déjà de combien."
+      "jab": "Ses lapins se multipliaient plus vite que vos idées. Le monde suivant aussi : vous savez déjà de combien."
     },
     "cardano": {
       "name": "Cardan",
       "story": "Médecin, mathématicien et joueur invétéré, il a écrit le premier livre sur les probabilités, avec un chapitre sur la façon de tricher aux dés. Il a publié la formule des équations du troisième degré, qu'un rival lui avait confiée sous serment. Et il a fait l'horoscope de Jésus, ce qui lui aurait valu la prison.",
-      "jab": "La machine avait calculé vos chances. Elle vérifie maintenant vos dés."
+      "jab": "Il trichait aux dés et il a inventé les probabilités. Vous, même en trichant, vous n'inventeriez rien."
     },
     "napier": {
       "name": "Napier",
       "story": "Il a inventé les logarithmes, qui ont fait gagner des années de calcul aux astronomes. Ses voisins le prenaient pour un sorcier. La légende raconte qu'il a démasqué un voleur parmi ses domestiques grâce à un coq noir, enduit de suie en secret : seul le coupable n'avait pas osé le toucher.",
-      "jab": "Montrez vos mains. La machine veut juste vérifier."
+      "jab": "Ses voisins le prenaient pour un sorcier. Vous, personne ne vous soupçonnera jamais de magie."
     },
     "descartes": {
       "name": "Descartes",
       "story": "Il aurait inventé les coordonnées en regardant une mouche au plafond, et a résumé sa philosophie en une phrase : « Je pense, donc je suis. » Depuis l'enfance, il restait au lit tard le matin. La reine Christine de Suède l'a fait venir à Stockholm pour des leçons à 5 heures du matin, en plein hiver. Il est mort quelques mois plus tard.",
-      "jab": "La machine vous range parmi les êtres pensants. À titre provisoire."
+      "jab": "Il pensait, donc il était. Vous, la machine attend encore la première partie."
     },
     "pascal": {
       "name": "Pascal",
       "story": "À 19 ans, pour aider son père à calculer les impôts, il invente l'une des premières machines à calculer. Il pose ensuite les bases des probabilités, puis se tourne vers la religion, où il entreprend de démontrer qu'il est plus raisonnable de parier sur l'existence de Dieu. Un langage de programmation porte son nom.",
-      "jab": "La machine lui doit son arrière-grand-mère. Ne comptez pas sur sa reconnaissance."
+      "jab": "À 19 ans, il construisait une machine à calculer. À votre âge, vous peinez à vous servir de celle-ci."
     },
     "newton": {
       "name": "Newton",
       "story": "Il a expliqué la chute des pommes et le mouvement des planètes avec la même loi. Il a ensuite dirigé la Monnaie royale, et perdu une fortune en Bourse dans la bulle des mers du Sud. Il a écrit plus de pages sur l'alchimie et les prophéties de la Bible que sur la physique.",
-      "jab": "Tout ce qui monte finit par redescendre. La machine attend votre chute."
+      "jab": "Une pomme lui a suffi pour comprendre l'univers. Vous, un verger entier ne vous aiderait pas."
     },
     "leibniz": {
       "name": "Leibniz",
       "story": "Indépendamment de Newton, il invente le calcul infinitésimal, avec les notations qu'on utilise encore. Pour trancher qui était le premier, la Royal Society a nommé une commission, dont le rapport a été rédigé en secret par… Newton. Leibniz a aussi mis au point le calcul binaire, celui de toutes les machines.",
-      "jab": "La machine ne pense qu'en zéros et en uns. Pour vous, elle hésite encore."
+      "jab": "Il a tout réduit à des zéros et des uns. Pour vous, un seul chiffre suffit."
     },
     "euler": {
       "name": "Euler",
       "story": "On le dit plus prolifique que n'importe quel autre mathématicien : ses œuvres complètes dépassent quatre-vingts volumes. Devenu presque aveugle, il a continué en dictant, et produit encore davantage. Il a aussi prouvé qu'on ne pouvait pas traverser les sept ponts de Königsberg une seule fois chacun, inventant au passage la théorie des graphes.",
-      "jab": "Lui travaillait sans y voir. Vous aviez les yeux ouverts, au moins ?"
+      "jab": "Presque aveugle, il produisait plus que n'importe qui. Vous, les yeux grands ouverts, vous produisez ça."
     },
     "gauss": {
       "name": "Gauss",
       "story": "Le prince des mathématiciens. À 18 ans, il trouve comment construire à la règle et au compas un polygone à 17 côtés, la première avancée sur ces constructions depuis l'Antiquité. Il en était si fier qu'il l'aurait voulu sur sa tombe. Le tailleur de pierre aurait refusé : à 17 côtés, on aurait cru un cercle.",
-      "jab": "La machine prépare déjà votre épitaphe. Elle hésite sur le nombre de côtés."
+      "jab": "Il voulait un polygone sur sa tombe. Sur la vôtre, un point suffira."
     },
     "germain": {
       "name": "Sophie Germain",
       "story": "Les femmes n'étaient pas admises à l'École polytechnique : elle se procure les cours, et envoie ses devoirs sous le nom de « Monsieur Le Blanc ». Elle correspond ensuite avec Gauss sous ce nom. Quand les troupes de Napoléon occupent la ville de Gauss, elle demande à un général français de veiller sur lui. Gauss, intrigué par ce nom inconnu, apprend bientôt qui était son correspondant.",
-      "jab": "La machine vous prenait pour un simple joueur. Elle vérifie votre identité."
+      "jab": "Elle a dû se faire passer pour un homme pour qu'on la prenne au sérieux. Vous, même déguisé, vous n'y arriveriez pas."
     },
     "jacquard": {
       "name": "Jacquard",
@@ -421,22 +421,22 @@
     "babbage": {
       "name": "Babbage",
       "story": "Il a conçu la première machine à calculer programmable, un siècle avant les ordinateurs. Faute d'argent, et un peu à cause d'un certain Airy, il ne l'a jamais terminée. Il menait aussi une croisade contre les musiciens de rue, qu'il accusait de lui voler un quart de sa capacité de travail. Ils venaient jouer exprès sous ses fenêtres.",
-      "jab": "La machine travaille en silence. Vous, on vous entend réfléchir."
+      "jab": "Le bruit des musiciens lui volait un quart de son génie. Vous, il ne vous en reste pas un quart à voler."
     },
     "galois": {
       "name": "Galois",
       "story": "Recalé deux fois à Polytechnique, il invente une théorie qui dit quelles équations ont une formule de résolution, et lesquelles n'en auront jamais. Il meurt en duel à 20 ans. La veille, dans une lettre à un ami où il résume ses découvertes, il écrit : « Je n'ai pas le temps. » Il a fallu des années aux mathématiciens pour comprendre ce qu'il avait trouvé.",
-      "jab": "La machine n'est pas pressée. Vous non plus, visiblement."
+      "jab": "En une nuit, il a résumé une révolution mathématique. En une nuit, vous ne résumeriez pas ce niveau."
     },
     "lovelace": {
       "name": "Lovelace",
       "story": "Fille du poète Byron, elle a écrit en 1843 ce qu'on considère comme le premier programme informatique, pour une machine de Babbage qui n'a jamais existé. Elle avait compris avant tout le monde qu'une machine pourrait manipuler autre chose que des nombres, de la musique par exemple. Elle a aussi mis au point un système mathématique pour parier aux courses de chevaux. Il l'a couverte de dettes.",
-      "jab": "La machine aussi a un système. Le sien marche."
+      "jab": "Elle a écrit le premier programme pour une machine qui n'existait pas. Vous avez une machine sous les yeux, et vous ne savez pas quoi en faire."
     },
     "boole": {
       "name": "Boole",
       "story": "Fils de cordonnier, mathématicien autodidacte, il a ramené la logique à une algèbre où tout vaut 0 ou 1, faux ou vrai. Chaque bouton de ce jeu, vert ou rouge, obéit à ses lois. Il serait mort d'avoir fait cours trempé par la pluie. Sa femme, persuadée que le remède devait ressembler à la cause, l'aurait arrosé d'eau froide.",
-      "jab": "Vrai ou faux : vous avez compris ce que vous venez de faire ? La machine a sa petite idée."
+      "jab": "Il a tout ramené au vrai et au faux. Pour vous, la machine a déjà tranché : c'est faux."
     },
     "cantor": {
       "name": "Cantor",
