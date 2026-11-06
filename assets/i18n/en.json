@@ -22,6 +22,8 @@
     "clicksLeft": "clicks left: {count}",
     "streakLeft": "clicks in a row left: {count}",
     "target": "Target: {target}",
+    "divisionByZero": "ERROR: DIVISION BY ZERO",
+    "rebooting": "Rebooting…",
     "secretCompleteTitle": "Secret level complete!",
     "medalTitles": {
       "Platine": "Platinum medal!",
@@ -218,6 +220,10 @@
     "secret_kaprekar": {
       "title": "The mysterious number",
       "description": "Reach 6174 in world 7, and discover a secret level."
+    },
+    "secret_brahmagupta": {
+      "title": "Division by zero",
+      "description": "Divide by zero in world 4, and discover a secret level."
     }
   },
   "levels": {
@@ -695,6 +701,11 @@
       "name": "Kaprekar",
       "story": "A schoolteacher in a small Indian town, he spent his life playing with numbers, without the mathematicians of his country taking him seriously. Take four digits that are not all the same, arrange them from largest to smallest, then from smallest to largest, and subtract, keeping the zeros; repeat with the result: in seven steps at most, you land on 6,174. It took an American columnist writing about him for the world to discover him.",
       "jab": "His numbers all end up landing on 6,174. You always end up landing next to it."
+    },
+    "brahmagupta": {
+      "name": "Brahmagupta",
+      "story": "In 628, in a treatise on astronomy, he was the first known to treat zero as a number in its own right, with its rules: a number minus itself gives zero, and any number multiplied by zero gives zero. He also ventured into division, and stated that zero divided by zero is zero. It is wrong, but it took centuries to understand why. Without zero, no computer would count in binary.",
+      "jab": "He dared to divide by zero and came out with honours. You crashed the machine."
     }
   },
   "menu": {

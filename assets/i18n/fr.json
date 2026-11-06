@@ -22,6 +22,8 @@
     "clicksLeft": "clics restants : {count}",
     "streakLeft": "clics d'affilée restants : {count}",
     "target": "Objectif : {target}",
+    "divisionByZero": "ERREUR : DIVISION PAR ZÉRO",
+    "rebooting": "Redémarrage…",
     "secretCompleteTitle": "Niveau secret terminé !",
     "medalTitles": {
       "Platine": "Médaille de platine !",
@@ -218,6 +220,10 @@
     "secret_kaprekar": {
       "title": "Le nombre mystérieux",
       "description": "Atteindre 6174 dans le monde 7, et découvrir un niveau secret."
+    },
+    "secret_brahmagupta": {
+      "title": "Division par zéro",
+      "description": "Diviser par zéro dans le monde 4, et découvrir un niveau secret."
     }
   },
   "levels": {
@@ -695,6 +701,11 @@
       "name": "Kaprekar",
       "story": "Instituteur dans une petite ville indienne, il passe sa vie à jouer avec les nombres, sans que les mathématiciens de son pays le prennent au sérieux. Prenez quatre chiffres pas tous identiques, rangez-les du plus grand au plus petit, puis du plus petit au plus grand, et soustrayez en gardant les zéros ; recommencez avec le résultat : en sept étapes au plus, vous tombez sur 6 174. Il a fallu qu'un chroniqueur américain en parle pour que le monde le découvre.",
       "jab": "Ses nombres finissent tous par tomber sur 6 174. Vous, vous finissez toujours par tomber à côté."
+    },
+    "brahmagupta": {
+      "name": "Brahmagupta",
+      "story": "En 628, dans un traité d'astronomie, il est le premier connu à traiter zéro comme un nombre à part entière, avec ses règles : un nombre moins lui-même donne zéro, et tout nombre multiplié par zéro donne zéro. Il s'aventure aussi sur la division, et affirme que zéro divisé par zéro donne zéro. C'est faux, mais il a fallu des siècles pour comprendre pourquoi. Sans le zéro, aucun ordinateur ne compterait en binaire.",
+      "jab": "Il a osé diviser par zéro et s'en est tiré avec les honneurs. Vous, vous avez fait planter la machine."
     }
   },
   "menu": {
