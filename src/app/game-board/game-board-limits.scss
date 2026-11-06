@@ -1,5 +1,6 @@
-/* Clics encore permis sur un bouton limité : ● restant, ○ utilisé ; ■ et □ pour les clics d'affilée
-   (à part pour garder game-board.scss léger) */
+/* Détails des boutons de jeu, à part pour garder game-board.scss léger */
+
+/* Clics encore permis sur un bouton limité : ● restant, ○ utilisé ; ■ et □ pour les clics d'affilée */
 .game-button .click-pips {
     position: absolute;
     bottom: 4px;
@@ -8,4 +9,11 @@
     letter-spacing: 2px;
     line-height: 1;
     z-index: 2;
+}
+
+/* Sur téléphone, les boutons sont plus hauts : chiffre agrandi pour qu'il déborde toujours en haut et en bas */
+@media (max-width: 600px) {
+    .button-container .game-button .background-number {
+        font-size: 5.5em;
+    }
 }

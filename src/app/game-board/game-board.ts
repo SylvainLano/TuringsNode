@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, effect, untracked, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, effect, untracked, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundService } from '../core/services/background';
 import { LevelService } from '../core/services/level';
@@ -59,7 +59,7 @@ interface BoardSnapshot {
   host: { '(document:keydown)': 'onKeydown($event)' }
 })
 
-export class GameBoardComponent implements OnInit, OnDestroy {
+export class GameBoardComponent implements OnDestroy {
 
   public gameState: 'playing' | 'level_complete' = 'playing';
   public earnedMedal: Medal | null = null;
@@ -102,6 +102,10 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public isCrashing = false;
   private crashTimer: ReturnType<typeof setTimeout> | undefined;
   private readonly CRASH_DURATION_MS = 3000;
+
+  // Une minute sans cliquer pendant une partie : le joueur « bulle », le fond aussi (jusqu'au clic suivant)
+  private idleTimer: ReturnType<typeof setTimeout> | undefined;
+  private readonly IDLE_DELAY_MS = 60 * 1000;
 
   constructor(
     private backgroundService: BackgroundService,
@@ -149,11 +153,10 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
-
   ngOnDestroy(): void {
     clearTimeout(this.victoryTimer);
     clearTimeout(this.crashTimer);
+    clearTimeout(this.idleTimer);
     this.boardAnimation?.cancel();
   }
 
@@ -184,6 +187,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.gameState = 'playing';
     this.levelClicks = 0;
     this.history = [];
+    this.restartIdleTimer();
 
     // Création des boutons à partir des données du niveau
     this.buttons = board.buttons.map(state => ({
@@ -222,6 +226,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
    */
   public onButtonClick(button: GameButton): void {
     if (this.isBusy || button.isDisabled || this.gameState !== 'playing') return;
+    this.wakeUp();
     this.stopVictorySequence();
     if (button.name === 'Split' && button.value === 0) {
       this.divideByZero();
@@ -264,6 +269,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public undo(): void {
     const previous = this.canUndo ? this.history.pop() : undefined;
     if (!previous) return;
+    this.wakeUp();
     this.stopVictorySequence();
 
     this.score = previous.score;
@@ -273,6 +279,25 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.updateAllButtons();
     // Retour à un plateau tout vert : ça se remet à trembler
     this.checkGameState();
+  }
+
+  // Le joueur agit : les bulles disparaissent, et la minute d'inaction repart de zéro
+  private wakeUp(): void {
+    if (this.specialBackground === 'bubbles') {
+      this.specialBackground = null;
+      this.backgroundService.changeBackground(this.levelBackground());
+    }
+    this.restartIdleTimer();
+  }
+
+  private restartIdleTimer(): void {
+    clearTimeout(this.idleTimer);
+    this.idleTimer = setTimeout(() => {
+      // Pas de bulles par-dessus un autre fond spécial, une victoire ou un plantage
+      if (this.gameState !== 'playing' || this.isBusy || this.isRumbling || this.specialBackground) return;
+      this.backgroundService.changeBackground('bubbles');
+      this.specialBackground = 'bubbles';
+    }, this.IDLE_DELAY_MS);
   }
 
   public toggleHelp(): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 
-import { Router, RouterLink } from '@angular/router'; // <-- Importer Router et RouterLink
+import { Router, RouterLink } from '@angular/router';
 import { LevelService } from '../core/services/level';
 import { BackgroundService } from '../core/services/background';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';

@@ -309,6 +309,22 @@ describe('GameBoardComponent', () => {
     });
   });
 
+  it('blows bubbles after a minute without a click, until the next click', () => {
+    vi.useFakeTimers();
+    levelService.levels.set([LEVEL]);
+    fixture.detectChanges();
+    const background = TestBed.inject(BackgroundService);
+    const levelBackground = background.state().value;
+
+    vi.advanceTimersByTime(59 * 1000);
+    expect(background.state().value).toBe(levelBackground);
+    vi.advanceTimersByTime(1000);
+    expect(background.state().value).toBe('bubbles');
+
+    component.onButtonClick(component.buttons[0]); // Digit 1 : le score ne bouge pas
+    expect(background.state().value).not.toBe('bubbles');
+  });
+
   it('marks the buttons the player discovers in this level', () => {
     levelService.levels.set([LEVEL, { ...LEVEL, levelNumber: 2, buttons: [{ name: 'Digit', initialValue: 1 }, { name: 'Split', initialValue: 1 }] }]);
     levelService.currentLevelNumber.set(2);

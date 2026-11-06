@@ -228,7 +228,7 @@ export class ParticlesBackgroundComponent {
               shape: { type: 'circle' }
             }
           };
-        } else if (state.value === 'neural') { // not used yet
+        } else if (state.value === 'neural') { // Niveaux des pionniers de l'intelligence artificielle
           newOptions = {
             background: { color: { value: '#0a0a0a' } },
             fpsLimit: 60,
@@ -281,7 +281,7 @@ export class ParticlesBackgroundComponent {
               }
             }
           };
-        } else if (state.value === 'fireflies') { // not used yet
+        } else if (state.value === 'fireflies') { // Fond de nuit, entre minuit et 4 heures
           newOptions = {
             background: { color: { value: '#0d1b2a' } },
             fpsLimit: 60,
@@ -303,7 +303,7 @@ export class ParticlesBackgroundComponent {
               size: { value: { min: 1, max: 3 } }
             }
           };
-        } else if (state.value === 'bubbles') { // not used yet
+        } else if (state.value === 'bubbles') { // Quand le joueur « bulle » : une minute sans cliquer
           newOptions = {
             background: { color: { value: '#00334e' } },
             fpsLimit: 60,
@@ -409,7 +409,7 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else if (state.value === 'cyberpunk') { // not finished yet
+        } else if (state.value === 'cyberpunk') { // Plantage de la division par zéro
           newOptions = {
             background: { color: { value: '#0a0a0f' } },
             fpsLimit: 60,
@@ -479,7 +479,7 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else if (state.value === 'burnt' ) { // maybe when more than 70 % of the buttons are depleted ?
+        } else if (state.value === 'burnt') { // Quand tous les boutons limités ont épuisé leurs clics
           newOptions = {
             background: { color: { value: '#100c08' } },
             fpsLimit: 120,
@@ -502,7 +502,7 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else if (state.value === 'abyss' ) { // not used yet
+        } else if (state.value === 'abyss') { // Niveaux secrets
           newOptions = {
             background: { color: { value: '#03001C' } },
             fpsLimit: 120,
@@ -533,7 +533,7 @@ export class ParticlesBackgroundComponent {
             },
             detectRetina: true
           };
-        } else if (state.value === 'aurea' ) { // Quand une constante en or apparaît
+        } else if (state.value === 'aurea') { // Quand une constante en or apparaît
           newOptions = {
             background: { color: { value: '#1C0A00' } },
             fpsLimit: 120,

@@ -41,7 +41,7 @@ export class TranslationService {
   }
 
   private loadTranslations(): void {
-    // 3. Construire le chemin complet et sûr
+    // Chemin relatif à la base de l'application (/TuringsNode/ une fois publiée)
     const lang = this.currentLang();
     const path = `${this.baseHref}assets/i18n/${lang}.json`;
 
