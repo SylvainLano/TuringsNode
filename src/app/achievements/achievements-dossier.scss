@@ -6,27 +6,7 @@ $ink: #16243b;
 $line: rgba(160, 174, 192, 0.22);
 $line-hot: rgba(246, 224, 94, 0.45);
 
-/* Couleur des icônes (src/assets/icons, remplies avec la couleur du texte) : l'or du jeu, ou celle de chaque médaille */
-.tint-gold,
-.tint-Or {
-  color: $gold;
-}
-
-.tint-Platine {
-  color: #B2F5EA;
-}
-
-.tint-Argent {
-  color: #CBD5E0;
-}
-
-.tint-Bronze {
-  color: #D69E5E;
-}
-
-.tint-Chocolat {
-  color: #E8B48A;
-}
+/* Les couleurs des icônes (classes tint-*) sont communes à tout le jeu : voir styles.scss */
 
 /* Le palmarès (une case par médaille, chocolat compris, puis les succès) et les compteurs : six cases chacun */
 .palmares {

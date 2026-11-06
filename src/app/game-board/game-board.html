@@ -57,12 +57,19 @@
       @if (isChoosingNotice || begNote || notices.size) {
         <div class="beg-panel" aria-live="polite">
           @if (isChoosingNotice && begPrice) {
-            <p class="beg-prompt">{{ 'beg.price' | translate:{ medal: begPrice.icon, level: ('levels.' + begPrice.levelName + '.name' | translate) } }}</p>
+            <p class="beg-prompt">
+              <app-icon class="tint-{{ begPrice.medal }}" [name]="MEDAL_ICON_NAMES[begPrice.medal]" />
+              {{ 'beg.price' | translate:{ medal: ('beg.medalNames.' + begPrice.medal | translate), level: ('levels.' + begPrice.levelName + '.name' | translate) } }}
+            </p>
             <button class="control-button beg-cancel" (click)="cancelBeg()">{{ 'beg.cancel' | translate }}</button>
           } @else if (begNote?.kind === 'nothing') {
             <p class="beg-remark">{{ 'beg.nothingLeft' | translate }}</p>
           } @else if (begNote?.kind === 'melted') {
-            <p class="beg-melt">{{ begNote.icon }} {{ 'levels.' + begNote.levelName + '.name' | translate }} → 🍫</p>
+            <p class="beg-melt">
+              <app-icon class="tint-{{ begNote.medal }}" [name]="MEDAL_ICON_NAMES[begNote.medal]" />
+              {{ 'levels.' + begNote.levelName + '.name' | translate }} →
+              <app-icon class="tint-Chocolat" name="chocolate" />
+            </p>
             <p class="beg-remark">{{ 'beg.remarks.' + begNote.remark | translate:{ name: ('levels.' + levelName + '.name' | translate) } }}</p>
           }
           @if (notices.size) {
@@ -102,10 +109,10 @@
       <button class="control-button help-button" (click)="toggleHelp()" [class.is-active]="showHelp"
         [attr.aria-label]="'gameboard.helpButton' | translate" [title]="'gameboard.helpButton' | translate">?</button>
       <button class="control-button" (click)="undo()" [disabled]="!canUndo" title="Ctrl+Z">
-        ↶ {{ 'gameboard.undoButton' | translate }}
+        <app-icon name="undo" /> {{ 'gameboard.undoButton' | translate }}
       </button>
       <button class="control-button" (click)="retryLevel()" [disabled]="isBusy || levelClicks === 0">
-        ⟲ {{ 'gameboard.restartButton' | translate }}
+        <app-icon name="restart" /> {{ 'gameboard.restartButton' | translate }}
       </button>
     </div>
   }
@@ -132,22 +139,7 @@
       </div>
       @if (earnedMedal) {
         <div class="medal-display">
-          <span class="medal-icon">
-            @switch (earnedMedal) {
-              @case ('Platine') {
-                <span>💎</span>
-              }
-              @case ('Or') {
-                <span>🥇</span>
-              }
-              @case ('Argent') {
-                <span>🥈</span>
-              }
-              @case ('Bronze') {
-                <span>🥉</span>
-              }
-            }
-          </span>
+          <app-icon class="medal-icon tint-{{ earnedMedal }}" [name]="MEDAL_ICON_NAMES[earnedMedal]" />
           <span class="medal-text">
             {{ 'gameboard.medalTitles.' + earnedMedal | translate }}
           </span>
@@ -182,7 +174,9 @@
           <p>{{ 'gameboard.campaignCompleteText' | translate:{ total: levelService.levels().length } }}</p>
           <div class="medal-tally">
             @for (medal of medalTally(); track medal.name) {
-              <span class="tally-item" [title]="'medals.' + medal.name | translate">{{ medal.icon }} {{ medal.count }}</span>
+              <span class="tally-item" [title]="'medals.' + medal.name | translate">
+                <app-icon class="tint-{{ medal.name }}" [name]="MEDAL_ICON_NAMES[medal.name]" /> {{ medal.count }}
+              </span>
             }
           </div>
           <p class="campaign-hint">

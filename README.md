@@ -14,7 +14,7 @@ Turing's Node is a mathematical puzzle game. Every button changes the score in i
 
 Made a wrong move? Undo it or restart the level from the controls in the bottom right corner.
 
-Really stuck? After a few restarts, you can beg the machine for a button's manual. It will cost you your best medal, which turns to chocolate until you win its level again. And the machine will make sure you remember it.
+Really stuck? After a few restarts, you can beg the machine for a button's manual. It will cost you your best medal from the world you are playing, which turns to chocolate until you win its level again. And the machine will make sure you remember it.
 
 | Key | Action |
 |---|---|

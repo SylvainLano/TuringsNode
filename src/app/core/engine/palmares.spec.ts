@@ -14,6 +14,12 @@ describe('Engine palmares', () => {
     expect(pickMedalToMelt({ 1: 'Chocolat', 2: 'Or', 3: 'Chocolat' })).toBe(2);
   });
 
+  it('only melts a medal among the given levels, those of the world being played', () => {
+    const results = { 1: 'Platine', 2: 'Or', 3: 'Bronze' };
+    expect(pickMedalToMelt(results, [2, 3])).toBe(2);
+    expect(pickMedalToMelt(results, [4, 5])).toBeUndefined();
+  });
+
   it('has nothing to melt without a real medal left', () => {
     expect(pickMedalToMelt({})).toBeUndefined();
     expect(pickMedalToMelt({ 1: 'Terminé', 2: 'Chocolat' })).toBeUndefined();

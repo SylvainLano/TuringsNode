@@ -27,9 +27,11 @@
                 <span class="intro-badge">+ {{ introducedButtons().get(level.levelNumber)!.join(' · ') }}</span>
               }
               <div class="icons-container">
-                <div class="medal-icon-display">{{ medalIcon(level.levelNumber) }}</div>
+                @if (medalIcon(level.levelNumber); as medal) {
+                  <app-icon class="medal-icon-display tint-{{ bestMedals()[level.levelNumber] }}" [name]="medal" />
+                }
                 @if (!isLevelUnlocked(level.levelNumber)) {
-                  <span class="lock-icon">🔒</span>
+                  <app-icon class="lock-icon" name="padlock" />
                 }
               </div>
             </a>
@@ -54,7 +56,9 @@
                 (click)="selectSecretLevel(secret)">
                 <span class="level-number">?</span>
                 <div class="icons-container">
-                  <div class="medal-icon-display">{{ medalIcon(secret.levelNumber) }}</div>
+                  @if (medalIcon(secret.levelNumber); as medal) {
+                    <app-icon class="medal-icon-display tint-{{ bestMedals()[secret.levelNumber] }}" [name]="medal" />
+                  }
                 </div>
               </a>
               @if (bestMedals()[secret.levelNumber]) {

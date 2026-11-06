@@ -8,6 +8,8 @@ import { AchievementService } from '../core/services/achievement';
 import { FaviconService } from '../core/services/favicon';
 import { NOTICE_PARTS, StatsService } from '../core/services/stats';
 import { TranslationService } from '../core/services/translation';
+import { IconComponent } from '../shared/components/icon/icon';
+import { MEDAL_ICON_NAMES } from '../shared/components/icon/medal-icons';
 import {
   ButtonName,
   ButtonState,
@@ -51,7 +53,7 @@ interface BoardSnapshot {
 }
 
 // Ce que la machine dit sous les boutons après une supplication : rien à donner, ou la médaille qui vient de fondre
-type BegNote = { kind: 'nothing' } | { kind: 'melted'; icon: string; levelName: string; remark: number };
+type BegNote = { kind: 'nothing' } | { kind: 'melted'; medal: string; levelName: string; remark: number };
 
 @Component({
   selector: 'app-game-board',
@@ -59,7 +61,8 @@ type BegNote = { kind: 'nothing' } | { kind: 'melted'; icon: string; levelName: 
   imports: [
     CommonModule,
     TranslatePipe,
-    RouterLink
+    RouterLink,
+    IconComponent
   ],
   templateUrl: './game-board.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -85,7 +88,9 @@ export class GameBoardComponent implements OnDestroy {
   private readonly SPECIAL_BG_TIME_LIMIT_MS = 60 * 1000; // 1 minute en millisecondes
   private initialSetupDone = false;
   private history: BoardSnapshot[] = [];
-  private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Chocolat: '🍫', Terminé: '✔️' };
+  // Les icônes des médailles (teintées par les classes tint-*) ; le texte partagé, lui, garde des emojis
+  public readonly MEDAL_ICON_NAMES = MEDAL_ICON_NAMES;
+  private readonly SHARE_MEDALS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉' };
 
   // Victoire : le plateau tremble de plus en plus fort, puis explose. Un clic pendant le tremblement l'apaise.
   public isRumbling = false;
@@ -130,7 +135,7 @@ export class GameBoardComponent implements OnDestroy {
   private restartsInARow = 0;
   private cleanAttempt = true; // Ni annulation ni redémarrage depuis l'arrivée dans le niveau
   public isChoosingNotice = false;
-  public begPrice: { icon: string; levelName: string } | null = null;
+  public begPrice: { medal: string; levelName: string } | null = null;
   public begNote: BegNote | null = null;
   // Pour chaque bouton imploré : le nombre de moitiés de notice dévoilées (quand il est vert, puis ce qu'il fait)
   public notices = new Map<ButtonName, number>();
@@ -451,9 +456,9 @@ export class GameBoardComponent implements OnDestroy {
   }
 
   // Bilan de la campagne, affiché après le dernier niveau, médailles fondues (en chocolat) comprises
-  public medalTally(): { name: string; icon: string; count: number }[] {
+  public medalTally(): { name: string; count: number }[] {
     const palmares = countPalmares(this.levelService.bestMedals());
-    return Object.entries(palmares).map(([name, count]) => ({ name, icon: this.MEDAL_ICONS[name], count }));
+    return Object.entries(palmares).map(([name, count]) => ({ name, count }));
   }
 
   public isAllPlatinum(): boolean {
@@ -469,7 +474,7 @@ export class GameBoardComponent implements OnDestroy {
   public shareText(): string {
     const t = (key: string, params: Record<string, string> = {}) => this.translationService.translate(key, params);
     const clicks = this.levelClicks === 1 ? t('share.oneClick') : t('share.clicks', { count: String(this.levelClicks) });
-    let result = this.earnedMedal ? t('share.medal', { medal: this.MEDAL_ICONS[this.earnedMedal], clicks }) : t('share.noMedal', { clicks });
+    let result = this.earnedMedal ? t('share.medal', { medal: this.SHARE_MEDALS[this.earnedMedal], clicks }) : t('share.noMedal', { clicks });
     if (this.notices.size) result = t('share.helped', { result });
     const text = this.levelService.currentLevelData()?.secret
       ? t('share.secretText', { result })
@@ -539,12 +544,12 @@ export class GameBoardComponent implements OnDestroy {
     if (this.isBusy || this.isRumbling || !this.canBeg) return;
     this.wakeUp();
     const results = this.levelService.bestMedals();
-    const levelNumber = pickMedalToMelt(results);
+    const levelNumber = pickMedalToMelt(results, this.currentWorldLevels());
     if (levelNumber === undefined) {
       this.begNote = { kind: 'nothing' };
       return;
     }
-    this.begPrice = { icon: this.MEDAL_ICONS[results[levelNumber]], levelName: this.levelNameOf(levelNumber) };
+    this.begPrice = { medal: results[levelNumber], levelName: this.levelNameOf(levelNumber) };
     this.isChoosingNotice = true;
   }
 
@@ -555,7 +560,7 @@ export class GameBoardComponent implements OnDestroy {
   // Le prix est payé : la médaille fond (en chocolat sur son niveau), et la moitié suivante de la notice s'affiche
   private chooseNotice(button: GameButton): void {
     if (this.isNoticeComplete(button)) return;
-    const levelNumber = pickMedalToMelt(this.levelService.bestMedals());
+    const levelNumber = pickMedalToMelt(this.levelService.bestMedals(), this.currentWorldLevels());
     this.isChoosingNotice = false;
     if (levelNumber === undefined) return;
 
@@ -566,7 +571,7 @@ export class GameBoardComponent implements OnDestroy {
     this.notices = new Map(this.notices).set(button.name, revealed + 1);
     this.begNote = {
       kind: 'melted',
-      icon: this.MEDAL_ICONS[meltedMedal],
+      medal: meltedMedal,
       levelName: this.levelNameOf(levelNumber),
       remark: Math.floor(Math.random() * this.BEG_REMARKS)
     };
@@ -578,6 +583,15 @@ export class GameBoardComponent implements OnDestroy {
   public noticeButtons(): { name: ButtonName; parts: string[] }[] {
     const names = [...new Set(this.buttons.map(button => button.name))].filter(name => this.notices.has(name));
     return names.map(name => ({ name, parts: NOTICE_PARTS.slice(0, this.notices.get(name)) }));
+  }
+
+  // Seule une médaille du monde en cours peut payer une aide : celle d'un niveau facile d'un autre monde,
+  // regagnée en un clic, ne paierait pas toutes les aides du jeu
+  private currentWorldLevels(): number[] {
+    const world = this.levelService.currentLevelData()?.world;
+    return [...this.levelService.levels(), ...this.levelService.secretLevels()]
+      .filter(level => level.world === world)
+      .map(level => level.levelNumber);
   }
 
   private levelNameOf(levelNumber: number): string {

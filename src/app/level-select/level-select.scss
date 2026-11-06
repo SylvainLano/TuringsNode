@@ -91,8 +91,7 @@
     pointer-events: none; // Désactive le clic
 
     .lock-icon {
-      font-size: 1.5em;
-      margin-top: 5px;
+      font-size: 1em;
     }
   }
 }
@@ -133,8 +132,13 @@
   right: 8px;
   display: flex;
   gap: 5px; // Espace entre les icônes si plusieurs s'affichent
-  font-size: 1.2em;
+  font-size: 1.6em;
   line-height: 1;
+
+  // Les icônes du jeu (médaille, cadenas), détachées du gris de la tuile par une ombre légère
+  app-icon {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+  }
 }
 
 // Animation (peut être partagée dans un fichier global plus tard)

@@ -17,3 +17,14 @@
         font-size: 5.5em;
     }
 }
+
+/* Icônes (src/assets/icons) au fil du texte : commandes, prix de l'aide, médaille fondue, bilan de campagne */
+.control-button app-icon,
+.beg-panel p app-icon,
+.tally-item app-icon {
+    vertical-align: -0.15em;
+}
+
+.beg-panel p app-icon {
+    font-size: 1.25em;
+}

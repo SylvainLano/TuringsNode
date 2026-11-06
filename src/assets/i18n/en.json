@@ -58,8 +58,14 @@
     "button": "Beg",
     "tooltip": "It will cost you.",
     "price": "Price: your {medal} from the {level} level. Which button is beyond you?",
+    "medalNames": {
+      "Platine": "platinum medal",
+      "Or": "gold medal",
+      "Argent": "silver medal",
+      "Bronze": "bronze medal"
+    },
     "cancel": "Never mind",
-    "nothingLeft": "You have nothing left to offer.",
+    "nothingLeft": "You have nothing left to offer in this world.",
     "remarks": [
       "Your level board will smell of chocolate. Everyone will know.",
       "A chocolate medal: finally a reward your size.",

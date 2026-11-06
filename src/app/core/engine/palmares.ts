@@ -16,10 +16,14 @@ export const WONKA_MINIMUM_MEDALS = 18;
 
 const medalRank = (result: string | undefined) => MEDAL_RANKS.indexOf(result as typeof MEDAL_RANKS[number]);
 
-/** Le niveau dont la médaille fond pour payer une aide : la plus belle, et à égalité celle du niveau le plus avancé */
-export function pickMedalToMelt(results: Record<number, string>): number | undefined {
+/**
+ * Le niveau dont la médaille fond pour payer une aide : la plus belle, et à égalité celle du niveau le plus avancé.
+ * Seulement parmi les niveaux donnés (ceux du monde en cours) : la médaille d'un niveau du premier monde, regagnée en
+ * un clic, ne peut pas payer toutes les aides du jeu
+ */
+export function pickMedalToMelt(results: Record<number, string>, among?: number[]): number | undefined {
   return Object.keys(results).map(Number)
-    .filter(levelNumber => medalRank(results[levelNumber]) >= 0)
+    .filter(levelNumber => medalRank(results[levelNumber]) >= 0 && (!among || among.includes(levelNumber)))
     .sort((a, b) => medalRank(results[b]) - medalRank(results[a]) || b - a)[0];
 }
 

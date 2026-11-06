@@ -16,3 +16,30 @@ body, button {
 body {
   color: var(--theme-text-color, #2d3748);
 }
+
+/* Couleur des icônes (src/assets/icons, remplies avec la couleur du texte), partout dans le jeu :
+   l'or, ou celle de chaque résultat d'un niveau */
+.tint-gold,
+.tint-Or {
+  color: #F6E05E;
+}
+
+.tint-Platine {
+  color: #B2F5EA;
+}
+
+.tint-Argent {
+  color: #CBD5E0;
+}
+
+.tint-Bronze {
+  color: #D69E5E;
+}
+
+.tint-Chocolat {
+  color: #E8B48A;
+}
+
+.tint-Terminé {
+  color: #E2E8F0;
+}

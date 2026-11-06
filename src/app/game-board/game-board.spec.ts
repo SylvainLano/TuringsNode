@@ -233,11 +233,16 @@ describe('GameBoardComponent', () => {
     expect(component.clicksInWordsKey()).toBe('gameboard.clicksInDigits');
   });
 
+  // Le bilan de campagne, case par case : la médaille (son titre) et son nombre
+  const tally = () => [...fixture.nativeElement.querySelectorAll('.tally-item')]
+    .map((item: HTMLElement) => `${item.getAttribute('title')} ${item.textContent?.trim()}`);
+
   it('shows the campaign summary after the last level', () => {
     winLevel();
 
-    const summary: HTMLElement = fixture.nativeElement.querySelector('.campaign-summary');
-    expect(summary.querySelector('.medal-tally')?.textContent).toContain('💎 1');
+    expect(fixture.nativeElement.querySelector('.campaign-summary')).toBeTruthy();
+    expect(tally()).toContain('medals.Platine 1');
+    expect(fixture.nativeElement.querySelector('.medal-display app-icon.tint-Platine')).toBeTruthy();
     expect(component.isAllPlatinum()).toBe(true);
   });
 
@@ -370,7 +375,7 @@ describe('GameBoardComponent', () => {
       component.beg();
       fixture.detectChanges();
       expect(component.isChoosingNotice).toBe(true);
-      expect(component.begPrice).toEqual({ icon: '💎', levelName: 'tester' });
+      expect(component.begPrice).toEqual({ medal: 'Platine', levelName: 'tester' });
       expect(fixture.nativeElement.querySelectorAll('.game-button.is-choosable').length).toBe(2);
 
       // Choisir un bouton ne l'enfonce pas : seul le prix est payé
@@ -380,7 +385,7 @@ describe('GameBoardComponent', () => {
       expect(levelService.bestMedals()).toEqual({ 1: 'Or', 3: 'Chocolat' });
       expect(stats.stats().melts).toBe(1);
       expect(achievements.unlockedAchievements().has('shame_first')).toBe(true);
-      expect(fixture.nativeElement.querySelector('.beg-melt')?.textContent).toContain('💎');
+      expect(fixture.nativeElement.querySelector('.beg-melt app-icon.tint-Platine')).toBeTruthy();
       expect([...fixture.nativeElement.querySelectorAll('.notices span')].map((span: HTMLElement) => span.textContent))
         .toEqual(['beg.notices.Split.green']);
       expect(component.canBeg).toBe(false);
@@ -414,6 +419,23 @@ describe('GameBoardComponent', () => {
       expect(fixture.nativeElement.querySelector('.beg-remark')?.textContent).toBe('beg.nothingLeft');
     });
 
+    it('only takes a medal from the world being played', () => {
+      levelService.levels.set([{ ...LEVEL, levelNumber: 1 }, { ...PLAYED, world: 2 }, { ...LEVEL, levelNumber: 3, world: 2 }]);
+      levelService.saveLevelResult(1, 'Platine');
+      levelService.currentLevelNumber.set(2);
+      fixture.detectChanges();
+      restart(3);
+      component.beg();
+      fixture.detectChanges();
+      // La médaille de platine du monde 1 ne paie rien dans le monde 2
+      expect([component.isChoosingNotice, fixture.nativeElement.querySelector('.beg-remark')?.textContent]).toEqual([false, 'beg.nothingLeft']);
+
+      levelService.saveLevelResult(3, 'Bronze');
+      component.beg();
+      component.onButtonClick(component.buttons[1]);
+      expect(levelService.bestMedals()).toEqual({ 1: 'Platine', 3: 'Chocolat' });
+    });
+
     it('never offers help in a secret level', () => {
       levelService.levels.set([{ ...LEVEL, levelNumber: 1 }]);
       levelService.secretLevels.set([{ ...PLAYED, levelNumber: 1001, targetScore: 99, secret: { unlockScore: 50 } }]);
@@ -438,9 +460,8 @@ describe('GameBoardComponent', () => {
       fixture.detectChanges();
 
       expect(fixture.nativeElement.querySelector('.machine-jab')?.textContent).toMatch(/^beg\.shameJabs\.[0-7]$/);
-      const tally = fixture.nativeElement.querySelector('.medal-tally')?.textContent;
-      expect(tally).toContain('💎 1');
-      expect(tally).toContain('🍫 1');
+      expect(tally()).toContain('medals.Platine 1');
+      expect(tally()).toContain('medals.Chocolat 1');
       expect(component.isAllPlatinum()).toBe(false);
 
       // Le niveau 1 regagné : sa médaille en chocolat redevient une vraie médaille

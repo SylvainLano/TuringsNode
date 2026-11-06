@@ -8,6 +8,7 @@ import { StatsService } from '../core/services/stats';
 import { TranslationService } from '../core/services/translation';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { IconComponent } from '../shared/components/icon/icon';
+import { MEDAL_ICON_NAMES } from '../shared/components/icon/medal-icons';
 
 // Une famille de succès : son icône, ses succès, et son total (aucun pour les mondes et les secrets, qui ne se trahissent pas)
 interface AchievementSection {
@@ -70,8 +71,8 @@ export class AchievementsComponent {
     secret_brahmagupta: 'broken-circle', secret_mersenne: 'envelope', secret_kepler: 'orbit',
     secret_hamilton: 'lunar-lander', secret_collatz: 'hailstones', secret_kaprekar: 'u-turn'
   };
-  // Une icône par médaille, teintée de sa couleur (voir les classes tint-* des styles)
-  private readonly MEDAL_ICONS: Record<string, string> = { Platine: 'diamond', Or: 'medal', Argent: 'medal', Bronze: 'medal', Chocolat: 'chocolate' };
+  // Les médailles du palmarès, dans l'ordre, chacune avec son icône teintée de sa couleur (classes tint-* de styles.scss)
+  private readonly MEDALS = ['Platine', 'Or', 'Argent', 'Bronze', 'Chocolat'];
   // Ce que la machine compte, sous le palmarès : six cases, comme lui
   private readonly COUNTERS = [
     { key: 'clicks', icon: 'pointing-hand' },
@@ -103,8 +104,8 @@ export class AchievementsComponent {
   // Le palmarès : les médailles de tous les niveaux, chocolat compris, puis le nombre de succès
   public readonly palmares = computed(() => {
     const palmares = countPalmares(this.levelService.bestMedals());
-    const medals = Object.entries(this.MEDAL_ICONS).map(([name, icon]) => ({
-      key: name, icon, tint: name, count: palmares[name as keyof typeof palmares],
+    const medals = this.MEDALS.map(name => ({
+      key: name, icon: MEDAL_ICON_NAMES[name], tint: name, count: palmares[name as keyof typeof palmares],
       title: `medals.${name}`, description: `achievements.palmares.${name}`
     }));
     return [...medals, {

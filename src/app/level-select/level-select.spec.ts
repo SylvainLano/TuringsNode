@@ -46,6 +46,27 @@ describe('LevelSelectComponent', () => {
     expect([...element.querySelectorAll('.intro-badge')].map(badge => badge.textContent?.trim())).toEqual(['+ Split', '+ Boost']);
   });
 
+  it('draws the result of each level with the icons of the game, tinted by medal', () => {
+    const base = { world: 1, name: 'tester', minScore: 10, maxScore: null, startScore: 20, minSteps: 1, goldSteps: 2, silverSteps: 3, bronzeSteps: 4, buttons: [] };
+    const levelService = TestBed.inject(LevelService);
+    levelService.levels.set([1, 2, 3, 4, 5].map(levelNumber => ({ ...base, levelNumber })));
+    levelService.saveLevelResult(1, 'Platine');
+    levelService.saveLevelResult(2, 'Argent');
+    levelService.saveLevelResult(3, 'Or');
+    levelService.meltMedal(3);
+    fixture.detectChanges();
+
+    const icons = [...fixture.nativeElement.querySelectorAll('.medal-icon-display')] as HTMLElement[];
+    expect(icons.map(icon => [icon.className.match(/tint-\S+/)?.[0], icon.style.getPropertyValue('--icon')])).toEqual([
+      ['tint-Platine', 'url("/assets/icons/diamond.svg")'],
+      ['tint-Argent', 'url("/assets/icons/medal.svg")'],
+      ['tint-Chocolat', 'url("/assets/icons/chocolate.svg")']
+    ]);
+    // Le niveau 5 attend que le 4 soit terminé : un cadenas
+    expect(fixture.nativeElement.querySelectorAll('app-icon.lock-icon').length).toBe(1);
+    localStorage.removeItem('turings_node_best_medals_v2');
+  });
+
   it('shows one world at a time and hides the next one until the current one is complete', () => {
     const base = { minScore: 10, maxScore: null, startScore: 20, minSteps: 1, goldSteps: 2, silverSteps: 3, bronzeSteps: 4, buttons: [] };
     const levelService = TestBed.inject(LevelService);

@@ -4,13 +4,15 @@ import { Router, RouterLink } from '@angular/router';
 import { LevelService } from '../core/services/level';
 import { BackgroundService } from '../core/services/background';
 import { TranslatePipe } from '../shared/pipes/translate-pipe';
+import { IconComponent } from '../shared/components/icon/icon';
+import { MEDAL_ICON_NAMES } from '../shared/components/icon/medal-icons';
 import { AchievementService } from '../core/services/achievement';
 import { Level, World, isWorldComplete, secretAchievementId } from '../core/engine';
 
 @Component({
   selector: 'app-level-select',
   standalone: true,
-  imports: [RouterLink, TranslatePipe],
+  imports: [RouterLink, TranslatePipe, IconComponent],
   templateUrl: './level-select.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./level-select.scss', './world-pager.scss', './secret-slot.scss']
@@ -40,7 +42,6 @@ export class LevelSelectComponent implements OnInit {
   // et garde cette largeur d'un monde à l'autre
   public readonly hasSecrets = computed(() => this.visibleWorlds().some(world => this.visibleSecretsOf(world).length > 0));
 
-  private readonly MEDAL_ICONS: Record<string, string> = { Platine: '💎', Or: '🥇', Argent: '🥈', Bronze: '🥉', Chocolat: '🍫', Terminé: '✔️' };
 
   constructor(
     private levelService: LevelService,
@@ -74,8 +75,9 @@ export class LevelSelectComponent implements OnInit {
     return world.levels.filter(level => !!this.bestMedals()[level.levelNumber]).length;
   }
 
+  // L'icône du meilleur résultat du niveau (teintée par la classe tint-<résultat>), rien s'il n'est pas terminé
   public medalIcon(levelNumber: number): string {
-    return this.MEDAL_ICONS[this.bestMedals()[levelNumber]] ?? '';
+    return MEDAL_ICON_NAMES[this.bestMedals()[levelNumber]] ?? '';
   }
 
   private visibleSecretsOf(world: World): Level[] {
