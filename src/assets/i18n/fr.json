@@ -19,23 +19,23 @@
       "Douze clics"
     ],
     "clicksInDigits": "{count} clics",
-    "clicksLeft": "clics restants : {count}",
-    "streakLeft": "clics d'affilée restants : {count}",
-    "target": "Objectif : {target}",
-    "divisionByZero": "ERREUR : DIVISION PAR ZÉRO",
+    "clicksLeft": "clics restants : {count}",
+    "streakLeft": "clics d'affilée restants : {count}",
+    "target": "Objectif : {target}",
+    "divisionByZero": "ERREUR : DIVISION PAR ZÉRO",
     "rebooting": "Redémarrage…",
     "secretCompleteTitle": "Niveau secret terminé !",
     "medalTitles": {
-      "Platine": "Médaille de platine !",
-      "Or": "Médaille d'or !",
-      "Argent": "Médaille d'argent !",
-      "Bronze": "Médaille de bronze !"
+      "Platine": "Médaille de platine !",
+      "Or": "Médaille d'or !",
+      "Argent": "Médaille d'argent !",
+      "Bronze": "Médaille de bronze !"
     },
-    "medalDescriptionPlatine": "Nombre de coups minimum découvert !",
-    "medalDescriptionOr": "Excellent !",
-    "medalDescriptionArgent": "Très bien !",
-    "medalDescriptionBronze": "Assez bien !",
-    "noMedalTitle": "Vous pouvez faire mieux !",
+    "medalDescriptionPlatine": "Nombre de coups minimum découvert !",
+    "medalDescriptionOr": "Excellent !",
+    "medalDescriptionArgent": "Très bien !",
+    "medalDescriptionBronze": "Assez bien !",
+    "noMedalTitle": "Vous pouvez faire mieux !",
     "noMedalSubtitle": "Essayez de résoudre le niveau en moins de coups.",
     "retryButton": "Réessayer",
     "nextLevelButton": "Niveau Suivant",
@@ -48,8 +48,8 @@
     "newButton": "Nouveau",
     "campaignCompleteTitle": "Campagne terminée !",
     "campaignCompleteText": "Bravo, vous avez terminé les {total} niveaux de Turing's Node.",
-    "campaignPlatinumHint": "Rejouez les niveaux pour décrocher le Platine partout !",
-    "campaignAllPlatinum": "Platine sur tous les niveaux : chapeau !",
+    "campaignPlatinumHint": "Rejouez les niveaux pour décrocher le Platine partout !",
+    "campaignAllPlatinum": "Platine sur tous les niveaux : chapeau !",
     "helpTitle": "Face à Enigma, Turing n'avait pas les clés. Vous non plus.",
     "helpButton": "Comment jouer",
     "helpClose": "Fermer"
@@ -66,7 +66,7 @@
     "title": "Succès Déverrouillés",
     "backButton": "Retour au Menu",
     "golden_1": {
-      "title": "Proportions divines !",
+      "title": "Proportions divines !",
       "description": "Découvrir la constante du Nombre d'Or (Phi)."
     },
     "golden_2": {
@@ -74,23 +74,23 @@
       "description": "Découvrir la constante du Nombre d'Euler (e)."
     },
     "golden_3": {
-      "title": "Vous voulez une part de Tarte (π) ?",
+      "title": "Vous voulez une part de Tarte (π) ?",
       "description": "Découvrir la constante Pi (π)."
     },
     "golden_4": {
-      "title": "On doit retourner sur l'île !",
+      "title": "On doit retourner sur l'île !",
       "description": "Découvrir la séquence de la série Lost."
     },
     "golden_5": {
-      "title": "Ça chauffe !",
+      "title": "Ça chauffe !",
       "description": "Découvrir la constante de Stefan-Boltzmann."
     },
     "golden_6": {
-      "title": "Un saut quantique !",
+      "title": "Un saut quantique !",
       "description": "Découvrir la constante de Planck."
     },
     "golden_7": {
-      "title": "Un logarithme sauvage apparaît !",
+      "title": "Un logarithme sauvage apparaît !",
       "description": "Découvrir le logarithme népérien de 2000."
     },
     "golden_8": {
@@ -98,7 +98,7 @@
       "description": "Découvrir la permittivité du vide."
     },
     "golden_9": {
-      "title": "Vitesse lumière engagée !",
+      "title": "Vitesse lumière engagée !",
       "description": "Découvrir la constante de la vitesse de la lumière."
     },
     "legendary_Primer": {
@@ -134,7 +134,7 @@
       "description": "Rendre Factor légendaire avec un score qui est exactement une factorielle, à partir de 4! = 24."
     },
     "legendary_Cipher": {
-      "title": "1, 2, 3, soleil !",
+      "title": "1, 2, 3, soleil !",
       "description": "Rendre Cipher légendaire avec au moins 4 chiffres qui se suivent dans l'ordre croissant (1234, 45678...)."
     },
     "legendary_Plus": {
@@ -229,7 +229,7 @@
   "levels": {
     "goodwin": {
       "name": "Goodwin",
-      "story": "Médecin, il était sûr d'avoir prouvé que π valait 3,2. En 1897, il propose à l'Indiana d'en faire une loi, et offre généreusement sa découverte aux écoles de l'État. Les députés votent pour, à l'unanimité. Un professeur de maths passait par hasard au Capitole : le Sénat a reporté le vote. Indéfiniment.",
+      "story": "Médecin, il était sûr d'avoir prouvé que π valait 3,2. En 1897, il propose à l'Indiana d'en faire une loi, et offre généreusement sa découverte aux écoles de l'État. Les députés votent pour, à l'unanimité. Un professeur de maths passait par hasard au Capitole : le Sénat a reporté le vote. Indéfiniment.",
       "jab": "{clicks}. Les députés de l'Indiana vous trouveraient brillant."
     },
     "hanyecz": {
@@ -239,12 +239,12 @@
     },
     "airy": {
       "name": "Airy",
-      "story": "Astronome royal. En 1842, le gouvernement lui demande si la machine à calculer de Babbage peut servir à quelque chose. Réponse : à rien. Les crédits sont coupés, et l'ordinateur attendra un siècle. Quelques années plus tard, on lui reprochera aussi d'avoir laissé filer la découverte de Neptune. Un homme constant.",
-      "jab": "Rapport de la machine sur votre utilité : autant qu'un horoscope."
+      "story": "Astronome royal. En 1842, le gouvernement lui demande si la machine à calculer de Babbage peut servir à quelque chose. Réponse : à rien. Les crédits sont coupés, et l'ordinateur attendra un siècle. Quelques années plus tard, on lui reprochera aussi d'avoir laissé filer la découverte de Neptune. Un homme constant.",
+      "jab": "Rapport de la machine sur votre utilité : autant qu'un horoscope."
     },
     "preece": {
       "name": "Preece",
-      "story": "Ingénieur des Postes britanniques. En 1879, il explique à une commission parlementaire que le téléphone, c'est bon pour les Américains : les Anglais ont bien assez de garçons de courses. Il a été anobli quand même.",
+      "story": "Ingénieur des Postes britanniques. En 1879, il explique à une commission parlementaire que le téléphone, c'est bon pour les Américains : les Anglais ont bien assez de garçons de courses. Il a été anobli quand même.",
       "jab": "Il n'a pas vu l'avenir du téléphone. La machine, elle, ne voit pas le vôtre."
     },
     "stoll": {
@@ -254,13 +254,13 @@
     },
     "stifel": {
       "name": "Stifel",
-      "story": "Mathématicien et pasteur. Ses calculs fixaient la fin du monde au 19 octobre 1533, à 8 heures du matin. Ses paroissiens ont tout quitté pour l'attendre avec lui. À 8 h 01, l'ambiance a changé. Il s'est rattrapé plus tard : c'est lui qui a inventé le mot « exposant ».",
+      "story": "Mathématicien et pasteur. Ses calculs fixaient la fin du monde au 19 octobre 1533, à 8 heures du matin. Ses paroissiens ont tout quitté pour l'attendre avec lui. À 8 h 01, l'ambiance a changé. Il s'est rattrapé plus tard : c'est lui qui a inventé le mot « exposant ».",
       "jab": "Ses calculs étaient faux, mais ses paroissiens y ont cru. Les vôtres, personne n'y croit."
     },
     "brahe": {
       "name": "Brahe",
       "story": "À 20 ans, il perd un bout de nez dans un duel pour savoir qui était le meilleur mathématicien, et porte une prothèse en laiton le reste de sa vie. Il serait mort d'avoir refusé, par politesse, de quitter un banquet pour aller aux toilettes. Entre les deux, il a mesuré le ciel assez précisément pour que Kepler en tire les lois des planètes.",
-      "jab": "Il a perdu son nez pour un problème de maths. Vous n'avez rien perdu : vous n'aviez rien à miser."
+      "jab": "Il a perdu son nez pour un problème de maths. Vous n'avez rien perdu : vous n'aviez rien à miser."
     },
     "shanks": {
       "name": "Shanks",
@@ -279,12 +279,12 @@
     },
     "brand": {
       "name": "Brand",
-      "story": "Alchimiste. Persuadé que l'urine cachait le secret de l'or, il en a fait bouillir des tonneaux entiers. Pas d'or, mais une matière qui brillait dans le noir : le phosphore, l'un des premiers éléments chimiques dont on connaisse le découvreur. L'histoire ne dit pas ce qu'en pensaient les voisins.",
+      "story": "Alchimiste. Persuadé que l'urine cachait le secret de l'or, il en a fait bouillir des tonneaux entiers. Pas d'or, mais une matière qui brillait dans le noir : le phosphore, l'un des premiers éléments chimiques dont on connaisse le découvreur. L'histoire ne dit pas ce qu'en pensaient les voisins.",
       "jab": "Il a tiré de la lumière d'un pot de chambre. Vous, on n'a encore rien tiré de vous."
     },
     "lowell": {
       "name": "Lowell",
-      "story": "Il a vu sur Mars des canaux creusés par des Martiens. Il n'y en avait pas. Il a aussi calculé où chercher une planète inconnue : on y a trouvé Pluton, par pur hasard, car ses calculs étaient faux. Pluton commence par ses initiales. Depuis 2006, ce n'est même plus une planète.",
+      "story": "Il a vu sur Mars des canaux creusés par des Martiens. Il n'y en avait pas. Il a aussi calculé où chercher une planète inconnue : on y a trouvé Pluton, par pur hasard, car ses calculs étaient faux. Pluton commence par ses initiales. Depuis 2006, ce n'est même plus une planète.",
       "jab": "Avec des calculs faux, il a trouvé une planète. Avec les vôtres, on ne trouverait pas la sortie."
     },
     "millikan": {
@@ -294,12 +294,12 @@
     },
     "fleming": {
       "name": "Fleming",
-      "story": "Il est parti en vacances en laissant traîner ses boîtes de bactéries. À son retour, une moisissure en avait tué une partie : c'était la pénicilline. Son désordre a sauvé des millions de vies.",
+      "story": "Il est parti en vacances en laissant traîner ses boîtes de bactéries. À son retour, une moisissure en avait tué une partie : c'était la pénicilline. Son désordre a sauvé des millions de vies.",
       "jab": "Son désordre a sauvé des millions de vies. Le vôtre n'intéresse personne."
     },
     "spencer": {
       "name": "Spencer",
-      "story": "Il travaillait sur un radar quand la barre chocolatée dans sa poche s'est mise à fondre. Au lieu de s'éloigner de l'appareil, il est allé chercher du maïs. Le pop-corn a éclaté : le micro-ondes était né.",
+      "story": "Il travaillait sur un radar quand la barre chocolatée dans sa poche s'est mise à fondre. Au lieu de s'éloigner de l'appareil, il est allé chercher du maïs. Le pop-corn a éclaté : le micro-ondes était né.",
       "jab": "Une barre chocolatée a suffi à l'inspirer. Vous, il vous faudrait la boîte entière."
     },
     "greatbatch": {
@@ -309,12 +309,12 @@
     },
     "lorenz": {
       "name": "Lorenz",
-      "story": "Pour gagner du temps, il relance sa simulation à mi-parcours en recopiant un résultat imprimé : 0,506 au lieu de 0,506127. Sa météo simulée part dans une tout autre direction : il vient de découvrir l'effet papillon.",
+      "story": "Pour gagner du temps, il relance sa simulation à mi-parcours en recopiant un résultat imprimé : 0,506 au lieu de 0,506127. Sa météo simulée part dans une tout autre direction : il vient de découvrir l'effet papillon.",
       "jab": "Un battement d'ailes de papillon peut provoquer une tempête. Vous, vous ne provoquez même pas un courant d'air."
     },
     "penzias_wilson": {
       "name": "Penzias et Wilson",
-      "story": "Leur antenne captait un bruit inexplicable. Ils ont accusé les pigeons, nettoyé les fientes, chassé les pigeons. Le bruit est resté : c'était l'écho du Big Bang. Prix Nobel en 1978. Les pigeons n'ont rien eu.",
+      "story": "Leur antenne captait un bruit inexplicable. Ils ont accusé les pigeons, nettoyé les fientes, chassé les pigeons. Le bruit est resté : c'était l'écho du Big Bang. Prix Nobel en 1978. Les pigeons n'ont rien eu.",
       "jab": "Même un bruit de fond leur a valu le prix Nobel. Vous, vous n'êtes qu'un bruit de fond."
     },
     "aristotle": {
@@ -329,12 +329,12 @@
     },
     "michelson": {
       "name": "Michelson",
-      "story": "Champion de la mesure précise. En 1894, il juge probable que les grands principes de la physique soient établis, et cite un confrère : il ne reste qu'à chercher la sixième décimale. Onze ans plus tard, Einstein publie la relativité, et tout est à refaire. Six décimales, c'était un peu juste.",
+      "story": "Champion de la mesure précise. En 1894, il juge probable que les grands principes de la physique soient établis, et cite un confrère : il ne reste qu'à chercher la sixième décimale. Onze ans plus tard, Einstein publie la relativité, et tout est à refaire. Six décimales, c'était un peu juste.",
       "jab": "Il mesurait la lumière avec une précision folle. Pour mesurer votre vitesse, un calendrier suffit."
     },
     "kelvin": {
       "name": "Kelvin",
-      "story": "Il a donné son nom à l'échelle des températures absolues. En 1896, il refuse d'entrer dans une société d'aéronautique : il n'a « pas la plus petite molécule de foi » dans le vol, sauf en ballon. Sept ans plus tard, les frères Wright décollent.",
+      "story": "Il a donné son nom à l'échelle des températures absolues. En 1896, il refuse d'entrer dans une société d'aéronautique : il n'a « pas la plus petite molécule de foi » dans le vol, sauf en ballon. Sept ans plus tard, les frères Wright décollent.",
       "jab": "Même quand il se trompait, il donnait son nom à quelque chose. Vous, on oubliera le vôtre."
     },
     "frege": {
@@ -344,7 +344,7 @@
     },
     "hilbert": {
       "name": "Hilbert",
-      "story": "En 1930, il lance à la radio : « Nous devons savoir, nous saurons. » La veille, dans la même ville, Kurt Gödel, 24 ans, venait d'annoncer que, dans tout système, certaines vérités mathématiques resteront indémontrables. Six ans plus tard, Turing enfonçait le clou. La phrase est gravée sur la tombe de Hilbert.",
+      "story": "En 1930, il lance à la radio : « Nous devons savoir, nous saurons. » La veille, dans la même ville, Kurt Gödel, 24 ans, venait d'annoncer que, dans tout système, certaines vérités mathématiques resteront indémontrables. Six ans plus tard, Turing enfonçait le clou. La phrase est gravée sur la tombe de Hilbert.",
       "jab": "Même son erreur est gravée dans la pierre. La vôtre ne mérite pas un post-it."
     },
     "rutherford": {
@@ -354,22 +354,22 @@
     },
     "hoyle": {
       "name": "Hoyle",
-      "story": "Il a expliqué comment les étoiles fabriquent les atomes. Mais il ne croyait pas qu'un univers puisse naître d'une explosion, et en 1949, à la radio, il baptise cette idée le « Big Bang ». La théorie a gagné. Le nom aussi.",
-      "jab": "Son surnom moqueur a fini par nommer l'origine de l'univers. Le vôtre, la machine le garde pour elle : il est trop vulgaire."
+      "story": "Il a expliqué comment les étoiles fabriquent les atomes. Mais il ne croyait pas qu'un univers puisse naître d'une explosion, et en 1949, à la radio, il baptise cette idée le « Big Bang ». La théorie a gagné. Le nom aussi.",
+      "jab": "Son surnom moqueur a fini par nommer l'origine de l'univers. Le vôtre, la machine le garde pour elle : il est trop vulgaire."
     },
     "simon": {
       "name": "Simon",
-      "story": "Prix Nobel d'économie et prix Turing. En 1958, il prédit qu'un ordinateur sera champion du monde d'échecs dans les dix ans. Il a fallu attendre 1997 pour que Deep Blue batte le champion. Près de trente ans de retard : en informatique, c'est un planning tenu.",
+      "story": "Prix Nobel d'économie et prix Turing. En 1958, il prédit qu'un ordinateur sera champion du monde d'échecs dans les dix ans. Il a fallu attendre 1997 pour que Deep Blue batte le champion. Près de trente ans de retard : en informatique, c'est un planning tenu.",
       "jab": "Il avait trente ans de retard sur ses prévisions. Vous, vous en avez quarante sur votre époque."
     },
     "hoare": {
       "name": "Hoare",
-      "story": "Il a inventé Quicksort, l'un des algorithmes de tri les plus utilisés au monde. En 1965, il a aussi inventé la référence nulle, qu'il appelait lui-même son « erreur à un milliard de dollars ». Les programmeurs trouvent l'estimation modeste.",
+      "story": "Il a inventé Quicksort, l'un des algorithmes de tri les plus utilisés au monde. En 1965, il a aussi inventé la référence nulle, qu'il appelait lui-même son « erreur à un milliard de dollars ». Les programmeurs trouvent l'estimation modeste.",
       "jab": "Son erreur vaut un milliard de dollars. Les vôtres ne valent rien."
     },
     "papert": {
       "name": "Papert",
-      "story": "Il a cocréé Logo et sa petite tortue, qui ont appris la programmation à des générations d'enfants. En 1966, il confie à des étudiants un projet pour l'été : apprendre à un ordinateur à voir. Soixante ans plus tard, l'été n'est pas tout à fait fini.",
+      "story": "Il a cocréé Logo et sa petite tortue, qui ont appris la programmation à des générations d'enfants. En 1966, il confie à des étudiants un projet pour l'été : apprendre à un ordinateur à voir. Soixante ans plus tard, l'été n'est pas tout à fait fini.",
       "jab": "Sa petite tortue a appris la programmation à des générations d'enfants. Elle irait plus vite que vous."
     },
     "metcalfe": {
@@ -384,33 +384,33 @@
     },
     "pythagoras": {
       "name": "Pythagore",
-      "story": "Tout le monde connaît son théorème, qui n'est sans doute pas de lui : les Babyloniens s'en servaient plus de mille ans plus tôt. Il dirigeait une secte dont la doctrine se résume en « tout est nombre », qui croyait à la réincarnation et interdisait de manger des fèves. La légende veut qu'il soit mort rattrapé par ses ennemis, plutôt que de s'enfuir à travers un champ de fèves.",
+      "story": "Tout le monde connaît son théorème, qui n'est sans doute pas de lui : les Babyloniens s'en servaient plus de mille ans plus tôt. Il dirigeait une secte dont la doctrine se résume en « tout est nombre », qui croyait à la réincarnation et interdisait de manger des fèves. La légende veut qu'il soit mort rattrapé par ses ennemis, plutôt que de s'enfuir à travers un champ de fèves.",
       "jab": "Lui a convaincu des disciples que tout est nombre. Vous n'arriveriez pas à convaincre un chat."
     },
     "euclid": {
       "name": "Euclide",
-      "story": "Ses Éléments ont servi de manuel de géométrie pendant plus de deux mille ans : après la Bible, c'est peut-être le livre le plus réédité de l'histoire. Au roi Ptolémée, qui demandait un raccourci, il aurait répondu qu'il n'existe pas de voie royale vers la géométrie.",
+      "story": "Ses Éléments ont servi de manuel de géométrie pendant plus de deux mille ans : après la Bible, c'est peut-être le livre le plus réédité de l'histoire. Au roi Ptolémée, qui demandait un raccourci, il aurait répondu qu'il n'existe pas de voie royale vers la géométrie.",
       "jab": "Son livre a servi deux mille ans. Votre score ne servira même pas jusqu'à demain."
     },
     "archimedes": {
       "name": "Archimède",
-      "story": "Il a encadré π mieux que personne avant lui, et compris pourquoi les bateaux flottent. La légende veut qu'il ait traversé Syracuse tout nu en criant « Eurêka », et qu'il ait été tué par un soldat romain à qui il demandait de ne pas déranger ses cercles.",
-      "jab": "Lui criait « Eurêka ». Vous, vous criez « Annuler »."
+      "story": "Il a encadré π mieux que personne avant lui, et compris pourquoi les bateaux flottent. La légende veut qu'il ait traversé Syracuse tout nu en criant « Eurêka », et qu'il ait été tué par un soldat romain à qui il demandait de ne pas déranger ses cercles.",
+      "jab": "Lui criait « Eurêka ». Vous, vous criez « Annuler »."
     },
     "eratosthenes": {
       "name": "Ératosthène",
-      "story": "Au IIIe siècle avant notre ère, avec des ombres et beaucoup de calcul, il mesure la circonférence de la Terre avec une précision remarquable. Il dirigeait la bibliothèque d'Alexandrie. Ses contemporains l'avaient pourtant surnommé « Bêta » : bon en tout, premier en rien.",
+      "story": "Au IIIe siècle avant notre ère, avec des ombres et beaucoup de calcul, il mesure la circonférence de la Terre avec une précision remarquable. Il dirigeait la bibliothèque d'Alexandrie. Ses contemporains l'avaient pourtant surnommé « Bêta » : bon en tout, premier en rien.",
       "jab": "On le surnommait l'éternel deuxième. Vous, on ne vous a même pas classé."
     },
     "al_khwarizmi": {
       "name": "Al-Khwarizmi",
-      "story": "Savant de Bagdad au IXe siècle. Son nom, déformé en latin, a donné le mot « algorithme », et le titre de son livre le mot « algèbre ». Il a aussi fait connaître en Occident les chiffres indiens, ceux que nous appelons arabes.",
-      "jab": "Son nom est devenu « algorithme ». Le vôtre deviendra un mot de passe oublié."
+      "story": "Savant de Bagdad au IXe siècle. Son nom, déformé en latin, a donné le mot « algorithme », et le titre de son livre le mot « algèbre ». Il a aussi fait connaître en Occident les chiffres indiens, ceux que nous appelons arabes.",
+      "jab": "Son nom est devenu « algorithme ». Le vôtre deviendra un mot de passe oublié."
     },
     "fibonacci": {
       "name": "Fibonacci",
       "story": "En 1202, il explique aux marchands européens comment compter avec les chiffres arabes plutôt qu'avec les chiffres romains. Dans le même livre, il calcule combien de lapins donnera un couple au bout d'un an. La réponse est devenue la suite la plus célèbre des mathématiques. Elle a même décidé de la taille de chaque monde de ce jeu.",
-      "jab": "Ses lapins se multipliaient plus vite que vos idées. Le monde suivant aussi : vous savez déjà de combien."
+      "jab": "Ses lapins se multipliaient plus vite que vos idées. Le monde suivant aussi : vous savez déjà de combien."
     },
     "cardano": {
       "name": "Cardan",
@@ -419,12 +419,12 @@
     },
     "napier": {
       "name": "Napier",
-      "story": "Il a inventé les logarithmes, qui ont fait gagner des années de calcul aux astronomes. Ses voisins le prenaient pour un sorcier. La légende raconte qu'il a démasqué un voleur parmi ses domestiques grâce à un coq noir, enduit de suie en secret : seul le coupable n'avait pas osé le toucher.",
+      "story": "Il a inventé les logarithmes, qui ont fait gagner des années de calcul aux astronomes. Ses voisins le prenaient pour un sorcier. La légende raconte qu'il a démasqué un voleur parmi ses domestiques grâce à un coq noir, enduit de suie en secret : seul le coupable n'avait pas osé le toucher.",
       "jab": "Ses voisins le prenaient pour un sorcier. Vous, personne ne vous soupçonnera jamais de magie."
     },
     "descartes": {
       "name": "Descartes",
-      "story": "Il aurait inventé les coordonnées en regardant une mouche au plafond, et a résumé sa philosophie en une phrase : « Je pense, donc je suis. » Depuis l'enfance, il restait au lit tard le matin. La reine Christine de Suède l'a fait venir à Stockholm pour des leçons à 5 heures du matin, en plein hiver. Il est mort quelques mois plus tard.",
+      "story": "Il aurait inventé les coordonnées en regardant une mouche au plafond, et a résumé sa philosophie en une phrase : « Je pense, donc je suis. » Depuis l'enfance, il restait au lit tard le matin. La reine Christine de Suède l'a fait venir à Stockholm pour des leçons à 5 heures du matin, en plein hiver. Il est mort quelques mois plus tard.",
       "jab": "Il pensait, donc il était. Vous, la machine attend encore la première partie."
     },
     "pascal": {
@@ -444,22 +444,22 @@
     },
     "euler": {
       "name": "Euler",
-      "story": "On le dit plus prolifique que n'importe quel autre mathématicien : ses œuvres complètes dépassent quatre-vingts volumes. Devenu presque aveugle, il a continué en dictant, et produit encore davantage. Il a aussi prouvé qu'on ne pouvait pas traverser les sept ponts de Königsberg une seule fois chacun, inventant au passage la théorie des graphes.",
+      "story": "On le dit plus prolifique que n'importe quel autre mathématicien : ses œuvres complètes dépassent quatre-vingts volumes. Devenu presque aveugle, il a continué en dictant, et produit encore davantage. Il a aussi prouvé qu'on ne pouvait pas traverser les sept ponts de Königsberg une seule fois chacun, inventant au passage la théorie des graphes.",
       "jab": "Presque aveugle, il produisait plus que n'importe qui. Vous, les yeux grands ouverts, vous produisez ça."
     },
     "gauss": {
       "name": "Gauss",
-      "story": "Le prince des mathématiciens. À 18 ans, il trouve comment construire à la règle et au compas un polygone à 17 côtés, la première avancée sur ces constructions depuis l'Antiquité. Il en était si fier qu'il l'aurait voulu sur sa tombe. Le tailleur de pierre aurait refusé : à 17 côtés, on aurait cru un cercle.",
+      "story": "Le prince des mathématiciens. À 18 ans, il trouve comment construire à la règle et au compas un polygone à 17 côtés, la première avancée sur ces constructions depuis l'Antiquité. Il en était si fier qu'il l'aurait voulu sur sa tombe. Le tailleur de pierre aurait refusé : à 17 côtés, on aurait cru un cercle.",
       "jab": "Il voulait un polygone sur sa tombe. Sur la vôtre, un point suffira."
     },
     "germain": {
       "name": "Sophie Germain",
-      "story": "Les femmes n'étaient pas admises à l'École polytechnique : elle se procure les cours, et envoie ses devoirs sous le nom de « Monsieur Le Blanc ». Elle correspond ensuite avec Gauss sous ce nom. Quand les troupes de Napoléon occupent la ville de Gauss, elle demande à un général français de veiller sur lui. Gauss, intrigué par ce nom inconnu, apprend bientôt qui était son correspondant.",
+      "story": "Les femmes n'étaient pas admises à l'École polytechnique : elle se procure les cours, et envoie ses devoirs sous le nom de « Monsieur Le Blanc ». Elle correspond ensuite avec Gauss sous ce nom. Quand les troupes de Napoléon occupent la ville de Gauss, elle demande à un général français de veiller sur lui. Gauss, intrigué par ce nom inconnu, apprend bientôt qui était son correspondant.",
       "jab": "Elle a dû se faire passer pour un homme pour qu'on la prenne au sérieux. Vous, même déguisé, vous n'y arriveriez pas."
     },
     "jacquard": {
       "name": "Jacquard",
-      "story": "Au début du XIXe siècle, il invente un métier à tisser commandé par des cartes perforées : chaque trou décide d'un fil. Les canuts lyonnais, qui craignaient pour leur travail, ont brûlé ses machines. Ses cartes devaient ensuite programmer la machine de Babbage, puis ont nourri les calculateurs pendant près d'un siècle.",
+      "story": "Au début du XIXe siècle, il invente un métier à tisser commandé par des cartes perforées : chaque trou décide d'un fil. Les canuts lyonnais, qui craignaient pour leur travail, ont brûlé ses machines. Ses cartes devaient ensuite programmer la machine de Babbage, puis ont nourri les calculateurs pendant près d'un siècle.",
       "jab": "La machine aussi fonctionne avec des trous. Dans votre raisonnement, surtout."
     },
     "babbage": {
@@ -469,7 +469,7 @@
     },
     "galois": {
       "name": "Galois",
-      "story": "Recalé deux fois à Polytechnique, il invente une théorie qui dit quelles équations ont une formule de résolution, et lesquelles n'en auront jamais. Il meurt en duel à 20 ans. La veille, dans une lettre à un ami où il résume ses découvertes, il écrit : « Je n'ai pas le temps. » Il a fallu des années aux mathématiciens pour comprendre ce qu'il avait trouvé.",
+      "story": "Recalé deux fois à Polytechnique, il invente une théorie qui dit quelles équations ont une formule de résolution, et lesquelles n'en auront jamais. Il meurt en duel à 20 ans. La veille, dans une lettre à un ami où il résume ses découvertes, il écrit : « Je n'ai pas le temps. » Il a fallu des années aux mathématiciens pour comprendre ce qu'il avait trouvé.",
       "jab": "En une nuit, il a résumé une révolution mathématique. En une nuit, vous ne résumeriez pas ce niveau."
     },
     "lovelace": {
@@ -480,36 +480,36 @@
     "boole": {
       "name": "Boole",
       "story": "Fils de cordonnier, mathématicien autodidacte, il a ramené la logique à une algèbre où tout vaut 0 ou 1, faux ou vrai. Chaque bouton de ce jeu, vert ou rouge, obéit à ses lois. Il serait mort d'avoir fait cours trempé par la pluie. Sa femme, persuadée que le remède devait ressembler à la cause, l'aurait arrosé d'eau froide.",
-      "jab": "Il a tout ramené au vrai et au faux. Pour vous, la machine a déjà tranché : c'est faux."
+      "jab": "Il a tout ramené au vrai et au faux. Pour vous, la machine a déjà tranché : c'est faux."
     },
     "cantor": {
       "name": "Cantor",
-      "story": "Il a démontré qu'il existe plusieurs infinis, et que certains sont plus grands que d'autres. Une partie de ses collègues a crié au scandale, et l'un d'eux l'aurait traité de « corrupteur de la jeunesse ». Hilbert, lui, a déclaré que personne ne nous chasserait du paradis que Cantor avait créé.",
+      "story": "Il a démontré qu'il existe plusieurs infinis, et que certains sont plus grands que d'autres. Une partie de ses collègues a crié au scandale, et l'un d'eux l'aurait traité de « corrupteur de la jeunesse ». Hilbert, lui, a déclaré que personne ne nous chasserait du paradis que Cantor avait créé.",
       "jab": "La machine a compté vos erreurs. Elle vient de découvrir un nouvel infini."
     },
     "hollerith": {
       "name": "Hollerith",
-      "story": "Il a fallu près de huit ans pour dépouiller le recensement américain de 1880. Pour celui de 1890, il invente une machine à cartes perforées : le premier décompte tombe en quelques semaines. Sa petite entreprise a fusionné avec d'autres pour devenir IBM.",
+      "story": "Il a fallu près de huit ans pour dépouiller le recensement américain de 1880. Pour celui de 1890, il invente une machine à cartes perforées : le premier décompte tombe en quelques semaines. Sa petite entreprise a fusionné avec d'autres pour devenir IBM.",
       "jab": "Il a compté soixante-deux millions d'Américains plus vite que vous ne comptez vos clics."
     },
     "russell": {
       "name": "Russell",
-      "story": "Avec Whitehead, il écrit les Principia Mathematica pour fonder les mathématiques sur la seule logique. Il leur faut des centaines de pages pour établir que 1 + 1 = 2, un résultat qu'ils jugent « parfois utile ». Plus tard, ce logicien a reçu le prix Nobel… de littérature.",
+      "story": "Avec Whitehead, il écrit les Principia Mathematica pour fonder les mathématiques sur la seule logique. Il leur faut des centaines de pages pour établir que 1 + 1 = 2, un résultat qu'ils jugent « parfois utile ». Plus tard, ce logicien a reçu le prix Nobel… de littérature.",
       "jab": "Lui a mis des centaines de pages à prouver que 1 + 1 = 2. Vous, vous n'êtes toujours pas convaincu."
     },
     "hardy": {
       "name": "Hardy",
-      "story": "Il se félicitait que la théorie des nombres ne serve à rien, et surtout pas à faire la guerre. Elle protège aujourd'hui tous les paiements en ligne et les secrets militaires. Avant de traverser une mer agitée, il aurait envoyé une carte postale annonçant qu'il avait démontré l'hypothèse de Riemann : Dieu, qui le détestait, ne l'aurait jamais laissé mourir avec cette gloire.",
+      "story": "Il se félicitait que la théorie des nombres ne serve à rien, et surtout pas à faire la guerre. Elle protège aujourd'hui tous les paiements en ligne et les secrets militaires. Avant de traverser une mer agitée, il aurait envoyé une carte postale annonçant qu'il avait démontré l'hypothèse de Riemann : Dieu, qui le détestait, ne l'aurait jamais laissé mourir avec cette gloire.",
       "jab": "Ses mathématiques ne devaient servir à rien. Les vôtres ont tenu cette promesse."
     },
     "ramanujan": {
       "name": "Ramanujan",
-      "story": "Employé de bureau à Madras, sans diplôme, il envoie à Hardy des pages de formules. Hardy soupçonne d'abord une imposture, puis conclut qu'elles devaient être vraies, car personne n'aurait eu l'imagination de les inventer. Un jour, Hardy lui rend visite en taxi et trouve son numéro, 1729, bien terne. Ramanujan répond aussitôt : c'est le plus petit nombre qui s'écrit de deux façons comme somme de deux cubes.",
+      "story": "Employé de bureau à Madras, sans diplôme, il envoie à Hardy des pages de formules. Hardy soupçonne d'abord une imposture, puis conclut qu'elles devaient être vraies, car personne n'aurait eu l'imagination de les inventer. Un jour, Hardy lui rend visite en taxi et trouve son numéro, 1729, bien terne. Ramanujan répond aussitôt : c'est le plus petit nombre qui s'écrit de deux façons comme somme de deux cubes.",
       "jab": "Lui voyait des merveilles dans un numéro de taxi. Vous, devant ce score, vous ne voyez rien."
     },
     "noether": {
       "name": "Emmy Noether",
-      "story": "Les femmes n'avaient pas le droit d'enseigner à l'université de Göttingen : pendant des années, ses cours sont annoncés sous le nom de Hilbert. Elle démontre pourtant le théorème qui relie les symétries de l'univers à ses lois de conservation, l'un des piliers de la physique moderne. Einstein écrit qu'aux yeux des plus grands mathématiciens vivants, elle était le génie mathématique le plus créatif depuis que les études supérieures sont ouvertes aux femmes.",
+      "story": "Les femmes n'avaient pas le droit d'enseigner à l'université de Göttingen : pendant des années, ses cours sont annoncés sous le nom de Hilbert. Elle démontre pourtant le théorème qui relie les symétries de l'univers à ses lois de conservation, l'un des piliers de la physique moderne. Einstein écrit qu'aux yeux des plus grands mathématiciens vivants, elle était le génie mathématique le plus créatif depuis que les études supérieures sont ouvertes aux femmes.",
       "jab": "Elle a changé la physique sans même avoir droit à son nom. Vous avez le vôtre, et ça ne vous aide pas."
     },
     "godel": {
@@ -519,12 +519,12 @@
     },
     "rejewski": {
       "name": "Rejewski",
-      "story": "En 1932, ce jeune mathématicien polonais reconstitue le câblage d'Enigma grâce à la théorie des permutations et aux documents d'un espion, sans avoir jamais vu la machine militaire. Son équipe lit les messages allemands pendant des années. En juillet 1939, la Pologne offre tout aux Britanniques et aux Français : les méthodes, et des copies d'Enigma.",
-      "jab": "Face à Enigma, Turing n'avait pas les clés : ce sont lui et son équipe qui les lui ont données. Vous, personne ne vous les donnera."
+      "story": "En 1932, ce jeune mathématicien polonais reconstitue le câblage d'Enigma grâce à la théorie des permutations et aux documents d'un espion, sans avoir jamais vu la machine militaire. Son équipe lit les messages allemands pendant des années. En juillet 1939, la Pologne offre tout aux Britanniques et aux Français : les méthodes, et des copies d'Enigma.",
+      "jab": "Face à Enigma, Turing n'avait pas les clés : ce sont lui et son équipe qui les lui ont données. Vous, personne ne vous les donnera."
     },
     "shannon": {
       "name": "Shannon",
-      "story": "À 21 ans, son mémoire de master montre que l'algèbre de Boole peut faire calculer des circuits électriques : on l'a qualifié de mémoire peut-être le plus important du siècle. Onze ans plus tard, il invente la théorie de l'information, et fait du bit son unité. Dans les années 1950, il traversait les couloirs des laboratoires Bell en monocycle, en jonglant.",
+      "story": "À 21 ans, son mémoire de master montre que l'algèbre de Boole peut faire calculer des circuits électriques : on l'a qualifié de mémoire peut-être le plus important du siècle. Onze ans plus tard, il invente la théorie de l'information, et fait du bit son unité. Dans les années 1950, il traversait les couloirs des laboratoires Bell en monocycle, en jonglant.",
       "jab": "Il réfléchissait en jonglant sur un monocycle. Vous, assis sur une chaise, vous n'arrivez à faire ni l'un ni l'autre."
     },
     "zuse": {
@@ -534,12 +534,12 @@
     },
     "flowers": {
       "name": "Flowers",
-      "story": "Ingénieur aux Postes britanniques, comme Preece en son temps, il construit Colossus, la première machine électronique programmable, pour casser les codes du haut commandement allemand, et en paie une partie de sa poche. Après la guerre, presque tout est détruit et classé secret. Quand il demande un prêt pour construire un ordinateur, la banque refuse : elle ne croit pas qu'une telle machine puisse fonctionner.",
+      "story": "Ingénieur aux Postes britanniques, comme Preece en son temps, il construit Colossus, la première machine électronique programmable, pour casser les codes du haut commandement allemand, et en paie une partie de sa poche. Après la guerre, presque tout est détruit et classé secret. Quand il demande un prêt pour construire un ordinateur, la banque refuse : elle ne croit pas qu'une telle machine puisse fonctionner.",
       "jab": "Personne ne croyait en lui, et il avait raison. Personne ne croit en vous non plus."
     },
     "von_neumann": {
       "name": "von Neumann",
-      "story": "Il a donné son nom à l'architecture de presque tous les ordinateurs, cofondé la théorie des jeux, et calculait de tête, dit-on, plus vite que les premières machines. Au volant, en revanche, c'était une catastrophe : après un accident, il aurait expliqué que les arbres défilaient sagement sur sa droite quand l'un d'eux s'est mis en travers de sa route.",
+      "story": "Il a donné son nom à l'architecture de presque tous les ordinateurs, cofondé la théorie des jeux, et calculait de tête, dit-on, plus vite que les premières machines. Au volant, en revanche, c'était une catastrophe : après un accident, il aurait expliqué que les arbres défilaient sagement sur sa droite quand l'un d'eux s'est mis en travers de sa route.",
       "jab": "Il calculait plus vite que les machines. Vous, c'est la machine qui vous attend."
     },
     "bartik": {
@@ -549,7 +549,7 @@
     },
     "hopper": {
       "name": "Hopper",
-      "story": "Elle écrit l'un des premiers compilateurs et inspire le COBOL, qui fait encore tourner les banques. En 1947, son équipe trouve un papillon de nuit coincé dans un relais et le colle dans le journal de bord : « premier vrai cas de bug trouvé ». Pour expliquer une nanoseconde, elle distribuait des fils de trente centimètres. La Marine a dû la rappeler après sa retraite, et elle a servi jusqu'à 79 ans.",
+      "story": "Elle écrit l'un des premiers compilateurs et inspire le COBOL, qui fait encore tourner les banques. En 1947, son équipe trouve un papillon de nuit coincé dans un relais et le colle dans le journal de bord : « premier vrai cas de bug trouvé ». Pour expliquer une nanoseconde, elle distribuait des fils de trente centimètres. La Marine a dû la rappeler après sa retraite, et elle a servi jusqu'à 79 ans.",
       "jab": "Son équipe retirait les bugs avec une pince à épiler. Vous, vous en êtes un."
     },
     "hamming": {
@@ -569,22 +569,22 @@
     },
     "mccarthy": {
       "name": "McCarthy",
-      "story": "En 1955, il invente l'expression « intelligence artificielle » pour un séminaire d'été. Trois ans plus tard, il crée Lisp, l'un des plus vieux langages encore utilisés, et y invente au passage le ramasse-miettes, qui libère la mémoire tout seul. Dès 1961, il annonce qu'on louera un jour la puissance de calcul comme un service public, à la manière du téléphone : c'est le cloud.",
+      "story": "En 1955, il invente l'expression « intelligence artificielle » pour un séminaire d'été. Trois ans plus tard, il crée Lisp, l'un des plus vieux langages encore utilisés, et y invente au passage le ramasse-miettes, qui libère la mémoire tout seul. Dès 1961, il annonce qu'on louera un jour la puissance de calcul comme un service public, à la manière du téléphone : c'est le cloud.",
       "jab": "Il a donné un nom à l'intelligence artificielle. Pour la vôtre, on cherche encore."
     },
     "dijkstra": {
       "name": "Dijkstra",
-      "story": "En 1956, à la terrasse d'un café d'Amsterdam, sans papier ni crayon, il trouve en vingt minutes l'algorithme du plus court chemin. Les GPS s'en inspirent encore. Il ne mâchait pas ses mots : selon lui, apprendre le BASIC mutilait l'esprit des étudiants au-delà de tout espoir.",
+      "story": "En 1956, à la terrasse d'un café d'Amsterdam, sans papier ni crayon, il trouve en vingt minutes l'algorithme du plus court chemin. Les GPS s'en inspirent encore. Il ne mâchait pas ses mots : selon lui, apprendre le BASIC mutilait l'esprit des étudiants au-delà de tout espoir.",
       "jab": "Il résolvait ses problèmes de tête, à la terrasse d'un café. Vous avez besoin d'un écran, de boutons, et d'un peu de chance."
     },
     "johnson": {
       "name": "Katherine Johnson",
-      "story": "Mathématicienne à la NASA, elle calcule à la main les trajectoires des premières missions spatiales américaines. En 1962, avant de devenir le premier Américain en orbite, John Glenn exige qu'elle vérifie les calculs de l'ordinateur : si elle dit qu'ils sont bons, il est prêt à partir. Elle a confirmé. Il est parti.",
+      "story": "Mathématicienne à la NASA, elle calcule à la main les trajectoires des premières missions spatiales américaines. En 1962, avant de devenir le premier Américain en orbite, John Glenn exige qu'elle vérifie les calculs de l'ordinateur : si elle dit qu'ils sont bons, il est prêt à partir. Elle a confirmé. Il est parti.",
       "jab": "Un astronaute a confié sa vie à ses calculs. Vous, on ne vous confierait pas une calculette."
     },
     "knuth": {
       "name": "Knuth",
-      "story": "En 1962, il commence L'Art de la programmation informatique, un livre qui deviendra un projet en sept volumes. Il y travaille toujours. Mécontent de la mise en page de la réédition de son deuxième volume, il s'interrompt huit ans pour inventer TeX, qui compose encore la plupart des articles de mathématiques. Au premier qui trouve chaque erreur dans ses livres, il envoie un « dollar hexadécimal » de 2,56 dollars, autrefois par chèque, aujourd'hui en certificat de sa banque imaginaire.",
+      "story": "En 1962, il commence L'Art de la programmation informatique, un livre qui deviendra un projet en sept volumes. Il y travaille toujours. Mécontent de la mise en page de la réédition de son deuxième volume, il s'interrompt huit ans pour inventer TeX, qui compose encore la plupart des articles de mathématiques. Au premier qui trouve chaque erreur dans ses livres, il envoie un « dollar hexadécimal » de 2,56 dollars, autrefois par chèque, aujourd'hui en certificat de sa banque imaginaire.",
       "jab": "Il paie ceux qui trouvent ses erreurs. Avec les vôtres, il serait ruiné."
     },
     "moore": {
@@ -594,33 +594,33 @@
     },
     "engelbart": {
       "name": "Engelbart",
-      "story": "En 1968, en une seule démonstration de quatre-vingt-dix minutes, il présente la souris, les liens hypertextes, le traitement de texte, la visioconférence et l'édition à plusieurs d'un même document. Le public se lève pour l'ovationner. La souris ne lui a presque rien rapporté : le brevet a expiré avant qu'elle ne se répande.",
+      "story": "En 1968, en une seule démonstration de quatre-vingt-dix minutes, il présente la souris, les liens hypertextes, le traitement de texte, la visioconférence et l'édition à plusieurs d'un même document. Le public se lève pour l'ovationner. La souris ne lui a presque rien rapporté : le brevet a expiré avant qu'elle ne se répande.",
       "jab": "Il a inventé la souris pour changer le monde. Vous vous en servez pour cliquer au hasard."
     },
     "thompson": {
       "name": "Thompson",
-      "story": "En 1969, sa femme part trois semaines en vacances avec leur fils. Il en profite pour écrire, à raison d'un morceau par semaine, ce qui manquait à son système d'exploitation : Unix, dont descendent macOS et l'iPhone, et dont s'inspirent Linux et Android. Il aurait confié que l'une de ses journées les plus productives avait été celle où il avait jeté mille lignes de code.",
+      "story": "En 1969, sa femme part trois semaines en vacances avec leur fils. Il en profite pour écrire, à raison d'un morceau par semaine, ce qui manquait à son système d'exploitation : Unix, dont descendent macOS et l'iPhone, et dont s'inspirent Linux et Android. Il aurait confié que l'une de ses journées les plus productives avait été celle où il avait jeté mille lignes de code.",
       "jab": "Il a bouclé Unix pendant les vacances de sa femme. Vous, pendant les vôtres, vous jouez à ça."
     },
     "ritchie": {
       "name": "Ritchie",
-      "story": "Il crée le langage C, dans lequel sont encore écrits la plupart des systèmes d'exploitation, et réécrit Unix avec Thompson. Lui-même trouvait son langage bizarre et bancal, tout en reconnaissant son succès énorme. Il n'a jamais été officiellement docteur : il n'avait pas déposé l'exemplaire relié de sa thèse à la bibliothèque.",
+      "story": "Il crée le langage C, dans lequel sont encore écrits la plupart des systèmes d'exploitation, et réécrit Unix avec Thompson. Lui-même trouvait son langage bizarre et bancal, tout en reconnaissant son succès énorme. Il n'a jamais été officiellement docteur : il n'avait pas déposé l'exemplaire relié de sa thèse à la bibliothèque.",
       "jab": "Il n'a même pas pris la peine d'aller chercher son diplôme. Vous, on ne vous en donnera pas."
     },
     "kay": {
       "name": "Kay",
-      "story": "En 1972, il dessine le Dynabook, un ordinateur plat et portable pour les enfants : la tablette, près de quarante ans avant l'iPad. Chez Xerox, il participe à l'invention des fenêtres et de la programmation objet. Xerox n'en fait presque rien, et Steve Jobs, en visite, repart avec des idées. Sa devise : la meilleure façon de prédire l'avenir, c'est de l'inventer.",
+      "story": "En 1972, il dessine le Dynabook, un ordinateur plat et portable pour les enfants : la tablette, près de quarante ans avant l'iPad. Chez Xerox, il participe à l'invention des fenêtres et de la programmation objet. Xerox n'en fait presque rien, et Steve Jobs, en visite, repart avec des idées. Sa devise : la meilleure façon de prédire l'avenir, c'est de l'inventer.",
       "jab": "Il a vu l'avenir quarante ans à l'avance. Vous ne voyez pas le prochain clic."
     },
     "cerf": {
       "name": "Cerf",
-      "story": "Avec Bob Kahn, il conçoit en 1974 le protocole qui relie tous les réseaux du monde : Internet. En 1977, il prévoit 4,3 milliards d'adresses, en pensant que ça suffirait largement pour une expérience. L'expérience a pris un peu d'ampleur. Il a ensuite été, pendant plus de vingt ans, « évangéliste en chef d'Internet » chez Google.",
+      "story": "Avec Bob Kahn, il conçoit en 1974 le protocole qui relie tous les réseaux du monde : Internet. En 1977, il prévoit 4,3 milliards d'adresses, en pensant que ça suffirait largement pour une expérience. L'expérience a pris un peu d'ampleur. Il a ensuite été, pendant plus de vingt ans, « évangéliste en chef d'Internet » chez Google.",
       "jab": "Il a relié le monde entier. Vous n'arrivez pas à relier deux idées."
     },
     "diffie_hellman": {
       "name": "Diffie et Hellman",
-      "story": "En 1976, ils montrent comment deux inconnus peuvent convenir d'un secret en se parlant en public, sans que personne d'autre ne puisse le découvrir. C'est la cryptographie à clé publique : le cadenas de chaque site web en dépend. Les services secrets britanniques l'avaient trouvée quelques années plus tôt, mais n'avaient le droit de le dire à personne.",
-      "jab": "Ils savaient partager un secret devant tout le monde. Le vôtre est bien gardé : personne ne sait comment vous avez réussi. Pas même vous."
+      "story": "En 1976, ils montrent comment deux inconnus peuvent convenir d'un secret en se parlant en public, sans que personne d'autre ne puisse le découvrir. C'est la cryptographie à clé publique : le cadenas de chaque site web en dépend. Les services secrets britanniques l'avaient trouvée quelques années plus tôt, mais n'avaient le droit de le dire à personne.",
+      "jab": "Ils savaient partager un secret devant tout le monde. Le vôtre est bien gardé : personne ne sait comment vous avez réussi. Pas même vous."
     },
     "lamport": {
       "name": "Lamport",
@@ -629,62 +629,62 @@
     },
     "stroustrup": {
       "name": "Stroustrup",
-      "story": "En 1985, il publie le C++, qui fait tourner les jeux vidéo, les navigateurs et les marchés financiers. Ses critiques le trouvent trop compliqué. Il leur a répondu une fois pour toutes : il n'existe que deux sortes de langages, ceux dont on se plaint, et ceux que personne n'utilise.",
+      "story": "En 1985, il publie le C++, qui fait tourner les jeux vidéo, les navigateurs et les marchés financiers. Ses critiques le trouvent trop compliqué. Il leur a répondu une fois pour toutes : il n'existe que deux sortes de langages, ceux dont on se plaint, et ceux que personne n'utilise.",
       "jab": "La machine se plaint beaucoup de vous. Ce n'est pas pour autant que vous servez à quelque chose."
     },
     "berners_lee": {
       "name": "Berners-Lee",
-      "story": "En 1989, au CERN, il propose un système pour partager des documents entre chercheurs. Son chef annote la proposition : « vague, mais excitant ». C'est le Web. Il refuse de le breveter et l'offre gratuitement au monde entier. L'un de ses regrets : les deux barres obliques des adresses, qui ne servent à rien.",
+      "story": "En 1989, au CERN, il propose un système pour partager des documents entre chercheurs. Son chef annote la proposition : « vague, mais excitant ». C'est le Web. Il refuse de le breveter et l'offre gratuitement au monde entier. L'un de ses regrets : les deux barres obliques des adresses, qui ne servent à rien.",
       "jab": "Il a offert le Web à toute l'humanité. Vous vous en servez pour ça."
     },
     "torvalds": {
       "name": "Torvalds",
-      "story": "En 1991, un étudiant finlandais annonce sur un forum un petit système d'exploitation, « juste un passe-temps, rien de gros ni de professionnel ». C'est Linux : il fait tourner Android, la plupart des serveurs et la totalité des cinq cents plus puissants supercalculateurs du monde. En 2005, il écrit Git en quelques semaines. Il assure, en plaisantant, avoir appelé ses deux projets d'après lui-même : Linux, et git, « sale type » en argot anglais.",
+      "story": "En 1991, un étudiant finlandais annonce sur un forum un petit système d'exploitation, « juste un passe-temps, rien de gros ni de professionnel ». C'est Linux : il fait tourner Android, la plupart des serveurs et la totalité des cinq cents plus puissants supercalculateurs du monde. En 2005, il écrit Git en quelques semaines. Il assure, en plaisantant, avoir appelé ses deux projets d'après lui-même : Linux, et git, « sale type » en argot anglais.",
       "jab": "Son passe-temps fait tourner la planète. Le vôtre, c'est ça."
     },
     "nakamoto": {
       "name": "Nakamoto",
-      "story": "En 2008, un inconnu publie neuf pages qui décrivent une monnaie sans banque ni État : le bitcoin. Il disparaît deux ans plus tard sans jamais révéler son identité, en laissant derrière lui, selon les estimations, environ un million de bitcoins auxquels il n'a jamais touché. Sans lui, Hanyecz n'aurait jamais payé ses pizzas aussi cher.",
+      "story": "En 2008, un inconnu publie neuf pages qui décrivent une monnaie sans banque ni État : le bitcoin. Il disparaît deux ans plus tard sans jamais révéler son identité, en laissant derrière lui, selon les estimations, environ un million de bitcoins auxquels il n'a jamais touché. Sans lui, Hanyecz n'aurait jamais payé ses pizzas aussi cher.",
       "jab": "Lui est resté anonyme par choix. Vous, c'est par nécessité."
     },
     "hinton": {
       "name": "Hinton",
-      "story": "Pendant des décennies, presque personne ne croit aux réseaux de neurones artificiels. Il s'obstine. En 2012, ses étudiants écrasent un concours de reconnaissance d'images, et tout bascule : c'est la naissance de l'intelligence artificielle moderne. Prix Turing, il quitte Google en 2023 pour avertir le monde des dangers de ce qu'il a créé, puis reçoit le prix Nobel de physique en 2024.",
+      "story": "Pendant des décennies, presque personne ne croit aux réseaux de neurones artificiels. Il s'obstine. En 2012, ses étudiants écrasent un concours de reconnaissance d'images, et tout bascule : c'est la naissance de l'intelligence artificielle moderne. Prix Turing, il quitte Google en 2023 pour avertir le monde des dangers de ce qu'il a créé, puis reçoit le prix Nobel de physique en 2024.",
       "jab": "Il a appris aux machines à apprendre. La machine a beaucoup appris en vous regardant. Surtout ce qu'il ne faut pas faire."
     },
     "turing": {
       "name": "Turing",
-      "story": "En 1936, à 23 ans, pour prouver que certains problèmes ne seront jamais résolus par le calcul, il imagine une machine capable de faire n'importe quel calcul : l'ordinateur, sur le papier. Pendant la guerre, à Bletchley Park, il aide à briser Enigma. En 1950, il pose la question qui hante ce jeu : les machines peuvent-elles penser ? Son visage est aujourd'hui sur les billets de 50 livres.",
+      "story": "En 1936, à 23 ans, pour prouver que certains problèmes ne seront jamais résolus par le calcul, il imagine une machine capable de faire n'importe quel calcul : l'ordinateur, sur le papier. Pendant la guerre, à Bletchley Park, il aide à briser Enigma. En 1950, il pose la question qui hante ce jeu : les machines peuvent-elles penser ? Son visage est aujourd'hui sur les billets de 50 livres.",
       "jab": "Il se demandait si les machines pourraient penser. Après tous ces niveaux, la machine se pose la même question à votre sujet."
     },
     "hamilton": {
       "name": "Hamilton",
-      "story": "Elle dirige l'équipe du MIT qui écrit le logiciel de bord des missions Apollo, et popularise l'expression « génie logiciel », qui fait d'abord sourire ses collègues. Le 20 juillet 1969, quelques minutes avant l'alunissage, l'ordinateur d'Apollo 11 déclenche l'alarme 1202 : il est surchargé. Le logiciel de son équipe abandonne les tâches secondaires, garde l'essentiel, et le module lunaire se pose. Sur une photo célèbre, elle pose à côté des listings de ce code, empilés aussi haut qu'elle.",
+      "story": "Elle dirige l'équipe du MIT qui écrit le logiciel de bord des missions Apollo, et popularise l'expression « génie logiciel », qui fait d'abord sourire ses collègues. Le 20 juillet 1969, quelques minutes avant l'alunissage, l'ordinateur d'Apollo 11 déclenche l'alarme 1202 : il est surchargé. Le logiciel de son équipe abandonne les tâches secondaires, garde l'essentiel, et le module lunaire se pose. Sur une photo célèbre, elle pose à côté des listings de ce code, empilés aussi haut qu'elle.",
       "jab": "Son équipe a sauvé l'alunissage en sacrifiant les tâches secondaires. La machine, à leur place, aurait commencé par vous."
     },
     "murphy": {
       "name": "Murphy",
-      "story": "Ingénieur de l'armée de l'air américaine. En 1949, lors d'essais sur un traîneau-fusée, des capteurs sont montés à l'envers. Murphy peste, dit-on, contre l'auteur de l'erreur : s'il existe une façon de se tromper, il la trouvera. Reformulée, la phrase devient la loi de Murphy : tout ce qui peut mal tourner tournera mal. L'histoire n'a pas retenu le nom du technicien.",
+      "story": "Ingénieur de l'armée de l'air américaine. En 1949, lors d'essais sur un traîneau-fusée, des capteurs sont montés à l'envers. Murphy peste, dit-on, contre l'auteur de l'erreur : s'il existe une façon de se tromper, il la trouvera. Reformulée, la phrase devient la loi de Murphy : tout ce qui peut mal tourner tournera mal. L'histoire n'a pas retenu le nom du technicien.",
       "jab": "Lui a donné son nom à toutes les erreurs du monde. Vous, vous vous contentez de les commettre."
     },
     "edison": {
       "name": "Edison",
-      "story": "Il dépose plus de mille brevets. Mais pour défendre son courant continu contre le courant alternatif de Westinghouse et de Tesla, son camp électrocute des animaux en public, pour prouver que l'alternatif tue. Il perd la bataille : vos prises sont en courant alternatif.",
+      "story": "Il dépose plus de mille brevets. Mais pour défendre son courant continu contre le courant alternatif de Westinghouse et de Tesla, son camp électrocute des animaux en public, pour prouver que l'alternatif tue. Il perd la bataille : vos prises sont en courant alternatif.",
       "jab": "Il a eu tort sur le courant, avec plus de mille brevets en poche. Vous avez tort sans en avoir déposé un seul."
     },
     "richardson": {
       "name": "Richardson",
-      "story": "Ambulancier sur le front pendant la Première Guerre mondiale, il calcule à la main la première prévision météo tirée des équations : six semaines de calcul pour six heures de météo. Il annonce une hausse de pression de 145 hectopascals, absurde. Il rêvait d'une salle où 64 000 calculateurs humains prévoiraient le temps en direct. Les ordinateurs ont fini par le faire, avec sa méthode.",
+      "story": "Ambulancier sur le front pendant la Première Guerre mondiale, il calcule à la main la première prévision météo tirée des équations : six semaines de calcul pour six heures de météo. Il annonce une hausse de pression de 145 hectopascals, absurde. Il rêvait d'une salle où 64 000 calculateurs humains prévoiraient le temps en direct. Les ordinateurs ont fini par le faire, avec sa méthode.",
       "jab": "Son calcul était faux, mais il a inventé la météo moderne. Les vôtres sont faux aussi, sans rien inventer."
     },
     "goodyear": {
       "name": "Goodyear",
-      "story": "Obsédé par le caoutchouc, qui fondait l'été et cassait l'hiver, il enchaîne les expériences et les séjours en prison pour dettes. En 1839, un mélange de caoutchouc et de soufre tombe sur un poêle brûlant : au lieu de fondre, il durcit. La vulcanisation est née. Il meurt en 1860 avec 200 000 dollars de dettes. Son nom est aujourd'hui sur des milliards de pneus, ceux d'une entreprise fondée après sa mort, sans aucun lien avec lui.",
+      "story": "Obsédé par le caoutchouc, qui fondait l'été et cassait l'hiver, il enchaîne les expériences et les séjours en prison pour dettes. En 1839, un mélange de caoutchouc et de soufre tombe sur un poêle brûlant : au lieu de fondre, il durcit. La vulcanisation est née. Il meurt en 1860 avec 200 000 dollars de dettes. Son nom est aujourd'hui sur des milliards de pneus, ceux d'une entreprise fondée après sa mort, sans aucun lien avec lui.",
       "jab": "Même ruiné, il a laissé son nom sur les pneus du monde entier. Vous ne laisserez même pas une trace de pneu."
     },
     "mersenne": {
       "name": "Mersenne",
-      "story": "Religieux et mathématicien, il sert de messagerie à toute la science de son temps : Descartes, Fermat et Pascal correspondent par lui. En 1644, il publie la liste des nombres 2ⁿ − 1 qui seraient premiers jusqu'à n = 257. Il s'y trompe cinq fois, et il faudra trois siècles pour vérifier toute sa liste. Les plus grands nombres premiers connus aujourd'hui portent encore son nom.",
+      "story": "Religieux et mathématicien, il sert de messagerie à toute la science de son temps : Descartes, Fermat et Pascal correspondent par lui. En 1644, il publie la liste des nombres 2ⁿ − 1 qui seraient premiers jusqu'à n = 257. Il s'y trompe cinq fois, et il faudra trois siècles pour vérifier toute sa liste. Les plus grands nombres premiers connus aujourd'hui portent encore son nom.",
       "jab": "Il s'est trompé cinq fois, et il a fallu plus de deux siècles pour s'en apercevoir. Vos erreurs, elles, sautent aux yeux tout de suite."
     },
     "kepler": {
@@ -694,17 +694,17 @@
     },
     "collatz": {
       "name": "Collatz",
-      "story": "En 1937, il pose un problème qu'un enfant comprend : prenez un nombre, divisez-le par deux s'il est pair, sinon multipliez-le par trois et ajoutez un, puis recommencez. On finit toujours par tomber sur 1. Partant de 27, la suite grimpe jusqu'à 9 232 avant de redescendre. Personne n'a jamais su prouver que ça marche à tous les coups. Paul Erdős a jugé que les mathématiques n'étaient pas encore prêtes pour ce genre de problème.",
+      "story": "En 1937, il pose un problème qu'un enfant comprend : prenez un nombre, divisez-le par deux s'il est pair, sinon multipliez-le par trois et ajoutez un, puis recommencez. On finit toujours par tomber sur 1. Partant de 27, la suite grimpe jusqu'à 9 232 avant de redescendre. Personne n'a jamais su prouver que ça marche à tous les coups. Paul Erdős a jugé que les mathématiques n'étaient pas encore prêtes pour ce genre de problème.",
       "jab": "Son problème tient en une ligne et résiste depuis près de quatre-vingt-dix ans. Vous aussi, vous tenez en une ligne, mais vous ne résistez à rien."
     },
     "kaprekar": {
       "name": "Kaprekar",
-      "story": "Instituteur dans une petite ville indienne, il passe sa vie à jouer avec les nombres, sans que les mathématiciens de son pays le prennent au sérieux. Prenez quatre chiffres pas tous identiques, rangez-les du plus grand au plus petit, puis du plus petit au plus grand, et soustrayez en gardant les zéros ; recommencez avec le résultat : en sept étapes au plus, vous tombez sur 6 174. Il a fallu qu'un chroniqueur américain en parle pour que le monde le découvre.",
+      "story": "Instituteur dans une petite ville indienne, il passe sa vie à jouer avec les nombres, sans que les mathématiciens de son pays le prennent au sérieux. Prenez quatre chiffres pas tous identiques, rangez-les du plus grand au plus petit, puis du plus petit au plus grand, et soustrayez en gardant les zéros ; recommencez avec le résultat : en sept étapes au plus, vous tombez sur 6 174. Il a fallu qu'un chroniqueur américain en parle pour que le monde le découvre.",
       "jab": "Ses nombres finissent tous par tomber sur 6 174. Vous, vous finissez toujours par tomber à côté."
     },
     "brahmagupta": {
       "name": "Brahmagupta",
-      "story": "En 628, dans un traité d'astronomie, il est le premier connu à traiter zéro comme un nombre à part entière, avec ses règles : un nombre moins lui-même donne zéro, et tout nombre multiplié par zéro donne zéro. Il s'aventure aussi sur la division, et affirme que zéro divisé par zéro donne zéro. C'est faux, mais il a fallu des siècles pour comprendre pourquoi. Sans le zéro, aucun ordinateur ne compterait en binaire.",
+      "story": "En 628, dans un traité d'astronomie, il est le premier connu à traiter zéro comme un nombre à part entière, avec ses règles : un nombre moins lui-même donne zéro, et tout nombre multiplié par zéro donne zéro. Il s'aventure aussi sur la division, et affirme que zéro divisé par zéro donne zéro. C'est faux, mais il a fallu des siècles pour comprendre pourquoi. Sans le zéro, aucun ordinateur ne compterait en binaire.",
       "jab": "Il a osé diviser par zéro et s'en est tiré avec les honneurs. Vous, vous avez fait planter la machine."
     }
   },
