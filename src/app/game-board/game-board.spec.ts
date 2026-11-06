@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient, withXhr } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -11,6 +11,7 @@ import { FaviconService } from '../core/services/favicon';
 import { BackgroundService } from '../core/services/background';
 import { StatsService } from '../core/services/stats';
 import { Level } from '../core/engine';
+import en from '../../assets/i18n/en.json';
 
 // Le score 11 a pour racine numérique 2 : Digit passe au vert dès que sa valeur vaut 2
 const LEVEL: Level = {
@@ -459,6 +460,68 @@ describe('GameBoardComponent', () => {
       component.retryLevel();
     }
     expect(TestBed.inject(AchievementService).unlockedAchievements().has('habit_restart')).toBe(true);
+    expect(TestBed.inject(StatsService).stats().restarts).toBe(10);
+  });
+
+  describe('when the player shares the result', () => {
+    const URL_LINE = '\nhttps://sylvainlano.github.io/TuringsNode/';
+
+    // Les vrais textes anglais, pour lire la ligne partagée telle qu'un joueur la verrait
+    beforeEach(() => {
+      TestBed.inject(HttpTestingController).match(request => request.url.includes('/i18n/')).forEach(request => request.flush(en));
+    });
+
+    it('sums up the level in one line, without anything of the solution', () => {
+      winLevel();
+      expect(component.shareText()).toBe(`Turing's Node, levels.tester.name level: 💎 in 1 click. Your turn?${URL_LINE}`);
+    });
+
+    it('never names the person of a secret level', () => {
+      vi.useFakeTimers();
+      levelService.levels.set([LEVEL]);
+      levelService.secretLevels.set([{ ...LEVEL, levelNumber: 1001, name: 'hidden', targetScore: 11, secret: { unlockScore: 11 } }]);
+      levelService.currentLevelNumber.set(1001);
+      fixture.detectChanges();
+      component.onButtonClick(component.buttons[0]);
+      vi.advanceTimersByTime(3000);
+      expect(component.shareText()).toBe(`Turing's Node, a secret level: 💎 in 1 click. Your turn?${URL_LINE}`);
+    });
+
+    it('confesses the manual when the player begged for it', () => {
+      winLevel();
+      component.notices = new Map([['Digit', 1]]);
+      component.levelClicks = 4;
+      component.earnedMedal = 'Bronze';
+      expect(component.shareText()).toBe(`Turing's Node, levels.tester.name level: 🥉 in 4 clicks, with the machine's manual 🍫. Your turn?${URL_LINE}`);
+    });
+
+    it('copies the line on a computer, and says so on the button', async () => {
+      const writeText = vi.fn().mockResolvedValue(undefined);
+      Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+      winLevel();
+      await component.shareResult();
+      fixture.detectChanges();
+      expect(writeText).toHaveBeenCalledWith(component.shareText());
+      expect(fixture.nativeElement.querySelector('.share-button')?.textContent.trim()).toBe('Copied!');
+
+      vi.advanceTimersByTime(3000);
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.share-button')?.textContent.trim()).toBe('Share');
+    });
+
+    it('falls back to the old way of copying when the browser refuses the clipboard', async () => {
+      const writeText = vi.fn().mockRejectedValue(new DOMException('Write permission denied.', 'NotAllowedError'));
+      Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+      const execCommand = vi.fn().mockReturnValue(true);
+      Object.defineProperty(document, 'execCommand', { value: execCommand, configurable: true });
+      winLevel();
+      await component.shareResult();
+      expect([execCommand.mock.calls[0]?.[0], component.shareFeedback]).toEqual(['copy', 'copied']);
+
+      execCommand.mockReturnValue(false);
+      await component.shareResult();
+      expect(component.shareFeedback).toBe('failed');
+    });
   });
 
   it('rewards a platinum on the first try in the last worlds, but not after an undo', () => {

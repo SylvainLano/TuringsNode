@@ -28,11 +28,11 @@ describe('StatsService', () => {
   it('counts the melted medals and remembers the notices, then forgets everything on reset', () => {
     service.payForNotice('Plus:green', { 4: 'Chocolat' });
     service.payForNotice('Plus:green', { 4: 'Chocolat', 5: 'Chocolat' });
-    expect(JSON.parse(localStorage.getItem('turings_node_stats')!)).toEqual({ melts: 2, clicks: 0, undos: 0, notices: ['Plus:green'] });
+    expect(JSON.parse(localStorage.getItem('turings_node_stats')!)).toEqual({ melts: 2, clicks: 0, undos: 0, restarts: 0, notices: ['Plus:green'] });
     expect(has('shame_first')).toBe(true);
 
     service.reset();
-    expect(service.stats()).toEqual({ melts: 0, clicks: 0, undos: 0, notices: [] });
+    expect(service.stats()).toEqual({ melts: 0, clicks: 0, undos: 0, restarts: 0, notices: [] });
     expect(localStorage.getItem('turings_node_stats')).toBeNull();
   });
 

@@ -36,6 +36,8 @@ Not everything is on the map: hidden levels, rare colors, special backgrounds an
 - French and English, picked from the browser language and changeable in the settings
 - Progress, medals and achievements saved in the browser, along with the dossier the machine keeps on you
 - Phone and desktop layouts, and a home screen icon when added to a phone
+- Playable offline once loaded; new versions install themselves at the next change of page
+- A share button at the end of each level: your medal and clicks in one line, never the solution
 - Day and night backgrounds that follow the time of day
 
 ## Development

@@ -8,6 +8,7 @@ export interface PlayerStats {
   melts: number; // Médailles fondues pour payer une aide, depuis le début (même celles regagnées depuis)
   clicks: number;
   undos: number;
+  restarts: number; // Niveaux recommencés en pleine partie
   notices: string[]; // Moitiés de notice déjà obtenues, au moins une fois : « Plus:green », « Plus:action »…
 }
 
@@ -15,7 +16,7 @@ export type NoticePart = 'green' | 'action';
 // Une supplication dévoile d'abord quand le bouton est vert, puis ce qu'il fait au score
 export const NOTICE_PARTS: NoticePart[] = ['green', 'action'];
 
-const EMPTY_STATS: PlayerStats = { melts: 0, clicks: 0, undos: 0, notices: [] };
+const EMPTY_STATS: PlayerStats = { melts: 0, clicks: 0, undos: 0, restarts: 0, notices: [] };
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,10 @@ export class StatsService {
   public addUndo(): void {
     this.update(stats => ({ ...stats, undos: stats.undos + 1 }));
     if (this.stats().undos >= this.UNDOS_FOR_REWIND) this.achievementService.unlock('habit_undo');
+  }
+
+  public addRestart(): void {
+    this.update(stats => ({ ...stats, restarts: stats.restarts + 1 }));
   }
 
   /**

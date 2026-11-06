@@ -1,69 +1,74 @@
+<!-- Grand écran : à gauche le titre, l'encart, le palmarès et les compteurs ; à droite, les succès et rien d'autre.
+     Écran étroit : le palmarès et les compteurs au-dessus des succès, l'encart collé en bas de l'écran -->
 <div class="dossier">
-  <div class="achievements-container">
+  <div class="dossier-side">
     <h1 class="title">{{ 'achievements.title' | translate }}</h1>
 
-    <!-- Le palmarès : les médailles, chocolat compris, puis le nombre de succès -->
-    <div class="palmares">
-      @for (medal of palmares(); track medal.key) {
-        <button class="palmares-item" [class.is-chocolate]="medal.key === 'Chocolat'" [class.is-selected]="detail()?.key === medal.key"
-          (mouseenter)="showMedal(medal)" (focus)="showMedal(medal)" (click)="showMedal(medal)">
-          <span class="palmares-icon" aria-hidden="true">{{ medal.icon }}</span>
-          <strong>{{ medal.count }}</strong>
-          <span class="palmares-label">{{ medal.title | translate }}</span>
-        </button>
-      }
+    <!-- Le retour au menu, puis la description de ce que le joueur pointe -->
+    <div class="dossier-pointer">
+      <a routerLink="/" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>{{ 'achievements.backButton' | translate }}</span>
+      </a>
+      <div class="dossier-detail" aria-live="polite">
+        @if (detail(); as shown) {
+          <span class="detail-icon tint-{{ shown.tint }}"><app-icon [name]="shown.icon" /></span>
+          <div>
+            <p class="detail-title">{{ shown.title | translate }}</p>
+            <p class="detail-description">{{ shown.description | translate }}</p>
+          </div>
+        } @else {
+          <p class="detail-hint">{{ 'achievements.hint' | translate }}</p>
+        }
+      </div>
     </div>
 
-    <div class="achievements-list">
-      @for (section of sections(); track section.key) {
-        <section class="achievement-section">
-          <h2 class="section-title">
-            <span aria-hidden="true">{{ section.icon }}</span>
-            {{ 'achievements.sections.' + section.key | translate }}
-            <small>{{ section.unlocked }}{{ section.total !== null ? ' / ' + section.total : '' }}</small>
-          </h2>
-          @if (section.total !== null) {
-            <div class="section-progress"><div [style.width.%]="100 * section.unlocked / section.total"></div></div>
+    <!-- Le palmarès (médailles, chocolat compris, et succès), puis ce que la machine a compté : six cases chacun -->
+    @for (block of blocks(); track block.key) {
+      <section class="dossier-block">
+        <h2 class="section-title">{{ 'achievements.blocks.' + block.key | translate }}</h2>
+        <div class="palmares">
+          @for (item of block.items; track item.key) {
+            <button class="palmares-item" [class.is-chocolate]="item.key === 'Chocolat'" [class.is-selected]="detail()?.key === item.key"
+              (mouseenter)="showDetail(item)" (focus)="showDetail(item)" (click)="showDetail(item)">
+              <span class="palmares-icon tint-{{ item.tint }}"><app-icon [name]="item.icon" /></span>
+              <strong>{{ item.count }}</strong>
+              <span class="palmares-label">{{ item.title | translate }}</span>
+            </button>
           }
-          <div class="badges">
-            @for (achievementId of section.ids; track achievementId) {
-              @if (unlockedAchievements().has(achievementId)) {
-                <!-- Survolé, sélectionné au clavier ou touché : sa description s'affiche dans l'encart -->
-                <button class="badge" [class.is-selected]="detail()?.key === achievementId"
-                  (mouseenter)="showAchievement(achievementId, section.icon)" (focus)="showAchievement(achievementId, section.icon)"
-                  (click)="showAchievement(achievementId, section.icon)">
-                  <span class="badge-icon" aria-hidden="true">{{ section.icon }}</span>
-                  <span class="badge-title"><span>{{ 'achievements.' + achievementId + '.title' | translate }}</span></span>
-                </button>
-              } @else {
-                <div class="badge is-locked">
-                  <span class="badge-icon" aria-hidden="true">🔒</span>
-                  <span class="badge-title"><span>{{ 'achievements.locked' | translate }}</span></span>
-                </div>
-              }
-            }
-          </div>
-        </section>
-      }
-    </div>
+        </div>
+      </section>
+    }
   </div>
 
-  <!-- L'encart : le retour au menu, puis la description de ce que le joueur pointe -->
-  <aside class="dossier-aside">
-    <a routerLink="/" class="back-button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-      <span>{{ 'achievements.backButton' | translate }}</span>
-    </a>
-    <div class="dossier-detail" aria-live="polite">
-      @if (detail(); as shown) {
-        <span class="detail-icon" aria-hidden="true">{{ shown.icon }}</span>
-        <div>
-          <p class="detail-title">{{ shown.title | translate }}</p>
-          <p class="detail-description">{{ shown.description | translate }}</p>
+  <div class="achievements-list">
+    @for (section of sections(); track section.key) {
+      <section class="achievement-section">
+        <h2 class="section-title">
+          <app-icon [name]="section.icon" />
+          {{ 'achievements.sections.' + section.key | translate }}
+          <small>{{ section.unlocked }}{{ section.total !== null ? ' / ' + section.total : '' }}</small>
+        </h2>
+        @if (section.total !== null) {
+          <div class="section-progress"><div [style.width.%]="100 * section.unlocked / section.total"></div></div>
+        }
+        <div class="badges">
+          @for (achievementId of section.ids; track achievementId) {
+            @if (unlockedAchievements().has(achievementId)) {
+              <!-- Comme sur la planche : l'icône seule. Survolée, sélectionnée au clavier ou touchée,
+                   son nom et sa description s'affichent dans l'encart -->
+              <button class="badge" [class.is-selected]="detail()?.key === achievementId"
+                [attr.aria-label]="'achievements.' + achievementId + '.title' | translate"
+                (mouseenter)="showAchievement(achievementId, section.icon)" (focus)="showAchievement(achievementId, section.icon)"
+                (click)="showAchievement(achievementId, section.icon)">
+                <app-icon [name]="iconOf(achievementId, section.icon)" />
+              </button>
+            } @else {
+              <div class="badge is-locked"><app-icon name="padlock" /></div>
+            }
+          }
         </div>
-      } @else {
-        <p class="detail-hint">{{ 'achievements.hint' | translate }}</p>
-      }
-    </div>
-  </aside>
+      </section>
+    }
+  </div>
 </div>

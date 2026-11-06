@@ -32,6 +32,7 @@
               }
             ],
             "styles": [
+              "@fontsource/rubik/latin-700-italic.css",
               "src/styles.scss"
             ]
           },
@@ -49,7 +50,8 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,

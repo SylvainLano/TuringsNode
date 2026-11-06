@@ -139,6 +139,18 @@
       }
     }
   },
+  "share": {
+    "button": "Share",
+    "copied": "Copied!",
+    "failed": "Couldn't copy",
+    "text": "Turing's Node, {level} level: {result}. Your turn?",
+    "secretText": "Turing's Node, a secret level: {result}. Your turn?",
+    "medal": "{medal} in {clicks}",
+    "noMedal": "completed in {clicks}",
+    "clicks": "{count} clicks",
+    "oneClick": "1 click",
+    "helped": "{result}, with the machine's manual 🍫"
+  },
   "level_data_not_found": "Level data not found.",
   "medals": {
     "Platine": "Platinum",
@@ -312,8 +324,11 @@
       "description": "Divide by zero in world 4, and discover a secret level."
     },
     "count": "Achievements",
-    "locked": "???",
     "hint": "Hover or tap an unlocked achievement, or a medal: its description shows up here.",
+    "blocks": {
+      "palmares": "Record",
+      "counters": "The machine counted"
+    },
     "palmares": {
       "Platine": "The minimum number of clicks. Not one more.",
       "Or": "Barely over the minimum. The machine noticed.",
@@ -321,6 +336,32 @@
       "Bronze": "Far too many clicks. But it's over, that's something.",
       "Chocolat": "Medals melted to pay for help. Win the level again to get a real one back.",
       "count": "All your achievements, from pride to shame."
+    },
+    "stats": {
+      "clicks": {
+        "title": "Clicks",
+        "description": "All noted. The machine has memory, and time."
+      },
+      "undos": {
+        "title": "Undos",
+        "description": "How many times you changed your mind. At least you admit it."
+      },
+      "restarts": {
+        "title": "Restarts",
+        "description": "Same level, from the start. Again."
+      },
+      "levels": {
+        "title": "Levels completed",
+        "description": "Completed, one way or another."
+      },
+      "melts": {
+        "title": "Pleas",
+        "description": "Each one paid for with a medal. The machine remembers the price."
+      },
+      "notices": {
+        "title": "Manuals",
+        "description": "Manual halves obtained. Not one came free."
+      }
     },
     "sections": {
       "golden": "Constants",

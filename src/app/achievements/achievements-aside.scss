@@ -1,14 +1,16 @@
-/* L'encart du dossier : le retour au menu, puis la description de ce que le joueur pointe */
+/* Mise en page du dossier : l'encart (retour au menu et description de ce que le joueur pointe),
+   le palmarès et les compteurs d'un côté, la liste des succès de l'autre */
 
+// Même encre et même trait fin que les cases du dossier : le nom en or, la description en blanc
 .dossier-detail {
   display: flex;
   gap: 14px;
   align-items: flex-start;
-  padding: 16px;
-  border-radius: 12px;
-  background-color: rgba(45, 55, 72, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #E2E8F0;
+  padding: 14px 16px;
+  border-radius: 6px;
+  background-color: #16243b;
+  border: 1px solid rgba(160, 174, 192, 0.22);
+  color: #ffffff;
   text-align: left;
   line-height: 1.4;
 
@@ -17,12 +19,12 @@
   }
 
   .detail-icon {
+    display: flex;
     font-size: 2em;
-    line-height: 1;
   }
 
   .detail-title {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     font-weight: bold;
     color: #F6E05E;
   }
@@ -33,35 +35,95 @@
   }
 }
 
-/* Grand écran : l'encart à droite du tableau, et il reste en place pendant que la page défile */
-@media (min-width: 1150px) {
+.dossier-block .section-title {
+  margin-top: 0;
+}
+
+/* Grand écran : deux panneaux. À gauche, qui reste en place pendant que la page défile : le titre, le retour
+   au menu, le palmarès, les compteurs, et tout en bas l'encart (sa hauteur change avec la description : rien
+   ne bouge au-dessus de lui). À droite : les succès, et rien d'autre */
+@media (min-width: 1100px) {
   .dossier {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 260px;
-    gap: 60px; // Bien détaché du tableau
-    max-width: 1140px; // Le tableau garde ses 5 pastilles par ligne
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 50px;
+    align-items: start;
+    max-width: 1210px;
   }
 
-  // Centré sur le premier tiers de la hauteur de l'écran, dès l'arrivée sur la page et pendant le défilement
-  .dossier-aside {
+  .dossier-side {
     position: sticky;
-    top: 33vh;
-    transform: translateY(-50%);
-    align-self: start;
+    top: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
+    max-height: 100vh; // Sur un écran peu haut, le panneau défile de lui-même
+    overflow-y: auto;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+
+    .title {
+      order: 1;
+      margin: 20px 0 0;
+    }
+
+    .back-button {
+      order: 2;
+    }
+
+    .dossier-block {
+      order: 3;
+    }
+
+    .dossier-detail {
+      order: 4;
+      min-height: 110px;
+      box-sizing: border-box;
+    }
   }
 
-  .dossier-detail {
-    flex-direction: column;
-    min-height: 160px;
+  // Le retour et l'encart se placent chacun à leur rang dans le panneau
+  .dossier-pointer {
+    display: contents;
+  }
+
+  .dossier-side .palmares {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  // La première famille de succès à la hauteur du titre de la page
+  .achievements-list {
+    margin-top: 40px;
   }
 }
 
-/* Écrans plus étroits : l'encart reste collé en bas de l'écran, le retour réduit à sa flèche */
-@media (max-width: 1149px) {
-  .dossier-aside {
+/* Écrans plus étroits : une seule colonne. Le titre, le palmarès et les compteurs, puis les succès ;
+   l'encart reste collé en bas de l'écran, le retour réduit à sa flèche */
+@media (max-width: 1099px) {
+  .dossier {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dossier-side {
+    display: contents;
+  }
+
+  .title {
+    order: 1;
+  }
+
+  .dossier-block {
+    order: 2;
+    margin-bottom: 14px;
+  }
+
+  .achievements-list {
+    order: 3;
+  }
+
+  .dossier-pointer {
+    order: 4;
     position: sticky;
     bottom: 0;
     z-index: 10;
@@ -74,7 +136,7 @@
       justify-content: center;
       width: 52px;
       border-radius: 12px;
-      background-color: rgba(45, 55, 72, 0.9);
+      background-color: #16243b;
       color: #E2E8F0;
       opacity: 1;
 
@@ -99,10 +161,6 @@
 
     .detail-icon {
       font-size: 1.6em;
-    }
-
-    .detail-title {
-      margin-bottom: 2px;
     }
   }
 }

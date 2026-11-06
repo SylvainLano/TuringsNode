@@ -3,7 +3,7 @@
 
 // On surcharge les styles spécifiques à cette page
 
-// Le tableau des succès, et l'encart (à droite sur grand écran, en bas sur les autres)
+// Le dossier : l'encart, le palmarès et les compteurs d'un côté, les succès de l'autre (voir achievements-aside.scss)
 .dossier {
   width: 100%;
   max-width: 800px;
@@ -11,15 +11,12 @@
   box-sizing: border-box;
 }
 
-.achievements-container {
-  min-width: 0;
-}
-
 // La page défile d'elle-même : pas de liste à faire défiler dans la page
 .achievements-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
   margin-bottom: 30px;
 }
 

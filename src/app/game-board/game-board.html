@@ -192,6 +192,7 @@
       }
       <div class="action-buttons">
         <button class="retry-button" (click)="retryLevel()">{{ 'gameboard.retryButton' | translate }}</button>
+        <button class="retry-button share-button" (click)="shareResult()">{{ (shareFeedback ? 'share.' + shareFeedback : 'share.button') | translate }}</button>
         @if (levelService.hasNextLevel()) {
           <button class="next-level-button" (click)="goToNextLevel()">{{ 'gameboard.nextLevelButton' | translate }}</button>
         } @else {

@@ -7,6 +7,7 @@ import { TranslatePipe } from '../shared/pipes/translate-pipe';
 import { AchievementService } from '../core/services/achievement';
 import { FaviconService } from '../core/services/favicon';
 import { NOTICE_PARTS, StatsService } from '../core/services/stats';
+import { TranslationService } from '../core/services/translation';
 import {
   ButtonName,
   ButtonState,
@@ -136,6 +137,12 @@ export class GameBoardComponent implements OnDestroy {
   public lastBeggedButton: ButtonName | null = null;
   public shameJab = 0;
 
+  // Partager son résultat : le menu de partage du téléphone, sinon une copie dans le presse-papiers
+  private readonly SHARE_URL = 'https://sylvainlano.github.io/TuringsNode/';
+  private readonly SHARE_FEEDBACK_MS = 2500;
+  public shareFeedback: 'copied' | 'failed' | null = null;
+  private shareTimer: ReturnType<typeof setTimeout> | undefined;
+
   constructor(
     private backgroundService: BackgroundService,
     public levelService: LevelService,
@@ -143,6 +150,7 @@ export class GameBoardComponent implements OnDestroy {
     private achievementService: AchievementService,
     private faviconService: FaviconService,
     private statsService: StatsService,
+    private translationService: TranslationService,
     private host: ElementRef<HTMLElement>
   ) {
     effect(() => {
@@ -187,6 +195,7 @@ export class GameBoardComponent implements OnDestroy {
     clearTimeout(this.victoryTimer);
     clearTimeout(this.crashTimer);
     clearTimeout(this.idleTimer);
+    clearTimeout(this.shareTimer);
     this.boardAnimation?.cancel();
   }
 
@@ -218,6 +227,7 @@ export class GameBoardComponent implements OnDestroy {
     this.levelClicks = 0;
     this.history = [];
     this.isChoosingNotice = false;
+    this.shareFeedback = null;
     if (levelData.levelNumber !== this.visitedLevel) {
       this.visitedLevel = levelData.levelNumber;
       this.restartsSinceBeg = 0;
@@ -250,6 +260,7 @@ export class GameBoardComponent implements OnDestroy {
   // Recommencer en pleine partie compte pour l'aide et pour « Têtu comme une mule » ; rejouer après une victoire, non
   public retryLevel(): void {
     if (this.gameState === 'playing') {
+      this.statsService.addRestart();
       this.restartsSinceBeg++;
       this.restartsInARow++;
       this.cleanAttempt = false;
@@ -447,6 +458,63 @@ export class GameBoardComponent implements OnDestroy {
 
   public isAllPlatinum(): boolean {
     return isAllPlatinum(this.levelService.levels(), this.levelService.bestMedals());
+  }
+
+  // --- PARTAGE DU RÉSULTAT ---
+
+  /**
+   * Le résultat du niveau en une ligne, sans rien de la solution : la personne (jamais celle d'un niveau secret),
+   * la médaille et le nombre de clics, la honte de la notice s'il y en a eu une, et l'adresse du jeu.
+   */
+  public shareText(): string {
+    const t = (key: string, params: Record<string, string> = {}) => this.translationService.translate(key, params);
+    const clicks = this.levelClicks === 1 ? t('share.oneClick') : t('share.clicks', { count: String(this.levelClicks) });
+    let result = this.earnedMedal ? t('share.medal', { medal: this.MEDAL_ICONS[this.earnedMedal], clicks }) : t('share.noMedal', { clicks });
+    if (this.notices.size) result = t('share.helped', { result });
+    const text = this.levelService.currentLevelData()?.secret
+      ? t('share.secretText', { result })
+      : t('share.text', { level: t(`levels.${this.levelName}.name`), result });
+    return `${text}\n${this.SHARE_URL}`;
+  }
+
+  public async shareResult(): Promise<void> {
+    const text = this.shareText();
+    try {
+      // Sur un écran tactile, le menu de partage du système ; sur ordinateur, il est rarement ce qu'on attend
+      if (typeof navigator.share === 'function' && window.matchMedia?.('(pointer: coarse)').matches) {
+        await navigator.share({ text });
+        return;
+      }
+      await navigator.clipboard.writeText(text);
+      this.showShareFeedback('copied');
+    } catch (error) {
+      if ((error as DOMException)?.name === 'AbortError') return; // Le joueur a refermé le menu de partage
+      // Presse-papiers refusé (certains navigateurs, certaines fenêtres intégrées) : l'ancienne méthode de copie
+      this.showShareFeedback(this.copyBySelection(text) ? 'copied' : 'failed');
+    }
+  }
+
+  private copyBySelection(text: string): boolean {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    try {
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    } finally {
+      area.remove();
+    }
+  }
+
+  private showShareFeedback(feedback: 'copied' | 'failed'): void {
+    clearTimeout(this.shareTimer);
+    this.shareFeedback = feedback;
+    this.shareTimer = setTimeout(() => this.shareFeedback = null, this.SHARE_FEEDBACK_MS);
   }
 
   // --- L'AIDE QUI SE PAIE EN HONTE ---
